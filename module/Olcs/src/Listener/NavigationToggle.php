@@ -89,7 +89,7 @@ class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
         $this->navigation->findBy('id', 'admin-dashboard/admin-permits')->setVisible($permitsMenuEnabled);
 
         //ihrp permits navigation
-        // Get request params and perform check only if in licence context
+        // Get request params and perform queries only if in licence context
         $irhpPermitsTabEnabled = false;
         $params = $e->getRouteMatch()->getParams();
         if(array_key_exists('licence', $params)){
@@ -103,7 +103,7 @@ class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
     /**
      * Query contextual licence to check if goods to render IRHP Permits tab and check Feature Toggle for Internal Permits
      *
-     * @param String $params request params
+     * @param array $params request params
      *
      * @return bool
      */
