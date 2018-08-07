@@ -4,6 +4,7 @@ namespace Olcs\Listener;
 
 use Common\Rbac\IdentityProvider;
 use Common\Rbac\User;
+use Dvsa\Olcs\Transfer\Query\Licence\Licence;
 use Zend\Authentication\AuthenticationService;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -55,7 +56,7 @@ class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'), 20);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 20);
     }
 
     /**
@@ -78,13 +79,42 @@ class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
             $disableDataRetentionRecords = !$userData['disableDataRetentionRecords'];
         }
 
-        $this->navigation->findBy('id', 'admin-dashboard/admin-data-retention')
+        $this->navigation
+            ->findBy('id', 'admin-dashboard/admin-data-retention')
             ->setVisible($disableDataRetentionRecords);
 
         $permitsMenuEnabled = $this->querySender->featuresEnabled([FeatureToggle::ADMIN_PERMITS]);
 
-        //permits navigation
+        // Permits Navigation
         $this->navigation->findBy('id', 'admin-dashboard/admin-permits')->setVisible($permitsMenuEnabled);
+
+        // IRHP Permits Navigation
+        // Get request params and perform check only if in licence context
+        $irhpPermitsTabEnabled = false;
+        $params = $e->getRouteMatch()->getParams();
+
+        if (array_key_exists('licence', $params)) {
+            $irhpPermitsTabEnabled = $this->goodsLicenceAndFeatureToggle($params);
+        }
+
+        $this->navigation->findBy('id', 'licence_irhp_permits')->setVisible($irhpPermitsTabEnabled);
+    }
+
+
+    /**
+     * Query contextual licence to check if goods to render IRHP Permits tab and check Feature Toggle for Internal Permits
+     *
+     * @param array $params request params
+     *
+     * @return bool
+     */
+    protected function goodsLicenceAndFeatureToggle($params)
+    {
+        $internalPermitsEnabled = $this->querySender->featuresEnabled([FeatureToggle::INTERNAL_PERMITS]);
+        $licenceQuery = $this->querySender->send(Licence::create(['id' => $params['licence']]));
+        $licence = $licenceQuery->getResult();
+
+        return ($licence['goodsOrPsv']['id'] == 'lcat_gv' && $internalPermitsEnabled);
     }
 
     /**
