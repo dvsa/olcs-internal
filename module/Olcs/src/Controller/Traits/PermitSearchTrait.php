@@ -53,11 +53,10 @@ trait PermitSearchTrait
     /**
      * Create filter form
      *
-     * @param array $filters Filters data
      *
      * @return \Zend\Form\FormInterface
      */
-    protected function getPermitForm($filters = [])
+    protected function getPermitForm()
     {
         /** @var \Zend\Di\ServiceLocator $sm */
         $sm = $this->getServiceLocator();
@@ -102,6 +101,7 @@ trait PermitSearchTrait
      */
     private function getPermitList($filters)
     {
+
         /** @var \Common\Service\Cqrs\Response $response */
         $response = $this->handleQuery(EcmtApplicationByLicence::create($filters));
         if (!$response->isOk()) {

@@ -2,12 +2,11 @@
 
 namespace Olcs\Controller\Traits;
 
-use DateTime;
-use Dvsa\Olcs\Transfer\Command\Permits\CreateEcmtPermitApplication;
+use Common\Service\Entity\Exceptions\UnexpectedResponseException;
+use Dvsa\Olcs\Transfer\Command\Permits\CreateFullPermitApplication;
 use Dvsa\Olcs\Transfer\Command\Permits\UpdateEcmtPermitApplication;
-use Dvsa\Olcs\Transfer\Query\Licence\Licence;
 use Dvsa\Olcs\Transfer\Query\Permits\ById;
-use Dvsa\Olcs\Transfer\Query\Permits\EcmtApplicationByLicence;
+use Dvsa\Olcs\Transfer\Query\Permits\ConstrainedCountries;
 use Dvsa\Olcs\Transfer\Query\Permits\SectorsList;
 use Zend\View\Model\ViewModel;
 
@@ -71,28 +70,23 @@ trait PermitActionTrait
         if (!$permitForm) {
             $this->formHelper = $this->getServiceLocator()->get('Helper\Form');
             $permitForm = $this->formHelper->createForm('PermitCreate');
-        }
-        // Check to see if were editing a populated application
-        if (!empty($application)) {
-            // Call function to set the form values from the application
-            $data = $this->prepareFormData($application);
-        } else {
-            //Just set the default date
             $data['fields']['dateReceived'] = date("Y-m-d");
         }
 
-        // Set the numVehicles label and hidden fields on the form
+        // Check to see if were editing a populated application
+        if (!empty($application)) {
+            $data = $this->prepareFormData($application);
+        }
+
+        // Set the numVehicles label and hidden fields on the form for validation
         $data['fields']['numVehicles'] = $licence['totAuthVehicles'];
         $data['fields']['numVehiclesLabel'] = $licence['totAuthVehicles'];
         $permitForm->setData($data);
 
-        // Populate the Sectors list from the backend
-        $permitForm->get('fields')
-            ->get('sectors')
-            ->setOptions($this->getSectorList());
 
         // Instantiate view model and render the form
         $view = new ViewModel(['form' => $permitForm]);
+        $this->loadScripts(['permits']);
         $view->setTemplate('pages/form');
         return $view;
     }
@@ -105,7 +99,6 @@ trait PermitActionTrait
      */
     protected function prepareFormData($application)
     {
-
         // Ignore these array indexes on the application array when building from data array.
         $dontSet = ["permitType", 'licence', 'sectionCompletion', 'paymentStatus', 'status', 'confirmationSectionCompletion'];
         // Add necessary values to the array to re-populate the form.
@@ -114,6 +107,7 @@ trait PermitActionTrait
                 $data['fields'][$key] = $application[$key];
             }
         }
+        $data['fields']['countryIds'] = $application['countrys'];
         return ($data);
     }
 
@@ -121,6 +115,7 @@ trait PermitActionTrait
      * Permits action
      *
      * @return \Zend\Http\Response
+     * @throws UnexpectedResponseException
      */
     public function permitsAction()
     {
@@ -133,28 +128,21 @@ trait PermitActionTrait
             $data = (array)$request->getPost();
             $application = [];
 
-            // This block only triggered when user clicks "Save" on the form
             if (array_key_exists('form-actions', $data) && array_key_exists('save', $data['form-actions'])) {
                 $form = $this->getForm('PermitCreate');
                 $form->setData($data);
                 if ($form->isValid()) {
                     if (empty($data['fields']['id'])) {
                         $applicationData = $this->mapApplicationData($form->getData()['fields'], $licence['id']);
-                        $command = CreateEcmtPermitApplication::create($applicationData);
+                        $command = CreateFullPermitApplication::create($applicationData);
                         $response = $this->handleCommand($command);
+                        $this->checkResponse($response);
                     } else {
                         $applicationData = $this->mapApplicationData($form->getData()['fields'], $licence['id']);
                         $command = UpdateEcmtPermitApplication::create($applicationData);
                         $response = $this->handleCommand($command);
+                        $this->checkResponse($response);
                     }
-
-                    // todo: refactor this when form is not being rendered into modal popup
-                    $view = new ViewModel();
-                    $saveMessage = in_array($response->getStatusCode(), [200, 201]) ? "Save Successful" : "Error saving form";
-                    $view->setVariable('saveMessage', $saveMessage);
-                    $view->setVariable('licenceId', $licence['id']);
-                    $view->setTemplate('pages/permits/done');
-                    return $this->renderView($view);
                 } else {
                     // Form didnt validate so re-render the form with errors highligted.
                     $invalidFormView = $this->getCreateView($application, $licence, $form);
@@ -170,13 +158,11 @@ trait PermitActionTrait
 
             // Handles loading a pre-populated form for an existing application.
             if ($action === 'edit') {
-                if (is_array($data['id']) && count($data['id'] == 1)) {
-                    $application = $this->getApplication($data['id'][0]);
+                if (!empty($data['id'])) {
+                    $application = $this->getApplication($data['id']);
                 }
                 return $this->renderView($this->getCreateView($application, $licence));
             }
-
-
         }
 
         $view = $this->getPermitView();
@@ -186,7 +172,7 @@ trait PermitActionTrait
             ->prepareTable('issued-permits', []);
 
         $view->setVariable('issuedPermitTable', $issuedTable);
-        $this->loadScripts(['permits', 'table-actions']);
+        $this->loadScripts(['permits']);
         $view->setTemplate('pages/permits/two-tables');
 
         return $this->renderView($view);
@@ -194,23 +180,18 @@ trait PermitActionTrait
 
 
     /**
-     * Executes query to retrieve list of Sectors to render on Create/Edit ECMT application form
+     * Check command handler response
      *
-     * @return array
+     * @param $response
+     * @return null
+     * @throws UnexpectedResponseException
      */
-    private function getSectorList()
+    protected function checkResponse($response)
     {
-        $response = $this->handleQuery(SectorsList::create(array()));
-        $sectorList = $response->getResult();
-
-        $sectorList = $this->getServiceLocator()
-            ->get('Helper\Form')
-            ->transformListIntoValueOptions($sectorList, 'description');
-
-        $sectorOtions['value_options'] = $sectorList;
-        return $sectorOtions;
+        if (!$response->isOk()) {
+            throw new UnexpectedResponseException('An error occured saving the application');
+        }
     }
-
 
     /**
      * Processes form data ready for use in Create/Update Command Handler
@@ -224,20 +205,17 @@ trait PermitActionTrait
         // Set licence as always needed
         $formFields['licence'] = $licenceId;
 
-        // Get sector ID from POSTED id|message value
-        if (!empty($formFields['sectors'])) {
-            $formFields['sectors'] = substr($formFields['sectors'], 0, strpos($formFields['sectors'], '|'));
-        }
         // Remove any empty values
         foreach ($formFields as $key => $val) {
-            if (empty($val)) {
+            if (empty($val) && !is_numeric($val)) {
                 unset($formFields[$key]);
             }
         }
-        $formFields['fromInternal'] = true;
+        if (empty($formFields['countryIds'])) {
+            $formFields['countryIds'] = [];
+        }
         return ($formFields);
     }
-
 
 
     /**

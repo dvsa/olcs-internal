@@ -13,6 +13,19 @@ class CreatePermit extends Base
 
 
     /**
+     * @Form\Options({
+     *     "label": "<h4>Permit Application</h4>",
+     *     "label_options": {
+     *         "disable_html_escape": "true"
+     *     }
+     * })
+     *
+     * @Form\Type("\Common\Form\Elements\Types\Html")
+     */
+    public $title = null;
+
+
+    /**
      * @Form\Attributes({"id":"permitType"})
      * @Form\Options({
      *     "label": "Permit Type",
@@ -44,29 +57,6 @@ class CreatePermit extends Base
     public $dateReceived = null;
 
 
-
-    /**
-     * @Form\Type("Zend\Form\Element\Hidden")
-     * @Form\Type("\Common\Form\Elements\Types\Readonly")
-     * @Form\Options({
-     *     "label": "Total Authorized Vehicles"
-     * })
-     *
-     */
-    public $numVehiclesLabel;
-
-
-    /**
-     * @Form\Type("Zend\Form\Element\Hidden")
-     * @Form\Options({
-     *     "label": "Total Authorized Vehicles"
-     * })
-     *
-     */
-    public $numVehicles;
-
-
-
     /**
      * @Form\Required(false)
      * @Form\Attributes({
@@ -81,7 +71,7 @@ class CreatePermit extends Base
      *     "allow_empty" : true,
      * })
      * @Form\Validator({"name":"Zend\Validator\Digits"})
-     * @Form\Validator({"name":"Zend\Validator\GreaterThan", "options": {"min": 1}})
+     * @Form\Validator({"name":"Zend\Validator\GreaterThan", "options": {"min": 0}})
      * @Form\Validator({
      *     "name": "NumberCompare",
      *     "options": {
@@ -93,6 +83,23 @@ class CreatePermit extends Base
      * @Form\Type("Zend\Form\Element\Number")
      */
     public $permitsRequired = null;
+
+    /**
+     * @Form\Type("Zend\Form\Element\Hidden")
+     *
+     */
+    public $numVehicles;
+
+    /**
+     * @Form\Type("Zend\Form\Element\Hidden")
+     * @Form\Type("\Common\Form\Elements\Types\Readonly")
+     * @Form\Options({
+     *     "label": "Current total vehicle authorization"
+     * })
+     *
+     */
+    public $numVehiclesLabel;
+
 
 
     /**
@@ -137,19 +144,29 @@ class CreatePermit extends Base
 
 
     /**
-     * @Form\Attributes({"id":"","placeholder":"","multiple":"multiple","class":"chosen-select-large"})
+     * @Form\Name("countryIds")
      * @Form\Required(false)
      * @Form\Options({
-     *     "label": "Restricted countries",
-     *     "empty_option": "Please Select",
-     *     "disable_inarray_validator": false,
+     *     "label": "The following countries have imposed limits on the number of permits for UK Hauliers. Please select any countries the applicant intends to travel to below.",
+     *     "label_attributes":{
+     *          "class" : "form-control form-control--checkbox"
+     *     },
      *     "service_name": "Common\Service\Data\Country",
-     *     "use_groups": false
+     *     "category": "ecmtConstraint",
+     *     "disable_inarray_validator" : true,
+     * })
+     * @Form\Attributes({
+     *     "class" : "chosen-select-large",
+     *     "id" : "countryIds",
+     *     "allowWrap":true,
+     *     "multiple":"multiple",
+     *     "empty": "Select options if applicable",
+     *     "data-container-class": "form-control__container",
      * })
      * @Form\Type("DynamicSelect")
      * @Form\Filter({"name":"Common\Filter\NullToArray"})
      */
-    public $countrys = null;
+    public $countryIds = null;
 
 
     /**
@@ -160,11 +177,11 @@ class CreatePermit extends Base
      *   "step" : "any"
      * })
      * @Form\Options({
-     *     "label": "Number of trips abroad",
+     *     "label": "Number of trips abroad in the last 12 months",
      *     "short-label": "",
      * })
      * @Form\Validator({"name":"Zend\Validator\Digits"})
-     * @Form\Validator({"name":"Zend\Validator\Between", "options": {"min": 1, "max": 999999}})
+     * @Form\Validator({"name":"Zend\Validator\Between", "options": {"min": -1, "max": 999999}})
      * @Form\Type("Zend\Form\Element\Number")
      */
     public $trips = null;
@@ -176,21 +193,19 @@ class CreatePermit extends Base
      * @Form\Required(false)
      * @Form\Attributes({
      *   "class" : "input--international-journey",
-     *    "id" : "internationalJourneyList",
+     *    "id" : "internationalJourneys",
      * })
      * @Form\Options({
-     *      "label": "Percentage of International Journeys",
-     *      "fieldset-attributes": {"id": "international_journeys"},
-     *      "fieldset-data-group": "international_journeys",
+     *      "label": "International Journeys",
+     *      "fieldset-attributes": {"id": "international-journey"},
+     *      "fieldset-data-group": "percentage-type",
      *      "label_attributes": {"class": "form-control form-control--radio"},
-     *      "value_options": {
-     *          "less.than.60%",
-     *          "from.60%.to.90%",
-     *          "more.than.90%",
-     *      },
+     *      "category": "inter_journey_percentage",
      *      "error-message": "error.messages.international-journey"
      * })
-     * @Form\Type("Radio")
+     * @Form\Type("DynamicRadio")
+     *
+     *
      */
     public $internationalJourneys = null;
 
@@ -210,14 +225,10 @@ class CreatePermit extends Base
      *      "fieldset-attributes": {"id": "sector-list"},
      *      "fieldset-data-group": "sector-list",
      *      "label_attributes": {"class": "form-control form-control--radio"},
-     *      "value_options": {
-     *          "Food products, beverages and tobacco, products of agriculture,
-     *                      hunting and forests, fish and other fishing products",
-     *          "Unrefined coal and lignite, crude petroleum and natural gas",
-     *          "Textiles and textile products, leather and leather products",
-     *      },
+     *      "service_name": "Common\Service\Data\Sector",
+     *      "disable_inarray_validator" : true,
      * })
-     * @Form\Type("Radio")
+     * @Form\Type("DynamicRadio")
      */
     public $sectors = null;
 

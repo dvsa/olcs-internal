@@ -6,7 +6,7 @@ use Zend\Form\Annotation as Form;
 
 /**
  * @Form\Name("permits-home")
- * @Form\Attributes({"method":"get", "class": "filters  form__filter"})
+ * @Form\Attributes({"method":"get", "class": "filters  form__filter", "id": "permitHomeForm"})
  * @Form\Type("Common\Form\Form")
  * @Form\Options({"prefer_form_input_filter": true, "bypass_auth": true})
  */
@@ -15,15 +15,31 @@ class PermitsHome
 
     /**
      * @Form\Options({
-     *     "label": "Status",
-     *     "value_options": {
-     *          "all":"All",
-     *          "ecmt_permit_nys":"Not Yet Submitted",
-     *          "emct_permit_uc":"Under Consideration"
-     *     },
-     *     "disable_inarray_validator": false
+     *     "label": "<h4>Filter by</h4>",
+     *     "label_options": {
+     *         "disable_html_escape": "true"
+     *     }
      * })
-     * @Form\Type("\Zend\Form\Element\Select")
+     *
+     * @Form\Type("\Common\Form\Elements\Types\Html")
+     */
+    public $title = null;
+
+    /**
+     * @Form\Name("status")
+     * @Form\Required(false)
+     * @Form\Attributes({
+     *    "id" : "status",
+     * })
+     * @Form\Options({
+     *      "label": "Status",
+     *      "fieldset-attributes": {"id": "ecmt-status"},
+     *      "category": "ecmt_permit_status",
+     *      "empty_option": "All",
+     * })
+     * @Form\Type("DynamicSelect")
+     *
+     *
      */
     public $status = null;
 
