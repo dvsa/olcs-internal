@@ -6,6 +6,7 @@ use Common\Service\Entity\Exceptions\UnexpectedResponseException;
 use Dvsa\Olcs\Transfer\Command\Permits\CreateFullPermitApplication;
 use Dvsa\Olcs\Transfer\Command\Permits\UpdateEcmtPermitApplication;
 use Dvsa\Olcs\Transfer\Command\Permits\WithdrawEcmtPermitApplication;
+use Dvsa\Olcs\Transfer\Command\Permits\CancelEcmtPermitApplication;
 use Dvsa\Olcs\Transfer\Query\Permits\ById;
 use Dvsa\Olcs\Transfer\Query\Permits\ConstrainedCountries;
 use Dvsa\Olcs\Transfer\Query\Permits\SectorsList;
@@ -157,6 +158,14 @@ trait PermitActionTrait
             if (array_key_exists('form-actions', $data) && array_key_exists('withdraw', $data['form-actions'])) {
                 if (!empty($data['fields']['id'])) {
                     $command = WithdrawEcmtPermitApplication::create(['id' => $data['fields']['id']]);
+                    $response = $this->handleCommand($command);
+                    $this->checkResponse($response);
+                }
+            }
+
+            if (array_key_exists('form-actions', $data) && array_key_exists('cancel', $data['form-actions'])) {
+                if (!empty($data['fields']['id'])) {
+                    $command = CancelEcmtPermitApplication::create(['id' => $data['fields']['id']]);
                     $response = $this->handleCommand($command);
                     $this->checkResponse($response);
                 }
