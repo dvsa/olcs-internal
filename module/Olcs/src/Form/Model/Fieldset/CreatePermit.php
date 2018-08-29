@@ -266,6 +266,30 @@ class CreatePermit extends Base
     /**
      * @Form\Required(false)
      * @Form\Attributes({
+     *   "id" : "canBeSubmitted",
+     *   "class": "permitApplicationCanBeSubmitted"
+     * })
+     *
+     * @Form\Type("Zend\Form\Element\Hidden")
+     *
+     */
+    public $canBeSubmitted;
+
+    /**
+     * @Form\Required(false)
+     * @Form\Attributes({
+     *   "id" : "canBeWithdrawn",
+     *   "class": "permitApplicationCanBeWithdrawn"
+     * })
+     *
+     * @Form\Type("Zend\Form\Element\Hidden")
+     *
+     */
+    public $canBeWithdrawn;
+
+    /**
+     * @Form\Required(false)
+     * @Form\Attributes({
      *   "id" : "canBeCancelled",
      *   "class": "permitApplicationCanBeCancelled"
      * })
@@ -274,5 +298,4 @@ class CreatePermit extends Base
      *
      */
     public $canBeCancelled;
-
 }

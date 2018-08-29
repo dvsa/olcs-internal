@@ -27,7 +27,7 @@ class PermitFormActions
     public $back = null;
 
     /**
-     * @Form\Attributes({"type":"submit","class":"action--primary large"})
+     * @Form\Attributes({"type":"submit","class":"action--primary large visually-hidden", "id": "submitPermitApplication"})
      * @Form\Options({"label": "Submit Application"})
      * @Form\Type("\Common\Form\Elements\InputFilters\ActionButton")
      */
