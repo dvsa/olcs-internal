@@ -262,4 +262,17 @@ class CreatePermit extends Base
      *
      */
     public $status;
+
+    /**
+     * @Form\Required(false)
+     * @Form\Attributes({
+     *   "id" : "canBeCancelled",
+     *   "class": "permitApplicationCanBeCancelled"
+     * })
+     *
+     * @Form\Type("Zend\Form\Element\Hidden")
+     *
+     */
+    public $canBeCancelled;
+
 }
