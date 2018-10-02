@@ -14,6 +14,10 @@ return array(
             'name' => 'permitRef'
         ),
         array(
+            'title' => 'Organisation',
+            'name' => 'organisation'
+        ),
+        array(
             'title' => 'Application Score',
             'name' => 'applicationScore'
         ),
@@ -36,6 +40,14 @@ return array(
         array(
             'title' => 'Sector',
             'name' => 'sector'
+        ),
+        array(
+            'title' => 'Devolved Administration',
+            'name' => 'devolvedAdministration'
+        ),
+        array(
+            'title' => 'Result',
+            'name' => 'result'
         ),
         array(
             'title' => 'Restricted Countries - Requested',

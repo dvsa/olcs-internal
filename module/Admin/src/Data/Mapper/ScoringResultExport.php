@@ -17,6 +17,12 @@ class ScoringResultExport implements MapperInterface
     const INTER_JOURNEY_60_90 = 'inter_journey_60_90';
     const INTER_JOURNEY_MORE_90 = 'inter_journey_more_90';
 
+    /*const TRAFFIC_AREA_SCOTLAND = 'M';
+    const TRAFFIC_AREA_WALES = 'G';
+    const TRAFFIC_AREA_NORTHERN_IRELAND = 'N';*/
+
+    const DEVOLVED_ADMINISTRATION_TRAFFIC_AREAS = ['M', 'G', 'N'];
+
     /**
      * @todo: this is a repeat of the same map on EcmtPermitApplication entity. Need to stop the repetition
      * Need to stop the repetition
@@ -38,7 +44,7 @@ class ScoringResultExport implements MapperInterface
      */
     public static function mapFromResult(array $data): array
     {
-        //var_dump($data['results'][0]['irhpPermitApplication']);
+        //var_dump($data['results'][0]['irhpPermitApplication']['licence']);
 
         $formattedData = array();
         foreach ($data['results'] as $row) {
@@ -46,12 +52,18 @@ class ScoringResultExport implements MapperInterface
 
             $formattedData[] = [
                 'permitRef' => $row['irhpPermitApplication']['licence']['licNo'] . '/' . $row['irhpPermitApplication']['id'] . '/' . $row['id'],
+                'organisation' => $row['irhpPermitApplication']['licence']['organisation']['name'],
                 'applicationScore' => $row['applicationScore'],
                 'intensityOfUse' => $row['intensityOfUse'],
                 'randomFactor' => $row['randomFactor'],
                 'randomizedScore' => $row['randomizedScore'],
                 'internationalJourneys' => self::INTERNATIONAL_JOURNEYS_DECIMAL_MAP[$row['irhpPermitApplication']['ecmtPermitApplication']['internationalJourneys']['id']],
                 'sector' => $sector['name'] === 'None/More than one of these sectors' ? 'N/A' : $sector['name'],
+                'devolvedAdministration' => in_array(
+                    $row['irhpPermitApplication']['licence']['trafficArea']['id'],
+                    self::DEVOLVED_ADMINISTRATION_TRAFFIC_AREAS
+                ) ? $row['irhpPermitApplication']['licence']['trafficArea']['name'] : 'N/A',
+                'result' => $row['successful'] ? 'Successful' : 'Unsuccessful',
                 'restrictedCountriesRequested' => self::getRestrictedCountriesRequested($row),
             ];
         }
