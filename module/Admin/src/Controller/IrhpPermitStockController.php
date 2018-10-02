@@ -8,6 +8,7 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\ById as ItemDto;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\GetList as ListDto;
+use Dvsa\Olcs\Transfer\Query\IrhpCandidatePermit\GetScoredList;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Delete as DeleteDto;
@@ -90,6 +91,11 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         $this->getServiceLocator()->get('Script')->loadFile('irhp-permit-stock');
         $this->placeholder()->setPlaceholder('pageTitle', 'Permits');
 
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            return $this->testHandlePost();
+        }
+
         return parent::indexAction();
     }
 
@@ -104,6 +110,25 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         $view->setTemplate('pages/irhp-permit-stock/index');
 
         return $view;
+    }
 
+    public function testHandlePost()
+    {
+        //echo 'POSTED';
+        $table = $this->getServiceLocator()->get('Table')->prepareTable(
+            'scoring-result-export',
+            [
+                'results' => [
+                    0 => ['permit-ref' => 'TESTING']
+                ]
+            ]
+        );
+
+        $response = $this->handleQuery(GetScoredList::create(['stockId' => 1]));
+        var_dump($response->getResult()); die;
+
+        return $this->getServiceLocator()
+            ->get('Helper\Response')
+            ->tableToCsv($this->getResponse(), $table, 'scoring-result');
     }
 }
