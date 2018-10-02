@@ -14,6 +14,8 @@ use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Delete as DeleteDto;
 use Admin\Form\Model\Form\IrhpPermitStock as PermitStockForm;
 use Admin\Data\Mapper\IrhpPermitStock as PermitStockMapper;
+use Admin\Data\Mapper\ScoringResultExport as ScoringResultMapper;
+
 
 use Zend\View\Model\ViewModel;
 
@@ -114,18 +116,14 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
 
     public function testHandlePost()
     {
+        $response = $this->handleQuery(GetScoredList::create(['stockId' => 1]));
+        //var_dump($response->getResult()['results'][0]); die;
+
         //echo 'POSTED';
         $table = $this->getServiceLocator()->get('Table')->prepareTable(
             'scoring-result-export',
-            [
-                'results' => [
-                    0 => ['permit-ref' => 'TESTING']
-                ]
-            ]
+            ScoringResultMapper::mapFromResult($response->getResult())
         );
-
-        $response = $this->handleQuery(GetScoredList::create(['stockId' => 1]));
-        var_dump($response->getResult()); die;
 
         return $this->getServiceLocator()
             ->get('Helper\Response')
