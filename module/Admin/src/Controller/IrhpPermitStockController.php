@@ -142,5 +142,6 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
             'issuedDate'    => date("Y-m-d H:m")
         ]));
         var_dump($result->getResult()); die;
+        return $csvFile;
     }
 }

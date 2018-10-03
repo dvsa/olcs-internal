@@ -85,7 +85,7 @@ class ScoringResultExport implements MapperInterface
             $restrictedCountries = '';
 
             foreach ($row['irhpPermitApplication']['ecmtPermitApplication']['countrys'] as $country) {
-                $restrictedCountries = $restrictedCountries . ', ' . $country['countryDesc'];
+                $restrictedCountries = $restrictedCountries . '; ' . $country['countryDesc'];
             }
 
             return $restrictedCountries;
