@@ -12,6 +12,7 @@ use Dvsa\Olcs\Transfer\Query\IrhpCandidatePermit\GetScoredList;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Delete as DeleteDto;
+use Dvsa\Olcs\Transfer\Command\Document\CreateDocument;
 use Admin\Form\Model\Form\IrhpPermitStock as PermitStockForm;
 use Admin\Data\Mapper\IrhpPermitStock as PermitStockMapper;
 use Admin\Data\Mapper\ScoringResultExport as ScoringResultMapper;
@@ -95,7 +96,7 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            return $this->testHandlePost();
+            return $this->exportScoringResults(1, 'Scoring Results');
         }
 
         return parent::indexAction();
@@ -114,19 +115,32 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         return $view;
     }
 
-    public function testHandlePost()
+    public function exportScoringResults(int $stockId, string $fileDescription)
     {
-        $response = $this->handleQuery(GetScoredList::create(['stockId' => 1]));
-        //var_dump($response->getResult()['results'][0]); die;
+        //Retrieve Scoring Results
+        $response = $this->handleQuery(GetScoredList::create(['stockId' => $stockId]));
 
-        //echo 'POSTED';
+        //Configure content of exported .csv file
         $table = $this->getServiceLocator()->get('Table')->prepareTable(
             'scoring-result-export',
             ScoringResultMapper::mapFromResult($response->getResult())
         );
 
-        return $this->getServiceLocator()
+        //Create .csv file from confirgured table
+        $csvFile = $this->getServiceLocator()
             ->get('Helper\Response')
             ->tableToCsv($this->getResponse(), $table, 'scoring-result');
+
+        //Save details of exported report to database
+        $result = $this->handleCommand(CreateDocument::create([
+            'identifier'    => 1, //NEED to find out what this is
+            'size'          => $csvFile->getHeaders()->get('Content-Length')->getFieldValue(),
+            'filename'      => 'scoring-result.csv',
+            'description'   => $fileDescription . ' ' . date("Y-m-d H:m"),
+            'category'      => 4, //permits category
+            'subCategory'   => 170, //need to create new category for Scoring Results
+            'issuedDate'    => date("Y-m-d H:m")
+        ]));
+        var_dump($result->getResult()); die;
     }
 }

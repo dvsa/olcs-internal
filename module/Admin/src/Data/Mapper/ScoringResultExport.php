@@ -51,20 +51,20 @@ class ScoringResultExport implements MapperInterface
             $sector = $row['irhpPermitApplication']['ecmtPermitApplication']['sectors'];
 
             $formattedData[] = [
-                'permitRef' => $row['irhpPermitApplication']['licence']['licNo'] . '/' . $row['irhpPermitApplication']['id'] . '/' . $row['id'],
-                'organisation' => $row['irhpPermitApplication']['licence']['organisation']['name'],
-                'applicationScore' => $row['applicationScore'],
-                'intensityOfUse' => $row['intensityOfUse'],
-                'randomFactor' => $row['randomFactor'],
-                'randomizedScore' => $row['randomizedScore'],
-                'internationalJourneys' => self::INTERNATIONAL_JOURNEYS_DECIMAL_MAP[$row['irhpPermitApplication']['ecmtPermitApplication']['internationalJourneys']['id']],
-                'sector' => $sector['name'] === 'None/More than one of these sectors' ? 'N/A' : $sector['name'],
-                'devolvedAdministration' => in_array(
+                'permitRef'                     => $row['irhpPermitApplication']['licence']['licNo'] . '/' . $row['irhpPermitApplication']['id'] . '/' . $row['id'],
+                'organisation'                  => $row['irhpPermitApplication']['licence']['organisation']['name'],
+                'applicationScore'              => $row['applicationScore'],
+                'intensityOfUse'                => $row['intensityOfUse'],
+                'randomFactor'                  => $row['randomFactor'],
+                'randomizedScore'               => $row['randomizedScore'],
+                'internationalJourneys'         => self::INTERNATIONAL_JOURNEYS_DECIMAL_MAP[$row['irhpPermitApplication']['ecmtPermitApplication']['internationalJourneys']['id']],
+                'sector'                        => $sector['name'] === 'None/More than one of these sectors' ? 'N/A' : $sector['name'],
+                'devolvedAdministration'        => in_array(
                     $row['irhpPermitApplication']['licence']['trafficArea']['id'],
                     self::DEVOLVED_ADMINISTRATION_TRAFFIC_AREAS
                 ) ? $row['irhpPermitApplication']['licence']['trafficArea']['name'] : 'N/A',
-                'result' => $row['successful'] ? 'Successful' : 'Unsuccessful',
-                'restrictedCountriesRequested' => self::getRestrictedCountriesRequested($row),
+                'result'                        => $row['successful'] ? 'Successful' : 'Unsuccessful',
+                'restrictedCountriesRequested'  => self::getRestrictedCountriesRequested($row),
             ];
         }
 

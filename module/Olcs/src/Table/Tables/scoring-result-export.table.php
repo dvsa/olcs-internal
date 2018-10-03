@@ -47,7 +47,8 @@ return array(
         ),
         array(
             'title' => 'Result',
-            'name' => 'result'
+            'name' => 'result',
+            'sort' => 'result',
         ),
         array(
             'title' => 'Restricted Countries - Requested',
