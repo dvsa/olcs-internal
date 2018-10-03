@@ -44,8 +44,8 @@ class ScoringResultExport implements MapperInterface
      */
     public static function mapFromResult(array $data): array
     {
-        //var_dump($data['results'][0]['irhpPermitApplication']['licence']);
-
+       // var_dump($data['results'][0]['irhpPermitApplication']['licence']);
+       // var_dump($data['results'][0]);
         $formattedData = array();
         foreach ($data['results'] as $row) {
             $sector = $row['irhpPermitApplication']['ecmtPermitApplication']['sectors'];
