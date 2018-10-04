@@ -7,6 +7,7 @@ use Admin\Controller\ReportController;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Common\Category;
+use Common\Util\FileContent;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\ById as ItemDto;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\GetList as ListDto;
 use Dvsa\Olcs\Transfer\Query\IrhpCandidatePermit\GetScoredList;
@@ -14,12 +15,13 @@ use Dvsa\Olcs\Transfer\Query\Document\DocumentList;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Delete as DeleteDto;
-use Dvsa\Olcs\Transfer\Command\Document\CreateDocument;
 use Admin\Form\Model\Form\IrhpPermitStock as PermitStockForm;
 use Admin\Data\Mapper\IrhpPermitStock as PermitStockMapper;
 use Admin\Data\Mapper\ScoringResultExport as ScoringResultMapper;
 use Common\Controller\Traits\ViewHelperManagerAware;
 use Common\Controller\Traits\GenericRenderView;
+use Dvsa\Olcs\Transfer\Command\Document\Upload;
+
 
 
 
@@ -167,7 +169,8 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
 
     /**
      * Generates a .csv report of the scoring results
-     * for a given irhp permit stock
+     * for a given irhp permit stock, and uploads a copy
+     * before exporting it
      *
      * @param int the id of the IrhpPermitStock
      * @param string the description field for the export file
@@ -189,19 +192,20 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         $csvFile = $this->getServiceLocator()
             ->get('Helper\Response')
             ->tableToCsv($this->getResponse(), $table, 'scoring-result');
-//var_dump($csvFile->getHeaders()->get('Content-Disposition')); die;
-//$csvFile->getHeaders()->get('CContent-Disposition')->getFieldValue()
-        //Save details of exported report to database
-        $result = $this->handleCommand(CreateDocument::create([
-            'identifier'    => 'test', //NEED to find out what this is
+
+        //Upload a copy to document repository
+        $result = $this->handleCommand(Upload::create([
+            'content'       => base64_encode($csvFile->getContent()),
+            'identifier'    => '', //this should be replaced in backend
             'size'          => $csvFile->getHeaders()->get('Content-Length')->getFieldValue(),
             'filename'      => 'scoring-result.csv',
-            'description'   => $fileDescription . ' ' . date("Y-m-d H:m"),
+            'description'   => $fileDescription . '_' . date("Y-m-d H:m"),
             'category'      => category::CATEGORY_PERMITS,
             'subCategory'   => category::PERMITS_SUB_CATEGORY_SCORING,
             'issuedDate'    => date("Y-m-d H:m")
         ]));
 
+        //return exported file (reponse will initiate a dowload)
         return $csvFile;
     }
 
