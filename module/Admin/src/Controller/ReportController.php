@@ -174,7 +174,7 @@ class ReportController extends ZendAbstractActionController implements LeftViewP
             ]
         );
 
-        $response = $this->handleQuery($query); var_dump($response->getResult());
+        $response = $this->handleQuery($query);
         $table = $this->getTable(
             'admin-exported-reports',
             $response->getResult(),

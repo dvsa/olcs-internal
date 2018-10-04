@@ -54,16 +54,9 @@ return array(
             'title' => 'Restricted Countries - Requested',
             'name' => 'restrictedCountriesRequested'
         ),
-
-           /* array(
-            'title' => 'Permit Ref',
-            'name' => 'permit-ref'
-            'formatter' => function ($row) {
-                return sprintf(
-                    '%s',
-                    $row['File description'],
-                );
-            },
-        ),*/
+        array(
+            'title' => 'Restricted Countries - Offered',
+            'name' => 'restrictedCountriesOffered'
+        ),
     )
 );

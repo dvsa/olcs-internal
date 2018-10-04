@@ -257,6 +257,11 @@ return [
                             'label' => 'Window',
                             'route' => 'admin-dashboard/admin-permits/permit-windows'
                         ],
+                        [
+                            'id' => 'admin-dashboard/admin-permits/exported-reports',
+                            'label' => 'Exported reports',
+                            'route' => 'admin-dashboard/admin-permits/exported-reports',
+                        ],
                     ],
                 ],
                 [

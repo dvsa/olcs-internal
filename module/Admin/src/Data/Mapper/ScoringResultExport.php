@@ -13,13 +13,14 @@ use Zend\Form\FormInterface;
 class ScoringResultExport implements MapperInterface
 {
 
+    /**
+     * @todo: replace this and the MAP const with something reusable
+     * and common between both this mapper and the ecmtPermitApplication
+     * entity
+     */
     const INTER_JOURNEY_LESS_60 = 'inter_journey_less_60';
     const INTER_JOURNEY_60_90 = 'inter_journey_60_90';
     const INTER_JOURNEY_MORE_90 = 'inter_journey_more_90';
-
-    /*const TRAFFIC_AREA_SCOTLAND = 'M';
-    const TRAFFIC_AREA_WALES = 'G';
-    const TRAFFIC_AREA_NORTHERN_IRELAND = 'N';*/
 
     const DEVOLVED_ADMINISTRATION_TRAFFIC_AREAS = ['M', 'G', 'N'];
 
@@ -45,7 +46,7 @@ class ScoringResultExport implements MapperInterface
     public static function mapFromResult(array $data): array
     {
        // var_dump($data['results'][0]['irhpPermitApplication']['licence']);
-       // var_dump($data['results'][0]);
+        //var_dump($data['results'][0]['irhpPermitRange']);
         $formattedData = array();
         foreach ($data['results'] as $row) {
             $sector = $row['irhpPermitApplication']['ecmtPermitApplication']['sectors'];
@@ -65,33 +66,63 @@ class ScoringResultExport implements MapperInterface
                 ) ? $row['irhpPermitApplication']['licence']['trafficArea']['name'] : 'N/A',
                 'result'                        => $row['successful'] ? 'Successful' : 'Unsuccessful',
                 'restrictedCountriesRequested'  => self::getRestrictedCountriesRequested($row),
+                'restrictedCountriesOffered'    => self::getRestrictedCountriesOffered($row)
             ];
         }
 
-        //var_dump($formattedData);
         return ['results' => $formattedData];
     }
 
     /**
-     * Formats the restricted countries requested for a result row
+     * Retrieves the list of restricted countries requested
+     * for display in an export .csv file
      *
      * @param array $data Row from data from query
      *
-     * @return array
+     * @return string
      */
     private static function getRestrictedCountriesRequested($row)
     {
         if ($row['irhpPermitApplication']['ecmtPermitApplication']['hasRestrictedCountries']) {
-            $restrictedCountries = '';
-
-            foreach ($row['irhpPermitApplication']['ecmtPermitApplication']['countrys'] as $country) {
-                $restrictedCountries = $restrictedCountries . '; ' . $country['countryDesc'];
-            }
-
-            return $restrictedCountries;
+            return self::formatRestrictedCountriesForDisplay($row['irhpPermitApplication']['ecmtPermitApplication']['countrys']);
         }
 
         return 'N/A';
+    }
+
+    /**
+     * Retrieves the list of restricted countries offered
+     * for display in an export .csv file
+     *
+     * @param array $data Row from data from query
+     *
+     * @return string
+     */
+    private static function getRestrictedCountriesOffered($row)
+    {
+        if (count($row['irhpPermitRange']['countrys']) > 0) {
+            return self::formatRestrictedCountriesForDisplay($row['irhpPermitRange']['countrys']);
+        }
+
+        return 'N/A';
+    }
+
+    /**
+     * Formats a given list of restricted countries
+     * for display in an export .csv file
+     *
+     * @param array a list of restricted countries in the format returned by backend
+     *
+     * @return string a list of countries seperated by semicolons
+     */
+    private static function formatRestrictedCountriesForDisplay($countries)
+    {
+        $restrictedCountries = '';
+        foreach ($countries as $country) {
+            $restrictedCountries = $restrictedCountries . '; ' . $country['countryDesc'];
+        }
+
+        return substr($restrictedCountries, 2); //remove the first ;
     }
 
     /**
@@ -103,7 +134,7 @@ class ScoringResultExport implements MapperInterface
      */
     public static function mapFromForm(array $data): array
     {
-        return $data['permitStockDetails'];
+        return $data;
     }
 
     /**
