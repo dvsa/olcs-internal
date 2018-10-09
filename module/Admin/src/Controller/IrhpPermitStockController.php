@@ -5,7 +5,12 @@ namespace Admin\Controller;
 use Dvsa\Olcs\Transfer\Command\Permits\TriggerProcessEcmtApplications;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-
+use Admin\Controller\ReportController;
+use Common\Category;
+use Common\Util\FileContent;
+use Common\Controller\Traits\ViewHelperManagerAware;
+use Common\Controller\Traits\GenericRenderView;
+use Dvsa\Olcs\Transfer\Query\Document\DocumentList;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\ById as ItemDto;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\GetList as ListDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Create as CreateDto;
@@ -21,6 +26,9 @@ use Zend\View\Model\ViewModel;
  */
 class IrhpPermitStockController extends AbstractInternalController implements LeftViewProvider
 {
+    use ViewHelperManagerAware,
+        GenericRenderView;
+
     /**
      * Holds the navigation ID,
      * required when an entire controller is
@@ -105,5 +113,47 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         $view->setTemplate('pages/irhp-permit-stock/index');
 
         return $view;
+    }
+
+    /**
+     * exported reports action
+     *
+     * @return ViewModel
+     */
+    public function exportedReportsAction()
+    {
+        $data = [
+            'page' => $this->params()->fromQuery('page', 1),
+            'limit' => $this->params()->fromQuery('limit', 10),
+            'query' => $this->getRequest()->getQuery()->toArray(),
+        ];
+
+        $query = DocumentList::create(
+            [
+                'sort' => 'issuedDate',
+                'order' => 'desc',
+                'category' => Category::CATEGORY_PERMITS,
+                'documentSubCategory' => [
+                    Category::PERMITS_SUB_CATEGORY_SCORING,
+                ],
+                'onlyUnlinked' => 'Y',
+                'page' => $data['page'],
+                'limit' => $data['limit'],
+            ]
+        );
+
+        $response = $this->handleQuery($query);
+
+        $table = $this->getServiceLocator()
+            ->get('Table')
+            ->buildTable('admin-exported-reports', $response->getResult(), $data, false);
+
+        $view = new ViewModel(['table' => $table]);
+        $view->setTemplate('pages/table');
+
+        $this->getViewHelperManager()->get('placeholder')->getContainer('tableFilters')
+            ->set($view->getVariable('filterForm'));
+
+        return $this->renderView($view, $pageTitle, null);
     }
 }
