@@ -558,6 +558,20 @@ return [
                                     ],
                                 ],
                             ],
+                            'exported-reports' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => 'exported-reports[/:parentId][/:action][/:id][/]',
+                                    'constraints' => [
+                                        'id' => '[0-9\,]+',
+                                        'action' => '(index|add|edit|delete)'
+                                    ],
+                                    'defaults' => [
+                                        'controller' => \Admin\Controller\IrhpPermitStockController::class,
+                                        'action' => 'exportedReports',
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                     'admin-system-info-message' => [
