@@ -132,7 +132,7 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
                 'order' => 'desc',
                 'category' => Category::CATEGORY_PERMITS,
                 'documentSubCategory' => [
-                    Category::PERMITS_SUB_CATEGORY_SCORING,
+                    Category::DOC_SUB_CATEGORY_PERMITS,
                 ],
                 'onlyUnlinked' => 'Y',
                 'page' => $data['page'],
