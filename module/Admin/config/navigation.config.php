@@ -1,5 +1,6 @@
 <?php
-
+// TODO: Re-enable permit-scoring nav button. Not used at the moment and commented out because
+//          it breaks other functionility. Kicking the can down the road.
 return [
     'label' => 'Home',
     'route' => 'dashboard',
@@ -262,10 +263,15 @@ return [
                             'label' => 'Sectors',
                             'route' => 'admin-dashboard/admin-permits/permit-sectors'
                         ],
-                        [
+                       /*[
                             'id' => 'admin-dashboard/admin-permits/permit-scoring',
                             'label' => 'Scoring',
                             'route' => 'admin-dashboard/admin-permits/permit-scoring'
+                        ],*/
+                        [
+                            'id' => 'admin-dashboard/admin-permits/exported-reports',
+                            'label' => 'Exported reports',
+                            'route' => 'admin-dashboard/admin-permits/exported-reports',
                         ],
                     ],
                 ],

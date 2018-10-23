@@ -572,6 +572,20 @@ return [
                                     ],
                                 ],
                             ],
+                            'exported-reports' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => 'stocks/:stockId/exported-reports[/:action][/]',
+                                    'constraints' => [
+                                        'id' => '[0-9\,]+',
+                                        'action' => '(index|add|edit|delete)'
+                                    ],
+                                    'defaults' => [
+                                        'controller' => \Admin\Controller\IrhpPermitReportingController::class,
+                                        'action' => 'index',
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                     'admin-system-info-message' => [
@@ -766,6 +780,8 @@ return [
                 Admin\Controller\IrhpPermitSectorController::class,
             Admin\Controller\IrhpPermitScoringController::class =>
                 Admin\Controller\IrhpPermitScoringController::class,
+            Admin\Controller\IrhpPermitReportingController::class =>
+                Admin\Controller\IrhpPermitReportingController::class,
         ],
     ],
     'view_manager' => [
