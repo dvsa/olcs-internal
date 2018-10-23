@@ -572,8 +572,8 @@ return [
                                         'action' => '(index|add|edit|delete)'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitStockController::class,
-                                        'action' => 'exportedReports',
+                                        'controller' => \Admin\Controller\IrhpPermitReportingController::class,
+                                        'action' => 'index',
                                     ],
                                 ],
                             ],
@@ -771,6 +771,8 @@ return [
                 Admin\Controller\IrhpPermitSectorController::class,
             Admin\Controller\IrhpPermitScoringController::class =>
                 Admin\Controller\IrhpPermitScoringController::class,
+            Admin\Controller\IrhpPermitReportingController::class =>
+                Admin\Controller\IrhpPermitReportingController::class,
         ],
     ],
     'view_manager' => [
