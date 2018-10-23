@@ -13,14 +13,20 @@ use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\IrhpPermitStock\Delete as DeleteDto;
 use Admin\Form\Model\Form\IrhpPermitStock as PermitStockForm;
 use Admin\Data\Mapper\IrhpPermitStock as PermitStockMapper;
-
 use Zend\View\Model\ViewModel;
+use Common\Category;
+use Common\Controller\Traits\ViewHelperManagerAware;
+use Common\Controller\Traits\GenericRenderView;
+use Dvsa\Olcs\Transfer\Query\Document\DocumentList;
 
 /**
  * IRHP Permits Admin Controller
  */
 class IrhpPermitStockController extends AbstractInternalController implements LeftViewProvider
 {
+    use ViewHelperManagerAware,
+        GenericRenderView;
+
     /**
      * Holds the navigation ID,
      * required when an entire controller is
@@ -104,6 +110,47 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
         $view->setTemplate('pages/irhp-permit-stock/index');
 
         return $view;
+    }
 
+    /**
+     * exported reports action
+     *
+     * @return ViewModel
+     */
+    public function exportedReportsAction()
+    {
+        $data = [
+            'page' => $this->params()->fromQuery('page', 1),
+            'limit' => $this->params()->fromQuery('limit', 10),
+            'query' => $this->getRequest()->getQuery()->toArray(),
+        ];
+
+        $query = DocumentList::create(
+            [
+                'sort' => 'issuedDate',
+                'order' => 'desc',
+                'category' => Category::CATEGORY_PERMITS,
+                'documentSubCategory' => [
+                    Category::DOC_SUB_CATEGORY_PERMITS,
+                ],
+                'onlyUnlinked' => 'Y',
+                'page' => $data['page'],
+                'limit' => $data['limit'],
+            ]
+        );
+
+        $response = $this->handleQuery($query);
+
+        $table = $this->getServiceLocator()
+            ->get('Table')
+            ->buildTable('admin-exported-reports', $response->getResult(), $data, false);
+
+        $view = new ViewModel(['table' => $table]);
+        $view->setTemplate('pages/table');
+
+        $this->getViewHelperManager()->get('placeholder')->getContainer('tableFilters')
+            ->set($view->getVariable('filterForm'));
+
+        return $this->renderView($view, $pageTitle, null);
     }
 }
