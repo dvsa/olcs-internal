@@ -755,8 +755,6 @@ return [
                 Admin\Controller\IrhpPermitRangeController::class,
             Admin\Controller\IrhpPermitSectorController::class =>
                 Admin\Controller\IrhpPermitSectorController::class,
-            Admin\Controller\IrhpPermitScoringController::class =>
-                Admin\Controller\IrhpPermitScoringController::class,
         ],
     ],
     'view_manager' => [
