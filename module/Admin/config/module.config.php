@@ -566,7 +566,7 @@ return [
                             'exported-reports' => [
                                 'type' => 'Segment',
                                 'options' => [
-                                    'route' => 'stocks/:stockId/exported-reports[/:action][/]',
+                                    'route' => 'exported-reports[/:parentId][/:action][/:id][/]',
                                     'constraints' => [
                                         'id' => '[0-9\,]+',
                                         'action' => '(index|add|edit|delete)'
