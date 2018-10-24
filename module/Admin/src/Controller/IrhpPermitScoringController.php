@@ -3,9 +3,7 @@
  * IRHP Permits Scoring Controller
  *
  * @author Andy Newton <andy@vitri.ltd>
- *
  */
-
 namespace Admin\Controller;
 
 use Dvsa\Olcs\Transfer\Command\Permits\QueueAcceptScoring;
@@ -38,7 +36,8 @@ class IrhpPermitScoringController extends AbstractInternalController implements 
         $view = new ViewModel(
             [
                 'navigationId' => 'admin-dashboard/admin-permits',
-                'navigationTitle' => 'Permits'
+                'navigationTitle' => 'Permits',
+                'stockId' => $this->params()->fromRoute()['stockId']
             ]
         );
         $view->setTemplate('admin/sections/admin/partials/generic-left');
@@ -68,9 +67,9 @@ class IrhpPermitScoringController extends AbstractInternalController implements 
         return parent::confirmCommand(
             new ConfirmItem(['id' => 'stockId']),
             QueueAcceptScoring::class,
-            'Accept Scoring - Are you sure?',
+            'Accept scoring - are you sure?',
             'This will Accept scoring. Are you sure?',
-            'Accept Handler successfully triggered'
+            'Accept handler successfully triggered'
         );
 
     }
@@ -82,9 +81,9 @@ class IrhpPermitScoringController extends AbstractInternalController implements 
         return parent::confirmCommand(
             new ConfirmItem(['id' => 'stockId']),
             QueueRunScoring::class,
-            'Run Scoring - Are you sure?',
-            'This will Run scoring. Are you sure?',
-            'Accept Handler successfully triggered'
+            'Run scoring - are you sure?',
+            'This will run scoring. Are you sure?',
+            'Scoring successfully triggered'
         );
     }
 }
