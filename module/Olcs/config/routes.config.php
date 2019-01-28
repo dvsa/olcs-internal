@@ -1822,6 +1822,18 @@ $routes = [
             ],
         ],
     ],
+    'ms-ofba-authentication-successful' => [
+        'type' => 'segment',
+        'options' => [
+            'route' => '/ms-ofba-authentication-successful[/]',
+            'defaults' => [
+                'controller' => \Olcs\Controller\WebdavController::class,
+                'action' => 'authenticationSuccessful',
+            ]
+        ],
+        'may_terminate' => true,
+        'child_routes' => [],
+    ]
 ];
 
 $sectionConfig = new \Common\Service\Data\SectionConfig();

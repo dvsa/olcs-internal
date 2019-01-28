@@ -305,6 +305,7 @@ return array(
             'InterimApplicationController' => 'Olcs\Controller\Lva\Application\InterimController',
             'InterimVariationController' => 'Olcs\Controller\Lva\Variation\InterimController',
             'SplitScreenController' => 'Olcs\Controller\SplitScreenController',
+            \Olcs\Controller\WebdavController::class => \Olcs\Controller\WebdavController::class,
 
             // Event History Controllers
             'CaseHistoryController' => 'Olcs\Controller\Cases\Processing\HistoryController',
