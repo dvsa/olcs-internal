@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a29bb1d2a28f5f37fc246e7818690658",
+    "content-hash": "093440fb9c6d863d0c7063f84a547434",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1138,11 +1138,11 @@
         },
         {
             "name": "olcs/olcs-auth",
-            "version": "dev-develop",
+            "version": "dev-feature/webdav-documents",
             "source": {
                 "type": "git",
                 "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-auth.git",
-                "reference": "6a5d0c2321a047e911dcd326a0546cf9ade60119"
+                "reference": "276a6e9ff0deaba78566a1ab1d1804428bb1ba3a"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
@@ -1185,7 +1185,7 @@
                 ]
             },
             "description": "OLCS Authentication",
-            "time": "2019-01-14T17:26:35+00:00"
+            "time": "2019-01-28T15:32:15+00:00"
         },
         {
             "name": "olcs/olcs-logging",
