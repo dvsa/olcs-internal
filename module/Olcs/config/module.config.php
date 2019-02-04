@@ -18,6 +18,7 @@ use Olcs\Controller\SearchController;
 
 use Olcs\Listener\RouteParam\Application as ApplicationListener;
 use Olcs\Listener\RouteParam\ApplicationFurniture;
+use Olcs\Listener\RouteParam\IrhpApplicationFurniture;
 use Olcs\Listener\RouteParam\VariationFurniture;
 use Olcs\Listener\RouteParam\Licence as LicenceListener;
 use Olcs\Listener\RouteParam\LicenceFurniture;
@@ -327,6 +328,7 @@ return array(
             'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
             'LicenceDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController',
             'IrhpPermitApplicationController' => 'Olcs\Controller\IrhpPermits\IrhpPermitApplicationController',
+            'IrhpApplicationController' => 'Olcs\Controller\IrhpPermits\IrhpApplicationController',
             'IrhpPermitFeesController' => 'Olcs\Controller\IrhpPermits\IrhpPermitFeesController',
             'IrhpPermitController' => 'Olcs\Controller\IrhpPermits\IrhpPermitController',
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
@@ -481,6 +483,7 @@ return array(
             SubmissionsFurniture::class => SubmissionsFurniture::class,
             TransportManagerFurniture::class => TransportManagerFurniture::class,
             IrhpPermitFurniture::class => IrhpPermitFurniture::class,
+            IrhpApplicationFurniture::class => IrhpApplicationFurniture::class,
             'Olcs\Listener\RouteParam\Cases' => 'Olcs\Listener\RouteParam\Cases',
             LicenceListener::class => LicenceListener::class,
             'Olcs\Listener\RouteParam\CaseMarker' => 'Olcs\Listener\RouteParam\CaseMarker',
@@ -581,6 +584,11 @@ return array(
         ],
         \Olcs\Controller\Interfaces\IrhpPermitApplicationControllerInterface::class => [
             RouteParam\IrhpPermitFurniture::class,
+            RouteParam\LicenceFurniture::class,
+            RouteParam\Licence::class,
+        ],
+        \Olcs\Controller\Interfaces\IrhpApplicationControllerInterface::class => [
+            RouteParam\IrhpApplicationFurniture::class,
             RouteParam\LicenceFurniture::class,
             RouteParam\Licence::class,
         ],
