@@ -328,7 +328,8 @@ return array(
             'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
             'LicenceDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController',
             'IrhpPermitApplicationController' => 'Olcs\Controller\IrhpPermits\IrhpPermitApplicationController',
-            'IrhpApplicationController' => 'Olcs\Controller\IrhpPermits\IrhpApplicationController',
+            \Olcs\Controller\IrhpPermits\IrhpApplicationController::class => \Olcs\Controller\IrhpPermits\IrhpApplicationController::class,
+            \Olcs\Controller\IrhpPermits\IrhpApplicationFeesController::class => \Olcs\Controller\IrhpPermits\IrhpApplicationFeesController::class,
             'IrhpPermitFeesController' => 'Olcs\Controller\IrhpPermits\IrhpPermitFeesController',
             'IrhpPermitController' => 'Olcs\Controller\IrhpPermits\IrhpPermitController',
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
@@ -338,6 +339,7 @@ return array(
                 \Olcs\Controller\IrhpPermits\IrhpPermitProcessingNoteController::class,
             \Olcs\Controller\IrhpPermits\IrhpPermitProcessingTasksController::class =>
                 \Olcs\Controller\IrhpPermits\IrhpPermitProcessingTasksController::class,
+            Olcs\Controller\Licence\SurrenderController::class => Olcs\Controller\Licence\SurrenderController::class
         ),
         'factories' => [
             TmCntr\Details\TransportManagerDetailsResponsibilityController::class =>
@@ -442,6 +444,8 @@ return array(
             Olcs\Service\Data\DocumentSubCategory::class => Olcs\Service\Data\DocumentSubCategory::class,
             Olcs\Service\Data\DocumentSubCategoryWithDocs::class =>
                 Olcs\Service\Data\DocumentSubCategoryWithDocs::class,
+            Olcs\Service\Data\IrhpPermitPrintCountry::class => Olcs\Service\Data\IrhpPermitPrintCountry::class,
+            Olcs\Service\Data\IrhpPermitPrintStock::class => Olcs\Service\Data\IrhpPermitPrintStock::class,
             Olcs\Service\Data\ScannerCategory::class => Olcs\Service\Data\ScannerCategory::class,
             Olcs\Service\Data\ScannerSubCategory::class => Olcs\Service\Data\ScannerSubCategory::class,
             Olcs\Service\Data\TaskCategory::class => Olcs\Service\Data\TaskCategory::class,
