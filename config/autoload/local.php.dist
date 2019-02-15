@@ -48,7 +48,7 @@ return array(
     // Document service
     'document_share' => [
         // File hyperlink to document
-        'uri_pattern' => 'ms-word:ofe|u|http://olcs-internal.olcs.gov.uk/documents/%s',
+        'uri_pattern' => 'ms-word:ofe|u|https://olcs-internal.olcs.gov.uk/documents/%s',
     ],
 
     // Asset path, URI to olcs-static (CSS, JS, etc) *Environment specific*
