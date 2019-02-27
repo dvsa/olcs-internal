@@ -3,7 +3,9 @@
 namespace Olcs\Controller\Lva\Traits;
 
 use Common\Form\Elements\InputFilters\SelectEmpty as SelectElement;
+use Common\RefData;
 use Common\Service\Cqrs\Response;
+use Common\Service\Entity\LicenceEntityService;
 use Zend\View\Model\ViewModel;
 use Dvsa\Olcs\Transfer\Query\Application\Overview as OverviewQry;
 use Dvsa\Olcs\Transfer\Command\Application\Overview as OverviewCmd;
@@ -154,13 +156,20 @@ trait ApplicationOverviewTrait
 
         $options = $application['valueOptions']['tracking'];
 
+        $licenceCategoryId = $application['licence']['goodsOrPsv']['id'];
+
         $sections = $this->getAccessibleSections();
         foreach ($sections as $section) {
             $selectProperty = lcfirst($stringHelper->underscoreToCamel($section)) . 'Status';
 
             $select = new SelectElement($selectProperty);
             $select->setValueOptions($options);
-            $select->setLabel('section.name.'.$section);
+
+            $label = 'section.name.' . $section;
+            if ($section == 'community_licences' && $licenceCategoryId == RefData::LICENCE_CATEGORY_PSV) {
+                $label .= '.psv';
+            }
+            $select->setLabel($label);
 
             $fieldset->add($select);
         }
