@@ -1,4 +1,5 @@
 <?php
+
 echo $this->render('partials/read-only/main',
     [
         'multiItems' =>  [
@@ -69,7 +70,7 @@ echo $this->render('partials/read-only/main',
                     'hideIfEmpty' => true,
                 ],
                 [
-                    'label' => 'No. of community lics',
+                    'label' => $isPsv ? 'No. PSV certified copies' : 'No. UK licences for the Community',
                     'numeric' => $numberOfCommunityLicences,
                     'hideIfEmpty' => true,
                 ],
