@@ -13,6 +13,10 @@ return array(
         'whitelist' => [
         ],
     ],
-
+    'soflomo_purifier' => [
+        'config' => [
+            'Cache.SerializerPath' => sys_get_temp_dir(),
+        ],
+    ],
     'zfc_rbac' => require('zfc_rbac.config.php'),
 );

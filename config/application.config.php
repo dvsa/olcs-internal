@@ -10,6 +10,7 @@ $config = array(
         'Dvsa\Olcs\Transfer',
         // Common should be included before our applications modules, so we can override common behaviour
         'Common',
+        'Soflomo\Purifier',
         'Olcs',
         'Admin',
         // Required for annotation parsing
