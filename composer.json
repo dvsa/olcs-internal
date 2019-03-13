@@ -57,6 +57,7 @@
         "olcs/olcs-transfer": "dev-project/zf3-upgrade",
         "olcs/olcs-utils": "dev-project/zf3-upgrade",
         "olcs/olcs-auth": "dev-project/zf3-upgrade",
+        "soflomo/purifier": "~1.0.0",
         "olcs/olcs-logging": "dev-project/zf3-upgrade"
     },
     "require-dev": {
