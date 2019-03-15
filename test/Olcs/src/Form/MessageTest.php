@@ -5,7 +5,6 @@ namespace OlcsTest\Form;
 /**
  * MessageTest
  *
- * @author Mat Evans <mat.evans@valtech.co.uk>
  */
 class MessageTest extends \Mockery\Adapter\Phpunit\MockeryTestCase
 {
