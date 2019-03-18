@@ -5,7 +5,7 @@ namespace OlcsTest\Traits;
 use Mockery;
 
 /**
- * mixin for test cases that need Mockery but extend a different abstract
+ * *mixin for test cases that need Mockery but extend a different abstract
  */
 trait MockeryTestCaseTrait
 {
