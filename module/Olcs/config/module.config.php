@@ -393,6 +393,7 @@ return array(
             'formSubmissionSections' => Olcs\Form\View\Helper\SubmissionSections::class,
             'submissionSectionDetails' => Olcs\View\Helper\SubmissionSectionDetails::class,
             'submissionSectionOverview' => Olcs\View\Helper\SubmissionSectionOverview::class,
+            'surrenderDetails' => Olcs\View\Helper\SurrenderDetails::class,
         ],
         'delegators' => array(
             'formElement' => array('Olcs\Form\View\Helper\FormElementDelegatorFactory')
