@@ -24,6 +24,13 @@ class IrhpApplicationFeesController extends AbstractIrhpPermitController
      */
     public function feesAction()
     {
+        //Default post-card payment landing page is fee table. If coming back from CPMS, redirect to index.
+        if(!empty($this->params()->fromQuery('receipt_reference'))){
+            return $this->redirect()->toRoute(
+                'licence/permits',
+                ['licence' => $this->getFromRoute('licence')]);
+        }
+
         $navigation = $this->getServiceLocator()->get('Navigation');
         $navigation->findOneBy('id', 'licence_fees')->setActive();
         return $this->traitFeesAction();
@@ -37,7 +44,7 @@ class IrhpApplicationFeesController extends AbstractIrhpPermitController
      */
     protected function getFeesRoute()
     {
-        return 'licence/permits';
+        return 'licence/irhp-application-fees';
     }
 
     /**
