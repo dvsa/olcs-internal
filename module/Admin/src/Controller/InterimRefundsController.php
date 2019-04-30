@@ -5,8 +5,9 @@ namespace Admin\Controller;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Zend\View\Model\ViewModel;
-use Dvsa\Olcs\Transfer\Query\Application\InterimRefunds as ListDto;
-
+//use Dvsa\Olcs\Transfer\Query\Application\InterimRefunds as ListDto;
+use Dvsa\Olcs\Transfer\Query\CompaniesHouse\AlertList as ListDto;
+use Olcs\Form\Model\Form\CompaniesHouseAlertFilters as FilterForm;
 /**
  * Class InterimRefundsController
  *
@@ -29,8 +30,7 @@ class InterimRefundsController extends AbstractInternalController implements Lef
     protected $defaultTableSortField = 'id';
     protected $defaultTableOrderField = 'ASC';
     protected $listDto = ListDto::class;
-
-
+    protected $filterForm = FilterForm::class;
 
     protected $tableViewTemplate = 'pages/interim-refund/index';
 
