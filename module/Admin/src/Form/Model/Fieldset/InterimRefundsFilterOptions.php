@@ -1,0 +1,69 @@
+<?php
+
+namespace Admin\Form\Model\Fieldset;
+
+use Zend\Form\Annotation as Form;
+
+/**
+ * @Form\Name("reportOptions")
+ */
+class InterimRefundsFilterOptions
+{
+    /**
+     * @Form\Options({
+     *     "id":"feeStartDate",
+     *     "label": "Start date",
+     *     "short-label": "Start date",
+     *     "create_empty_option": true,
+     *     "render_delimiters": false
+     * })
+     * @Form\Required(true)
+     * @Form\Attributes({"required":false})
+     * @Form\Type("DateSelect")
+     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
+     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
+     */
+    public $startDate = null;
+
+    /**
+     * @Form\Options({
+     *     "id":"feeEndDate",
+     *     "label": "End date",
+     *     "short-label": "End date",
+     *     "create_empty_option": true,
+     *     "render_delimiters": false
+     * })
+     * @Form\Required(true)
+     * @Form\Attributes({"required":false})
+     * @Form\Type("DateSelect")
+     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
+     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator({
+     *      "name": "DateCompare",
+     *      "options": {
+     *          "has_time": false,
+     *          "compare_to":"startDate",
+     *          "operator":"gte",
+     *          "compare_to_label":"Start date"
+     *      }
+     * })
+     */
+    public $endDate = null;
+
+    /**
+     * @Form\Attributes({"id":"trafficAreas","placeholder":"","multiple":"multiple", "class":"chosen-select-large"})
+     * @Form\Options({
+     *     "label": "Traffic Area",
+     *     "disable_inarray_validator": false,
+     *     "service_name": "Common\Service\Data\TrafficArea",
+     *     "use_groups": "false"
+     * })
+     * @Form\Type("DynamicSelect")
+     * @Form\Required(false)
+     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     */
+    public $trafficAreas = null;
+
+}

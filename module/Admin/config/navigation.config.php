@@ -14,7 +14,7 @@ return [
                     'route' => 'admin-dashboard/admin-scanning',
                 ],
                 [
-                    'id'    => 'admin-dashboard/admin-user-management',
+                    'id' => 'admin-dashboard/admin-user-management',
                     'label' => 'User management',
                     'route' => 'admin-dashboard/admin-team-management',
                     'pages' => [
@@ -31,7 +31,7 @@ return [
                     ]
                 ],
                 [
-                    'id'    => 'admin-dashboard/admin-printing',
+                    'id' => 'admin-dashboard/admin-printing',
                     'label' => 'Printing',
                     'route' => 'admin-dashboard/admin-printing',
                     'pages' => [
@@ -67,7 +67,7 @@ return [
                     'route' => 'admin-dashboard/admin-public-holiday',
                 ],
                 [
-                    'id'    => 'admin-dashboard/admin-publication',
+                    'id' => 'admin-dashboard/admin-publication',
                     'label' => 'Publications',
                     'route' => 'admin-dashboard/admin-publication',
                     'pages' => [
@@ -151,7 +151,7 @@ return [
                     ]
                 ],
                 [
-                    'id'    => 'admin-dashboard/admin-payment-processing',
+                    'id' => 'admin-dashboard/admin-payment-processing',
                     'label' => 'Payment processing',
                     'route' => 'admin-dashboard/admin-payment-processing',
                     'pages' => [
@@ -178,7 +178,7 @@ return [
                     ]
                 ],
                 [
-                    'id'    => 'admin-dashboard/admin-your-account',
+                    'id' => 'admin-dashboard/admin-your-account',
                     'label' => 'Your account',
                     'route' => 'admin-dashboard/admin-your-account',
                     'pages' => [
@@ -214,6 +214,13 @@ return [
                             'id' => 'admin-dashboard/admin-interim-refunds',
                             'label' => 'Interim Refunds',
                             'route' => 'admin-dashboard/admin-report/admin-interim-refunds',
+                            'pages' => [
+                                [
+                                    'id' => 'admin-dashboard/admin-interim-refunds',
+                                    'label' => '',
+                                    'route' => 'admin-dashboard/admin-report/admin-interim-refunds',
+                                ]
+                            ]
                         ],
                         [
                             'id' => 'admin-dashboard/admin-report/cpid-class',

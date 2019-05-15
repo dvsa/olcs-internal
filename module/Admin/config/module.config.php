@@ -332,12 +332,24 @@ return [
                                 'options' => [
                                     'route' => 'interim-refunds[/:action][/:id][/]',
                                     'constraints' => [
-                                        'action' => '(index)',
+                                        'action' => '(index|generateReport)',
                                         'id' => '[0-9]+',
                                     ],
                                     'defaults' => [
                                         'controller' => \Admin\Controller\InterimRefundsController::class,
-                                        'action' => 'index'
+                                        'action' => 'generateReport'
+                                    ],
+                                    'child-routes' => [
+                                        'generateReport' => [
+                                            'type' => 'Segment',
+                                            'options' => [
+                                                'route' => '/generateReport',
+                                                'defaults' => [
+                                                    'controller' => Admin\Controller\CpmsReportController::class,
+                                                    'action' => 'generateReport',
+                                                ]
+                                            ]
+                                        ],
                                     ]
                                 ]
                             ],
@@ -611,9 +623,9 @@ return [
                                 'options' => [
                                     'route' => 'stocks/:stockId/scoring[/:action][/:deviation]',
                                     'constraints' => [
-                                        'stockId' =>'[0-9\,]+',
+                                        'stockId' => '[0-9\,]+',
                                         'action' => '(index|accept|runStandard|runWithMeanDeviation|status)',
-                                        'deviation' =>'[0-9\.]+'
+                                        'deviation' => '[0-9\.]+'
                                     ],
                                     'defaults' => [
                                         'controller' => \Admin\Controller\IrhpPermitScoringController::class,
@@ -867,7 +879,7 @@ return [
                 Admin\Controller\IrhpPermitPrintController::class,
             Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadController::class,
             Admin\Controller\EmailTemplateController::class => Admin\Controller\EmailTemplateController::class,
-            \Admin\Controller\InterimRefundsController::class =>\Admin\Controller\InterimRefundsController::class
+            \Admin\Controller\InterimRefundsController::class => \Admin\Controller\InterimRefundsController::class
         ],
     ],
     'view_manager' => [
@@ -885,7 +897,7 @@ return [
         ]
     ],
     'local_forms_path' => [__DIR__ . '/../src/Form/Forms/'],
-    //-------- Start navigation -----------------
+    //-------- Start navigation x§x
     'navigation' => [
         'default' => [
             include __DIR__ . '/navigation.config.php'
