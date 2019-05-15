@@ -20,6 +20,7 @@ use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\AvailableCountries;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitWindow\OpenByCountry;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\ById as ItemDto;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\MaxStockPermits;
+use Dvsa\Olcs\Transfer\Query\IrhpPermitWindow\OpenByType;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence as LicenceDto;
 use Dvsa\Olcs\Transfer\Command\IrhpApplication\CreateFull as CreateDTO;
 use Dvsa\Olcs\Transfer\Command\IrhpApplication\UpdateFull as UpdateDTO;
@@ -37,14 +38,15 @@ class IrhpApplicationController extends AbstractInternalController implements
     LeftViewProvider,
     ToggleAwareInterface
 {
-
     protected $toggleConfig = [
         'default' => [
-            FeatureToggle::BACKEND_ECMT
+            FeatureToggle::BACKEND_PERMITS
         ],
     ];
 
     protected $routeIdentifier = 'irhp-application';
+
+    protected $navigationId = 'licence_irhp_applications-edit';
 
     // Maps the route parameter irhpPermitId to the "id" parameter in the the ById (ItemDTO) query.
     protected $itemParams = ['id' => 'irhpAppId'];
@@ -60,6 +62,11 @@ class IrhpApplicationController extends AbstractInternalController implements
     protected $updateCommand = UpdateDto::class;
 
     protected $addContentTitle = 'Add Irhp Application';
+
+    const PERMIT_TYPE_LABELS = [
+        RefData::IRHP_BILATERAL_PERMIT_TYPE_ID => 'Bilateral',
+        RefData::IRHP_MULTILATERAL_PERMIT_TYPE_ID => 'Multilateral',
+    ];
 
     // After Adding and Editing we want users taken back to index dashboard
     protected $redirectConfig = [
@@ -112,10 +119,12 @@ class IrhpApplicationController extends AbstractInternalController implements
      */
     public function addAction()
     {
+        $this->setFormTitle($this->params()->fromRoute('permitTypeId', null));
         $request = $this->getRequest();
         if ($request->isPost() && array_key_exists('back', (array)$this->params()->fromPost()['form-actions'])) {
             return $this->permitDashRedirect();
         }
+        $this->setNavigationVisible();
 
         return parent::addAction();
     }
@@ -132,12 +141,26 @@ class IrhpApplicationController extends AbstractInternalController implements
         if ($request->isPost() && array_key_exists('back', (array)$this->params()->fromPost()['form-actions'])) {
             return $this->permitDashRedirect();
         }
+        $this->setNavigationVisible();
 
         return parent::editAction();
     }
 
     /**
+     * Sets content tile to identify type of application being submitted
      *
+     * @param $permitTypeId
+     */
+    protected function setFormTitle($permitTypeId)
+    {
+        $type = '';
+        if (array_key_exists($permitTypeId, self::PERMIT_TYPE_LABELS)) {
+            $type = self::PERMIT_TYPE_LABELS[$permitTypeId];
+        }
+        $this->addContentTitle = "Add $type Permit Application";
+    }
+
+    /**
      * Dash redirect helper
      *
      * @return Response
@@ -151,7 +174,6 @@ class IrhpApplicationController extends AbstractInternalController implements
                 ['licence' => $this->params()->fromRoute('licence')]
             );
     }
-
 
     /**
      * Handles click of the Submit button on right-sidebar
@@ -209,7 +231,7 @@ class IrhpApplicationController extends AbstractInternalController implements
     protected function getOutstandingFeeIds(array $fees, array $feeTypes)
     {
         $feeIds = [];
-        foreach ($fees as $key => $fee) {
+        foreach ($fees as $fee) {
             if ($fee['feeStatus']['id'] === RefData::FEE_STATUS_OUTSTANDING
                 && in_array($fee['feeType']['feeType']['id'], $feeTypes)) {
                 $feeIds[] = $fee['id'];
@@ -241,14 +263,16 @@ class IrhpApplicationController extends AbstractInternalController implements
      * @param $form
      * @param $formData
      * @return mixed
+     * @throws NotFoundException
      */
     protected function alterFormForAdd($form, $formData)
     {
         $licence = $this->getLicence();
+        $permitTypeId = $this->params()->fromRoute('permitTypeId', null);
         $formData['topFields']['numVehicles'] = $licence['totAuthVehicles'];
         $formData['topFields']['numVehiclesLabel'] = $licence['totAuthVehicles'];
         $formData['topFields']['dateReceived'] = date("Y-m-d");
-        $formData['topFields']['irhpPermitType'] = $this->params()->fromRoute('permitTypeId', null);
+        $formData['topFields']['irhpPermitType'] = $permitTypeId;
         $formData['topFields']['licence'] = $this->params()->fromRoute('licence', null);
 
         $maxStockPermits = $this->handleQuery(
@@ -259,10 +283,14 @@ class IrhpApplicationController extends AbstractInternalController implements
         }
         $formData['maxStockPermits']['result'] = $maxStockPermits->getResult()['results'];
 
+        $windows = (int)$formData['topFields']['irhpPermitType'] === (int)RefData::IRHP_BILATERAL_PERMIT_TYPE_ID
+            ? $this->getBilateralWindows()['results']
+            : $this->getMultilateralWindows()['results'];
+
         // Prepare data structure with open bilateral windows for NoOfPermits form builder
         $formData['application'] = IrhpApplicationMapper::mapApplicationData(
-            $this->getBilateralWindows()['results'],
-            RefData::IRHP_BILATERAL_PERMIT_TYPE_ID
+            $windows,
+            $permitTypeId
         );
         $formData['application']['licence']['totAuthVehicles'] = $licence['totAuthVehicles'];
 
@@ -275,7 +303,6 @@ class IrhpApplicationController extends AbstractInternalController implements
             'maxStockPermits',
             'feePerPermit'
         );
-
         $form->setData($formData);
 
         return $form;
@@ -288,6 +315,7 @@ class IrhpApplicationController extends AbstractInternalController implements
      * @param $formData
      * @return mixed
      *
+     * @throws NotFoundException
      */
     protected function alterFormForEdit($form, $formData)
     {
@@ -298,15 +326,20 @@ class IrhpApplicationController extends AbstractInternalController implements
         $formData['topFields']['licence'] = $this->params()->fromRoute('licence', null);
 
         // Prepare data structure with open bilateral windows for NoOfPermits form builder
+        $windows = (int)$formData['topFields']['irhpPermitType'] === RefData::IRHP_BILATERAL_PERMIT_TYPE_ID
+            ? $this->getBilateralWindows()['results']
+            : $this->getMultilateralWindows()['results'];
+
         $formData['application'] = IrhpApplicationMapper::mapApplicationData(
-            $this->getBilateralWindows()['results'],
-            RefData::IRHP_BILATERAL_PERMIT_TYPE_ID,
+            $windows,
+            $formData['topFields']['irhpPermitType'],
             $formData
         );
 
         $maxStockPermits = $this->handleQuery(
             MaxStockPermits::create(['licence' => $this->params()->fromRoute('licence', null)])
         );
+
         if (!$maxStockPermits->isOk()) {
             throw new NotFoundException('Could not retrieve max permits data');
         }
@@ -314,6 +347,7 @@ class IrhpApplicationController extends AbstractInternalController implements
 
         // Build the dynamic NoOfPermits per country per year form from Common
         $formData['application']['licence']['totAuthVehicles'] = $licence['totAuthVehicles'];
+
         NoOfPermits::mapForFormOptions(
             $formData,
             $form,
@@ -360,6 +394,27 @@ class IrhpApplicationController extends AbstractInternalController implements
      * @return array|mixed
      * @throws NotFoundException
      */
+    protected function getMultilateralWindows()
+    {
+        $windows = $this->handleQuery(OpenByType::create(
+            [
+                'irhpPermitType' => RefData::IRHP_MULTILATERAL_PERMIT_TYPE_ID,
+                'currentDateTime' => date('Y-m-d H:i:s')
+            ]
+        ));
+
+        if (!$windows->isOk()) {
+            throw new NotFoundException('Could not retrieve open windows');
+        }
+
+
+        return $windows->getResult();
+    }
+
+    /**
+     * @return array|mixed
+     * @throws NotFoundException
+     */
     protected function getLicence()
     {
         $response = $this->handleQuery(LicenceDto::create(['id' => $this->params()->fromRoute('licence', null)]));
@@ -368,5 +423,14 @@ class IrhpApplicationController extends AbstractInternalController implements
         }
 
         return $response->getResult();
+    }
+
+    /**
+     * To avoid duplicate tabs on Licence dashboard the nav for this controller is invisible. Set visible as required.
+     */
+    protected function setNavigationVisible()
+    {
+        $navigation = $this->getServiceLocator()->get('Navigation');
+        $navigation->findOneBy('id', 'licence_irhp_applications')->setVisible(1);
     }
 }

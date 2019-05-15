@@ -6,46 +6,13 @@
             "packagist": false
         },
         {
-            "url": "http://devrepo.shd.ci.nonprod.dvsa.aws",
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS",
             "type": "composer"
         },
         {
-            "type": "vcs",
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-common.git"
-        },
-        {
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-transfer.git",
-            "type": "vcs"
-        },
-        {
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-utils.git",
-            "type": "vcs"
-        },
-        {
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-auth.git",
-            "type": "vcs"
-        },
-        {
-            "type": "vcs",
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-testhelpers.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-logging.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-autoload.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-devtools.git"
-        },
-        {
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-coding-standards.git",
-            "type": "vcs"
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy",
+            "type": "composer"
         }
-
     ],
     "require": {
         "php": ">=7.0",
@@ -53,16 +20,19 @@
         "doctrine/annotations": "^1.2.3",
         "symfony/Filesystem": "~2.6.0",
         "zf-commons/zfc-rbac": "~2.5.0",
-        "olcs/OlcsCommon": "dev-develop",
-        "olcs/olcs-transfer": "dev-develop",
-        "olcs/olcs-utils": "dev-develop",
-        "olcs/olcs-auth": "dev-develop",
+        "symfony/filesystem": "~3.0.0",
+        "zf-commons/zfc-rbac": "~2.5.0",
+        "olcs/olcs-transfer": "~4.206.0",
+        "olcs/olcs-utils": "~4.206.0",
+        "olcs/olcs-auth": "~4.206.0",
         "soflomo/purifier": "~0.1.0",
-        "olcs/olcs-logging": "dev-develop"
+        "olcs/olcs-logging": "~4.206.0",
+        "elendev/nexus-composer-push": "^0.1",
+        "olcs/olcs-common": "~4.206.0"
     },
     "require-dev": {
-        "olcs/olcs-devtools": "dev-master",
-        "olcs/olcs-testhelpers": "dev-develop",
+        "olcs/olcs-devtools": "~4.206.0",
+        "olcs/olcs-testhelpers": "~4.206.0",
         "mockery/mockery": "^1.2",
         "phpstan/phpstan-shim": "^0.10.5",
         "phpstan/phpstan-mockery": "^0.10.2",
@@ -72,10 +42,12 @@
         "classmap": [
             "module/Admin/src",
             "module/Olcs/src",
-            "vendor/olcs/OlcsCommon/Common/src/Common"
+            "vendor/olcs/olcs-common/Common/src/Common",
+            "vendor/olcs/olcs-common/test/Common"
         ],
         "psr-4": {
-            "Common\\": "vendor/olcs/OlcsCommon/Common/src/Common"
+            "Common\\": "vendor/olcs/olcs-common/Common/src/Common",
+            "CommonTest\\": "vendor/olcs/olcs-common/test/Common/"
         }
     },
     "config": {
@@ -91,6 +63,17 @@
         "cs": "phpcs --severity=1 --standard=vendor/olcs/coding-standards/Profiles/DVSA/CS/ruleset.xml",
         "coverage": "phpunit -c test/phpunit.xml --coverage-html ./test/coverage/html",
         "sonar": "phpunit -c test/phpunit.xml --coverage-clover ./test/coverage/coverage-report.clover --log-junit ./test/coverage/log.junit",
-        "update-syms": "composer-update-syms"
+        "update-syms": "composer-update-syms",
+        "release": "release"
+    },
+    "extra": {
+        "nexus-push": {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/olcs-internal",
+            "ignore": [
+                "test/",
+                "config/autoload/local.php",
+                "node_modules/"
+            ]
+        }
     }
 }

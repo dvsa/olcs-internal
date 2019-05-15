@@ -12,6 +12,7 @@ use Olcs\Controller\Bus\Processing\BusProcessingNoteController;
 use Olcs\Controller\Operator\OperatorProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingOverviewController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingNoteController;
+use Olcs\Controller\IrhpPermits\IrhpPermitProcessingReadHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingTasksController;
 use Olcs\Controller\Bus\Details\BusDetailsController;
 use Olcs\Controller\Bus\Service\BusServiceController;
@@ -315,7 +316,18 @@ $routes = [
                                 ],
                             ]
                         ]
-                    ]
+                    ],
+                    'surrender-checks' => [
+                        'may_terminate' => true,
+                        'type' => \Zend\Mvc\Router\Http\Segment::class,
+                        'options' => [
+                            'route' => 'surrender-checks',
+                            'defaults' => [
+                                'controller' => SurrenderController::class,
+                                'action' => 'surrenderChecks'
+                            ],
+                        ],
+                    ],
                 ]
             ],
 
@@ -830,7 +842,7 @@ $routes = [
                     ],
                     'defaults' => [
                         'controller' => 'IrhpPermitFeesController',
-                        'action' => 'fees',
+                        'action' => 'dashRedirect',
                     ]
                 ],
                 'may_terminate' => true,
@@ -838,6 +850,15 @@ $routes = [
                     'fee_action' => $feeActionRoute,
                     'fee_type_ajax' => $feeTypeAjaxRoute,
                     'print-receipt' => $feePrintReceiptRoute,
+                    'table' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'table[/]',
+                            'defaults' => [
+                                'action' => 'fees'
+                            ]
+                        ]
+                    ],
                 ]
             ],
             'irhp-application-fees' => [
@@ -849,7 +870,7 @@ $routes = [
                     ],
                     'defaults' => [
                         'controller' => IrhpApplicationFeesController::class,
-                        'action' => 'fees',
+                        'action' => 'dashRedirect',
                     ]
                 ],
                 'may_terminate' => true,
@@ -857,6 +878,15 @@ $routes = [
                     'fee_action' => $feeActionRoute,
                     'fee_type_ajax' => $feeTypeAjaxRoute,
                     'print-receipt' => $feePrintReceiptRoute,
+                    'table' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'table[/]',
+                            'defaults' => [
+                                'action' => 'fees'
+                            ]
+                        ]
+                    ],
                 ]
             ],
             'permits' => [
@@ -909,7 +939,7 @@ $routes = [
                     'route' => 'permits/:permitid/:permitTypeId/irhp-permits[/:action][/:irhpPermitId][/]',
                     'constraints' => [
                         'permitid' => '[0-9]+',
-                        'action' => 'requestReplacement',
+                        'action' => 'requestReplacement|terminatePermit',
                         'irhpPermitId' => '[0-9]+',
                         'permitTypeId' => '[0-9]+',
                     ],
@@ -1029,6 +1059,16 @@ $routes = [
                                 'action' => 'index'
                             ]
                         ]
+                    ],
+                    'read-history' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'read-history[/]',
+                            'defaults' => [
+                                'controller' => IrhpPermitProcessingReadHistoryController::class,
+                                'action' => 'index',
+                            ]
+                        ],
                     ],
                 ]
             ],

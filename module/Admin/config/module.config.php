@@ -745,6 +745,36 @@ return [
                             ],
                         ],
                     ],
+                    'admin-email-templates' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' =>
+                                'email-templates[/:action][/:id][/]',
+                            'constraints' => [
+                                'action' => '(index|add|edit|delete|previewTemplate)',
+                                'id' => '[0-9\,]+',
+                            ],
+                            'defaults' => [
+                                'controller' => Admin\Controller\TemplateController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                    ],
+                    'admin-document-templates' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' =>
+                                'document-templates[/:action][/:id][/]',
+                            'constraints' => [
+                                'action' => '(index|add|edit|delete)',
+                                'id' => '[0-9\,]+',
+                            ],
+                            'defaults' => [
+                                'controller' => Admin\Controller\TemplateController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                    ],
                 ],
             ]
         ],
@@ -822,6 +852,7 @@ return [
             Admin\Controller\IrhpPermitPrintController::class =>
                 Admin\Controller\IrhpPermitPrintController::class,
             Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadController::class,
+            Admin\Controller\TemplateController::class => Admin\Controller\TemplateController::class,
         ],
     ],
     'view_manager' => [

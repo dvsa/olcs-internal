@@ -31,8 +31,11 @@ return [
             'formatter' => 'DateTime',
         ],
         [
-            'title' => 'Not valid for travel to',
-            'formatter' => 'ConstrainedCountriesList',
+            'title' => 'Country',
+            'name' => 'country',
+            'formatter' => function ($row) {
+                return Escape::html($row['irhpPermitRange']['irhpPermitStock']['country']['countryDesc']);
+            },
         ],
         [
             'title' => 'Ceased Date',

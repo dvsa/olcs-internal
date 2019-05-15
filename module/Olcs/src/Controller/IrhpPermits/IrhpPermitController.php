@@ -9,10 +9,11 @@
 namespace Olcs\Controller\IrhpPermits;
 
 use Common\RefData;
-use Dvsa\Olcs\Transfer\Query\IrhpPermit\GetListByEcmtId as ListDTO;
+use Dvsa\Olcs\Transfer\Query\IrhpPermit\GetListByEcmtId as EcmtListDTO;
 use Dvsa\Olcs\Transfer\Query\IrhpPermit\GetListByIrhpId as IrhpListDTO;
 use Dvsa\Olcs\Transfer\Query\IrhpPermit\ById as ItemDTO;
 use Dvsa\Olcs\Transfer\Command\IrhpPermit\Replace as ReplaceDTO;
+use Dvsa\Olcs\Transfer\Command\IrhpPermit\Terminate as TerminateDTO;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\IrhpPermitApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -31,8 +32,8 @@ class IrhpPermitController extends AbstractInternalController implements
     protected $defaultTableSortField = 'permitNumber';
     protected $defaultTableOrderField = 'DESC';
 
-    protected $listVars = ['ecmtPermitApplication' => 'permitid'];
-    protected $listDto = ListDto::class;
+    protected $listVars = ['irhpApplication' => 'permitid'];
+    protected $listDto = IrhpListDTO::class;
     protected $itemDto = ItemDto::class;
 
     protected $hasMultiDelete = false;
@@ -78,10 +79,19 @@ class IrhpPermitController extends AbstractInternalController implements
         if ($request->isPost()) {
             $postParams = $this->params()->fromPost();
             if (isset($postParams['action'])) {
+                switch ($postParams['action']) {
+                    case 'Terminate':
+                        $action = 'terminatePermit';
+                        break;
+                    case 'Request Replacement':
+                        $action = 'requestReplacement';
+                        break;
+                }
+
                 return $this->redirect()->toRoute(
                     'licence/irhp-permits',
                     [
-                        'action' => 'requestReplacement',
+                        'action'       => $action,
                         'irhpPermitId' => $postParams['id']
                     ],
                     ['query' => ['irhpPermitId' => $postParams['id']]],
@@ -90,15 +100,19 @@ class IrhpPermitController extends AbstractInternalController implements
             }
         }
 
+        $DTOApplicationKey = 'irhpApplication';
+
         // Get Permit Type from route, switch relevant class variables for ecmt/irhp DTOs
         $permitTypeId = intval($this->params()->fromRoute('permitTypeId'));
-        if ($permitTypeId !== RefData::ECMT_PERMIT_TYPE_ID) {
-            $this->listDto = IrhpListDTO::class;
-            $this->listVars = ['irhpApplication' => 'permitid'];
-            $this->tableName = 'irhp-bilateral-permits';
+        $isEcmt = $permitTypeId === RefData::ECMT_PERMIT_TYPE_ID;
+
+        if ($isEcmt) {
+            $this->listDto = EcmtListDTO::class;
+            $this->listVars = ['ecmtPermitApplication' => 'permitid'];
+            $this->tableName = 'irhp-permits-ecmt';
+            $DTOApplicationKey = 'ecmtPermitApplication';
         }
 
-        $DTOApplicationKey = $permitTypeId === RefData::ECMT_PERMIT_TYPE_ID ? 'ecmtPermitApplication' : 'irhpApplication';
         $response = $this->handleQuery($this->listDto::create([
             'page' => 1,
             'sort' => 'id',
@@ -107,14 +121,44 @@ class IrhpPermitController extends AbstractInternalController implements
             $DTOApplicationKey => $this->params()->fromRoute('permitid'),
         ]));
 
-        if ($response->getResult()['count'] === 0) {
+        if ($isEcmt && $response->getResult()['count'] === 0) {
             $this->listDto = CandidateListDTO::class;
-            $this->tableName = 'candidate-permits';
+            $this->tableName = 'irhp-permits-ecmt-candidate';
             $this->defaultTableSortField = 'id';
             $this->defaultTableOrderField = 'ASC';
             $this->listVars = ['ecmtPermitApplication' => 'permitid'];
         }
+
         return parent::indexAction();
+    }
+
+    /**
+     * Alter table
+     *
+     * @param \Common\Service\Table\TableBuilder $table table
+     * @param array                              $data  data
+     *
+     * @return \Common\Service\Table\TableBuilder
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    protected function alterTable($table, $data)
+    {
+        // Get Permit Type from route, switch columns if required
+        $permitTypeId = intval($this->params()->fromRoute('permitTypeId'));
+
+        switch ($permitTypeId) {
+            case RefData::ECMT_PERMIT_TYPE_ID:
+                // do nothing, ECMT has its own table definition
+                break;
+            case RefData::IRHP_BILATERAL_PERMIT_TYPE_ID:
+                // do nothing, Bilateral should display all columns
+                break;
+            default:
+                $table->removeColumn('country');
+                break;
+        }
+
+        return $table;
     }
 
     /**
@@ -130,7 +174,8 @@ class IrhpPermitController extends AbstractInternalController implements
                     [
                         'action' => 'index',
                         'licence' => $this->params()->fromRoute('licence'),
-                        'permitid' => $this->params()->fromRoute('permitid')
+                        'permitid' => $this->params()->fromRoute('permitid'),
+                        'permitTypeId' => $this->params()->fromRoute('permitTypeId')
                     ]
                 );
             }
@@ -141,13 +186,19 @@ class IrhpPermitController extends AbstractInternalController implements
 
         $data = IrhpPermitMapper::mapFromResult($irhpPermit->getResult());
         $form = $this->getForm('ReplacePermit');
+
         if (isset($data['restrictedCountries'])) {
             $form->get('restrictedCountries')->setAttribute('value', $data['restrictedCountries']);
+            $form->remove('country');
+        } elseif (isset($data['irhpPermitRange']['irhpPermitStock']['country'])) {
+            $form->get('country')->setAttribute('value', $data['country']);
+            $form->remove('restrictedCountries');
         }
+        
         $form->setData($data);
 
         $view = new ViewModel();
-        $view->setTemplate('sections/irhp-permit/pages/replacement');
+        $view->setTemplate('sections/irhp-permit/pages/application-permits-modal');
         $view->setVariable('form', $form);
 
         return $view;
@@ -179,5 +230,66 @@ class IrhpPermitController extends AbstractInternalController implements
             }
             return true;
         }
+    }
+
+    /**
+     * @return \Zend\Http\Response|ViewModel
+     */
+    public function terminatePermitAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            // If post handle suceeds, redirect to index, else re-render in modal to show errors.
+            if ($this->handleTerminationPost()) {
+                return $this->redirect()->toRouteAjax(
+                    'licence/irhp-permits',
+                    [
+                        'action' => 'index',
+                        'licence' => $this->params()->fromRoute('licence'),
+                        'permitid' => $this->params()->fromRoute('permitid')
+                    ]
+                );
+            }
+        }
+
+        $permitId = $this->params()->fromQuery('irhpPermitId');
+        $irhpPermit = $this->handleQuery(ItemDTO::create(['id' => $permitId]));
+
+        $data = $irhpPermit->getResult();
+        $form = $this->getForm('TerminatePermit');
+
+        $form->setData($data);
+
+        $view = new ViewModel();
+        $view->setTemplate('sections/irhp-permit/pages/application-permits-modal');
+        $view->setVariable('form', $form);
+
+        return $view;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function handleTerminationPost()
+    {
+        $postParams = $this->params()->fromPost();
+
+        $response = $this->handleCommand(
+            TerminateDTO::create(
+                [
+                    'id' => $postParams['id']
+                ]
+            )
+        );
+        $result = $response->getResult();
+
+        if (!$response->isOk()) {
+            foreach ($result['messages'] as $message) {
+                $this->flashMessenger()->addErrorMessage($message);
+            }
+            return false;
+        }
+
+        $this->flashMessenger()->addSuccessMessage($result['messages'][0]);
+        return true;
     }
 }
