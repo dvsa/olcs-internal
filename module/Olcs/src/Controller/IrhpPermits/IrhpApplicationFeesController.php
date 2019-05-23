@@ -64,7 +64,6 @@ class IrhpApplicationFeesController extends AbstractIrhpPermitController
     protected function getFeesTableParams()
     {
         return [
-            'licence' => $this->getFromRoute('licence'),
             'irhpApplication' => $this->getFromRoute('irhpAppId'),
             'status' => 'current',
         ];
