@@ -1,6 +1,6 @@
 OLCS.ready(function() {
 
-  var template = 'Please copy the following link into Internet Explorer to open the file:<br /><strong style="word-wrap: break-word;" class="word-wrap">%s</strong>';
+  var template = 'Please copy the following link into Internet Explorer to open the file:<br /><strong style="word-wrap: break-word;" class="word-wrap"><a href="%s">%s</a></strong>';
 
   OLCS.eventEmitter.on('render', function() {
 
