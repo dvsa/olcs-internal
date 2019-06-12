@@ -10,7 +10,11 @@ OLCS.ready(function() {
 
         var fileUrl = $(this).data('file-url');
 
-        $(this).parent().append('<div class="guidance">' + template.replace('%s', fileUrl) + template.replace('%l', fileUrl) + '</div>');
+        var link = template.replace('%s', fileUrl);
+
+        link = template.replace('%l', fileUrl);
+
+        $(this).parent().append('<div class="guidance">' + link  + '</div>');
 
         $(this).replaceWith('<span>' + $(this).html() + '</span>');
       }
