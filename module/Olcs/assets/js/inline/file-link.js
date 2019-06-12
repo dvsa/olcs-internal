@@ -1,6 +1,6 @@
 OLCS.ready(function() {
 
-  var template = 'Please click or copy the following link into Internet Explorer to open the file:<br /><strong style="word-wrap: break-word;" class="word-wrap"><a href="%s">%s</a></strong>';
+  var template = 'Please click or copy the following link into Internet Explorer to open the file:<br /><strong style="word-wrap: break-word;" class="word-wrap"><a href="%s">%l</a></strong>';
 
   OLCS.eventEmitter.on('render', function() {
 
@@ -10,7 +10,7 @@ OLCS.ready(function() {
 
         var fileUrl = $(this).data('file-url');
 
-        $(this).parent().append('<div class="guidance">' + template.replace('%s', fileUrl) + '</div>');
+        $(this).parent().append('<div class="guidance">' + template.replace('%s', fileUrl) + template.replace('%l', fileUrl) + '</div>');
 
         $(this).replaceWith('<span>' + $(this).html() + '</span>');
       }
