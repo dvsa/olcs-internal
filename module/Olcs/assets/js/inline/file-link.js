@@ -12,7 +12,7 @@ OLCS.ready(function() {
 
         var link = template.replace('%s', fileUrl);
 
-        link = template.replace('%l', link);
+        link = link.replace('%l', fileUrl);
 
         $(this).parent().append('<div class="guidance">' + link  + '</div>');
 
