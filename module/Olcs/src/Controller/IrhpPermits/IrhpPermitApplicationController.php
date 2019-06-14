@@ -18,10 +18,9 @@ use Dvsa\Olcs\Transfer\Command\Permits\WithdrawEcmtPermitApplication;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\GetAllByLicence as ListDTO;
 use Dvsa\Olcs\Transfer\Query\Permits\ById as ItemDto;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence as LicenceDto;
-use Dvsa\Olcs\Transfer\Query\Permits\OpenWindows;
 use Dvsa\Olcs\Transfer\Query\Permits\Sectors as SectorsDto;
-use Dvsa\Olcs\Transfer\Command\Permits\CreateFullPermitApplication as CreateDTO;
-use Dvsa\Olcs\Transfer\Command\Permits\UpdateEcmtPermitApplication as UpdateDTO;
+use Dvsa\Olcs\Transfer\Command\Permits\CreateFullPermitApplication as CreateDto;
+use Dvsa\Olcs\Transfer\Command\Permits\UpdateEcmtPermitApplication as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\Permits\DeclineEcmtPermits as DeclineDTO;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Olcs\Mvc\Controller\ParameterProvider\ConfirmItem;
@@ -362,21 +361,8 @@ class IrhpPermitApplicationController extends AbstractInternalController impleme
      */
     protected function getCurrentEmissionsCategoryLabel()
     {
-        $response = $this->handleQuery(
-            OpenWindows::create(
-                [
-                    'currentDateTime' => date('Y-m-d H:i:s'),
-                    'permitType' => RefData::ECMT_PERMIT_TYPE_ID
-                ]
-            )
-        );
-        $windowData = $response->getResult();
-
-        if (empty($windowData['windows'])) {
-            throw new NotFoundException('No open ECMT Annual window found.');
-        }
-
-        return $windowData['windows'][0]['emissionsCategory']['description'];
+        // TODO - window doesn't have emission category anymore
+        return 'No Emissions Category Found';
     }
 
     /**
@@ -387,11 +373,8 @@ class IrhpPermitApplicationController extends AbstractInternalController impleme
      */
     protected function getExistingEmissionsCategoryLabel(array $ecmtPermitApplication)
     {
-        if (isset($ecmtPermitApplication['irhpPermitApplications'][0]['irhpPermitWindow']['emissionsCategory']['description'])) {
-            return $ecmtPermitApplication['irhpPermitApplications'][0]['irhpPermitWindow']['emissionsCategory']['description'];
-        } else {
-            return 'No Emissions Category Found';
-        }
+        // TODO - window doesn't have emission category anymore
+        return 'No Emissions Category Found';
     }
 
     /**
