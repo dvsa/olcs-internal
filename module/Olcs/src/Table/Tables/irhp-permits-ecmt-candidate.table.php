@@ -1,7 +1,5 @@
 <?php
 
-use Common\Util\Escape;
-
 return [
     'variables' => [
         'title' => 'Permits',
@@ -24,6 +22,12 @@ return [
             },
         ],
         [
+            'title' => 'Minimum emission standard',
+            'name' => 'emissionsCategory',
+            'stack' => 'irhpPermitRange->emissionsCategory->description',
+            'formatter' => 'StackValue',
+        ],
+        [
             'title' => 'Issued date',
         ],
         [
@@ -42,7 +46,7 @@ return [
         ],
         [
             'title' => 'Status',
-            'name' => 'version',
+            'name' => 'status',
             'formatter' => function () {
                 return 'Pending';
             },

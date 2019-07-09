@@ -1,7 +1,5 @@
 <?php
 
-use Common\Util\Escape;
-
 return [
     'variables' => [
         'title' => 'Permits',
@@ -25,6 +23,12 @@ return [
         [
             'title' => 'Permit No.',
             'name' => 'permitNumber',
+        ],
+        [
+            'title' => 'Minimum emission standard',
+            'name' => 'emissionsCategory',
+            'stack' => 'irhpPermitRange->emissionsCategory->description',
+            'formatter' => 'StackValue',
         ],
         [
             'title' => 'Issued date',
