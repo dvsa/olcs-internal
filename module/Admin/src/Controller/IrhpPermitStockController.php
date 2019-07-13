@@ -128,6 +128,17 @@ class IrhpPermitStockController extends AbstractInternalController implements Le
      */
     protected function alterFormForEdit($form, $formData)
     {
+        $response = $this->handleQuery(
+            \Dvsa\Olcs\Transfer\Query\IrhpApplication\ApplicationPath::create(
+                ['id' => 100002]
+            )
+        );
+
+        $applicationSteps = $response->getResult();
+
+        $fieldsetPopulator = $this->getServiceLocator()->get('QaFieldsetPopulator');
+        $fieldsetPopulator->populate($form, $applicationSteps);
+
         return $this->retrieveEeaCountries($form);
     }
 
