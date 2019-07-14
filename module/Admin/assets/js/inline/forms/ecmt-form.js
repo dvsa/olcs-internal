@@ -77,9 +77,13 @@ OLCS.ready(function () {
 
     // decorates element with VOL Error stylying and scrolls to the element.
     function wrapError(element, message, clickEvent) {
-        element.closest($("div.field"))
-            .wrap("<div class='validation-wrapper'></div>")
-            .prepend("<p class='error__text'>" + message + "</p>");
+        // dont wrap error dive more than once.
+        if(!element.closest($("div.field")).hasClass("hasErrors")){
+            element.closest($("div.field"))
+                .addClass("hasErrors")
+                .wrap("<div class='validation-wrapper'></div>")
+                .prepend("<p class='error__text'>" + message + "</p>");
+        }
 
         $([document.documentElement, document.body]).animate({
             scrollTop: element.offset().top - 100
