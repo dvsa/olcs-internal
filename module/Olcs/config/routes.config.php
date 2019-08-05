@@ -922,6 +922,15 @@ $routes = [
                             ]
                         ]
                     ],
+                    'availableYears' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'available-years[/]',
+                            'defaults' => [
+                                'action' => 'availableYears'
+                            ]
+                        ]
+                    ],
                     'application' => [
                         'type' => 'segment',
                         'options' => [
@@ -1123,7 +1132,7 @@ $routes = [
                         'options' => [
                             'route' => ':action/:irhpAppId[/]',
                             'constraints' => [
-                                'action' => 'edit|submit|accept|decline|cancel|withdraw',
+                                'action' => 'edit|submit|accept|decline|cancel|withdraw|grant',
                                 'irhpAppId' => '[0-9]+',
                             ],
                             'defaults' => [
