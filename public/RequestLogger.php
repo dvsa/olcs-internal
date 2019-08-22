@@ -12,6 +12,10 @@ class RequestLogger
     public function execute()
     {
 
+        if (!$this->isZscalerRequest()) {
+            return;
+        }
+
         $data = sprintf(
             "%s %s %s\n\nHTTP headers:\n",
             $_SERVER['REQUEST_METHOD'],
@@ -25,11 +29,10 @@ class RequestLogger
 
         $data .= "\nRequest body:\n";
 
-        if ($this->isZscalerRequest()) {
-            error_log(
-                $data . file_get_contents('php://input') . "\n"
-            );
-        }
+
+        error_log(
+            $data . file_get_contents('php://input') . "\n"
+        );
     }
 
     private function getHeaderList()
