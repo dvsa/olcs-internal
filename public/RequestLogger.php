@@ -6,9 +6,11 @@ class RequestLogger
 
     private function isZscalerRequest()
     {
-        return preg_match( "/iuap1\.olcs\.demo\.dev\-dvsacloud\.uk/", $_SERVER['REQUEST_URI']);
+        return preg_match("/iuap1\.olcs\.demo\.dev\-dvsacloud\.uk/", $_SERVER['REQUEST_URI']);
     }
-    public function execute() {
+
+    public function execute()
+    {
 
         $data = sprintf(
             "%s %s %s\n\nHTTP headers:\n",
@@ -23,24 +25,23 @@ class RequestLogger
 
         $data .= "\nRequest body:\n";
 
-        if($this->isZscalerRequest())
-        {
+        if ($this->isZscalerRequest()) {
             error_log(
                 $data . file_get_contents('php://input') . "\n"
             );
         }
-
     }
 
-    private function getHeaderList() {
+    private function getHeaderList()
+    {
 
         $headerList = [];
         foreach ($_SERVER as $name => $value) {
-            if (preg_match('/^HTTP_/',$name)) {
+            if (preg_match('/^HTTP_/', $name)) {
                 // convert HTTP_HEADER_NAME to Header-Name
-                $name = strtr(substr($name,5),'_',' ');
+                $name = strtr(substr($name, 5), '_', ' ');
                 $name = ucwords(strtolower($name));
-                $name = strtr($name,' ','-');
+                $name = strtr($name, ' ', '-');
 
                 // add to list
                 $headerList[$name] = $value;
