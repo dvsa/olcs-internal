@@ -19,6 +19,9 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
 // Setup autoloading
 require 'init_autoloader.php';
 
+include_once 'RequestLogger.php';
+$loggedRequest = (new RequestLogger()->execute());
+
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 
