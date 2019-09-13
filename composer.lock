@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a90da515e2b2bfd8c662e431cc7e7fa9",
+    "content-hash": "421b5e830dbcc98e6699ff69c8edd4e5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1257,12 +1257,12 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.42",
+            "version": "4.206.61",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.42/olcs-olcs-common-4.206.42.zip",
-                "reference": "1176f5c5a9b2ac2b253bfbc10bd936103577ce02",
-                "shasum": "1176f5c5a9b2ac2b253bfbc10bd936103577ce02"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.61/olcs-olcs-common-4.206.61.zip",
+                "reference": "77ceb907c5ff6d8311f0b22c49f36744381b94d5",
+                "shasum": "77ceb907c5ff6d8311f0b22c49f36744381b94d5"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
@@ -1328,7 +1328,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2019-07-30T14:35:58+00:00"
+            "time": "2019-09-11T15:00:50+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -1401,12 +1401,12 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "4.206.27",
+            "version": "4.206.35",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.27/olcs-olcs-transfer-4.206.27.zip",
-                "reference": "8bf98bba175c178c4d67538813f515d98c8b48f1",
-                "shasum": "8bf98bba175c178c4d67538813f515d98c8b48f1"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.35/olcs-olcs-transfer-4.206.35.zip",
+                "reference": "6c510e53773e98317f4e2662bf67a43e3672f063",
+                "shasum": "6c510e53773e98317f4e2662bf67a43e3672f063"
             },
             "require": {
                 "elendev/nexus-composer-push": "^0.1",
@@ -1462,7 +1462,7 @@
                 ]
             },
             "description": "OLCS Transfer",
-            "time": "2019-08-02T13:09:44+00:00"
+            "time": "2019-09-10T10:58:48+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -2611,18 +2611,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -2797,20 +2797,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
@@ -3006,8 +3006,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -3051,8 +3051,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -3087,8 +3087,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Simple template engine.",
@@ -3130,8 +3130,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Utility class for timing",
@@ -3222,8 +3222,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "CLI frontend for php-code-coverage",
@@ -3295,8 +3295,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -3631,8 +3631,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
@@ -3876,8 +3876,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -4165,8 +4165,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
