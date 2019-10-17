@@ -57,6 +57,10 @@ class MyDetails implements MapperInterface
             $formData['userSettings']['translateToWelsh'] = $data['translateToWelsh'];
         }
 
+        if (!empty($data['osType'])) {
+            $formData['userSettings']['osType'] = $data['osType'];
+        }
+
         return $formData;
     }
 
@@ -86,6 +90,8 @@ class MyDetails implements MapperInterface
         }
 
         $commandData['translateToWelsh'] = $data['userSettings']['translateToWelsh'];
+
+        $commandData['osType'] = $data['userSettings']['osType'];
 
         return $commandData;
     }
