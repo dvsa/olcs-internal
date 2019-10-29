@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a90da515e2b2bfd8c662e431cc7e7fa9",
+    "content-hash": "421b5e830dbcc98e6699ff69c8edd4e5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1257,12 +1257,12 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.42",
+            "version": "4.206.92",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.42/olcs-olcs-common-4.206.42.zip",
-                "reference": "1176f5c5a9b2ac2b253bfbc10bd936103577ce02",
-                "shasum": "1176f5c5a9b2ac2b253bfbc10bd936103577ce02"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.92/olcs-olcs-common-4.206.92.zip",
+                "reference": "4eacc769133dfd2274c4526772c82aaead969167",
+                "shasum": "4eacc769133dfd2274c4526772c82aaead969167"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
@@ -1328,7 +1328,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2019-07-30T14:35:58+00:00"
+            "time": "2019-10-29T10:54:32+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -1401,15 +1401,15 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "4.206.27",
+            "version": "4.206.44",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.27/olcs-olcs-transfer-4.206.27.zip",
-                "reference": "8bf98bba175c178c4d67538813f515d98c8b48f1",
-                "shasum": "8bf98bba175c178c4d67538813f515d98c8b48f1"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.44/olcs-olcs-transfer-4.206.44.zip",
+                "reference": "5d1bfc18ad42d67ef0e964f5b2104e9db55e9b99",
+                "shasum": "5d1bfc18ad42d67ef0e964f5b2104e9db55e9b99"
             },
             "require": {
-                "elendev/nexus-composer-push": "^0.1",
+                "elendev/nexus-composer-push": "^0.1.0",
                 "php": ">=5.4",
                 "soflomo/purifier": "~0.1.0",
                 "zendframework/zendframework": "~2.4.0"
@@ -1462,7 +1462,7 @@
                 ]
             },
             "description": "OLCS Transfer",
-            "time": "2019-08-02T13:09:44+00:00"
+            "time": "2019-10-25T14:56:22+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -2469,12 +2469,12 @@
         },
         {
             "name": "olcs/olcs-testhelpers",
-            "version": "4.206.0",
+            "version": "4.206.2",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-testhelpers/4.206.0/olcs-olcs-testhelpers-4.206.0.zip",
-                "reference": "83b19c0da79239b029345238f6c35522579123ca",
-                "shasum": "83b19c0da79239b029345238f6c35522579123ca"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-testhelpers/4.206.2/olcs-olcs-testhelpers-4.206.2.zip",
+                "reference": "947cf83a23bb67595c62b0b17b5029a36849c434",
+                "shasum": "947cf83a23bb67595c62b0b17b5029a36849c434"
             },
             "require": {
                 "elendev/nexus-composer-push": "^0.1",
@@ -2502,7 +2502,7 @@
                 ]
             },
             "description": "OLCS Test helpers",
-            "time": "2019-05-01T13:31:23+00:00"
+            "time": "2019-10-28T10:43:14+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -2611,18 +2611,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "Developer",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "role": "Developer",
-                    "email": "sebastian@phpeople.de"
+                    "email": "sebastian@phpeople.de",
+                    "role": "Developer"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "Developer",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "Developer"
                 }
             ],
             "description": "Library for handling version information and constraints",
@@ -2797,20 +2797,20 @@
             "authors": [
                 {
                     "name": "Manuel Pichler",
-                    "role": "Project Founder",
                     "email": "github@manuel-pichler.de",
-                    "homepage": "https://github.com/manuelpichler"
+                    "homepage": "https://github.com/manuelpichler",
+                    "role": "Project Founder"
                 },
                 {
                     "name": "Marc Würth",
-                    "role": "Project Maintainer",
                     "email": "ravage@bluewin.ch",
-                    "homepage": "https://github.com/ravage84"
+                    "homepage": "https://github.com/ravage84",
+                    "role": "Project Maintainer"
                 },
                 {
                     "name": "Other contributors",
-                    "role": "Contributors",
-                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors"
+                    "homepage": "https://github.com/phpmd/phpmd/graphs/contributors",
+                    "role": "Contributors"
                 }
             ],
             "description": "PHPMD is a spin-off project of PHP Depend and aims to be a PHP equivalent of the well known Java tool PMD.",
@@ -3006,8 +3006,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -3051,8 +3051,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
@@ -3087,8 +3087,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Simple template engine.",
@@ -3130,8 +3130,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Utility class for timing",
@@ -3222,8 +3222,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "CLI frontend for php-code-coverage",
@@ -3295,8 +3295,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -3631,8 +3631,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
@@ -3876,8 +3876,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
@@ -4130,8 +4130,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "role": "lead",
-                    "email": "arne@blankerts.de"
+                    "email": "arne@blankerts.de",
+                    "role": "lead"
                 }
             ],
             "description": "The classes contained within this repository extend the standard DOM to use exceptions at all occasions of errors instead of PHP warnings or notices. They also add various custom methods and shortcuts for convenience and to simplify the usage of DOM.",
