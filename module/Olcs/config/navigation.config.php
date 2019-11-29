@@ -650,6 +650,32 @@ $nav = [
                                     ],
                                     'use_route_match' => true,
                                 ],
+                                [
+                                    'id' => 'irhp_permits-candidate',
+                                    'label' => 'Permits',
+                                    'route' => 'licence/permits/irhp-candidate-permits',
+                                    'visible' => 1,
+                                    'use_route_match' => true,
+                                    'pages' => [
+                                        [
+                                            'id' => 'irhp_permits-permits',
+                                            'label' => 'Permits',
+                                            'route' => 'licence/irhp-permits',
+                                            'params' => [
+                                                'action' => 'index',
+                                            ],
+                                            'use_route_match' => true,
+                                        ],
+                                        [
+                                            'id' => 'irhp_permits-candidate',
+                                            'label' => 'Permits',
+                                            'route' => 'licence/permits/irhp-candidate-permits',
+                                            'visible' => 1,
+                                            'use_route_match' => true,
+                                        ],
+                                    ]
+                                ],
+
                             ]
                         ],
                         [
@@ -746,6 +772,24 @@ $nav = [
                             'label' => 'Docs & attachments',
                             'route' => 'licence/documents',
                             'use_route_match' => true
+                        ],
+                        [
+                            'id' => 'irhp_application_view_edit',
+                            'label' => 'IRHP Permits',
+                            'route' => 'licence/irhp-candidate-permits',
+                            'use_route_match' => true,
+                            'pages' => [
+                                [
+                                    'id' => 'irhp-candidate-permits',
+                                    'label' => 'Permits',
+                                    'route' => 'licence/irhp-application/application',
+                                    'use_route_match' => true,
+                                    'params' => [
+                                        'action' => 'preGrant',
+                                        'id' => null
+                                    ],
+                                ],
+                            ]
                         ],
                         [
                             'id' => 'licence_processing',

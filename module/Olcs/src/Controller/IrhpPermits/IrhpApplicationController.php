@@ -126,7 +126,7 @@ class IrhpApplicationController extends AbstractInternalController implements
     {
         $view = new ViewModel(
             [
-                'navigationId' => 'irhp_permits',
+                'navigationId' => 'irhp_application_view_edit',
                 'navigationTitle' => 'Application details'
             ]
         );
@@ -626,7 +626,7 @@ class IrhpApplicationController extends AbstractInternalController implements
     {
         return $this->redirect()
             ->toRoute(
-                'licence/irhp-application/irhp-candidate-permits',
+                'licence/irhp-candidate-permits',
                 [
                     'licence' => $this->params()->fromRoute('licence'),
                     'action' => 'index',

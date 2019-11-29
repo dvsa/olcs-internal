@@ -28,6 +28,9 @@ class IrhpCandidatePermitController extends AbstractInternalController implement
     IrhpApplicationControllerInterface,
     LeftViewProvider
 {
+
+    protected $navigationId = 'irhp_permits-candidate';
+
     protected $itemParams = ['id'];
     protected $deleteParams = ['id'];
     protected $tableName = 'irhp-permits-pre-grant';
@@ -71,8 +74,8 @@ class IrhpCandidatePermitController extends AbstractInternalController implement
     {
         $view = new ViewModel(
             [
-                'navigationId' => 'irhp_permits',
-                'navigationTitle' => 'Application details'
+                'navigationId' => 'irhp_application_view_edit',
+                'navigationTitle' => 'Permits'
             ]
         );
 
@@ -89,6 +92,9 @@ class IrhpCandidatePermitController extends AbstractInternalController implement
      */
     public function indexAction()
     {
+        $navigation = $this->getServiceLocator()->get('Navigation');
+        $navigation->findOneBy('id', 'irhp_permits')->setVisible(1);
+
         $this->placeholder()->setPlaceholder('applicationData', IrhpCandidatePermitMapper::mapApplicationData($this->getIrhpApplication()));
         return parent::indexAction();
     }

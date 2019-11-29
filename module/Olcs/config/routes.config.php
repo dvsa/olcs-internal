@@ -1150,7 +1150,7 @@ $routes = [
                             ]
                         ]
                     ],
-                    'irhp-candidate-permits' => [
+                    /*'irhp-candidate-permits' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => 'candidate-permits/:irhpAppId/:permitTypeId[/:action][/:id][/]',
@@ -1167,9 +1167,27 @@ $routes = [
                             ]
                         ],
                         'may_terminate' => true,
-                    ]
+                    ]*/
                 ],
 
+            ],
+            'irhp-candidate-permits' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => 'candidate-permits/:irhpAppId/:permitTypeId[/:action][/:id][/]',
+                    'constraints' => [
+                        'irhpAppId' => '[0-9]+',
+                        'action' => 'index|add|edit|delete|ranges',
+                        'id' => '[0-9]+',
+                        'permitTypeId' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => 'IrhpCandidatePermitController',
+                        'action' => 'index',
+                        'permitTypeId' => RefData::ECMT_SHORT_TERM_PERMIT_TYPE_ID,
+                    ]
+                ],
+                'may_terminate' => true,
             ],
             'irhp-application-docs' => [
                 'type' => 'segment',
