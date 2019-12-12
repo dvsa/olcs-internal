@@ -1033,11 +1033,11 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.4.1",
+            "version": "6.5.0",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/guzzlehttp/guzzle/6.4.1/guzzlehttp-guzzle-6.4.1.zip",
-                "reference": "0895c932405407fd3a7368b6910c09a24d26db11",
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/guzzlehttp/guzzle/6.5.0/guzzlehttp-guzzle-6.5.0.zip",
+                "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
                 "shasum": ""
             },
             "require": {
@@ -1052,12 +1052,13 @@
                 "psr/log": "^1.1"
             },
             "suggest": {
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.3-dev"
+                    "dev-master": "6.5-dev"
                 }
             },
             "autoload": {
@@ -1089,7 +1090,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2019-10-23T15:58:00+00:00"
+            "time": "2019-12-07T18:20:45+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1268,12 +1269,12 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.105",
+            "version": "4.206.111",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.105/olcs-olcs-common-4.206.105.zip",
-                "reference": "0cfbf97d54b76fb3f7e05127771dbce452a171c0",
-                "shasum": "0cfbf97d54b76fb3f7e05127771dbce452a171c0"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.111/olcs-olcs-common-4.206.111.zip",
+                "reference": "024110922042e6f52bfb3c8719abdcea5a3992db",
+                "shasum": "024110922042e6f52bfb3c8719abdcea5a3992db"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
@@ -1339,7 +1340,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2019-12-04T21:46:24+00:00"
+            "time": "2019-12-09T10:41:05+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -1412,12 +1413,12 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "4.206.48",
+            "version": "4.206.49",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.48/olcs-olcs-transfer-4.206.48.zip",
-                "reference": "297bd91905ffb82303e8af270b2eb93fb81fc8f5",
-                "shasum": "297bd91905ffb82303e8af270b2eb93fb81fc8f5"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.49/olcs-olcs-transfer-4.206.49.zip",
+                "reference": "e5c6245646ec42a4b23dc0a127afc692b996bd5c",
+                "shasum": "e5c6245646ec42a4b23dc0a127afc692b996bd5c"
             },
             "require": {
                 "elendev/nexus-composer-push": "^0.1",
@@ -1473,7 +1474,7 @@
                 ]
             },
             "description": "OLCS Transfer",
-            "time": "2019-11-26T12:09:12+00:00"
+            "time": "2019-12-05T16:48:44+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -2969,6 +2970,7 @@
                 "MIT"
             ],
             "description": "PHPStan Phar distribution",
+            "abandoned": "phpstan/phpstan",
             "time": "2019-01-08T10:03:03+00:00"
         },
         {
@@ -3241,11 +3243,11 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.17",
+            "version": "7.5.18",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/phpunit/phpunit/7.5.17/phpunit-phpunit-7.5.17.zip",
-                "reference": "4c92a15296e58191a4cd74cff3b34fc8e374174a",
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/phpunit/phpunit/7.5.18/phpunit-phpunit-7.5.18.zip",
+                "reference": "fcf6c4bfafaadc07785528b06385cce88935474d",
                 "shasum": ""
             },
             "require": {
@@ -3315,7 +3317,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-10-28T10:37:36+00:00"
+            "time": "2019-12-06T05:14:37+00:00"
         },
         {
             "name": "psr/container",
