@@ -11,6 +11,10 @@
         },
         {
             "type": "vcs",
+            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-auth.git"
+        },
+        {
+            "type": "vcs",
             "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-common.git"
         },
         {
@@ -30,7 +34,7 @@
         "zf-commons/zfc-rbac": "~2.5.0",
         "olcs/olcs-transfer": "dev-companies-house",
         "olcs/olcs-utils": "~4.206.0",
-        "olcs/olcs-auth": "~4.206.0",
+        "olcs/olcs-auth": "dev-companies-house",
         "soflomo/purifier": "~0.1.0",
         "olcs/olcs-logging": "~4.206.0",
         "elendev/nexus-composer-push": "^0.1",

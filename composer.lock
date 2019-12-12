@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "370585c562303176c7dda0ac81610884",
+    "content-hash": "ce00c59b85e656c2cb04352b83656812",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1204,18 +1204,17 @@
         },
         {
             "name": "olcs/olcs-auth",
-            "version": "4.206.4",
-            "dist": {
-                "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-auth/4.206.4/olcs-olcs-auth-4.206.4.zip",
-                "reference": "c79fcd855997199ba8a20d72e2681d111073b302",
-                "shasum": "c79fcd855997199ba8a20d72e2681d111073b302"
+            "version": "dev-companies-house",
+            "source": {
+                "type": "git",
+                "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-auth.git",
+                "reference": "98f49b81be5460a7e54ac392ac326df2e22960fe"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
                 "elendev/nexus-composer-push": "^0.1",
-                "olcs/olcs-common": "~4.206.0",
-                "olcs/olcs-transfer": "~4.206.0",
+                "olcs/olcs-common": "dev-companies-house",
+                "olcs/olcs-transfer": "dev-companies-house",
                 "php": ">=5.4",
                 "zendframework/zendframework": "~2.4.0"
             },
@@ -1265,16 +1264,15 @@
                 ]
             },
             "description": "OLCS Authentication",
-            "time": "2019-11-28T10:00:28+00:00"
+            "time": "2019-12-12T13:23:43+00:00"
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.111",
-            "dist": {
-                "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-common/4.206.111/olcs-olcs-common-4.206.111.zip",
-                "reference": "024110922042e6f52bfb3c8719abdcea5a3992db",
-                "shasum": "024110922042e6f52bfb3c8719abdcea5a3992db"
+            "version": "dev-companies-house",
+            "source": {
+                "type": "git",
+                "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-common.git",
+                "reference": "16e5100fd264f5b5cd22955feac4b24b7cea7b1e"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
@@ -1340,7 +1338,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2019-12-09T10:41:05+00:00"
+            "time": "2019-12-12T10:37:37+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -1413,12 +1411,11 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "4.206.49",
-            "dist": {
-                "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-transfer/4.206.49/olcs-olcs-transfer-4.206.49.zip",
-                "reference": "e5c6245646ec42a4b23dc0a127afc692b996bd5c",
-                "shasum": "e5c6245646ec42a4b23dc0a127afc692b996bd5c"
+            "version": "dev-companies-house",
+            "source": {
+                "type": "git",
+                "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-transfer.git",
+                "reference": "7eeb0fb736626631e49dd4604447d674248642f4"
             },
             "require": {
                 "elendev/nexus-composer-push": "^0.1",
@@ -1474,7 +1471,7 @@
                 ]
             },
             "description": "OLCS Transfer",
-            "time": "2019-12-05T16:48:44+00:00"
+            "time": "2019-12-12T11:15:03+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -4228,7 +4225,11 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "olcs/olcs-transfer": 20,
+        "olcs/olcs-auth": 20,
+        "olcs/olcs-common": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
