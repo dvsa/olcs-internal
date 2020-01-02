@@ -581,7 +581,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
      *
      * @return \Common\Form\Form
      */
-    protected function alterFormForSubmission($form, $initialData)
+    private function alterFormForSubmission($form, $initialData)
     {
         $postData = $this->params()->fromPost('fields');
 
