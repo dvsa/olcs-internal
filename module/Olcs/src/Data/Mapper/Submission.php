@@ -39,9 +39,6 @@ class Submission implements MapperInterface
                 'sections' => array_keys($snapshot)
             ];
         }
-
-
-
         $defaultSetFields = ['assignedDate', 'informationCompleteDate'];
         $readOnlyFields = [];
         foreach ($defaultSetFields as $field) {
