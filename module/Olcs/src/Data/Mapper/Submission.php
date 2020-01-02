@@ -21,7 +21,8 @@ class Submission implements MapperInterface
      */
     public static function mapFromResult(array $data)
     {
-
+        // always set assigned date to today as string for field
+        $data['assignedDate'] = (new \DateTime('now'))->format('Y-m-d');
         $formData['fields'] = $data;
 
         foreach ($formData['fields'] as $key => $value) {
@@ -38,6 +39,8 @@ class Submission implements MapperInterface
                 'sections' => array_keys($snapshot)
             ];
         }
+
+
 
         $defaultSetFields = ['assignedDate', 'informationCompleteDate'];
         $readOnlyFields = [];
