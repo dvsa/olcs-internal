@@ -70,7 +70,7 @@ class ProcessSubmissionController extends AbstractInternalController implements 
         return $this->editAction();
     }
 
-    private function alterFormForAssign($form, $initialData)
+    protected function alterFormForAssign($form, $initialData)
     {
         if (isset($initialData['readOnlyFields']) && !empty($initialData['readOnlyFields'])) {
             foreach ($initialData['readOnlyFields'] as $field) {
