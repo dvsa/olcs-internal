@@ -86,13 +86,33 @@ class IrhpApplicationFurnitureTest extends TestCase
                 ],
             ],
             'irhpPermitType' => [
-                'id' => 2,
+                'id' => RefData::ECMT_SHORT_TERM_PERMIT_TYPE_ID,
                 'name' => [
-                    'description' => 'Annual Bilateral'
+                    'description' => 'ECMT Short Term'
                 ]
             ],
             'businessProcess' => ['id' => RefData::BUSINESS_PROCESS_APGG]
         ];
+
+        $mockApplicationService = m::mock('Zend\Mvc\Application')
+            ->shouldReceive('getMvcEvent')
+            ->andReturn(
+                m::mock()
+                    ->shouldReceive('getRouteMatch')
+                    ->andReturn(
+                        m::mock()
+                            ->shouldReceive('getParams')
+                            ->andReturn(['action' => 'edit'])
+                            ->once()
+                            ->getMock()
+                    )
+                    ->once()
+                    ->getMock()
+            )
+            ->once()
+            ->getMock();
+
+        $this->sut->setApplicationService($mockApplicationService);
 
         $irhpApplication = array_merge($irhpAppData, $data);
 
@@ -139,7 +159,7 @@ class IrhpApplicationFurnitureTest extends TestCase
             ->with('pageSubtitle')
             ->andReturn(
                 m::mock()->shouldReceive('set')->once()
-                    ->with('Foo ltd - Permit Application - Annual Bilateral')
+                    ->with('Foo ltd - Permit Application - ECMT Short Term')
                     ->getMock()
             )
             ->getMock();
@@ -169,9 +189,6 @@ class IrhpApplicationFurnitureTest extends TestCase
             ->shouldReceive('findOneBy')->once()->with('id', 'irhp-application-decisions-submit')->andReturn(
                 m::mock()->shouldReceive('setVisible')->once()->with($expected['isSubmitVisible'])->getMock()
             )
-            ->shouldReceive('findOneBy')->once()->with('id', 'irhp-application-quick-actions-pre-grant')->andReturn(
-                m::mock()->shouldReceive('setVisible')->once()->with($data['canPreGrant'])->getMock()
-            )
             ->shouldReceive('findOneBy')->once()->with('id', 'irhp-application-decisions-grant')->andReturn(
                 m::mock()->shouldReceive('setVisible')->once()->with($data['isGrantable'])->getMock()
             )
@@ -180,7 +197,14 @@ class IrhpApplicationFurnitureTest extends TestCase
             )
             ->shouldReceive('findOneBy')->once()->with('id', 'irhp-application-decisions-revive-from-withdrawn')->andReturn(
                 m::mock()->shouldReceive('setVisible')->once()->with($data['canBeRevivedFromWithdrawn'])->getMock()
+            )
+            ->shouldReceive('findOneBy')->once()->with('id', 'irhp-application-decisions-revive-from-unsuccessful')->andReturn(
+                m::mock()->shouldReceive('setVisible')->once()->with($data['canBeRevivedFromUnsuccessful'])->getMock()
             );
+
+        $mockNavigation->shouldReceive('findOneBy')->once()->with('id', 'licence_irhp_applications-pregrant')->andReturn(
+            m::mock()->shouldReceive('setVisible')->once()->with(true)->getMock()
+        );
 
         $this->sut->setNavigationService($mockNavigation);
         $this->sut->setSidebarNavigationService($mockSidebarNavigation);
@@ -209,6 +233,7 @@ class IrhpApplicationFurnitureTest extends TestCase
                     'canPreGrant' => true,
                     'isGrantable' => false,
                     'canBeRevivedFromWithdrawn' => false,
+                    'canBeRevivedFromUnsuccessful' => false,
                 ],
                 [
                     'isCancelVisible' => false,
@@ -227,6 +252,7 @@ class IrhpApplicationFurnitureTest extends TestCase
                     'canPreGrant' => true,
                     'isGrantable' => false,
                     'canBeRevivedFromWithdrawn' => false,
+                    'canBeRevivedFromUnsuccessful' => false,
                 ],
                 [
                     'isCancelVisible' => false,
@@ -245,6 +271,7 @@ class IrhpApplicationFurnitureTest extends TestCase
                     'canPreGrant' => true,
                     'isGrantable' => false,
                     'canBeRevivedFromWithdrawn' => false,
+                    'canBeRevivedFromUnsuccessful' => false,
                 ],
                 [
                     'isCancelVisible' => false,
@@ -263,6 +290,7 @@ class IrhpApplicationFurnitureTest extends TestCase
                     'canPreGrant' => true,
                     'isGrantable' => true,
                     'canBeRevivedFromWithdrawn' => true,
+                    'canBeRevivedFromUnsuccessful' => false,
                 ],
                 [
                     'isCancelVisible' => true,
@@ -281,6 +309,7 @@ class IrhpApplicationFurnitureTest extends TestCase
         $mockQuerySender = m::mock(QuerySender::class);
         $mockCommandSender = m::mock(CommandSender::class);
         $mockSidebar = m::mock('Zend\Navigation\Navigation');
+        $mockApplication = m::mock('Zend\Mvc\Application');
 
         $mockSl = m::mock('Zend\ServiceManager\ServiceLocatorInterface');
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
@@ -288,6 +317,7 @@ class IrhpApplicationFurnitureTest extends TestCase
         $mockSl->shouldReceive('get')->with('CommandSender')->andReturn($mockCommandSender);
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mockNavigation);
         $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($mockSidebar);
+        $mockSl->shouldReceive('get')->with('Application')->andReturn($mockApplication);
 
         $sut = new IrhpApplicationFurniture();
         $service = $sut->createService($mockSl);

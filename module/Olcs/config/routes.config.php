@@ -14,6 +14,8 @@ use Olcs\Controller\Operator\OperatorProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingOverviewController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingTasksController;
+use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
+use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingOverviewController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingReadHistoryController;
@@ -946,7 +948,7 @@ $routes = [
                         'options' => [
                             'route' => ':action/:permitid[/]',
                             'constraints' => [
-                                'action' => 'edit|submit|accept|decline|cancel|withdraw|reviveFromWithdrawn',
+                                'action' => 'edit|submit|accept|decline|cancel|withdraw|reviveFromWithdrawn|reviveFromUnsuccessful',
                                 'permitid' => '[0-9]+',
                             ],
                             'defaults' => [
@@ -1140,34 +1142,17 @@ $routes = [
                     'application' => [
                         'type' => 'segment',
                         'options' => [
-                            'route' => ':action/:irhpAppId[/]',
+                            'route' => ':action/:irhpAppId[/][:permitId]',
                             'constraints' => [
-                                'action' => 'edit|submit|accept|decline|cancel|withdraw|grant|preGrant|reviveFromWithdrawn',
+                                'action' => 'edit|submit|accept|decline|cancel|withdraw|grant|preGrant|preGrantEdit|preGrantAdd|preGrantDelete|ranges|reviveFromWithdrawn|reviveFromUnsuccessful',
                                 'irhpAppId' => '[0-9]+',
+                                'permitId' => '[0-9]+',
                             ],
                             'defaults' => [
                                 'action' => 'edit'
                             ]
                         ]
                     ],
-                    'irhp-candidate-permits' => [
-                        'type' => 'segment',
-                        'options' => [
-                            'route' => 'candidate-permits/:irhpAppId/:permitTypeId[/:action][/:id][/]',
-                            'constraints' => [
-                                'irhpAppId' => '[0-9]+',
-                                'action' => 'index|add|edit|delete|ranges',
-                                'id' => '[0-9]+',
-                                'permitTypeId' => '[0-9]+',
-                            ],
-                            'defaults' => [
-                                'controller' => 'IrhpCandidatePermitController',
-                                'action' => 'index',
-                                'permitTypeId' => RefData::ECMT_SHORT_TERM_PERMIT_TYPE_ID,
-                            ]
-                        ],
-                        'may_terminate' => true,
-                    ]
                 ],
 
             ],
@@ -1247,7 +1232,7 @@ $routes = [
                 'options' => [
                     'route' => 'irhp-application/processing/:irhpAppId[/]',
                     'constraints' => [
-                        'permitid' => '[0-9]+',
+                        'irhpAppId' => '[0-9]+',
                     ],
                     'defaults' => [
                         'controller' => IrhpApplicationProcessingOverviewController::class,
@@ -1279,6 +1264,30 @@ $routes = [
                                 'action' => 'index'
                             ]
                         ]
+                    ],
+                    'event-history' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'event-history[/:action[/:id]][/]',
+                            'constraints' => [
+                                'action' => 'edit',
+                                'id' => '[0-9]+',
+                            ],
+                            'defaults' => [
+                                'controller' => IrhpApplicationProcessingHistoryController::class,
+                                'action' => 'index',
+                            ]
+                        ],
+                    ],
+                    'read-history' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'read-history[/]',
+                            'defaults' => [
+                                'controller' => IrhpApplicationProcessingReadHistoryController::class,
+                                'action' => 'index',
+                            ]
+                        ],
                     ],
                 ]
             ],

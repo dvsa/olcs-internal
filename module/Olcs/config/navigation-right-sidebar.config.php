@@ -303,6 +303,16 @@ return [
                             'class' => 'action--secondary js-modal-ajax'
                         ],
                         [
+                            'id' => 'irhp-permit-decisions-revive-from-unsuccessful',
+                            'label' => 'Revive application',
+                            'route' => 'licence/permits/application',
+                            'params' => [
+                                'action' => 'reviveFromUnsuccessful'
+                            ],
+                            'use_route_match' => true,
+                            'class' => 'action--secondary js-modal-ajax'
+                        ],
+                        [
                             'id' => 'irhp-permit-decisions-accept',
                             'label' => 'Accept',
                             'route' => 'licence/permits/application',
@@ -347,17 +357,6 @@ return [
                             ],
                             'use_route_match' => true,
                             'class' => 'action--secondary js-modal-ajax'
-                        ],
-                        [
-                            'id' => 'irhp-application-quick-actions-pre-grant',
-                            'label' => 'Pre Grant Actions',
-                            'route' => 'licence/irhp-application/application',
-                            'params' => [
-                                'action' => 'preGrant'
-                            ],
-                            'use_route_match' => true,
-                            'class' => 'action--secondary',
-                            'visible' => false
                         ],
                     ],
                 ],
@@ -404,6 +403,16 @@ return [
                             'route' => 'licence/irhp-application/application',
                             'params' => [
                                 'action' => 'reviveFromWithdrawn'
+                            ],
+                            'use_route_match' => true,
+                            'class' => 'action--secondary js-modal-ajax'
+                        ],
+                        [
+                            'id' => 'irhp-application-decisions-revive-from-unsuccessful',
+                            'label' => 'Revive application',
+                            'route' => 'licence/irhp-application/application',
+                            'params' => [
+                                'action' => 'reviveFromUnsuccessful'
                             ],
                             'use_route_match' => true,
                             'class' => 'action--secondary js-modal-ajax'
