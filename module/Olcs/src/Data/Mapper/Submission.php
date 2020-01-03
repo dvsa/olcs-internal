@@ -39,18 +39,15 @@ class Submission implements MapperInterface
                 'sections' => array_keys($snapshot)
             ];
         }
-        $defaultSetFields = ['assignedDate', 'informationCompleteDate'];
         $readOnlyFields = [];
-        foreach ($defaultSetFields as $field) {
+        foreach (['assignedDate', 'informationCompleteDate'] as $field) {
             if (isset($data[$field]) && !empty($data[$field])) {
                 $readOnlyFields[] = $field;
-                $formData['readOnlyFields'] = $readOnlyFields;
             } elseif (empty($formData['fields'][$field])) {
                 $formData['fields'][$field] = new \DateTime('now');
             }
         }
-
-
+        $formData['readOnlyFields'] = $readOnlyFields;
         return $formData;
     }
 
