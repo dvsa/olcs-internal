@@ -192,12 +192,20 @@ class DocumentFinaliseController extends AbstractDocumentController
             $this->hlpForm->disableElement($form, 'form-actions->printAndPost');
         }
 
-        $this->modifyFormForProposeToRevoke($form);
+        $labelText = 'Would you like to send this letter?';
+        $subText = '';
+
+        if ($this->isProposeToRevoke()) {
+            $this->modifyFormForProposeToRevoke($form);
+            $labelText = 'Select \'Propose to revoke\' to send this letter to all known postal and email addresses';
+            $subText = 'Select \'Close\' to save the letter without sending';
+        }
 
         $view = new ViewModel(
             [
                 'form' => $form,
-                'label' => 'Would you like to send this letter?',
+                'label' => $labelText,
+                'subText' => $subText
             ]
         );
         $view->setTemplate('pages/confirm');
@@ -319,15 +327,17 @@ class DocumentFinaliseController extends AbstractDocumentController
 
     private function modifyFormForProposeToRevoke(\Common\Form\Form $form): void
     {
+        $this->hlpForm->remove($form, 'form-actions->email');
+        $form->get('form-actions')->get('printAndPost')->removeAttribute('disabled');
+        $form->get('form-actions')->get('printAndPost')->setLabel('Propose to revoke');
+        $form->get('form-actions')->get('printAndPost')->setName('proposeToRevoke');
+    }
+
+    private function isProposeToRevoke(): bool
+    {
         $docData = $this->fetchDocData();
 
-        if ($docData["details"]["category"] === Category::CATEGORY_COMPLIANCE
-            && $docData["details"]["documentSubCategory"] === Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION
-        ) {
-            $this->hlpForm->remove($form, 'form-actions->email');
-            $form->get('form-actions')->get('printAndPost')->removeAttribute('disabled');
-            $form->get('form-actions')->get('printAndPost')->setLabel('Propose to revoke');
-            $form->get('form-actions')->get('printAndPost')->setName('proposeToRevoke');
-        }
+        return $docData["details"]["category"] === Category::CATEGORY_COMPLIANCE
+            && $docData["details"]["documentSubCategory"] === Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION;
     }
 }
