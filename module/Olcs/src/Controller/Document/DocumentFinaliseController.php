@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Document;
 
+use Common\Category;
 use Dvsa\Olcs\Transfer\Command as TransferCmd;
 use Dvsa\Olcs\Transfer\Command\Document\PrintLetter as PrintLetterCmd;
 use Dvsa\Olcs\Transfer\Query as TransferQry;
@@ -191,6 +192,8 @@ class DocumentFinaliseController extends AbstractDocumentController
             $this->hlpForm->disableElement($form, 'form-actions->printAndPost');
         }
 
+        $this->modifyFormForProposeToRevoke($form);
+
         $view = new ViewModel(
             [
                 'form' => $form,
@@ -312,5 +315,19 @@ class DocumentFinaliseController extends AbstractDocumentController
         $type = $routeParams['type'];
 
         return $this->redirectToDocumentRoute($type, null, $routeParams, $ajax);
+    }
+
+    private function modifyFormForProposeToRevoke(\Common\Form\Form $form): void
+    {
+        $docData = $this->fetchDocData();
+
+        if ($docData["details"]["category"] === Category::CATEGORY_COMPLIANCE
+            && $docData["details"]["documentSubCategory"] === Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION
+        ) {
+            $this->hlpForm->remove($form, 'form-actions->email');
+            $form->get('form-actions')->get('printAndPost')->removeAttribute('disabled');
+            $form->get('form-actions')->get('printAndPost')->setLabel('Propose to revoke');
+            $form->get('form-actions')->get('printAndPost')->setName('proposeToRevoke');
+        }
     }
 }
