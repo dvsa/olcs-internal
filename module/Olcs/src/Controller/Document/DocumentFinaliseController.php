@@ -6,6 +6,7 @@ use Common\Category;
 use Dvsa\Olcs\Transfer\Command as TransferCmd;
 use Dvsa\Olcs\Transfer\Command\Document\PrintLetter as PrintLetterCmd;
 use Dvsa\Olcs\Transfer\Query as TransferQry;
+use Zend\Http\Response;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\ViewModel;
 
@@ -133,6 +134,8 @@ class DocumentFinaliseController extends AbstractDocumentController
                 $method = PrintLetterCmd::METHOD_EMAIL;
             } elseif ($this->isButtonPressed('printAndPost')) {
                 $method = PrintLetterCmd::METHOD_PRINT_AND_POST;
+            } elseif ($this->isButtonPressed('proposeToRevoke')) {
+                return $this->processProposeToRevoke();
             } else {
                 $this->hlpFlashMsgr->addSuccessMessage(self::PRINT_MSGS_SUCCESS['close']);
 
@@ -339,5 +342,35 @@ class DocumentFinaliseController extends AbstractDocumentController
 
         return $docData["details"]["category"] === Category::CATEGORY_COMPLIANCE
             && $docData["details"]["documentSubCategory"] === Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION;
+    }
+
+    private function processProposeToRevoke(): Response
+    {
+        $proposeToRevokeCmdData = [
+            'licence' => $this->getLicenceIdFromRouteParams()
+        ];
+
+        $response = $this->handleCommand(
+            TransferCmd\Licence\ProposeToRevoke::create($proposeToRevokeCmdData)
+        );
+
+        if ($response->isOk()) {
+            $this->hlpFlashMsgr->addSuccessMessage('Successfully processed PTR');
+        } else {
+            $this->hlpFlashMsgr->addUnknownError();
+        }
+
+        return $this->handleRedirectToDocumentRoute(true);
+    }
+
+    private function getLicenceIdFromRouteParams(): int
+    {
+        $routeParams = $this->params()->fromRoute();
+        $type = $routeParams['type'];
+
+        if ($type === 'application') {
+            return $this->getLicenceIdForApplication();
+        }
+        return $this->params('licence');
     }
 }
