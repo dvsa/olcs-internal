@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Document;
 
+use Common\Category;
 use Dvsa\Olcs\Transfer\Command as TransferCmd;
 use Dvsa\Olcs\Transfer\Command\Document\PrintLetter as PrintLetterCmd;
 use Dvsa\Olcs\Transfer\Query as TransferQry;
@@ -191,10 +192,20 @@ class DocumentFinaliseController extends AbstractDocumentController
             $this->hlpForm->disableElement($form, 'form-actions->printAndPost');
         }
 
+        $labelText = 'Would you like to send this letter?';
+        $subText = '';
+
+        if ($this->isProposeToRevoke()) {
+            $this->modifyFormForProposeToRevoke($form);
+            $labelText = 'Select \'Propose to revoke\' to send this letter to all known postal and email addresses';
+            $subText = 'Select \'Close\' to save the letter without sending';
+        }
+
         $view = new ViewModel(
             [
                 'form' => $form,
-                'label' => 'Would you like to send this letter?',
+                'label' => $labelText,
+                'subText' => $subText
             ]
         );
         $view->setTemplate('pages/confirm');
@@ -312,5 +323,21 @@ class DocumentFinaliseController extends AbstractDocumentController
         $type = $routeParams['type'];
 
         return $this->redirectToDocumentRoute($type, null, $routeParams, $ajax);
+    }
+
+    private function modifyFormForProposeToRevoke(\Common\Form\Form $form): void
+    {
+        $this->hlpForm->remove($form, 'form-actions->email');
+        $form->get('form-actions')->get('printAndPost')->removeAttribute('disabled');
+        $form->get('form-actions')->get('printAndPost')->setLabel('Propose to revoke');
+        $form->get('form-actions')->get('printAndPost')->setName('proposeToRevoke');
+    }
+
+    private function isProposeToRevoke(): bool
+    {
+        $docData = $this->fetchDocData();
+
+        return $docData["details"]["category"] === Category::CATEGORY_COMPLIANCE
+            && $docData["details"]["documentSubCategory"] === Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION;
     }
 }
