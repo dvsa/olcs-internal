@@ -346,8 +346,11 @@ class DocumentFinaliseController extends AbstractDocumentController
 
     private function processProposeToRevoke(): Response
     {
+        $documentData = $this->fetchDocData();
+
         $proposeToRevokeCmdData = [
-            'licence' => $this->getLicenceIdFromRouteParams()
+            'licence' => $this->getLicenceIdFromRouteParams(),
+            'document' => $documentData['data']['id']
         ];
 
         $response = $this->handleCommand(
