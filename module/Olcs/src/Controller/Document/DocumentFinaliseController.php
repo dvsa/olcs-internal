@@ -200,8 +200,8 @@ class DocumentFinaliseController extends AbstractDocumentController
 
         if ($this->isProposeToRevoke()) {
             $this->modifyFormForProposeToRevoke($form);
-            $labelText = 'Select \'Propose to revoke\' to send this letter to all known postal and email addresses';
-            $subText = 'Select \'Close\' to save the letter without sending';
+            $labelText = 'Select \'Propose to revoke\' to send this letter to all known postal and email addresses.';
+            $subText = 'Select \'Close\' to save the letter without sending.';
         }
 
         $view = new ViewModel(
