@@ -144,7 +144,7 @@ class DocumentGenerationController extends AbstractDocumentController
                 'template' => $data['details']['documentTemplate'],
                 'data' => $queryData,
                 'meta' => json_encode(['details' => $data['details'], 'bookmarks' => $data['bookmarks']]),
-                'disableBookmarks' => $this->isProposeToRevoke($data) ? 'Y' : 'N'
+                'disableBookmarks' => $this->isProposeToRevoke($data)
             ]
         );
         $response = $this->handleCommand($dto);
