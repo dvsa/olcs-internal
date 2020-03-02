@@ -275,8 +275,7 @@ class DocumentGenerationController extends AbstractDocumentController
 
     protected function isProposeToRevoke($data): bool
     {
-        if (
-            $data['details']['category'] === (string) Category::CATEGORY_COMPLIANCE &&
+        if ($data['details']['category'] === (string) Category::CATEGORY_COMPLIANCE &&
             $data['details']['documentSubCategory'] === (string) Category::DOC_SUB_CATEGORY_IN_OFFICE_REVOCATION
         ) {
             return true;
