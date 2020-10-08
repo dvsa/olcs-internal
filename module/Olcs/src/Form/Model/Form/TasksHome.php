@@ -64,6 +64,36 @@ class TasksHome
     public $taskSubCategory = null;
 
     /**
+     * @Form\Attributes({
+     *     "id": "",
+     *     "placeholder": "",
+     *     "multiple": "true"
+     * })
+     * @Form\Options({
+     *     "label": "tasks.data.exclude_category",
+     *     "disable_inarray_validator": false,
+     *     "service_name": "Olcs\Service\Data\TaskCategory",
+     * })
+     * @Form\Type("DynamicSelect")
+     */
+    public $excludeCategory = null;
+
+    /**
+     * @Form\Attributes({
+     *     "id": "",
+     *     "placeholder": "",
+     *     "multiple": "true"
+     * })
+     * @Form\Options({
+     *     "label": "tasks.data.exclude_sub_category",
+     *     "disable_inarray_validator": false,
+     *     "service_name": "Olcs\Service\Data\TaskSubCategory",
+     * })
+     * @Form\Type("DynamicSelect")
+     */
+    public $excludeTaskSubCategory = null;
+
+    /**
      * @Form\Attributes({"id":"","placeholder":""})
      * @Form\Options({
      *     "label": "tasks.data.date",
