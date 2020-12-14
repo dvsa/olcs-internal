@@ -104,12 +104,13 @@ class DocumentUploadController extends AbstractDocumentController
         $data = array_merge(
             $data,
             [
-                'filename'      => $file['name'],
-                'content'       => new FileContent($fileTmpName, $mimeType),
-                'description'   => $data['details']['description'],
-                'category'      => $data['details']['category'],
-                'subCategory'   => $data['details']['documentSubCategory'],
-                'isExternal'    => false,
+                'filename'                 => $file['name'],
+                'content'                  => new FileContent($fileTmpName, $mimeType),
+                'description'              => $data['details']['description'],
+                'allowSpacesInDescription' => true,
+                'category'                 => $data['details']['category'],
+                'subCategory'              => $data['details']['documentSubCategory'],
+                'isExternal'               => false,
             ]
         );
 

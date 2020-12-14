@@ -197,6 +197,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         }
         $dataToSave[$key] = $data[$key]['id'];
         $dataToSave['description'] = $file['name'];
+        $dataToSave['allowSpacesInDescription'] = true;
 
         if ($action === 'edit-tm-application') {
             $dataToSave['licence'] = $data['application']['licence']['id'];
