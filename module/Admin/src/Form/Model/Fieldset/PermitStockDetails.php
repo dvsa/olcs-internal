@@ -169,14 +169,14 @@ class PermitStockDetails
     /**
      * @Form\Required(false)
      * @Form\Attributes({
-     *   "class" : "input--hiddenss",
+     *   "class" : "input--hiddenss govuk-checkboxes__input",
      *   "id" : "hiddenss",
      * })
      * @Form\Options({
      *     "checked_value": "1",
      *     "unchecked_value": "0",
      *     "label": "Hidden from Self Serve?",
-     *     "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *     "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *     "must_be_value": "1"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")

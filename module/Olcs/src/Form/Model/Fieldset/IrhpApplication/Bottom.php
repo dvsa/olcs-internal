@@ -13,14 +13,14 @@ class Bottom extends \Olcs\Form\Model\Fieldset\Base
     /**
      * @Form\Required(false)
      * @Form\Attributes({
-     *   "class" : "input--declaration",
+     *   "class" : "input--declaration govuk-checkboxes__input",
      *   "id" : "declaration",
      * })
      * @Form\Options({
      *     "checked_value": "1",
      *     "unchecked_value": "0",
      *     "label": "permits.form.declaration.label",
-     *     "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *     "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *     "must_be_value": "1"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")
@@ -30,14 +30,14 @@ class Bottom extends \Olcs\Form\Model\Fieldset\Base
     /**
      * @Form\Required(false)
      * @Form\Attributes({
-     *   "class" : "input--checked",
+     *   "class" : "input--checked govuk-checkboxes__input",
      *   "id" : "checked",
      * })
      * @Form\Options({
      *     "checked_value": "1",
      *     "unchecked_value": "0",
      *     "label": "permits.form.checked.label",
-     *     "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *     "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *     "must_be_value": "1"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")
