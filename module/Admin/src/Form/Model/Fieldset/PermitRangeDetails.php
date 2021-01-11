@@ -96,12 +96,13 @@ class PermitRangeDetails
      * @Form\Name("cabotage")
      * @Form\Attributes({
      *    "id" : "cabotage",
+     *    "class": "govuk-checkboxes__input"
      * })
      * @Form\Options({
      *   "checked_value": "1",
      *   "unchecked_value": "0",
      *   "label": "Cabotage",
-     *   "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *   "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *   "must_be_value": "Yes"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")
@@ -113,12 +114,13 @@ class PermitRangeDetails
      * @Form\Name("ssReserve")
      * @Form\Attributes({
      *    "id" : "reserve",
+     *    "class": "govuk-checkboxes__input"
      * })
      * @Form\Options({
      *   "checked_value": "1",
      *   "unchecked_value": "0",
      *   "label": "Reserve",
-     *   "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *   "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *   "must_be_value": "Yes"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")
@@ -130,19 +132,19 @@ class PermitRangeDetails
      * @Form\Name("lostReplacement")
      * @Form\Attributes({
      *    "id" : "lostReplacement",
+     *    "class": "govuk-checkboxes__input"
      * })
      * @Form\Options({
      *   "checked_value": "1",
      *   "unchecked_value": "0",
      *   "label": "Lost and Replacement",
-     *   "label_attributes": {"class": "form-control form-control--checkbox form-control--advanced"},
+     *   "label_attributes": {"class": "govuk-label govuk-checkboxes__label"},
      *   "must_be_value": "Yes"
      * })
      * @Form\Type("\Common\Form\Elements\InputFilters\SingleCheckbox")
      * @Form\Required(false)
      */
     public $lostReplacement = null;
-
 
     /**
      * @Form\Name("countrys")
