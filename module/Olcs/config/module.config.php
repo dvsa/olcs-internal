@@ -37,6 +37,8 @@ use Olcs\Service\Marker;
 
 use Olcs\FormService\Form\Lva as LvaFormService;
 
+use Common\Form\View\Helper\ApplicationContext;
+
 return array(
     'router' => [
         'routes' => include __DIR__ . '/routes.config.php'
@@ -745,5 +747,6 @@ return array(
         'date_format' => 'd/m/Y',
         'datetime_format' => 'd/m/Y H:i',
         'datetimesec_format' => 'd/m/Y H:i:s'
-    )
+    ),
+    'application_context' => ApplicationContext::APPLICATION_CONTEXT_INTERNAL,
 );
