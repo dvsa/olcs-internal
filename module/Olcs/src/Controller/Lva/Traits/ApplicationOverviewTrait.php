@@ -2,8 +2,6 @@
 
 namespace Olcs\Controller\Lva\Traits;
 
-use Common\Form\Elements\InputFilters\SelectEmpty as SelectElement;
-use Common\RefData;
 use Common\Service\Cqrs\Response;
 use Laminas\View\Model\ViewModel;
 use Dvsa\Olcs\Transfer\Query\Application\Overview as OverviewQry;
@@ -134,7 +132,6 @@ trait ApplicationOverviewTrait
                 'version'                => $application['version'],
                 'id'                     => $application['id'],
             ],
-            'tracking' => $application['applicationTracking'],
         ];
     }
 
@@ -149,30 +146,6 @@ trait ApplicationOverviewTrait
      */
     protected function alterForm($form, $licence, $application)
     {
-        // build up the tracking fieldset dynamically, based on relevant sections
-        $fieldset = $form->get('tracking');
-        $stringHelper = $this->getServiceLocator()->get('Helper\String');
-
-        $options = $application['valueOptions']['tracking'];
-
-        $licenceCategoryId = $application['licence']['goodsOrPsv']['id'];
-
-        $sections = $this->getAccessibleSections();
-        foreach ($sections as $section) {
-            $selectProperty = lcfirst($stringHelper->underscoreToCamel($section)) . 'Status';
-
-            $select = new SelectElement($selectProperty);
-            $select->setValueOptions($options);
-
-            $label = 'section.name.' . $section;
-            if ($section == 'community_licences' && $licenceCategoryId == RefData::LICENCE_CATEGORY_PSV) {
-                $label .= '.psv';
-            }
-            $select->setLabel($label);
-
-            $fieldset->add($select);
-        }
-
         // modify button label (it should be 'Save' not 'Save & return' as per AC)
         $form->get('form-actions')->get('save')->setLabel('Save');
 
@@ -204,7 +177,6 @@ trait ApplicationOverviewTrait
             'id' => $details['id'],
             'version' => $details['version'],
             'leadTcArea' => $details['leadTcArea'],
-            'tracking' => $formData['tracking'],
             'overrideOppositionDate' => $details['overrideOppositionDate'],
             'validateAppCompletion' => true,
         ];

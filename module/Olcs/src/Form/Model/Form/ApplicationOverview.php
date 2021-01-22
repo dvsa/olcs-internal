@@ -20,14 +20,6 @@ class ApplicationOverview
     public $details = null;
 
     /**
-     * @Form\Name("tracking")
-     * @Form\ComposedObject("Olcs\Form\Model\Fieldset\ApplicationTracking")
-     * @Form\Options({"label": "Tracking"})
-     * @Form\Attributes({"class": "tracking"})
-     */
-    public $tracking = null;
-
-    /**
      * @Form\Name("form-actions")
      * @Form\Attributes({"class":"actions-container"})
      * @Form\ComposedObject("Common\Form\Model\Form\Lva\Fieldset\FormActions")
