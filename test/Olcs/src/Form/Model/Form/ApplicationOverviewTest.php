@@ -28,16 +28,6 @@ class ApplicationOverviewTest extends AbstractFormValidationTestCase
         $this->assertFormElementHidden(['details', 'version']);
     }
 
-    public function testTrackingId()
-    {
-        $this->assertFormElementHidden(['tracking', 'id']);
-    }
-
-    public function testTrackingVersion()
-    {
-        $this->assertFormElementHidden(['tracking', 'version']);
-    }
-
     public function testLeadTcArea()
     {
         $element = ['details', 'leadTcArea'];
