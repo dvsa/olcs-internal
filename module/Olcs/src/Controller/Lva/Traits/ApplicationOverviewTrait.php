@@ -36,7 +36,7 @@ trait ApplicationOverviewTrait
         $licence = $application['licence'];
 
         $form = $this->getOverviewForm();
-        $this->alterForm($form, $licence, $application);
+        $this->alterForm($form, $licence);
 
         if ($request->isPost()) {
             $data = (array) $request->getPost();
@@ -140,11 +140,10 @@ trait ApplicationOverviewTrait
      *
      * @param \Laminas\Form\FormInterface $form        form
      * @param array                    $licence     licence overview data
-     * @param array                    $application application overview data
      *
      * @return Laminas/Form/FormInterface
      */
-    protected function alterForm($form, $licence, $application)
+    protected function alterForm($form, $licence)
     {
         // modify button label (it should be 'Save' not 'Save & return' as per AC)
         $form->get('form-actions')->get('save')->setLabel('Save');
