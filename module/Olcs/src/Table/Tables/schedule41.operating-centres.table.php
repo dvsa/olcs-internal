@@ -19,8 +19,13 @@ return array(
             'name' => 'address'
         ),
         array(
-            'title' => 'schedule41.operating-centre.table.vehicles',
-            'name' => 'noOfVehiclesRequired'
+            'title' => 'schedule41.operating-centre.table.vehicles-hgv',
+            'name' => 'noOfHgvVehiclesRequired'
+        ),
+        array(
+            'title' => 'schedule41.operating-centre.table.vehicles-lgv',
+            'name' => 'noOfLgvVehiclesRequired',
+            'formatter' => 'OcNoOfLgvVehiclesRequired'
         ),
         array(
             'title' => 'schedule41.operating-centre.table.trailers',
