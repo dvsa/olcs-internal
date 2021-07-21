@@ -80,6 +80,21 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->andReturn(
                 m::mock()
                     ->shouldReceive('get')
+                    ->with('noOfHgvVehiclesRequired')
+                    ->once()
+                    ->andReturn(
+                        m::mock()
+                            ->shouldReceive('setOptions')
+                            ->with(
+                                [
+                                    'label' => 'application_operating-centres_authorisation-sub-action.data.noOfVehiclesRequired',
+                                    'error-message' => 'Your total number of vehicles',
+                                ]
+                            )
+                            ->once()
+                            ->getMock()
+                    )
+                    ->shouldReceive('get')
                     ->with('guidance')
                     ->andReturn(
                         m::mock()
@@ -109,6 +124,12 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->once()
             ->shouldReceive('removeValidator')
             ->with($form, 'advertisements->uploadedFileCount', \Common\Validator\ValidateIf::class)
+            ->once()
+            ->shouldReceive('remove')
+            ->with($form, 'data->lgvHtml')
+            ->once()
+            ->shouldReceive('remove')
+            ->with($form, 'data->noOfLgvVehiclesRequired')
             ->once()
             ->shouldReceive('remove')
             ->with($form, 'advertisements->adSendByPostContent')
