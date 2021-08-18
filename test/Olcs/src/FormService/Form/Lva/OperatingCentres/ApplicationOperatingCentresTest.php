@@ -19,6 +19,7 @@ use Laminas\Form\Fieldset;
 use Laminas\Form\Form;
 use Laminas\Http\Request;
 use Common\Service\Helper\FormHelperService;
+use Common\RefData;
 
 /**
  * Application Operating Centres Test
@@ -80,6 +81,7 @@ class ApplicationOperatingCentresTest extends MockeryTestCase
             'niFlag' => null,
             'possibleTrafficAreas' => 'POSSIBLE_TRAFFIC_AREAS',
             'possibleEnforcementAreas' => 'POSSIBLE_ENFORCEMENT_AREAS',
+            'licenceType' => ['id' => RefData::LICENCE_TYPE_STANDARD_INTERNATIONAL],
         ];
 
         $this->mockPopulateFormTable([]);
