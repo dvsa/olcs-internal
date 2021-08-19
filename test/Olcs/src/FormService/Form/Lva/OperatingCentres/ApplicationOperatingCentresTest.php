@@ -82,6 +82,7 @@ class ApplicationOperatingCentresTest extends MockeryTestCase
             'possibleTrafficAreas' => 'POSSIBLE_TRAFFIC_AREAS',
             'possibleEnforcementAreas' => 'POSSIBLE_ENFORCEMENT_AREAS',
             'licenceType' => ['id' => RefData::LICENCE_TYPE_STANDARD_INTERNATIONAL],
+            'isEligibleForLgv' => true,
         ];
 
         $this->mockPopulateFormTable([]);
