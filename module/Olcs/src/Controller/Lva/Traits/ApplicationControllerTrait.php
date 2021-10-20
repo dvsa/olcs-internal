@@ -25,6 +25,16 @@ trait ApplicationControllerTrait
     }
 
     /**
+     * Whether we are running in an internal context
+     *
+     * @return bool
+     */
+    protected function isInternalController()
+    {
+        return true;
+    }
+
+    /**
      * Hook into the dispatch before the controller action is executed
      *
      * @return array|bool
