@@ -46,9 +46,16 @@ class NewApplicationTest extends AbstractFormValidationTestCase
     public function testLicenceType()
     {
         $this->assertFormElementRequired(
-            ['type-of-licence', 'licence-type'],
+            ['type-of-licence', 'licence-type', 'licence-type'],
             true
         );
+    }
+
+    public function testVehicleType()
+    {
+        $element = ['type-of-licence', 'licence-type', 'ltyp_siContent', 'vehicle-type'];
+        $this->assertFormElementType($element, Radio::class);
+        $this->assertFormElementRequired($element, true);
     }
 
     public function testAppliedVia()
