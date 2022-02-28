@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72337ec778619e0444eee237af436156",
+    "content-hash": "c3c6109be60024336017915dbe89ae11",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -1387,12 +1387,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\Psr7\\": "src/"
-                }
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
             },
             "license": [
                 "MIT"
@@ -2311,17 +2311,17 @@
         },
         {
             "name": "laminas/laminas-i18n",
-            "version": "2.13.0",
+            "version": "2.14.0",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/laminas/laminas-i18n/2.13.0/laminas-laminas-i18n-2.13.0.zip",
-                "reference": "b3a55d05818ed37ed18e76c103727e95e32cf591",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/laminas/laminas-i18n/2.14.0/laminas-laminas-i18n-2.14.0.zip",
+                "reference": "1fa15c41b683bedb2a846af54491868ddc73db38",
                 "shasum": ""
             },
             "require": {
                 "ext-intl": "*",
                 "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "php": "^7.3 || ~8.0.0 || ~8.1.0"
+                "php": "^7.4 || ~8.0.0 || ~8.1.0"
             },
             "conflict": {
                 "phpspec/prophecy": "<1.9.0",
@@ -2331,14 +2331,17 @@
                 "laminas/laminas-cache": "^3.1.2",
                 "laminas/laminas-cache-storage-adapter-memory": "^2.0.0",
                 "laminas/laminas-cache-storage-deprecated-factory": "^1.0.0",
-                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-coding-standard": "~2.3.0",
                 "laminas/laminas-config": "^3.4.0",
                 "laminas/laminas-eventmanager": "^3.4.0",
                 "laminas/laminas-filter": "^2.10.0",
                 "laminas/laminas-servicemanager": "^3.7.0",
                 "laminas/laminas-validator": "^2.14.0",
                 "laminas/laminas-view": "^2.12.0",
-                "phpunit/phpunit": "^9.3"
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.3",
+                "psalm/plugin-phpunit": "^0.16.1",
+                "vimeo/psalm": "^4.21"
             },
             "suggest": {
                 "laminas/laminas-cache": "You should install this package to cache the translations",
@@ -2377,7 +2380,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-06T00:44:40+00:00"
+            "time": "2022-02-21T20:41:26+00:00"
         },
         {
             "name": "laminas/laminas-inputfilter",
@@ -3508,21 +3511,21 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/laminas/laminas-zendframework-bridge/1.4.1/laminas-laminas-zendframework-bridge-1.4.1.zip",
-                "reference": "88bf037259869891afce6504cacc4f8a07b24d0f",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/laminas/laminas-zendframework-bridge/1.5.0/laminas-laminas-zendframework-bridge-1.5.0.zip",
+                "reference": "7f049390b756d34ba5940a8fb47634fbb51f79ab",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ~8.0.0 || ~8.1.0"
+                "php": ">=7.4, <8.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.3",
-                "psalm/plugin-phpunit": "^0.15.1",
-                "squizlabs/php_codesniffer": "^3.5",
-                "vimeo/psalm": "^4.6"
+                "phpunit/phpunit": "^9.5.14",
+                "psalm/plugin-phpunit": "^0.15.2",
+                "squizlabs/php_codesniffer": "^3.6.2",
+                "vimeo/psalm": "^4.21.0"
             },
             "type": "library",
             "extra": {
@@ -3554,7 +3557,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-21T14:34:37+00:00"
+            "time": "2022-02-22T22:17:01+00:00"
         },
         {
             "name": "lm-commons/lmc-rbac-mvc",
@@ -3635,16 +3638,14 @@
         },
         {
             "name": "olcs/olcs-auth",
-            "version": "4.206.30",
-            "dist": {
-                "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-auth/4.206.30/olcs-olcs-auth-4.206.30.zip",
-                "reference": "bfb003bf9cc7a89486f05e54a958225194f371ac",
-                "shasum": "bfb003bf9cc7a89486f05e54a958225194f371ac"
+            "version": "dev-project/ci",
+            "source": {
+                "type": "git",
+                "url": "git@repo.olcs.dev-dvsacloud.uk:olcs/olcs-auth.git",
+                "reference": "2dd9b613db6f3c853eb365d306e01a18a4ea9ddd"
             },
             "require": {
                 "doctrine/annotations": "^1.2.3",
-                "elendev/nexus-composer-push": "^0.1",
                 "laminas/laminas-authentication": "^2.5",
                 "laminas/laminas-console": "^2.5",
                 "laminas/laminas-dependency-plugin": "^2.0",
@@ -3659,8 +3660,8 @@
                 "laminas/laminas-stdlib": "^2.5",
                 "laminas/laminas-validator": "^2.5",
                 "laminas/laminas-view": "^2.5",
-                "olcs/olcs-common": "~4.206.0",
-                "olcs/olcs-transfer": "~4.206.0",
+                "olcs/olcs-common": "dev-project/ci",
+                "olcs/olcs-transfer": "dev-project/ci",
                 "php": ">=7.4"
             },
             "require-dev": {
@@ -3702,21 +3703,19 @@
                 ]
             },
             "description": "OLCS Authentication",
-            "time": "2022-02-02T12:24:52+00:00"
+            "time": "2022-02-25T10:46:21+00:00"
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.393",
-            "dist": {
-                "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-common/4.206.393/olcs-olcs-common-4.206.393.zip",
-                "reference": "8723d6b4395fea56c91031c0a1d89adb7b2883bd",
-                "shasum": "8723d6b4395fea56c91031c0a1d89adb7b2883bd"
+            "version": "dev-project/ci",
+            "source": {
+                "type": "git",
+                "url": "git@repo.olcs.dev-dvsacloud.uk:olcs/olcs-common.git",
+                "reference": "2e49889642dafdcdacd182fb92283914e497f9c9"
             },
             "require": {
                 "doctrine/annotations": "^1.8",
                 "doctrine/doctrine-orm-module": "~0.10.0",
-                "elendev/nexus-composer-push": "^0.1",
                 "laminas/laminas-authentication": "^2.5",
                 "laminas/laminas-cache": "^2.5",
                 "laminas/laminas-code": "~3.4.1",
@@ -3744,7 +3743,7 @@
                 "laminas/laminas-validator": "^2.5",
                 "laminas/laminas-view": "^2.5",
                 "lm-commons/lmc-rbac-mvc": "^2.6",
-                "olcs/olcs-transfer": "~4.206.0",
+                "olcs/olcs-transfer": "dev-project/ci",
                 "php": ">=7.4",
                 "symfony/filesystem": "^5",
                 "symfony/lock": "^5"
@@ -3795,7 +3794,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2022-02-10T15:08:26+00:00"
+            "time": "2022-02-24T15:01:05+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -3862,15 +3861,13 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "4.206.146",
-            "dist": {
-                "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-transfer/4.206.146/olcs-olcs-transfer-4.206.146.zip",
-                "reference": "d21574649f83732fcdf6cd56df99a535a12d18f8",
-                "shasum": "d21574649f83732fcdf6cd56df99a535a12d18f8"
+            "version": "dev-project/ci",
+            "source": {
+                "type": "git",
+                "url": "git@repo.olcs.dev-dvsacloud.uk:olcs/olcs-transfer.git",
+                "reference": "3659646c521a7f7a3fb8977bacde12e20d3c7c0c"
             },
             "require": {
-                "elendev/nexus-composer-push": "^0.1",
                 "ext-openssl": "*",
                 "laminas/laminas-crypt": "^3.0",
                 "laminas/laminas-dependency-plugin": "^2.0",
@@ -3927,7 +3924,7 @@
                 ]
             },
             "description": "OLCS Transfer",
-            "time": "2022-02-04T11:24:48+00:00"
+            "time": "2022-02-25T10:02:57+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -4776,12 +4773,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Intl\\Idn\\": ""
-                }
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
             },
             "license": [
                 "MIT"
@@ -4852,12 +4849,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
+                "files": [
+                    "bootstrap.php"
+                ],
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -4998,12 +4995,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Php72\\": ""
-                }
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
             },
             "license": [
                 "MIT"
@@ -5065,12 +5062,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Php73\\": ""
                 },
+                "files": [
+                    "bootstrap.php"
+                ],
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -5135,12 +5132,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Php80\\": ""
                 },
+                "files": [
+                    "bootstrap.php"
+                ],
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -5344,11 +5341,11 @@
         },
         {
             "name": "composer/xdebug-handler",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/composer/xdebug-handler/2.0.4/composer-xdebug-handler-2.0.4.zip",
-                "reference": "0c1a3925ec58a4ec98e992b9c7d171e9e184be0a",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/composer/xdebug-handler/2.0.5/composer-xdebug-handler-2.0.5.zip",
+                "reference": "9e36aeed4616366d2b690bdce11f71e9178c579a",
                 "shasum": ""
             },
             "require": {
@@ -5395,7 +5392,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-04T17:06:45+00:00"
+            "time": "2022-02-24T20:20:32+00:00"
         },
         {
             "name": "dms/phpunit-arraysubset-asserts",
@@ -5639,12 +5636,12 @@
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "src/DeepCopy/deep_copy.php"
-                ],
                 "psr-4": {
                     "DeepCopy\\": "src/DeepCopy/"
-                }
+                },
+                "files": [
+                    "src/DeepCopy/deep_copy.php"
+                ]
             },
             "license": [
                 "MIT"
@@ -5824,18 +5821,18 @@
         },
         {
             "name": "pdepend/pdepend",
-            "version": "2.10.2",
+            "version": "2.10.3",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/pdepend/pdepend/2.10.2/pdepend-pdepend-2.10.2.zip",
-                "reference": "c8c1d2af43fb8c2b5387d50e9c42a9c56de13686",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/pdepend/pdepend/2.10.3/pdepend-pdepend-2.10.3.zip",
+                "reference": "da3166a06b4a89915920a42444f707122a1584c9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.7",
-                "symfony/config": "^2.3.0|^3|^4|^5",
-                "symfony/dependency-injection": "^2.3.0|^3|^4|^5",
-                "symfony/filesystem": "^2.3.0|^3|^4|^5"
+                "symfony/config": "^2.3.0|^3|^4|^5|^6.0",
+                "symfony/dependency-injection": "^2.3.0|^3|^4|^5|^6.0",
+                "symfony/filesystem": "^2.3.0|^3|^4|^5|^6.0"
             },
             "require-dev": {
                 "easy-doc/easy-doc": "0.0.0|^1.2.3",
@@ -5867,7 +5864,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-16T20:05:32+00:00"
+            "time": "2022-02-23T07:53:09+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -5921,11 +5918,11 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phar-io/version/3.1.1/phar-io-version-3.1.1.zip",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phar-io/version/3.2.1/phar-io-version-3.2.1.zip",
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
                 "shasum": ""
             },
             "require": {
@@ -5958,7 +5955,7 @@
                 }
             ],
             "description": "Library for handling version information and constraints",
-            "time": "2022-02-07T21:56:48+00:00"
+            "time": "2022-02-21T01:04:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -6454,11 +6451,11 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.10",
+            "version": "9.2.13",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phpunit/php-code-coverage/9.2.10/phpunit-php-code-coverage-9.2.10.zip",
-                "reference": "d5850aaf931743067f4bfc1ae4cbd06468400687",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phpunit/php-code-coverage/9.2.13/phpunit-php-code-coverage-9.2.13.zip",
+                "reference": "deac8540cb7bd40b2b8cfa679b76202834fd04e8",
                 "shasum": ""
             },
             "require": {
@@ -6517,7 +6514,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-05T09:12:13+00:00"
+            "time": "2022-02-23T17:02:38+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -6774,11 +6771,11 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.13",
+            "version": "9.5.16",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phpunit/phpunit/9.5.13/phpunit-phpunit-9.5.13.zip",
-                "reference": "597cb647654ede35e43b137926dfdfef0fb11743",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/phpunit/phpunit/9.5.16/phpunit-phpunit-9.5.16.zip",
+                "reference": "5ff8c545a50226c569310a35f4fa89d79f1ddfdc",
                 "shasum": ""
             },
             "require": {
@@ -6794,7 +6791,7 @@
                 "phar-io/version": "^3.0.2",
                 "php": ">=7.3",
                 "phpspec/prophecy": "^1.12.1",
-                "phpunit/php-code-coverage": "^9.2.7",
+                "phpunit/php-code-coverage": "^9.2.13",
                 "phpunit/php-file-iterator": "^3.0.5",
                 "phpunit/php-invoker": "^3.1.1",
                 "phpunit/php-text-template": "^2.0.3",
@@ -6863,7 +6860,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-24T07:33:35+00:00"
+            "time": "2022-02-23T17:10:58+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7887,12 +7884,12 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
                 "psr-4": {
                     "Symfony\\Polyfill\\Php81\\": ""
                 },
+                "files": [
+                    "bootstrap.php"
+                ],
                 "classmap": [
                     "Resources/stubs"
                 ]
@@ -8099,7 +8096,11 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "olcs/olcs-transfer": 20,
+        "olcs/olcs-auth": 20,
+        "olcs/olcs-common": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

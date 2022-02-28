@@ -6,6 +6,10 @@
             "packagist": false
         },
         {
+            "url": "git@repo.olcs.dev-dvsacloud.uk:olcs/olcs-auth.git",
+            "type": "vcs"
+        },
+        {
             "url": "git@repo.olcs.dev-dvsacloud.uk:olcs/olcs-common.git",
             "type": "vcs"
         },
