@@ -3,8 +3,12 @@
 namespace Olcs\Controller\Lva;
 
 use Common\Controller\Lva\AbstractController;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Laminas\View\Model\ViewModel;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Abstract Internal Application Decsision Controller
@@ -17,6 +21,29 @@ abstract class AbstractApplicationDecisionController extends AbstractController 
     protected $cancelMessageKey;
     protected $successMessageKey;
     protected $titleKey;
+
+    protected FlashMessengerHelperService $flashMessengerHelper;
+    protected TranslationHelperService $translationHelper;
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param TranslationHelperService $translationHelper
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        TranslationHelperService $translationHelper
+    )
+    {
+        $this->flashMessengerHelper = $flashMessengerHelper;
+        $this->translationHelper = $translationHelper;
+
+        parent::__construct($niTextTranslationUtil, $authService);
+    }
+
 
     /**
      * indexAction

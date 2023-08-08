@@ -4,9 +4,13 @@ namespace Olcs\Controller\Lva;
 
 use Common\Controller\Lva\AbstractController;
 use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
 use Common\View\Model\Section;
 use Dvsa\Olcs\Transfer\Query\Application\Grant;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Form\Model\Form\GrantAuthorityForm;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\Form;
@@ -15,6 +19,7 @@ use Dvsa\Olcs\Transfer\Command\Variation\Grant as VarGrantCmd;
 use Olcs\Form\Model\Form\Grant as GrantApplicationForm;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Abstract Internal Grant Controller
@@ -23,12 +28,42 @@ use Laminas\View\Model\ViewModel;
  */
 abstract class AbstractGrantController extends AbstractController
 {
-    protected $lva;
-    protected $location;
+    protected string $lva;
+    protected string $location;
     protected $grantCommandMap = [
         'application' => AppGrantCmd::class,
         'variation' => VarGrantCmd::class
     ];
+
+    protected FlashMessengerHelperService $flashMessengerHelper;
+    protected FormHelperService $formHelper;
+    protected ScriptFactory $scriptFactory;
+    protected TranslationHelperService $translationHelper;
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param FormHelperService $formHelper
+     * @param ScriptFactory $scriptFactory
+     * @param TranslationHelperService $translationHelper
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        FormHelperService $formHelper,
+        ScriptFactory $scriptFactory,
+        TranslationHelperService $translationHelper
+    )
+    {
+        $this->flashMessengerHelper = $flashMessengerHelper;
+        $this->formHelper = $formHelper;
+        $this->scriptFactory = $scriptFactory;
+        $this->translationHelper = $translationHelper;
+
+        parent::__construct($niTextTranslationUtil, $authService);
+    }
 
     /**
      * Handles requests from users to perform operations related to granting an application.
@@ -40,12 +75,12 @@ abstract class AbstractGrantController extends AbstractController
         $id = $this->params('application');
 
         if ($this->isButtonPressed('cancel') || $this->isButtonPressed('overview')) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addWarningMessage('application-not-granted');
+            $this->flashMessengerHelper->addWarningMessage('application-not-granted');
             return $this->redirectToOverview($id);
         }
         $request = $this->getRequest();
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         assert($formHelper instanceof FormHelperService, 'Expected instance of FormHelperService');
         $form = $formHelper->createFormWithRequest(GrantApplicationForm::class, $request);
 
@@ -106,7 +141,7 @@ abstract class AbstractGrantController extends AbstractController
         $response = $this->handleCommand($dtoClass::create($dtoData));
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
+            $this->flashMessengerHelper
                 ->addSuccessMessage('application-granted-successfully');
 
             return $this->redirectToOverview($id);
@@ -117,7 +152,7 @@ abstract class AbstractGrantController extends AbstractController
             return $this->renderGrantApplicationForm($form);
         }
 
-        $this->getServiceLocator()->get('Helper\FlashMessenger')->addCurrentErrorMessage('unknown-error');
+        $this->flashMessengerHelper->addCurrentErrorMessage('unknown-error');
 
         return $this->renderGrantApplicationForm($form);
     }
@@ -150,7 +185,7 @@ abstract class AbstractGrantController extends AbstractController
             unset($errors['dueDate']);
         }
 
-        $fm = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $fm = $this->flashMessengerHelper;
 
         if (isset($errors['oood'])) {
             $fm->addCurrentErrorMessage(array_keys($errors['oood'])[0]);
@@ -199,7 +234,7 @@ abstract class AbstractGrantController extends AbstractController
     {
         $form->get('form-actions')->remove('overview');
         $applicationId = $this->params('application');
-        $this->getServiceLocator()->get('Script')->loadFiles(['forms/confirm-grant']);
+        $this->scriptFactory->loadFiles(['forms/confirm-grant']);
         $variables = [
             'route' => 'lva-' . $this->lva,
             'routeParams' => ['application' => $applicationId],
@@ -242,7 +277,7 @@ abstract class AbstractGrantController extends AbstractController
     {
         $messages = [];
 
-        $translator = $this->getServiceLocator()->get('Helper\Translation');
+        $translator = $this->translationHelper;
 
         foreach ($reasons as $reason => $info) {
             if (in_array($reason, ['application-grant-error-sections', 'variation-grant-error-sections'])) {
