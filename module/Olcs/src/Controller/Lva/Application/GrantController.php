@@ -48,11 +48,6 @@ class GrantController extends AbstractGrantController implements ApplicationCont
         TranslationHelperService $translationHelper
     )
     {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formHelper = $formHelper;
-        $this->scriptFactory = $scriptFactory;
-        $this->translationHelper = $translationHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

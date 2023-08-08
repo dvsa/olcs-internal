@@ -41,11 +41,6 @@ class AddressesController extends AbstractAddressesController implements Applica
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-
         parent::__construct($niTextTranslationUtil, $authService, $formHelper, $flashMessengerHelper, $formServiceManager, $scriptFactory);
     }
 }

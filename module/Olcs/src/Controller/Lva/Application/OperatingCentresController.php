@@ -50,15 +50,8 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
         FormServiceManager $formServiceManager,
         TranslationHelperService $translationHelper,
         ScriptFactory $scriptFactory,
-        VariationLvaService $variationLvaService,
+        VariationLvaService $variationLvaService
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->variationLvaService = $variationLvaService;
-        $this->translationHelper = $translationHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

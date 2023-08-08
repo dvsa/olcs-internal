@@ -49,11 +49,6 @@ class InterimController extends AbstractInterimController implements Application
         TableFactory $tableFactory
     )
     {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formHelper = $formHelper;
-        $this->scriptFactory = $scriptFactory;
-        $this->tableFactory = $tableFactory;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

@@ -46,13 +46,6 @@ class LicenceHistoryController extends Lva\AbstractLicenceHistoryController impl
         TableFactory $tableFactory,
         FormHelperService $formHelper
     ) {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->formHelper = $formHelper;
-        $this->tableFactory = $tableFactory;
-        $this->stringHelper = $stringHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

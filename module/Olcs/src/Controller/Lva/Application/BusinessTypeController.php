@@ -56,15 +56,6 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         AnnotationBuilder $transferAnnotationBuilder,
         QueryService $queryService
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->identityProvider = $identityProvider;
-        $this->translationHelper = $translationHelper;
-        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
-        $this->queryService = $queryService;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

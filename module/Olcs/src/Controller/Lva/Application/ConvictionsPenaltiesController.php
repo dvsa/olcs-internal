@@ -46,11 +46,6 @@ class ConvictionsPenaltiesController extends Lva\AbstractConvictionsPenaltiesCon
         FormServiceManager $formServiceManager,
         TableFactory $tableFactory
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->tableFactory = $tableFactory;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

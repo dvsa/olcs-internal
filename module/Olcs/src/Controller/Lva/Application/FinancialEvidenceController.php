@@ -54,13 +54,6 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
         AnnotationBuilder $transferAnnotationBuilder,
         CommandService $commandService
     ) {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->tableFactory = $tableFactory;
-        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
-        $this->commandService = $commandService;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

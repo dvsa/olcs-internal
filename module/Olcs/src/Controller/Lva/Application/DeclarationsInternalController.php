@@ -37,10 +37,6 @@ class DeclarationsInternalController extends \Olcs\Controller\Lva\AbstractDeclar
         FlashMessengerHelperService $flashMessengerHelper
     )
     {
-        $this->formServiceManager = $formServiceManager;
-        $this->translationHelper = $translationHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

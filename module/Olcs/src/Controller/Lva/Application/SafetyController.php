@@ -55,13 +55,15 @@ class SafetyController extends Lva\AbstractSafetyController implements Applicati
         ScriptFactory $scriptFactory,
         TranslationHelperService $translationHelper
     ) {
-        $this->formHelper = $formHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->tableFactory = $tableFactory;
-        $this->translationHelper = $translationHelper;
-
-        parent::__construct($niTextTranslationUtil, $authService, );
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $formServiceManager,
+            $flashMessengerHelper,
+            $tableFactory,
+            $scriptFactory,
+            $translationHelper
+        );
     }
 }

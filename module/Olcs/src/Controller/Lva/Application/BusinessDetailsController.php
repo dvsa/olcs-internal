@@ -50,12 +50,6 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
         ScriptFactory $scriptFactory,
         IdentityProviderInterface $identityProvider
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->identityProvider = $identityProvider;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

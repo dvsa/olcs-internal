@@ -52,13 +52,6 @@ class CommunityLicencesController extends Lva\AbstractCommunityLicencesControlle
         AnnotationBuilder $transferAnnotationBuilder,
         CommandService $commandService,
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
-        $this->commandService = $commandService;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

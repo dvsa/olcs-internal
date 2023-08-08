@@ -46,11 +46,6 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
         ScriptFactory $scriptFactory,
         DataHelperService $dataHelper
     ) {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->dataHelper = $dataHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

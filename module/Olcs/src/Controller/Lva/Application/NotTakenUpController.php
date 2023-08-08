@@ -43,8 +43,6 @@ class NotTakenUpController extends AbstractApplicationDecisionController
         FormHelperService $formHelper
     )
     {
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->translationHelper = $translationHelper;
         $this->formHelper = $formHelper;
 
         parent::__construct(
