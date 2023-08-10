@@ -6,6 +6,7 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
@@ -13,6 +14,7 @@ use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
@@ -35,6 +37,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -46,6 +50,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
      * @param TranslationHelperService $translationHelper
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param QueryService $queryService
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -57,8 +62,11 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         IdentityProviderInterface $identityProvider,
         TranslationHelperService $translationHelper,
         AnnotationBuilder $transferAnnotationBuilder,
-        QueryService $queryService
+        QueryService $queryService,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

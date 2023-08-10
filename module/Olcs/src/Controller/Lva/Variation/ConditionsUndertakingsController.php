@@ -6,6 +6,7 @@ use Common\Controller\Lva;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
@@ -25,6 +26,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -32,6 +35,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
      * @param FlashMessengerHelperService $flashMessengerHelper
      * @param FormServiceManager $formServiceManager
      * @param TableFactory $tableFactory
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -39,8 +43,11 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
-        TableFactory $tableFactory
+        TableFactory $tableFactory,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

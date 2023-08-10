@@ -12,6 +12,7 @@ use Common\Controller\Lva;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Lva\VariationLvaService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
@@ -32,6 +33,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -40,6 +43,7 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
      * @param ScriptFactory $scriptFactory
      * @param VariationLvaService $variationLvaService
      * @param GuidanceHelperService $guidanceHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -48,13 +52,15 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
         VariationLvaService $variationLvaService,
-        GuidanceHelperService $guidanceHelper
+        GuidanceHelperService $guidanceHelper,
+        StringHelperService $stringHelper
     ) {
         $this->formHelper = $formHelper;
         $this->formServiceManager = $formServiceManager;
         $this->scriptFactory = $scriptFactory;
         $this->variationLvaService = $variationLvaService;
         $this->guidanceHelper = $guidanceHelper;
+        $this->stringHelper = $stringHelper;
 
         parent::__construct(
             $niTextTranslationUtil,

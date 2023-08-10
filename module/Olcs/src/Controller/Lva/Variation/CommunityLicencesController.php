@@ -5,6 +5,7 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
@@ -12,6 +13,7 @@ use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
@@ -32,6 +34,8 @@ class CommunityLicencesController extends Lva\AbstractCommunityLicencesControlle
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -51,7 +55,10 @@ class CommunityLicencesController extends Lva\AbstractCommunityLicencesControlle
         ScriptFactory $scriptFactory,
         AnnotationBuilder $transferAnnotationBuilder,
         CommandService $commandService,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

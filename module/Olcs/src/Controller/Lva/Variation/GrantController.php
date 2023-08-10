@@ -6,10 +6,12 @@
  * @author Dan Eggleston <dan@stolenegg.com>
  * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
 */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
@@ -31,6 +33,8 @@ class GrantController extends AbstractGrantController implements VariationContro
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -45,8 +49,11 @@ class GrantController extends AbstractGrantController implements VariationContro
         FlashMessengerHelperService $flashMessengerHelper,
         FormHelperService $formHelper,
         ScriptFactory $scriptFactory,
-        TranslationHelperService $translationHelper
+        TranslationHelperService $translationHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

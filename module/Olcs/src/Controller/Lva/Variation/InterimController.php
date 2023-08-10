@@ -5,10 +5,12 @@
  *
  * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\AbstractInterimController;
@@ -31,6 +33,8 @@ class InterimController extends AbstractInterimController implements VariationCo
     protected $location = 'internal';
     protected $updateInterimCommand = UpdateInterim::class;
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -38,6 +42,7 @@ class InterimController extends AbstractInterimController implements VariationCo
      * @param FormHelperService $formHelper
      * @param ScriptFactory $scriptFactory
      * @param TableFactory $tableFactory
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -45,8 +50,11 @@ class InterimController extends AbstractInterimController implements VariationCo
         FlashMessengerHelperService $flashMessengerHelper,
         FormHelperService $formHelper,
         ScriptFactory $scriptFactory,
-        TableFactory $tableFactory
+        TableFactory $tableFactory,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

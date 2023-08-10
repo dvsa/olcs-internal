@@ -5,12 +5,14 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\DataHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
@@ -30,6 +32,8 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -44,8 +48,11 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
-        DataHelperService $dataHelper
+        DataHelperService $dataHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

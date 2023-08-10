@@ -5,11 +5,13 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva\Variation\AbstractTypeOfLicenceController;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits;
@@ -28,20 +30,26 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
     protected $location = 'internal';
     protected $lva = 'variation';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
      * @param FlashMessengerHelperService $flashMessengerHelper
      * @param ScriptFactory $scriptFactory
      * @param FormServiceManager $formServiceManager
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
         AuthorizationService $authService,
         FlashMessengerHelperService $flashMessengerHelper,
         ScriptFactory $scriptFactory,
-        FormServiceManager $formServiceManager
+        FormServiceManager $formServiceManager,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

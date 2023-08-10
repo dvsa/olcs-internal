@@ -6,12 +6,14 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva\AbstractBusinessDetailsController;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
@@ -32,6 +34,8 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
     protected $lva = 'variation';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -48,8 +52,11 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
-        IdentityProviderInterface $identityProvider
+        IdentityProviderInterface $identityProvider,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,
