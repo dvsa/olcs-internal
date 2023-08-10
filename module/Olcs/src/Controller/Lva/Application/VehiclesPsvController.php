@@ -5,6 +5,7 @@
  *
  * @author Nick Payne <nick.payne@valtech.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
@@ -12,6 +13,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
 use Common\Service\Helper\ResponseHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Helper\UrlHelperService;
 use Common\Service\Script\ScriptFactory;
@@ -34,6 +36,8 @@ class VehiclesPsvController extends AbstractVehiclesPsvController implements App
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -46,6 +50,7 @@ class VehiclesPsvController extends AbstractVehiclesPsvController implements App
      * @param TableFactory $tableFactory
      * @param TranslationHelperService $translatorHelper
      * @param GuidanceHelperService $guidanceHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -58,8 +63,11 @@ class VehiclesPsvController extends AbstractVehiclesPsvController implements App
         ResponseHelperService $responseHelper,
         TableFactory $tableFactory,
         TranslationHelperService $translatorHelper,
-        GuidanceHelperService $guidanceHelper
+        GuidanceHelperService $guidanceHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

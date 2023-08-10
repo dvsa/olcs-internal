@@ -116,7 +116,7 @@ trait ApplicationControllerTrait
     {
         $applicationCompletion = $this->getApplicationData($this->getApplicationId());
         $applicationStatuses = $applicationCompletion['applicationCompletion'];
-        $filter = $this->getServiceLocator()->get('Helper\String');
+        $filter = $this->stringHelper;
 
         $sections = array(
             'overview' => array('class' => 'no-background', 'route' => 'lva-application', 'enabled' => true)

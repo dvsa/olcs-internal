@@ -6,11 +6,13 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
@@ -34,6 +36,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -43,6 +47,7 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
      * @param TableFactory $tableFactory
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param CommandService $commandService
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -52,8 +57,11 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
         ScriptFactory $scriptFactory,
         TableFactory $tableFactory,
         AnnotationBuilder $transferAnnotationBuilder,
-        CommandService $commandService
+        CommandService $commandService,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

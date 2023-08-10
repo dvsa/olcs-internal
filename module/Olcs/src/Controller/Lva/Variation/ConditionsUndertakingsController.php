@@ -3,8 +3,14 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Table\TableFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Internal Variation Conditions Undertakings Controller
@@ -18,6 +24,32 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
 
     protected $lva = 'variation';
     protected $location = 'internal';
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FormHelperService $formHelper
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param FormServiceManager $formServiceManager
+     * @param TableFactory $tableFactory
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelper,
+        FormServiceManager $formServiceManager,
+        TableFactory $tableFactory
+    ) {
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $tableFactory
+        );
+    }
 
     /**
      * Action - Restore CU
@@ -37,7 +69,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
             )
         );
 
-        $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $flashMessenger = $this->flashMessengerHelper;
         if ($response->isOk()) {
             if (count($response->getResult()['messages'])) {
                 $flashMessenger->addSuccessMessage('generic-restore-success');

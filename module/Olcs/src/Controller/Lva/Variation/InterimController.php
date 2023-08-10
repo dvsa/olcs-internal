@@ -7,10 +7,16 @@
  */
 namespace Olcs\Controller\Lva\Variation;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\AbstractInterimController;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
 use Dvsa\Olcs\Transfer\Command\Variation\UpdateInterim;
+use Olcs\Mvc\Controller\Plugin\TableFactory;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Internal Variation Interim Controller
@@ -24,4 +30,30 @@ class InterimController extends AbstractInterimController implements VariationCo
     protected $lva = 'variation';
     protected $location = 'internal';
     protected $updateInterimCommand = UpdateInterim::class;
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param FormHelperService $formHelper
+     * @param ScriptFactory $scriptFactory
+     * @param TableFactory $tableFactory
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        FormHelperService $formHelper,
+        ScriptFactory $scriptFactory,
+        TableFactory $tableFactory
+    ) {
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $flashMessengerHelper,
+            $formHelper,
+            $scriptFactory,
+            $tableFactory
+        );
+    }
 }

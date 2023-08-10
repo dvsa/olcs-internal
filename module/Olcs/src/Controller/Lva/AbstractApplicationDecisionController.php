@@ -36,8 +36,7 @@ abstract class AbstractApplicationDecisionController extends AbstractController 
         AuthorizationService $authService,
         FlashMessengerHelperService $flashMessengerHelper,
         TranslationHelperService $translationHelper
-    )
-    {
+    ) {
         $this->flashMessengerHelper = $flashMessengerHelper;
         $this->translationHelper = $translationHelper;
 
@@ -52,7 +51,7 @@ abstract class AbstractApplicationDecisionController extends AbstractController 
      */
     public function indexAction()
     {
-        $helperFlashMsgr = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $helperFlashMsgr = $this->flashMessengerHelper;
 
         /** @var \Laminas\Http\Request $request */
         $request = $this->getRequest();
@@ -77,7 +76,7 @@ abstract class AbstractApplicationDecisionController extends AbstractController 
                 $response = $this->processDecision($id, $data);
 
                 if ($response->isOk()) {
-                    $message = $this->getServiceLocator()->get('Helper\Translation')
+                    $message = $this->translationHelper
                         ->translateReplace($this->successMessageKey, [$id]);
 
                     $helperFlashMsgr->addSuccessMessage($message);

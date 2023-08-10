@@ -6,6 +6,7 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\Data\Mapper\Lva\GoodsVehiclesVehicle;
@@ -14,6 +15,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
 use Common\Service\Helper\ResponseHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Lva\VariationLvaService;
 use Common\Service\Script\ScriptFactory;
@@ -38,6 +40,8 @@ class VehiclesController extends AbstractGenericVehiclesController implements Ap
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -51,6 +55,7 @@ class VehiclesController extends AbstractGenericVehiclesController implements Ap
      * @param VariationLvaService $variationLvaService
      * @param GoodsVehiclesVehicle $goodsVehiclesVehicleMapper
      * @param ResponseHelperService $responseHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -64,9 +69,11 @@ class VehiclesController extends AbstractGenericVehiclesController implements Ap
         ScriptFactory $scriptFactory,
         VariationLvaService $variationLvaService,
         GoodsVehiclesVehicle $goodsVehiclesVehicleMapper,
-        ResponseHelperService $responseHelper
-    )
-    {
+        ResponseHelperService $responseHelper,
+        StringHelperService $stringHelper
+    ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

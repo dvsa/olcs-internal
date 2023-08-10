@@ -4,6 +4,7 @@ namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\ApplicationControllerTrait;
@@ -22,21 +23,26 @@ class DeclarationsInternalController extends \Olcs\Controller\Lva\AbstractDeclar
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
      * @param FormServiceManager $formServiceManager
      * @param TranslationHelperService $translationHelper
      * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
         AuthorizationService $authService,
         FormServiceManager $formServiceManager,
         TranslationHelperService $translationHelper,
-        FlashMessengerHelperService $flashMessengerHelper
-    )
-    {
+        FlashMessengerHelperService $flashMessengerHelper,
+        StringHelperService $stringHelper
+    ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

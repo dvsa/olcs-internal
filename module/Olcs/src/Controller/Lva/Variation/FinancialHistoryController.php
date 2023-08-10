@@ -8,8 +8,14 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\FormService\FormServiceManager;
+use Common\Service\Helper\DataHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Script\ScriptFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Internal Variation Financial History Controller
@@ -23,4 +29,30 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
 
     protected $lva = 'variation';
     protected $location = 'internal';
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param FormServiceManager $formServiceManager
+     * @param ScriptFactory $scriptFactory
+     * @param DataHelperService $dataHelper
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        FormServiceManager $formServiceManager,
+        ScriptFactory $scriptFactory,
+        DataHelperService $dataHelper
+    ) {
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $scriptFactory,
+            $dataHelper
+        );
+    }
 }

@@ -172,8 +172,7 @@ trait LicenceControllerTrait
     public function getSearchForm()
     {
         if ($this->searchForm === null) {
-            $this->searchForm = $this->getServiceLocator()
-                ->get('Helper\Form')
+            $this->searchForm = $this->formHelper
                 ->createForm('HeaderSearch', false, false);
 
             $container = new Container('search');

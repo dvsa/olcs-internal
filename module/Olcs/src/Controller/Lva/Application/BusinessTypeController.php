@@ -12,6 +12,7 @@ use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
@@ -35,6 +36,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -43,6 +46,10 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param IdentityProviderInterface $identityProvider
+     * @param TranslationHelperService $translationHelper
+     * @param AnnotationBuilder $transferAnnotationBuilder
+     * @param QueryService $queryService
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -54,8 +61,11 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         IdentityProviderInterface $identityProvider,
         TranslationHelperService $translationHelper,
         AnnotationBuilder $transferAnnotationBuilder,
-        QueryService $queryService
+        QueryService $queryService,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

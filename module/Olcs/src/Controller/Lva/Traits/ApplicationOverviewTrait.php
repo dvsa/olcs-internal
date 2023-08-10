@@ -72,7 +72,7 @@ trait ApplicationOverviewTrait
 
         // Render the view
         /** @var \Olcs\Service\Helper\ApplicationOverviewHelperService $helper */
-        $helper = $this->getServiceLocator()->get('Helper\ApplicationOverview');
+        $helper = $this->applicationOverviewHelper;
         $viewData = $helper->getViewData($application, $this->lva);
 
         $content = new ViewModel(
@@ -96,7 +96,7 @@ trait ApplicationOverviewTrait
      */
     protected function getOverviewForm()
     {
-        return $this->getServiceLocator()->get('Helper\Form')
+        return $this->formHelper
             ->createForm('ApplicationOverview');
     }
 
@@ -151,7 +151,7 @@ trait ApplicationOverviewTrait
     {
         // build up the tracking fieldset dynamically, based on relevant sections
         $fieldset = $form->get('tracking');
-        $stringHelper = $this->getServiceLocator()->get('Helper\String');
+        $stringHelper = $this->stringHelper;
 
         $options = $application['valueOptions']['tracking'];
 
@@ -184,7 +184,7 @@ trait ApplicationOverviewTrait
         );
 
         if ($licence['trafficArea']['isWales'] !== true) {
-            $this->getServiceLocator()->get('Helper\Form')->remove($form, 'details->translateToWelsh');
+            $this->formHelper->remove($form, 'details->translateToWelsh');
         }
 
         $this->alterFormForLva($form);

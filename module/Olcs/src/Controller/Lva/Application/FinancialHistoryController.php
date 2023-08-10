@@ -10,6 +10,7 @@ namespace Olcs\Controller\Lva\Application;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\DataHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
@@ -30,6 +31,8 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -37,6 +40,7 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param DataHelperService $dataHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -44,8 +48,11 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
-        DataHelperService $dataHelper
+        DataHelperService $dataHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

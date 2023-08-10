@@ -6,10 +6,12 @@
  * @author Dan Eggleston <dan@stolenegg.com>
  * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
@@ -31,6 +33,8 @@ class GrantController extends AbstractGrantController implements ApplicationCont
     protected string $lva = 'application';
     protected string $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -38,6 +42,7 @@ class GrantController extends AbstractGrantController implements ApplicationCont
      * @param FormHelperService $formHelper
      * @param ScriptFactory $scriptFactory
      * @param TranslationHelperService $translationHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -45,9 +50,11 @@ class GrantController extends AbstractGrantController implements ApplicationCont
         FlashMessengerHelperService $flashMessengerHelper,
         FormHelperService $formHelper,
         ScriptFactory $scriptFactory,
-        TranslationHelperService $translationHelper
-    )
-    {
+        TranslationHelperService $translationHelper,
+        StringHelperService $stringHelper
+    ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

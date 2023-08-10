@@ -5,11 +5,13 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\DataHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
@@ -30,6 +32,8 @@ class VehiclesDeclarationsController extends Lva\AbstractVehiclesDeclarationsCon
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -37,6 +41,7 @@ class VehiclesDeclarationsController extends Lva\AbstractVehiclesDeclarationsCon
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param DataHelperService $dataHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -44,8 +49,11 @@ class VehiclesDeclarationsController extends Lva\AbstractVehiclesDeclarationsCon
         FormHelperService $formHelper,
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
-        DataHelperService $dataHelper
+        DataHelperService $dataHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

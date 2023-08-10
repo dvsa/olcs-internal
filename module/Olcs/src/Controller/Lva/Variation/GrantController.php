@@ -8,9 +8,15 @@
 */
 namespace Olcs\Controller\Lva\Variation;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\AbstractGrantController;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Variation Grant Controller
@@ -24,4 +30,30 @@ class GrantController extends AbstractGrantController implements VariationContro
 
     protected $lva = 'variation';
     protected $location = 'internal';
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     * @param FormHelperService $formHelper
+     * @param ScriptFactory $scriptFactory
+     * @param TranslationHelperService $translationHelper
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        FormHelperService $formHelper,
+        ScriptFactory $scriptFactory,
+        TranslationHelperService $translationHelper
+    ) {
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $flashMessengerHelper,
+            $formHelper,
+            $scriptFactory,
+            $translationHelper
+        );
+    }
 }

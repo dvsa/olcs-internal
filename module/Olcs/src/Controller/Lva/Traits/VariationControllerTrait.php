@@ -152,7 +152,7 @@ trait VariationControllerTrait
     {
         $applicationData = $this->getApplicationData($this->getApplicationId());
         $variationStatuses = $applicationData['applicationCompletion'];
-        $filter = $this->getServiceLocator()->get('Helper\String');
+        $filter = $this->stringHelper;
 
         $sections = array(
             'overview' => array('class' => 'no-background', 'route' => 'lva-variation')

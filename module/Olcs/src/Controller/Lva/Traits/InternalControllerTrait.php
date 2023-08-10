@@ -26,7 +26,7 @@ trait InternalControllerTrait
      */
     protected function handleCancelRedirect($lvaId)
     {
-        $this->getServiceLocator()->get('Helper\FlashMessenger')->addInfoMessage('flash-discarded-changes');
+        $this->flashMessengerHelper->addInfoMessage('flash-discarded-changes');
 
         return $this->reload();
     }

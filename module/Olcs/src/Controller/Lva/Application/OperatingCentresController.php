@@ -5,11 +5,13 @@
  *
  * @author Nick Payne <nick.payne@valtech.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Lva\VariationLvaService;
 use Common\Service\Script\ScriptFactory;
@@ -32,6 +34,8 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
     protected $lva = 'application';
     protected $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -41,6 +45,7 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
      * @param TranslationHelperService $translationHelper
      * @param ScriptFactory $scriptFactory
      * @param VariationLvaService $variationLvaService
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -50,8 +55,11 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
         FormServiceManager $formServiceManager,
         TranslationHelperService $translationHelper,
         ScriptFactory $scriptFactory,
-        VariationLvaService $variationLvaService
+        VariationLvaService $variationLvaService,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

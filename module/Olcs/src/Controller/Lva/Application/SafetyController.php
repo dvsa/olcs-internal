@@ -6,11 +6,13 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
@@ -29,11 +31,13 @@ use ZfcRbac\Service\AuthorizationService;
  */
 class SafetyController extends Lva\AbstractSafetyController implements ApplicationControllerInterface
 {
-    use ApplicationControllerTrait,
-        ApplicationSafetyControllerTrait;
+    use ApplicationControllerTrait;
+    use ApplicationSafetyControllerTrait;
 
     protected $lva = 'application';
     protected $location = 'internal';
+
+    protected StringHelperService $stringHelper;
 
     /**
      * @param NiTextTranslation $niTextTranslationUtil
@@ -44,6 +48,7 @@ class SafetyController extends Lva\AbstractSafetyController implements Applicati
      * @param TableFactory $tableFactory
      * @param ScriptFactory $scriptFactory
      * @param TranslationHelperService $translationHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -53,8 +58,11 @@ class SafetyController extends Lva\AbstractSafetyController implements Applicati
         FlashMessengerHelperService $flashMessengerHelper,
         TableFactory $tableFactory,
         ScriptFactory $scriptFactory,
-        TranslationHelperService $translationHelper
+        TranslationHelperService $translationHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

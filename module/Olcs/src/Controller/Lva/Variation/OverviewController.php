@@ -8,9 +8,11 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva\AbstractController;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\VariationControllerTrait;
 use Olcs\Controller\Lva\Traits\ApplicationOverviewTrait;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Application Overview Controller
@@ -22,6 +24,17 @@ class OverviewController extends AbstractController implements VariationControll
     use VariationControllerTrait,
         ApplicationOverviewTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService
+    ) {
+        parent::__construct($niTextTranslationUtil, $authService);
+    }
 }

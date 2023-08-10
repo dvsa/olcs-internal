@@ -33,9 +33,9 @@ use ZfcRbac\Service\AuthorizationService;
  */
 abstract class AbstractInterimController extends AbstractController
 {
-    const ACTION_GRANTED = 'granted';
-    const ACTION_IN_FORCE = 'in_force';
-    const ACTION_FEE_REQUEST = 'fee_request';
+    protected const ACTION_GRANTED = 'granted';
+    protected const ACTION_IN_FORCE = 'in_force';
+    protected const ACTION_FEE_REQUEST = 'fee_request';
 
     protected $updateInterimCommand;
 
@@ -59,8 +59,7 @@ abstract class AbstractInterimController extends AbstractController
         FormHelperService $formHelper,
         ScriptFactory $scriptFactory,
         TableFactory $tableFactory
-    )
-    {
+    ) {
         $this->flashMessengerHelper = $flashMessengerHelper;
         $this->formHelper = $formHelper;
         $this->scriptFactory = $scriptFactory;

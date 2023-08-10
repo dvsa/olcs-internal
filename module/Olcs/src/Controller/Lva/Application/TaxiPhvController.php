@@ -5,11 +5,13 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Application;
 
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
@@ -31,6 +33,8 @@ class TaxiPhvController extends Lva\AbstractTaxiPhvController implements Applica
     protected string $lva = 'application';
     protected string $location = 'internal';
 
+    protected StringHelperService $stringHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
@@ -40,6 +44,7 @@ class TaxiPhvController extends Lva\AbstractTaxiPhvController implements Applica
      * @param TableFactory $tableFactory
      * @param ScriptFactory $scriptFactory
      * @param TranslationHelperService $translationHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -49,8 +54,11 @@ class TaxiPhvController extends Lva\AbstractTaxiPhvController implements Applica
         FlashMessengerHelperService $flashMessengerHelper,
         TableFactory $tableFactory,
         ScriptFactory $scriptFactory,
-        TranslationHelperService $translationHelper
+        TranslationHelperService $translationHelper,
+        StringHelperService $stringHelper
     ) {
+        $this->stringHelper = $stringHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,
