@@ -11,12 +11,14 @@ namespace Olcs\Controller\Lva\Application;
 
 use Common\Controller\Lva\AbstractController;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\StringHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Lva\Traits\ApplicationControllerTrait;
 use Olcs\Controller\Lva\Traits\ApplicationOverviewTrait;
+use Olcs\Service\Helper\ApplicationOverviewHelperService;
 use ZfcRbac\Service\AuthorizationService;
 
 /**
@@ -34,18 +36,26 @@ class OverviewController extends AbstractController implements ApplicationContro
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
+    protected ApplicationOverviewHelperService $applicationOverviewHelper;
+    protected FormHelperService $formHelper;
 
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
      * @param StringHelperService $stringHelper
+     * @param ApplicationOverviewHelperService $applicationOverviewHelper
+     * @param FormHelperService $formHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
         AuthorizationService $authService,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        ApplicationOverviewHelperService $applicationOverviewHelper,
+        FormHelperService $formHelper
     ) {
         $this->stringHelper = $stringHelper;
+        $this->applicationOverviewHelper = $applicationOverviewHelper;
+        $this->formHelper = $formHelper;
 
         parent::__construct($niTextTranslationUtil, $authService);
     }

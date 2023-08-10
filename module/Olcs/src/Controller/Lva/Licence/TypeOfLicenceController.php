@@ -5,11 +5,13 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva\Licence\AbstractTypeOfLicenceController;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
@@ -28,20 +30,26 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
     protected $location = 'internal';
     protected $lva = 'licence';
 
+    protected FormHelperService $formHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
      * @param FlashMessengerHelperService $flashMessengerHelper
      * @param ScriptFactory $scriptFactory
      * @param FormServiceManager $formServiceManager
+     * @param FormHelperService $formHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
         AuthorizationService $authService,
         FlashMessengerHelperService $flashMessengerHelper,
         ScriptFactory $scriptFactory,
-        FormServiceManager $formServiceManager
+        FormServiceManager $formServiceManager,
+        FormHelperService $formHelper
     ) {
+        $this->formHelper = $formHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,

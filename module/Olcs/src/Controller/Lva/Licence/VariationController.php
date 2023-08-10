@@ -9,6 +9,7 @@
 
 namespace Olcs\Controller\Lva\Licence;
 
+use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Lva\Traits\LicenceControllerTrait;
@@ -29,18 +30,24 @@ class VariationController extends AbstractVariationController implements Licence
     protected $lva = 'licence';
     protected $location = 'internal';
 
+    protected FormHelperService $formHelper;
+
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
      * @param TranslationHelperService $translationHelper
      * @param $processingCreateVariation
+     * @param FormHelperService $formHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
         AuthorizationService $authService,
         TranslationHelperService $translationHelper,
-        $processingCreateVariation
+        $processingCreateVariation,
+        FormHelperService $formHelper
     ) {
+        $this->formHelper = $formHelper;
+
         parent::__construct(
             $niTextTranslationUtil,
             $authService,
