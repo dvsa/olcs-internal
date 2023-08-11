@@ -2,10 +2,15 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Application;
 
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Application\PublishController;
+use Olcs\Service\Helper\ApplicationOverviewHelperService;
+use ZfcRbac\Service\AuthorizationService;
 
 class PublishControllerFactory implements FactoryInterface
 {
@@ -18,8 +23,18 @@ class PublishControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): PublishController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-        //ToDo: Migrate SM calls here
-        return new PublishController();
+
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
+        $authService = $container->get(AuthorizationService::class);
+        $formHelper = $container->get(FormHelperService::class);
+        $stringHelper = $container->get(StringHelperService::class);
+
+        return new PublishController(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $stringHelper
+        );
     }
 
     /**

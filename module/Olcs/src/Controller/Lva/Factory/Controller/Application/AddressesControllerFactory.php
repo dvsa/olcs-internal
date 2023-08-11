@@ -25,6 +25,7 @@ class AddressesControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): AddressesController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
+
         $niTextTranslationUtil = $container->get(NiTextTranslation::class);
         $authService = $container->get(AuthorizationService::class);
         $formHelper = $container->get(FormHelperService::class);
@@ -32,6 +33,7 @@ class AddressesControllerFactory implements FactoryInterface
         $formServiceManager = $container->get(FormServiceManager::class);
         $scriptFactory = $container->get(ScriptFactory::class);
         $stringHelper = $container->get(StringHelperService::class);
+
         return new AddressesController(
             $niTextTranslationUtil,
             $authService,

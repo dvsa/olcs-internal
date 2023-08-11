@@ -6,6 +6,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Application\TaxiPhvController;
+use ZfcRbac\Service\AuthorizationService;
 
 class TaxiPhvControllerFactory implements FactoryInterface
 {
@@ -18,7 +19,16 @@ class TaxiPhvControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): TaxiPhvController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-        //ToDo: Migrate SM calls here
+
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
+        $authService = $container->get(AuthorizationService::class);
+        $formHelper = $container->get(FormHelperService::class);
+        $formServiceManager = $container->get(FormServiceManager::class);
+        $scriptFactory = $container->get(ScriptFactory::class);
+        $variationLvaService = $container->get(VariationLvaService::class);
+        $guidanceHelper = $container->get(GuidanceHelperService::class);
+        $stringHelper = $container->get(StringHelperService::class);
+
         return new TaxiPhvController();
     }
 
