@@ -7,16 +7,16 @@
  */
 namespace Admin\Controller;
 
-use Olcs\Controller\AbstractInternalController;
-use Olcs\Controller\Interfaces\LeftViewProvider;
-use Laminas\View\Model\ViewModel;
+use Admin\Form\Model\Form\SystemParameter as SystemParameterForm;
 use Dvsa\Olcs\Transfer\Command\SystemParameter\CreateSystemParameter as CreateDto;
-use Dvsa\Olcs\Transfer\Command\SystemParameter\UpdateSystemParameter as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\SystemParameter\DeleteSystemParameter as DeleteDto;
+use Dvsa\Olcs\Transfer\Command\SystemParameter\UpdateSystemParameter as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\SystemParameter\SystemParameter as ItemDto;
 use Dvsa\Olcs\Transfer\Query\SystemParameter\SystemParameterList as ListDto;
+use Laminas\View\Model\ViewModel;
+use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\SystemParameter as SystemParameterMapper;
-use Admin\Form\Model\Form\SystemParameter as SystemParameterForm;
 
 /**
  * System Parameters Controller
@@ -87,16 +87,14 @@ class SystemParametersController extends AbstractInternalController implements L
 
     public function alterFormForEdit($form)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper/Form');
-
         // id is disabled in hidden mode so it could be empty after form validation failed
         $form->get('system-parameter-details')
             ->get('id')
             ->setValue(
                 $form->get('system-parameter-details')->get('hiddenId')->getValue()
             );
-        $formHelper->disableElement($form, 'system-parameter-details->id');
-        $formHelper->remove($form, 'form-actions->addAnother');
+        $this->formHelperService->disableElement($form, 'system-parameter-details->id');
+        $this->formHelperService->remove($form, 'form-actions->addAnother');
 
         return $form;
     }

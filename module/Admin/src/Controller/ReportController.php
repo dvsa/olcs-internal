@@ -7,17 +7,23 @@ namespace Admin\Controller;
 
 use Admin\Controller\Traits\ReportLeftViewTrait;
 use Common\Category;
-use \Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
-use Common\RefData;
-use Dvsa\Olcs\Transfer\Command\Organisation\CpidOrganisationExport;
-use Dvsa\Olcs\Transfer\Query\Document\DocumentList;
-use Dvsa\Olcs\Transfer\Query\Organisation\CpidOrganisation;
-use Dvsa\Olcs\Transfer\Query\Organisation\Organisation;
-use Olcs\Controller\Interfaces\LeftViewProvider;
-use Laminas\View\Model\ViewModel;
 use Common\Controller\Traits\GenericMethods;
 use Common\Controller\Traits\GenericRenderView;
 use Common\Controller\Traits\ViewHelperManagerAware;
+use Common\Form\Form;
+use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableBuilder;
+use Dvsa\Olcs\Transfer\Command\Organisation\CpidOrganisationExport;
+use Dvsa\Olcs\Transfer\Query\Document\DocumentList;
+use Dvsa\Olcs\Transfer\Query\Organisation\CpidOrganisation;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
+use Olcs\Controller\Interfaces\LeftViewProvider;
 
 /**
  * Report Controller
@@ -32,6 +38,24 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
         ViewHelperManagerAware,
         ReportLeftViewTrait;
 
+    protected FlashMessengerHelperService $flashMessengerHelperService;
+    protected HelperPluginManager $viewHelperPluginManager;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelperService,
+        TableBuilder $tableBuilder,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        HelperPluginManager $viewHelperPluginManager
+    )
+    {
+        $this->scriptFactory = $scriptFactory;
+        $this->formHelperService = $formHelperService;
+        $this->tableBuilder = $tableBuilder;
+        $this->flashMessengerHelperService = $flashMessengerHelperService;
+        $this->viewHelperPluginManager = $viewHelperPluginManager;
+    }
+
     /**
      * render layout
      *
@@ -43,7 +67,7 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
      */
     protected function renderLayout($view, $pageTitle = 'Reports', $pageSubTitle = null)
     {
-        $this->getViewHelperManager()->get('placeholder')->getContainer('tableFilters')
+        $this->viewHelperPluginManager->get('placeholder')->getContainer('tableFilters')
             ->set($view->getVariable('filterForm'));
 
         return $this->renderView($view, $pageTitle, $pageSubTitle);
@@ -52,7 +76,7 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
     /**
      * index action
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function indexAction()
     {
@@ -62,7 +86,7 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
     /**
      * Export and list the organsations by CPID.
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function cpidClassificationAction()
     {
@@ -76,16 +100,15 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
                     ]
                 );
 
-                $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
                 $response = $this->handleCommand($command);
                 if ($response->isOk()) {
-                    $flashMessenger->addSuccessMessage('Mass Export Queued.');
+                    $this->flashMessengerHelperService->addSuccessMessage('Mass Export Queued.');
 
                     return $this->redirectToRouteAjax(
                         'admin-dashboard/admin-report/cpid-class'
                     );
                 }
-                $flashMessenger->addSuccessMessage('Unknown error');
+                $this->flashMessengerHelperService->addSuccessMessage('Unknown error');
             }
         }
 
@@ -175,7 +198,7 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
      *
      * @param string $status status
      *
-     * @return \Common\Form\Form
+     * @return Form
      */
     private function getCpidFilterForm($status)
     {

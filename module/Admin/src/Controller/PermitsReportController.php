@@ -9,6 +9,8 @@ use Admin\Form\Model\Form\PermitsReport;
 use Common\Form\Form;
 use Dvsa\Olcs\Transfer\Command\Permits\QueueReport;
 use Dvsa\Olcs\Transfer\Query\Permits\ReportList;
+use Exception;
+use Laminas\Form\Element\Select;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -54,11 +56,10 @@ class PermitsReportController extends AbstractInternalController implements Left
                 ]
             );
 
-            $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
             $response = $this->handleCommand($command);
 
             if ($response->isOk()) {
-                $flashMessenger->addSuccessMessage('Report has been queued for generation');
+                $this->flashMessengerHelperService->addSuccessMessage('Report has been queued for generation');
                 return $this->redirect()->toRoute($this->navigationId);
             } elseif ($response->isClientError() || $response->isServerError()) {
                 $this->handleErrors($response->getResult());
@@ -78,13 +79,13 @@ class PermitsReportController extends AbstractInternalController implements Left
      * @param Form $form Form
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     private function setSelectReportList(Form $form): void
     {
         $response = $this->handleQuery(ReportList::create([]));
         if (!$response->isOk()) {
-            throw new \Exception(
+            throw new Exception(
                 "Permit Reports: Unable to fetch report list - ". $response->getStatusCode()
             );
         }
@@ -95,7 +96,7 @@ class PermitsReportController extends AbstractInternalController implements Left
         }
 
         $select = $form->get('reportOptions')->get('id');
-        assert($select instanceof \Laminas\Form\Element\Select);
+        assert($select instanceof Select);
         $select->setValueOptions($options);
     }
 }

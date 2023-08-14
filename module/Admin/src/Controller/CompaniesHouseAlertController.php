@@ -6,13 +6,19 @@
 namespace Admin\Controller;
 
 use Admin\Controller\Traits\ReportLeftViewTrait;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Command\CompaniesHouse\CloseAlerts as CloseDto;
 use Dvsa\Olcs\Transfer\Query\CompaniesHouse\AlertList as ListDto;
+use Laminas\Http\Response;
+use Laminas\Navigation\Navigation;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Form\Model\Form\CompaniesHouseAlertFilters as FilterForm;
 use Olcs\Logging\Log\Logger;
-use Laminas\View\Model\ViewModel;
 
 /**
  * Companies House Alert Controller
@@ -59,10 +65,18 @@ class CompaniesHouseAlertController extends AbstractInternalController implement
         ]
     ];
 
+    protected HelperPluginManager $helperPluginManager;
+
+    public function __construct(TranslationHelperService $translationHelper, FormHelperService $formHelper, FlashMessengerHelperService $flashMessenger, Navigation $navigation, HelperPluginManager $helperPluginManager)
+    {
+        $this->helperPluginManager = $helperPluginManager;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
+
     /**
      * Companies house alert list view
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function indexAction()
     {
@@ -72,8 +86,7 @@ class CompaniesHouseAlertController extends AbstractInternalController implement
 
         // populate the filter dropdown from the data retrieved by the main ListDto
         $valueOptions = $this->listData['extra']['valueOptions']['companiesHouseAlertReason'];
-        $this->getServiceLocator()
-            ->get('viewHelperManager')
+        $this->helperPluginManager                                         // TODO: Investigate
             ->get('placeholder')
             ->getContainer('tableFilters')
             ->getValue()
@@ -84,19 +97,14 @@ class CompaniesHouseAlertController extends AbstractInternalController implement
         return $view;
     }
 
-    /**
-     * Close action
-     *
-     * @return ViewModel
-     */
-    public function closeAction()
+    public function closeAction(): ViewModel
     {
         Logger::debug(__FILE__);
         Logger::debug(__METHOD__);
 
-        $confirmMessage = $this->getServiceLocator()->get('Helper\Translation')
+        $confirmMessage = $this->translationHelperService
             ->translate('companies-house-alert.close.confirm');
-        $confirm = $this->confirm($confirmMessage);
+        $confirm = $this->confirm($confirmMessage);                         // TODO: Investigate
 
         if ($confirm instanceof ViewModel) {
             $this->placeholder()->setPlaceholder('pageTitle', 'companies-house-alert.close.title');
@@ -107,12 +115,11 @@ class CompaniesHouseAlertController extends AbstractInternalController implement
         $response = $this->handleCommand(CloseDto::create($dtoData));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
-                ->addSuccessMessage('companies-house-alert.close.success');
+            $this->flashMessengerHelperService->addSuccessMessage('companies-house-alert.close.success');
         }
 
         return $this->redirectTo($response->getResult());

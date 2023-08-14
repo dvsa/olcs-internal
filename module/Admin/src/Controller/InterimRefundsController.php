@@ -4,7 +4,13 @@ namespace Admin\Controller;
 
 use Admin\Controller\Traits\ReportLeftViewTrait;
 use Admin\Form\Model\Form\InterimRefundReportFilter as FilterForm;
+use Common\Service\Helper\DateHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Query\Fee\InterimRefunds as ListDto;
+use Laminas\Http\Request;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 
@@ -28,6 +34,20 @@ class InterimRefundsController extends AbstractInternalController implements Lef
     protected $listDto = ListDto::class;
     protected $filterForm = FilterForm::class;
 
+    protected DateHelperService $dateHelperService;
+
+    public function __construct(
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelperService,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        Navigation $navigation,
+        DateHelperService $dateHelperService
+    ) {
+        $this->dateHelperService = $dateHelperService;
+        parent::__construct($translationHelperService, $formHelperService, $flashMessengerHelperService, $navigation);
+    }
+
+
     /**
      * Sets filter defaults
      *
@@ -35,10 +55,10 @@ class InterimRefundsController extends AbstractInternalController implements Lef
      */
     private function setFilterDefaults()
     {
-        /* @var $request \Laminas\Http\Request */
+        /* @var $request Request */
         $request = $this->getRequest();
 
-        $eomDate = $this->getServiceLocator()->get('Helper\Date')->getDate('Y-m-t');
+        $eomDate = $this->dateHelperService->getDate('Y-m-t');
         list($year, $month, $lastDay) = explode('-', $eomDate);
 
         $filters = array_merge(

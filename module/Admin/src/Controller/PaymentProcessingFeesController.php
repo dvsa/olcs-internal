@@ -5,14 +5,15 @@
  */
 namespace Admin\Controller;
 
+use Common\Controller\Traits\GenericMethods;
 use Common\Controller\Traits\GenericReceipt;
+use Common\Controller\Traits\GenericRenderView;
+use Common\Util\FlashMessengerTrait;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\FeesActionTrait;
-use Laminas\View\Model\ViewModel;
-use \Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
-use Common\Controller\Traits\GenericRenderView;
-use Common\Controller\Traits\GenericMethods;
-use Common\Util\FlashMessengerTrait;
 
 /**
  * Payment Processing Fees Controller
@@ -43,12 +44,11 @@ class PaymentProcessingFeesController extends LaminasAbstractActionController im
         $form->get('fee-details')->get('feeType')->setValueOptions($options);
 
         // remove IRFO fields
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
-        $formHelper->remove($form, 'fee-details->irfoGvPermit');
-        $formHelper->remove($form, 'fee-details->irfoPsvAuth');
+        $this->formHelperService->remove($form, 'fee-details->irfoGvPermit');
+        $this->formHelperService->remove($form, 'fee-details->irfoPsvAuth');
 
-        $formHelper->remove($form, 'fee-details->quantity');
-        $formHelper->remove($form, 'fee-details->vatRate');
+        $this->formHelperService->remove($form, 'fee-details->quantity');
+        $this->formHelperService->remove($form, 'fee-details->vatRate');
 
         return $form;
     }
@@ -89,7 +89,7 @@ class PaymentProcessingFeesController extends LaminasAbstractActionController im
     /**
      * Index action
      *
-     * @return \Laminas\View\Model\ViewModel
+     * @return ViewModel
      */
     public function indexAction()
     {
@@ -135,7 +135,7 @@ class PaymentProcessingFeesController extends LaminasAbstractActionController im
     /**
      * Redirect action
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function redirectAction()
     {

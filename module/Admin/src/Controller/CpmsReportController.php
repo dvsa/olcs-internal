@@ -5,10 +5,14 @@ namespace Admin\Controller;
 use Admin\Controller\Traits\ReportLeftViewTrait;
 use Admin\Form\Model\Form\CpmsReport as Form;
 use Dvsa\Olcs\Transfer\Command\Cpms\RequestReport as GenerateCmd;
+use Dvsa\Olcs\Transfer\Query\Cpms\ReportList;
+use Laminas\Form\Element\Select;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\CpmsReport as Mapper;
-use Laminas\View\Model\ViewModel;
 
 /**
  * Cpms Report Controller
@@ -27,7 +31,7 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
     /**
      * Process action - Index
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function indexAction()
     {
@@ -46,7 +50,7 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
 
         $this->placeholder()->setPlaceholder('pageTitle', 'CPMS Financial report');
 
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
         $form = $this->getForm(Form::class);
         $this->setSelectReportList($form);
@@ -65,19 +69,19 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
             $response = $this->handleCommand(GenerateCmd::create($commandData));
 
             if ($response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isClientError()) {
                 $flashErrors = Mapper::mapFromErrors($form, $response->getResult());
 
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessengerHelperService->addErrorMessage($error);
                 }
             }
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+                $this->flashMessengerHelperService->addSuccessMessage($successMessage);
                 return $this->redirectTo($response->getResult());
             }
         }
@@ -94,14 +98,14 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
      */
     private function setSelectReportList(\Common\Form\Form $form)
     {
-        $response = $this->handleQuery(\Dvsa\Olcs\Transfer\Query\Cpms\ReportList::create([]));
+        $response = $this->handleQuery(ReportList::create([]));
         if ($response->isOk()) {
             $select = $form->get('reportOptions')->get('reportCode');
             $options = [];
             foreach ($response->getResult()['results'] as $reportData) {
                 $options[$reportData['code']] = $reportData['title'];
             }
-            /* @var $select \Laminas\Form\Element\Select */
+            /* @var $select Select */
             $select->setValueOptions($options);
             $this->reports = $options;
         }
@@ -126,7 +130,7 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
     /**
      * Redirect to generate
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function redirectToGenerate()
     {

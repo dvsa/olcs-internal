@@ -6,11 +6,17 @@
 namespace Admin\Controller;
 
 use Admin\Controller\Traits\ReportLeftViewTrait;
+use Admin\Form\Model\Form\PiReportFilter as FilterForm;
+use Common\Service\Helper\DateHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Query\Cases\Pi\ReportList as ListDto;
+use Laminas\Http\Request;
+use Laminas\Navigation\Navigation;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use Admin\Form\Model\Form\PiReportFilter as FilterForm;
-use Laminas\View\Model\ViewModel;
 
 /**
  * PI Report Controller
@@ -40,6 +46,20 @@ class PiReportController extends AbstractInternalController implements LeftViewP
     protected $listDto = ListDto::class;
     protected $filterForm = FilterForm::class;
 
+    protected DateHelperService $dateHelperService;
+
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        DateHelperService $dateHelperService
+    )
+    {
+        $this->dateHelperService = $dateHelperService;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
+
     /**
      * Sets the page title
      *
@@ -57,7 +77,7 @@ class PiReportController extends AbstractInternalController implements LeftViewP
      */
     private function setFilterDefaults()
     {
-        /* @var $request \Laminas\Http\Request */
+        /* @var $request Request */
         $request = $this->getRequest();
 
         $eomDate = $this->getServiceLocator()->get('Helper\Date')->getDate('Y-m-t');

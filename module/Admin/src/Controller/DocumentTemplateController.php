@@ -2,22 +2,27 @@
 
 namespace Admin\Controller;
 
+use Admin\Data\Mapper\DocumentTemplate as DocumentTemplateMapper;
+use Admin\Form\Model\Form\DocTemplateFilter;
 use Admin\Form\Model\Form\DocumentTemplateUpload as DocumentTemplateUploadForm;
 use Common\Category;
 use Common\Service\AntiVirus\Scan;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Common\Util\FileContent;
-use Olcs\Controller\AbstractInternalController;
-use Olcs\Controller\Interfaces\LeftViewProvider;
-use Admin\Form\Model\Form\DocTemplateFilter;
+use Dvsa\Olcs\Transfer\Command\DocTemplate\Create as CreateDTO;
+use Dvsa\Olcs\Transfer\Command\DocTemplate\Delete as DeleteDTO;
+use Dvsa\Olcs\Transfer\Command\DocTemplate\Update as UpdateDTO;
+use Dvsa\Olcs\Transfer\Query\DocTemplate\ById as ItemDTO;
+use Dvsa\Olcs\Transfer\Query\DocTemplate\FullList as ListDTO;
 use Laminas\Form\Form;
 use Laminas\Http\Response;
+use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
-use Dvsa\Olcs\Transfer\Query\DocTemplate\FullList as ListDTO;
-use Dvsa\Olcs\Transfer\Query\DocTemplate\ById as ItemDTO;
-use Dvsa\Olcs\Transfer\Command\DocTemplate\Create as CreateDTO;
-use Dvsa\Olcs\Transfer\Command\DocTemplate\Update as UpdateDTO;
-use Dvsa\Olcs\Transfer\Command\DocTemplate\Delete as DeleteDTO;
-use Admin\Data\Mapper\DocumentTemplate as DocumentTemplateMapper;
+use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\LeftViewProvider;
+use Olcs\Service\Data\SubCategory;
 
 /**
  * Report Upload Controller
@@ -56,6 +61,27 @@ class DocumentTemplateController extends AbstractInternalController implements L
         'addAction' => ['forms/document-template'],
         'editAction' => ['forms/document-template']
     ];
+
+    protected Scan $scannerAntiVirusService;
+    protected SubCategory $subCategoryDataService;
+
+    public function __construct(
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelperService,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        Navigation $navigation,
+        Scan $scannerAntiVirusService,
+        SubCategory $subCategoryDataService
+    ) {
+        $this->scannerAntiVirusService = $scannerAntiVirusService;
+        $this->subCategoryDataService = $subCategoryDataService;
+        parent::__construct(
+            $translationHelperService,
+            $formHelperService,
+            $flashMessengerHelperService,
+            $navigation
+        );
+    }
 
     /**
      * Left View setting
@@ -167,8 +193,7 @@ class DocumentTemplateController extends AbstractInternalController implements L
         }
 
         // Run virus scan on file
-        $scanner = $this->getServiceLocator()->get(Scan::class);
-        if ($scanner->isEnabled() && !$scanner->isClean($fileTmpName)) {
+        if ($this->scannerAntiVirusService->isEnabled() && !$this->scannerAntiVirusService->isClean($fileTmpName)) {
             $fileField->setMessages([self::FILE_UPLOAD_ERR_PREFIX . 'virus']);
             return $form;
         }
@@ -192,15 +217,13 @@ class DocumentTemplateController extends AbstractInternalController implements L
             $actionDTO::create($dtoData)
         );
 
-        $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
-
         if ($response->isOk()) {
-            $flashMessenger->addSuccessMessage('Document Template uploaded sucessfully');
+            $this->flashMessengerHelperService->addSuccessMessage('Document Template uploaded sucessfully');
             return $this->redirectToIndex();
         } elseif ($response->isClientError()) {
             $messages = $response->getResult()['messages'];
             foreach ($messages as $message) {
-                $flashMessenger->addErrorMessage($message);
+                $this->flashMessengerHelperService->addErrorMessage($message);
             }
         }
 
@@ -210,14 +233,14 @@ class DocumentTemplateController extends AbstractInternalController implements L
     /**
      * Alter form for editRule action, set default values for listboxes
      *
-     * @param \Laminas\Form\Form $form     Form
+     * @param Form $form     Form
      * @param array           $formData Form data
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterFormForAdd($form, $formData)
     {
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
+        $this->subCategoryDataService
             ->setCategory(Category::CATEGORY_APPLICATION);
 
         return $form;
@@ -226,17 +249,16 @@ class DocumentTemplateController extends AbstractInternalController implements L
     /**
      * Alter form for editRule action, set default values for listboxes
      *
-     * @param \Laminas\Form\Form $form     Form
+     * @param Form $form     Form
      * @param array           $formData Form data
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterFormForEdit($form, $formData)
     {
-        $defaultCategory = isset($formData['fields']['category']) ?
-            $formData['fields']['category'] : Category::CATEGORY_APPLICATION;
+        $defaultCategory = $formData['fields']['category'] ?? Category::CATEGORY_APPLICATION;
 
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
+        $this->subCategoryDataService
             ->setCategory($defaultCategory);
 
         $form->get('fields')->get('templateSlug')->setAttributes(['disabled' => true]);

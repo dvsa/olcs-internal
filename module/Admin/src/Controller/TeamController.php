@@ -6,6 +6,10 @@ use Admin\Form\Model\Form\PrinterException as PrinterExceptionForm;
 use Admin\Form\Model\Form\Team as TeamForm;
 use Common\Category;
 use Common\Controller\Traits\GenericRenderView;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\Team\CreateTeam as CreateDto;
 use Dvsa\Olcs\Transfer\Command\Team\DeleteTeam as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\Team\UpdateTeam as UpdateDto;
@@ -16,6 +20,11 @@ use Dvsa\Olcs\Transfer\Query\Team\Team as ItemDto;
 use Dvsa\Olcs\Transfer\Query\Team\TeamList as ListDto;
 use Dvsa\Olcs\Transfer\Query\TeamPrinter\TeamPrinter as TeamPrinterItemDto;
 use Dvsa\Olcs\Transfer\Query\TeamPrinter\TeamPrinterExceptionsList as TeamPrinterExceptionsListDto;
+use Laminas\Form\Form;
+use Laminas\Http\Response;
+use Laminas\Navigation\Navigation;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\PrinterException as PrinterExceptionMapper;
@@ -23,7 +32,8 @@ use Olcs\Data\Mapper\Team as TeamMapper;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Olcs\Mvc\Controller\ParameterProvider\ConfirmItem;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
-use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\SubCategory;
+use Olcs\Service\Data\UserWithName;
 
 /**
  * Team management controller
@@ -102,6 +112,29 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         ]
     ];
 
+    protected HelperPluginManager $viewHelperPluginManager;
+    protected SubCategory $subCategoryDataService;
+    protected UserWithName $userWithNameDataService;
+    protected TableBuilder $tableBuilder;
+
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        HelperPluginManager $viewHelperPluginManager,
+        SubCategory $subCategoryDataService,
+        UserWithName $userWithNameDataService,
+        TableBuilder $tableBuilder
+    )
+    {
+        $this->viewHelperPluginManager = $viewHelperPluginManager;
+        $this->subCategoryDataService = $subCategoryDataService;
+        $this->userWithNameDataService = $userWithNameDataService;
+        $this->tableBuilder = $tableBuilder;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
+
     /**
      * Get left view
      *
@@ -141,14 +174,14 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
      */
     protected function setNavigationId($id)
     {
-        $this->getServiceLocator()->get('viewHelperManager')->get('placeholder')
+        $this->viewHelperPluginManager->get('placeholder')
             ->getContainer('navigationId')->set($id);
     }
 
     /**
      * Delete action
      *
-     * @return array|mixed|\Laminas\Http\Response|ViewModel
+     * @return array|mixed|Response|ViewModel
      */
     public function deleteAction()
     {
@@ -161,15 +194,14 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         $result = $response->getResult();
         // can't remove the team - display error messages
         if (isset($result['messages']) && $response->isClientError()) {
-            $translator = $this->getServiceLocator()->get('translator');
             $messages = array_merge(
-                [$translator->translate('internal.admin.reassing-tasks.main-message')],
+                [$this->translationHelperService->translate('internal.admin.reassing-tasks.main-message')],
                 $result['messages']
             );
             $message = implode('<br />', $messages);
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($message);
+            $this->flashMessengerHelperService->addErrorMessage($message);
         } elseif ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addUnknownError();
+            $this->flashMessengerHelperService->addUnknownError();
         }
 
         // it's possible to remove the team, now need to confirm it
@@ -196,7 +228,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
      *
      * @param int $noOfTasks No of tasks
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     protected function processRemoveTeamForm($noOfTasks)
     {
@@ -212,11 +244,10 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
                     $deleteCommand::create($this->prepareParams($post))
                 );
                 if ($response->isClientError() || $response->isServerError()) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                    $this->flashMessengerHelperService->addErrorMessage('unknown-error');
                 }
                 if ($response->isOk()) {
-                    $this->getServiceLocator()
-                        ->get('Helper\FlashMessenger')->addSuccessMessage($this->deleteSuccessMessage);
+                    $this->flashMessengerHelperService->addSuccessMessage($this->deleteSuccessMessage);
                 }
                 return $this->redirectTo($response->getResult());
             }
@@ -248,10 +279,10 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Render view
      *
-     * @param \Laminas\Form\Form $form      Form
+     * @param Form $form      Form
      * @param int             $noOfTasks No of tasks
      *
-     * @return \Laminas\View\Model\ViewModel
+     * @return ViewModel
      */
     protected function renderView($form, $noOfTasks)
     {
@@ -259,7 +290,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         $view->setVariable('form', $form);
         $view->setVariable(
             'label',
-            $this->getServiceLocator()->get('Helper\Translation')
+            $this->translationHelperService
                 ->translateReplace('internal.admin.remove-team-label', [$noOfTasks])
         );
         $view->setTemplate('pages/confirm');
@@ -270,9 +301,9 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Alter teams form
      *
-     * @param \Laminas\Form\Form $form Form
+     * @param Form $form Form
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterTeamsForm($form)
     {
@@ -286,41 +317,35 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Alter form for add action - remove the printers exceptions table
      *
-     * @param \Laminas\Form\Form $form Form
+     * @param Form $form Form
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterFormForAdd($form)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
-        $formHelper->remove($form, 'team-details->printerExceptions');
+        $this->formHelperService->remove($form, 'team-details->printerExceptions');
         return $form;
     }
 
     /**
      * Alter form for editRule action, set default values for listboxes
      *
-     * @param \Laminas\Form\Form $form     Form
+     * @param Form $form     Form
      * @param array           $formData Form data
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterFormForEditRule($form, $formData)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
-        $formHelper->remove($form, 'form-actions->addAnother');
+        $this->formHelperService->remove($form, 'form-actions->addAnother');
 
-        $defaultCategory = isset($formData['team-printer']['categoryTeam']) ?
-            $formData['team-printer']['categoryTeam'] : Category::CATEGORY_APPLICATION;
+        $defaultCategory = $formData['team-printer']['categoryTeam'] ?? Category::CATEGORY_APPLICATION;
 
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
-            ->setCategory($defaultCategory);
+        $this->subCategoryDataService->setCategory($defaultCategory);
 
-        $defaultTeam = isset($formData['exception-details']['team']) ?
-            $formData['exception-details']['team'] : $this->params()->fromRoute('team', null);
+        $defaultTeam = $formData['exception-details']['team'] ?? $this->params()->fromRoute('team', null);
 
-        $this->getServiceLocator()->get('Olcs\Service\Data\UserWithName')
-            ->setTeam($defaultTeam);
+        $this->userWithNameDataService->setTeam($defaultTeam);
 
         return $form;
     }
@@ -328,20 +353,17 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Alter form for addRule action, set default values for listboxes
      *
-     * @param \Laminas\Form\Form $form     Form
+     * @param Form $form     Form
      * @param array           $formData Form data
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function alterFormForAddRule($form, $formData)
     {
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
-            ->setCategory(Category::CATEGORY_APPLICATION);
+        $this->subCategoryDataService->setCategory(Category::CATEGORY_APPLICATION);
 
-        $defaultTeam = isset($formData['exception-details']['team']) ?
-            $formData['exception-details']['team'] : $this->params()->fromRoute('team', null);
-        $this->getServiceLocator()->get('Olcs\Service\Data\UserWithName')
-            ->setTeam($defaultTeam);
+        $defaultTeam = $formData['exception-details']['team'] ?? $this->params()->fromRoute('team', null);
+        $this->userWithNameDataService->setTeam($defaultTeam);
 
         return $form;
     }
@@ -351,22 +373,20 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
      *
      * @param string $name Name
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     public function getForm($name)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
-
-        $form = $formHelper->createForm($name);
-        $formHelper->setFormActionFromRequest($form, $this->getRequest());
+        $form = $this->formHelperService->createForm($name);
+        $this->formHelperService->setFormActionFromRequest($form, $this->getRequest());
         if ($name === 'Admin\Form\Model\Form\Team') {
-            $formHelper->populateFormTable(
+            $this->formHelperService->populateFormTable(
                 $form->get('team-details')->get('printerExceptions'),
                 $this->getExceptionsTable()
             );
         } elseif ($name === 'Admin\Form\Model\Form\PrinterException') {
             $teamId = $this->params()->fromRoute('team');
-            $this->getServiceLocator()->get('Olcs\Service\Data\UserWithName')->setTeam($teamId);
+            $this->userWithNameDataService->setTeam($teamId);
         }
 
         return $form;
@@ -375,12 +395,11 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Get printer exceptions table
      *
-     * @return \Common\Service\Table\TableBuilder
+     * @return TableBuilder
      */
     protected function getExceptionsTable()
     {
-        return $this->getServiceLocator()->get('Table')
-            ->prepareTable('admin-printers-exceptions', $this->getTableData());
+        return $this->tableBuilder->prepareTable('admin-printers-exceptions', $this->getTableData());
     }
 
     /**
@@ -400,7 +419,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         $response = $this->handleQuery(TeamPrinterExceptionsListDto::create($data));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
@@ -413,7 +432,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Edit action
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     public function editAction()
     {
@@ -449,7 +468,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Add rule action
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     public function addRuleAction()
     {
@@ -467,7 +486,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Edit rule action
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     public function editRuleAction()
     {
@@ -486,7 +505,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Delete rule action
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     public function deleteRuleAction()
     {

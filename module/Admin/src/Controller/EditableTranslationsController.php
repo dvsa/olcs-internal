@@ -2,20 +2,22 @@
 
 namespace Admin\Controller;
 
+use Admin\Data\Mapper\EditableTranslation as EditableTranslationMapper;
 use Admin\Form\Model\Form\TranslationKey;
-use Olcs\Controller\AbstractInternalController;
-use Olcs\Controller\Interfaces\LeftViewProvider;
+use Dvsa\Olcs\Transfer\Command\TranslationKey\Create as CreateCommand;
+use Dvsa\Olcs\Transfer\Command\TranslationKey\Delete as DeleteCommand;
+use Dvsa\Olcs\Transfer\Command\TranslationKey\Update as UpdateCommand;
+use Dvsa\Olcs\Transfer\Command\TranslationKeyText\Delete as DeleteTranslatedTextCommand;
+use Dvsa\Olcs\Transfer\Query\Language\GetList as GetSupportedLanguages;
+use Dvsa\Olcs\Transfer\Query\TranslationKey\ById as ItemDTO;
+use Dvsa\Olcs\Transfer\Query\TranslationKey\GetList as ListDTO;
 use Laminas\Http\Response;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
-use Dvsa\Olcs\Transfer\Query\TranslationKey\GetList as ListDTO;
-use Dvsa\Olcs\Transfer\Query\TranslationKey\ById as ItemDTO;
-use Dvsa\Olcs\Transfer\Query\Language\GetList as GetSupportedLanguages;
-use Dvsa\Olcs\Transfer\Command\TranslationKey\Delete as DeleteCommand;
-use Dvsa\Olcs\Transfer\Command\TranslationKeyText\Delete as DeleteTranslatedTextCommand;
-use Dvsa\Olcs\Transfer\Command\TranslationKey\Update as UpdateCommand;
-use Dvsa\Olcs\Transfer\Command\TranslationKey\Create as CreateCommand;
-use Admin\Data\Mapper\EditableTranslation as EditableTranslationMapper;
+use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\LeftViewProvider;
+use Olcs\Mvc\Controller\Plugin\Confirm;
+use RuntimeException;
 
 /**
  * Editable Translations Controller
@@ -69,7 +71,7 @@ class EditableTranslationsController extends AbstractInternalController implemen
     /**
      * Index override to set search term placeholder
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function indexAction()
     {
@@ -143,11 +145,11 @@ class EditableTranslationsController extends AbstractInternalController implemen
 
             $result = $response->getResult();
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($this->editSuccessMessage);
+                $this->flashMessengerHelperService->addSuccessMessage($this->editSuccessMessage);
                 return $this->redirectTo($response->getResult());
             } else {
                 $message = isset($result['messages']) ? implode('<br />', $result['messages']) : 'Error saving translations';
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($message);
+                $this->flashMessengerHelperService->addErrorMessage($message);
             }
         }
 
@@ -199,7 +201,7 @@ class EditableTranslationsController extends AbstractInternalController implemen
 
 
     /**
-     * @return \Olcs\Mvc\Controller\Plugin\Confirm|Response|ViewModel
+     * @return Confirm|Response|ViewModel
      */
     public function subdeleteAction()
     {
@@ -274,7 +276,7 @@ class EditableTranslationsController extends AbstractInternalController implemen
                     $translationsTable->render()
                 );
             } else {
-                throw new \RuntimeException('Error loading translation key data');
+                throw new RuntimeException('Error loading translation key data');
             }
         } elseif ($response->isClientError() || $response->isServerError()) {
             $this->handleErrors($response->getResult());

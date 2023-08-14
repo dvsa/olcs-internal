@@ -5,13 +5,18 @@ namespace Admin\Controller;
 use Admin\Controller\Traits\ReportLeftViewTrait;
 use Admin\Form\Model\Form\ReportUpload as ReportUploadForm;
 use Common\Service\AntiVirus\Scan;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Common\Util\FileContent;
 use Dvsa\Olcs\Transfer\Command\Report\Upload;
+use Laminas\Form\Form;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\Navigation\Navigation;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use Laminas\Form\Form;
-use Laminas\Http\Response;
-use Laminas\View\Model\ViewModel;
 
 /**
  * Report Upload Controller
@@ -30,6 +35,20 @@ class ReportUploadController extends AbstractInternalController implements LeftV
         'indexAction' => ['forms/report-upload'],
     ];
 
+    protected Scan $scannerAntiVirusService;
+
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        Scan $scannerAntiVirusService
+    )
+    {
+        $this->scannerAntiVirusService = $scannerAntiVirusService;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
+
     /**
      * Action: index
      *
@@ -37,7 +56,7 @@ class ReportUploadController extends AbstractInternalController implements LeftV
      */
     public function indexAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
 
         $form = $this->getForm(ReportUploadForm::class);
@@ -119,8 +138,7 @@ class ReportUploadController extends AbstractInternalController implements LeftV
         }
 
         // Run virus scan on file
-        $scanner = $this->getServiceLocator()->get(Scan::class);
-        if ($scanner->isEnabled() && !$scanner->isClean($fileTmpName)) {
+        if ($this->scannerAntiVirusService->isEnabled() && !$this->scannerAntiVirusService->isClean($fileTmpName)) {
             $fileField->setMessages([self::FILE_UPLOAD_ERR_PREFIX . 'virus']);
 
             return $form;
@@ -140,10 +158,8 @@ class ReportUploadController extends AbstractInternalController implements LeftV
             )
         );
 
-        $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
-
         if ($response->isOk()) {
-            $flashMessenger->addSuccessMessage('Report uploaded successfully.');
+            $this->flashMessengerHelperService->addSuccessMessage('Report uploaded successfully.');
 
             return $this->redirectToIndex();
         } elseif ($response->isClientError()) {
@@ -156,7 +172,7 @@ class ReportUploadController extends AbstractInternalController implements LeftV
             }
         }
 
-        $flashMessenger->addCurrentUnknownError();
+        $this->flashMessengerHelperService->addCurrentUnknownError();
 
         return $form;
     }

@@ -6,14 +6,18 @@
 
 namespace Admin\Controller;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableBuilder;
-use Dvsa\Olcs\Transfer\Query\MyAccount\MyAccount;
-use Olcs\Controller\AbstractInternalController;
-use Dvsa\Olcs\Transfer\Query\Publication\PendingList;
-use Dvsa\Olcs\Transfer\Command\Publication\Publish as PublishCmd;
 use Dvsa\Olcs\Transfer\Command\Publication\Generate as GenerateCmd;
-use Olcs\Controller\Interfaces\LeftViewProvider;
+use Dvsa\Olcs\Transfer\Command\Publication\Publish as PublishCmd;
+use Dvsa\Olcs\Transfer\Query\Publication\PendingList;
+use Laminas\Http\Response;
+use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
+use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Olcs\Service\Helper\WebDavJsonWebTokenGenerationService;
 
@@ -33,6 +37,20 @@ class PublicationController extends AbstractInternalController implements LeftVi
         'generate' => ['requireRows' => true],
         'publish' => ['requireRows' => true],
     ];
+
+    protected WebDavJsonWebTokenGenerationService $webDavJsonWebTokenGenerationService;
+
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        WebDavJsonWebTokenGenerationService $webDavJsonWebTokenGenerationService
+    )
+    {
+        $this->webDavJsonWebTokenGenerationService = $webDavJsonWebTokenGenerationService;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
 
 
     /**
@@ -54,15 +72,13 @@ class PublicationController extends AbstractInternalController implements LeftVi
      */
     protected function getPublicationLinkData($data)
     {
-        $webDavJsonWebTokenGenerationService = $this->getServiceLocator()->get(WebDavJsonWebTokenGenerationService::class);
-
         foreach ($data['results'] as $result => $value) {
             if (isset($value['document'])) {
-                $jwt = $webDavJsonWebTokenGenerationService->generateToken(
+                $jwt = $this->webDavJsonWebTokenGenerationService->generateToken(
                     'intusr',
                     $value['document']['identifier']
                 );
-                $url = $webDavJsonWebTokenGenerationService->getJwtWebDavLink(
+                $url = $this->webDavJsonWebTokenGenerationService->getJwtWebDavLink(
                     $jwt,
                     $value['document']['identifier'],
                 );
@@ -75,7 +91,7 @@ class PublicationController extends AbstractInternalController implements LeftVi
     /**
      * Specifically for navigation. For jumping us into the pending.
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function jumpAction()
     {
@@ -102,7 +118,7 @@ class PublicationController extends AbstractInternalController implements LeftVi
     /**
      * Generate action
      *
-     * @return mixed|\Laminas\Http\Response
+     * @return mixed|Response
      */
     public function generateAction()
     {
@@ -116,7 +132,7 @@ class PublicationController extends AbstractInternalController implements LeftVi
     /**
      * Publish action
      *
-     * @return mixed|\Laminas\Http\Response
+     * @return mixed|Response
      */
     public function publishAction()
     {

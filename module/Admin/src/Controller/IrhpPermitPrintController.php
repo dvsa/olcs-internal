@@ -2,13 +2,16 @@
 
 namespace Admin\Controller;
 
-use Olcs\Controller\AbstractInternalController;
-use Olcs\Controller\Interfaces\LeftViewProvider;
-use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\Permits\PrintPermits as PrintPermitsDto;
 use Dvsa\Olcs\Transfer\Query\Permits\ReadyToPrint as ListDto;
 use Dvsa\Olcs\Transfer\Query\Permits\ReadyToPrintConfirm as ConfirmListDto;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
+use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\LeftViewProvider;
+use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 
 /**
  * IRHP Permits Stock Print Controller
@@ -68,11 +71,11 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * Action: index
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function indexAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
 
         $form = $this->getForm('IrhpPermitPrint');
@@ -110,7 +113,7 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * List Action
      *
-     * @return ViewModel | \Laminas\Http\Response
+     * @return ViewModel | Response
      */
     public function listAction()
     {
@@ -122,7 +125,7 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * Confirm Action
      *
-     * @return ViewModel | \Laminas\Http\Response
+     * @return ViewModel | Response
      */
     public function confirmAction()
     {
@@ -140,10 +143,10 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * Alter table
      *
-     * @param \Common\Service\Table\TableBuilder $table table
+     * @param TableBuilder $table table
      * @param array                              $data  data
      *
-     * @return \Common\Service\Table\TableBuilder
+     * @return TableBuilder
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function alterTable($table, $data)
@@ -164,7 +167,7 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * Print Action
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function printAction()
     {
@@ -178,7 +181,7 @@ class IrhpPermitPrintController extends AbstractInternalController implements Le
     /**
      * Cancel Action
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function cancelAction()
     {

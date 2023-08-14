@@ -2,12 +2,21 @@
 
 namespace Admin\Controller;
 
-use Common\RefData;
-use Laminas\View\Model\ViewModel;
 use Common\Controller\Lva\Traits\CrudActionTrait;
-use Dvsa\Olcs\Transfer\Query\ContinuationDetail\GetList as GetListQry;
+use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\Continuation\Create as CreateCmd;
 use Dvsa\Olcs\Transfer\Command\ContinuationDetail\PrepareContinuations as PrepareCmd;
+use Dvsa\Olcs\Transfer\Query\ContinuationDetail\GetList as GetListQry;
+use Laminas\Form\FormInterface;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
 
 /**
  * Continuation Controller
@@ -33,14 +42,29 @@ class ContinuationController extends AbstractController
 
     protected $detailRoute = 'admin-dashboard/admin-continuation/detail';
 
+    protected TranslationHelperService $translationHelperService;
+    protected TableBuilder $tableBuilder;
+    protected FormHelperService $formHelperService;
+    protected ScriptFactory $scriptFactory;
+
+    public function __construct(FlashMessengerHelperService $flashMessengerHelperService, TranslationHelperService $translationHelperService, TableBuilder $tableBuilder, FormHelperService $formHelperService, ScriptFactory $scriptFactory, HelperPluginManager $viewHelperPluginManager)
+    {
+        $this->flashMessengerHelperService = $flashMessengerHelperService;
+        $this->translationHelperService = $translationHelperService;
+        $this->tableBuilder = $tableBuilder;
+        $this->formHelperService = $formHelperService;
+        $this->scriptFactory = $scriptFactory;
+        parent::__construct($viewHelperPluginManager);
+    }
+
     /**
      * Action: index
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function indexAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
         $form = $this->getContinuationForm();
 
@@ -76,16 +100,15 @@ class ContinuationController extends AbstractController
                 CreateCmd::create($criteria)
             );
 
-            $fm = $this->getServiceLocator()->get('Helper\FlashMessenger');
             if ($response->isServerError() || $response->isClientError()) {
-                $fm->addCurrentErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addCurrentErrorMessage('unknown-error');
             }
             if ($response->isOk()) {
                 $continuationId = $response->getResult()['id']['continuation'];
 
                 // no licences found
                 if (!$continuationId) {
-                    $fm->addCurrentInfoMessage('admin-continuations-no-licences-found');
+                    $this->flashMessengerHelperService->addCurrentInfoMessage('admin-continuations-no-licences-found');
                 } else {
                     // continuation created or already exists
                     return $this->redirect()->toRoute($this->detailRoute, ['id' => $continuationId]);
@@ -96,7 +119,7 @@ class ContinuationController extends AbstractController
         $view = new ViewModel(['form' => $form]);
         $view->setTemplate('pages/form');
         $this->setNavigationId('admin-dashboard/continuations');
-        $this->getServiceLocator()->get('Script')->loadFile('continuations');
+        $this->scriptFactory->loadFile('continuations');
 
         return $this->renderView($view, 'admin-generate-continuations-title');
     }
@@ -104,11 +127,11 @@ class ContinuationController extends AbstractController
     /**
      * Action: detail
      *
-     * @return ViewModel | \Laminas\Http\Response
+     * @return ViewModel | Response
      */
     public function detailAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -122,11 +145,6 @@ class ContinuationController extends AbstractController
         }
 
         $id = $this->params('id');
-
-        $translationHelper = $this->getServiceLocator()->get('Helper\Translation');
-        /** @var \Common\Service\Table\TableBuilder $tableHelper */
-        $tableHelper = $this->getServiceLocator()->get('Table');
-
         $filterForm = $this->getDetailFilterForm();
         if ($filterForm->isValid()) {
             $filters = $filterForm->getData()['filters'];
@@ -137,17 +155,17 @@ class ContinuationController extends AbstractController
 
         $period = date('M Y', strtotime($data['year'] . '-' . $data['month'] . '-01'));
 
-        $title = $translationHelper->translateReplace(
+        $title = $this->translationHelperService->translateReplace(
             'admin-continuations-list-title',
             [$period, $data['name']]
         );
 
-        $table = $tableHelper->prepareTable('admin-continuations', $tableData);
+        $table = $this->tableBuilder->prepareTable('admin-continuations', $tableData);
         $table->setVariable('title', $tableData['count'] . ' licence(s)');
 
-        $this->getServiceLocator()->get('Script')->loadFiles(['forms/filter', 'table-actions']);
+        $this->scriptFactory->loadFiles(['forms/filter', 'table-actions']);
 
-        $this->getServiceLocator()->get('viewHelperManager')->get('placeholder')
+        $this->viewHelperPluginManager->get('placeholder')
             ->getContainer('tableFilters')->set($filterForm);
 
         $this->setNavigationId('admin-dashboard/continuations-details');
@@ -161,11 +179,11 @@ class ContinuationController extends AbstractController
     /**
      * Action: generate
      *
-     * @return \Laminas\Http\Response|ViewModel
+     * @return Response|ViewModel
      */
     public function generateAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -184,19 +202,17 @@ class ContinuationController extends AbstractController
                     ]
                 )
             );
-            $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
             if ($response->isOk()) {
-                $flashMessenger->addSuccessMessage('The selected licence(s) have been queued');
+                $this->flashMessengerHelperService->addSuccessMessage('The selected licence(s) have been queued');
             }
             if ($response->isServerError() || $response->isClientError()) {
-                $flashMessenger->addErrorMessage('The selected licence(s) could not be queued, please try again');
+                $this->flashMessengerHelperService->addErrorMessage('The selected licence(s) could not be queued, please try again');
             }
 
             return $this->redirect()->toRouteAjax(null, ['action' => null, 'child_id' => null], [], true);
         }
 
-        $form = $this->getServiceLocator()->get('Helper\Form')
-            ->createFormWithRequest('Confirmation', $request);
+        $form = $this->formHelperService->createFormWithRequest('Confirmation', $request);
 
         $params = [
             'form' => $form,
@@ -213,7 +229,7 @@ class ContinuationController extends AbstractController
     /**
      * Get Detail Filter Form
      *
-     * @return \Laminas\Form\FormInterface
+     * @return FormInterface
      */
     protected function getDetailFilterForm()
     {
@@ -221,7 +237,7 @@ class ContinuationController extends AbstractController
 
         $filters = array_merge($this->defaultFilters, $query);
 
-        return $this->getServiceLocator()->get('Helper\Form')
+        return $this->formHelperService
             ->createForm('ContinuationDetailFilter', false)
             ->setData(['filters' => $filters]);
     }
@@ -250,7 +266,7 @@ class ContinuationController extends AbstractController
             $header = $response->getResult()['header'];
         }
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
         return [
             $result,
@@ -261,11 +277,11 @@ class ContinuationController extends AbstractController
     /**
      * Get Continuation Form
      *
-     * @return \Laminas\Form\FormInterface
+     * @return FormInterface
      */
     protected function getContinuationForm()
     {
-        return $this->getServiceLocator()->get('Helper\Form')
+        return $this->formHelperService
             ->createForm('GenerateContinuation');
     }
 }

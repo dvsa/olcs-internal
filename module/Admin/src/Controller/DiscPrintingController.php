@@ -2,35 +2,41 @@
 
 namespace Admin\Controller;
 
+use Admin\Data\Mapper\DiscPrinting as DiscPrintingMapper;
+use Common\Controller\Traits\GenericMethods;
+use Common\Controller\Traits\GenericRenderView;
+use Common\Form\Form;
 use Common\RefData;
-use Laminas\View\Model\ViewModel;
-use Laminas\View\Model\JsonModel;
-use Dvsa\Olcs\Transfer\Command\GoodsDisc\PrintDiscs as PrintDiscsGoodsDto;
-use Dvsa\Olcs\Transfer\Command\PsvDisc\PrintDiscs as PrintDiscsPsvDto;
+use Common\Service\Cqrs\Response;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableBuilder;
+use Dvsa\Olcs\Transfer\Command\CommandInterface;
 use Dvsa\Olcs\Transfer\Command\GoodsDisc\ConfirmPrinting as ConfirmPrintingGoodsDto;
+use Dvsa\Olcs\Transfer\Command\GoodsDisc\PrintDiscs as PrintDiscsGoodsDto;
 use Dvsa\Olcs\Transfer\Command\PsvDisc\ConfirmPrinting as ConfirmPrintingPsvDto;
+use Dvsa\Olcs\Transfer\Command\PsvDisc\PrintDiscs as PrintDiscsPsvDto;
 use Dvsa\Olcs\Transfer\Query\DiscSequence\DiscPrefixes as DiscPrefixesQry;
 use Dvsa\Olcs\Transfer\Query\DiscSequence\DiscsNumbering as DiscsNumberingQry;
-use Admin\Data\Mapper\DiscPrinting as DiscPrintingMapper;
-use \Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
-use Common\Controller\Traits\GenericRenderView;
-use Common\Controller\Traits\GenericMethods;
+use Dvsa\Olcs\Transfer\Query\QueryInterface;
+use Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use Common\Util\FlashMessengerTrait;
 
 /**
  * Disc Printing Controller
  *
  * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
  *
- * @method \Common\Service\Cqrs\Response handleQuery(\Dvsa\Olcs\Transfer\Query\QueryInterface $query)
- * @method \Common\Service\Cqrs\Response handleCommand(\Dvsa\Olcs\Transfer\Command\CommandInterface $query)
+ * @method Response handleQuery(QueryInterface $query)
+ * @method Response handleCommand(CommandInterface $query)
  */
 class DiscPrintingController extends LaminasAbstractActionController implements LeftViewProvider
 {
     use GenericRenderView,
-        GenericMethods,
-        FlashMessengerTrait;
+        GenericMethods;
 
     /**
      * Discs on page
@@ -43,6 +49,23 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
     const STORAGE_PATH = 'discs';
 
     private $hasDiscsToPrint = false;
+
+    protected FlashMessengerHelperService $flashMessengerHelperService;
+
+    /**
+     * @param FlashMessengerHelperService $flashMessengerHelperService
+     */
+    public function __construct(
+        FlashMessengerHelperService $flashMessengerHelperService,
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelperService,
+        TableBuilder $tableBuilder
+    ) {
+        $this->flashMessengerHelperService = $flashMessengerHelperService;
+        $this->scriptFactory = $scriptFactory;
+        $this->formHelperService = $formHelperService;
+        $this->tableBuilder = $tableBuilder;
+    }
 
     /**
      * Index action
@@ -67,11 +90,9 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
             $successStatus = $this->params()->fromRoute('success', null);
             if ($successStatus !== null) {
                 if ($successStatus == 1) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')
-                        ->addCurrentSuccessMessage('Disc printing successful');
+                    $this->flashMessengerHelperService->addCurrentSuccessMessage('Disc printing successful');
                 } else {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')
-                        ->addCurrentErrorMessage('Disc printing failed');
+                    $this->flashMessengerHelperService->addCurrentErrorMessage('Disc printing failed');
                 }
             }
         }
@@ -90,11 +111,11 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
     /**
      * Process form
      *
-     * @param \Common\Form\Form $form Form
+     * @param Form $form Form
      *
      * @return void
      */
-    protected function processForm(array $data, \Common\Form\Form $form)
+    protected function processForm(array $data, Form $form)
     {
         $params = $this->getFlattenParams($data);
 
@@ -124,11 +145,11 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
         if ($response->isClientError()) {
             $errors = DiscPrintingMapper::mapFromErrors($form, $response->getResult()['messages']);
             foreach ($errors as $message) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($message);
+                $this->flashMessengerHelperService->addErrorMessage($message);
             }
         }
         if ($response->isServerError()) {
-            $this->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
         if ($response->isOk()) {
             $form->get('queueId')->setValue($response->getResult()['id']['queue']);
@@ -139,9 +160,9 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
     /**
      * Alter form when we have all data set
      *
-     * @param \Common\Form\Form $form Form
+     * @param Form $form Form
      *
-     * @return \Common\Form\Form
+     * @return Form
      */
     protected function alterFormBeforeValidation($form)
     {
@@ -153,7 +174,7 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
 
         $operatorLocation = $this->params()->fromPost('operator-location');
         if ($operatorLocation['niFlag'] === 'Y') {
-            $this->getServiceLocator()->get('Helper\Form')->remove($form, 'operator-type');
+            $this->formHelperService->remove($form, 'operator-type');
         }
 
         return $form;
@@ -162,9 +183,9 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
     /**
      * Alter form when we have all data set
      *
-     * @param \Common\Form\Form $form Form
+     * @param Form $form Form
      *
-     * @return \Common\Form\Form
+     * @return Form
      */
     protected function postSetFormData($form)
     {
@@ -258,7 +279,7 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
         $response = $this->handleQuery(DiscsNumberingQry::create($data));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
@@ -308,7 +329,7 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
         $response = $this->handleQuery(DiscPrefixesQry::create($data));
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         $retv = [];
@@ -367,11 +388,11 @@ class DiscPrintingController extends LaminasAbstractActionController implements 
 
         if ($response->isClientError()) {
             foreach ($response->getResult()['messages'] as $message) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($message);
+                $this->flashMessengerHelperService->addErrorMessage($message);
             }
         }
         if ($response->isServerError()) {
-            $this->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
         if (!$response->isOk()) {
             $retv['status'] = 500;

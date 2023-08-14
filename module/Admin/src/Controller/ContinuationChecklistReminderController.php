@@ -2,10 +2,20 @@
 
 namespace Admin\Controller;
 
-use Laminas\View\Model\ViewModel;
 use Common\Controller\Lva\Traits\CrudActionTrait;
-use Dvsa\Olcs\Transfer\Query\ContinuationDetail\ChecklistReminders as ChecklistRemindersQry;
+use Common\Service\Helper\DateHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\ResponseHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\ContinuationDetail\Queue as QueueCmd;
+use Dvsa\Olcs\Transfer\Query\ContinuationDetail\ChecklistReminders as ChecklistRemindersQry;
+use Laminas\Form\Form;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
 
 /**
  * ContinuationChecklistReminderController
@@ -19,14 +29,39 @@ class ContinuationChecklistReminderController extends AbstractController
 
     use CrudActionTrait;
 
+    protected DateHelperService $dateHelperService;
+    protected FlashMessengerHelperService $flashMessengerHelperService;
+    protected FormHelperService $formHelperService;
+    protected ResponseHelperService $responseHelperService;
+    protected TableBuilder $tableBuilder;
+    protected ScriptFactory $scriptFactory;
+
+    public function __construct(
+        DateHelperService $dateHelperService,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        FormHelperService $formHelperService,
+        ResponseHelperService $responseHelperService,
+        TableBuilder $tableBuilder,
+        ScriptFactory $scriptFactory,
+        HelperPluginManager $viewHelperPluginManager
+    ) {
+        $this->dateHelperService = $dateHelperService;
+        $this->flashMessengerHelperService = $flashMessengerHelperService;
+        $this->formHelperService = $formHelperService;
+        $this->responseHelperService = $responseHelperService;
+        $this->tableBuilder = $tableBuilder;
+        $this->scriptFactory = $scriptFactory;
+        parent::__construct($viewHelperPluginManager);
+    }
+
     /**
      * Display a list of Continuation checklist reminders
      *
-     * @return \Laminas\View\Model\ViewModel|\Laminas\Http\Response
+     * @return ViewModel|Response
      */
     public function indexAction()
     {
-        /** @var \Laminas\Http\Request $request */
+        /** @var Request $request */
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = (array) $request->getPost();
@@ -37,7 +72,7 @@ class ContinuationChecklistReminderController extends AbstractController
             }
         }
 
-        $nowDate = $this->getServiceLocator()->get('Helper\Date')->getDate('Y-m');
+        $nowDate = $this->dateHelperService->getDate('Y-m');
         list($year, $month) = explode('-', $nowDate);
 
         $filterForm = $this->getChecklistReminderFilterForm($month, $year);
@@ -54,7 +89,7 @@ class ContinuationChecklistReminderController extends AbstractController
             )
         );
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
         $results = [];
         $total = 0;
@@ -67,12 +102,12 @@ class ContinuationChecklistReminderController extends AbstractController
         $subTitle = date('M Y', strtotime($year . '-' . $month . '-01'));
         $table->setVariable('title', $subTitle .': '. $total . ' licence(s)');
 
-        $this->getServiceLocator()->get('Script')->loadFiles(['forms/filter', 'forms/crud-table-handler']);
+        $this->scriptFactory->loadFiles(['forms/filter', 'forms/crud-table-handler']);
 
         $view = new ViewModel(['table' => $table, 'filterForm' => $filterForm]);
         $view->setTemplate('pages/table');
 
-        $this->getServiceLocator()->get('viewHelperManager')->get('placeholder')
+        $this->viewHelperPluginManager->get('placeholder')
             ->getContainer('tableFilters')->set($filterForm);
         $this->setNavigationId('admin-dashboard/continuations');
 
@@ -85,7 +120,7 @@ class ContinuationChecklistReminderController extends AbstractController
      * @param int $defaultMonth Default month
      * @param int $defaultYear  Default year
      *
-     * @return \Laminas\Form\Form
+     * @return Form
      */
     protected function getChecklistReminderFilterForm($defaultMonth, $defaultYear)
     {
@@ -99,7 +134,7 @@ class ContinuationChecklistReminderController extends AbstractController
 
         $filters = array_merge($defaults, $queryData);
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelperService;
         $form = $formHelper->createForm('ChecklistReminderFilter', false)
             ->setData(['filters' => $filters]);
 
@@ -115,7 +150,7 @@ class ContinuationChecklistReminderController extends AbstractController
     /**
      * Generate Continuation checklist reminder letters
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function generateLettersAction()
     {
@@ -129,7 +164,7 @@ class ContinuationChecklistReminderController extends AbstractController
                 ]
             )
         );
-        $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $flashMessenger = $this->flashMessengerHelperService;
         if ($response->isClientError() || $response->isServerError()) {
             $flashMessenger->addErrorMessage('The checklist reminder letters could not be generated, please try again');
         }
@@ -144,7 +179,7 @@ class ContinuationChecklistReminderController extends AbstractController
     /**
      * Export table as CSV action
      *
-     * @return \Laminas\Http\Response
+     * @return Response
      */
     public function exportAction()
     {
@@ -154,7 +189,7 @@ class ContinuationChecklistReminderController extends AbstractController
             ChecklistRemindersQry::create(['ids' => $continuationDetailIds])
         );
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             return $this->redirect()->toRouteAjax(null, ['action' => null, 'child_id' => null], [], true);
         }
         $results = [];
@@ -164,7 +199,7 @@ class ContinuationChecklistReminderController extends AbstractController
 
         $table = $this->getTable($results);
 
-        $helper = $this->getServiceLocator()->get('Helper\Response');
+        $helper = $this->responseHelperService;
         return $helper->tableToCsv($this->getResponse(), $table, 'Checklist reminder list');
     }
 
@@ -173,11 +208,11 @@ class ContinuationChecklistReminderController extends AbstractController
      *
      * @param array $results Array of entity data
      *
-     * @return \Common\Service\Table\TableBuilder
+     * @return TableBuilder
      */
     protected function getTable($results)
     {
-        $table = $this->getServiceLocator()->get('Table')
+        $table = $this->tableBuilder
             ->prepareTable('admin-continuations-checklist', $results);
 
         return $table;
