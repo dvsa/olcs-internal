@@ -2,10 +2,15 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\StringHelperService;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Licence\OverviewController;
+use Olcs\Service\Helper\ApplicationOverviewHelperService;
+use ZfcRbac\Service\AuthorizationService;
 
 class OverviewControllerFactory implements FactoryInterface
 {
@@ -18,8 +23,18 @@ class OverviewControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OverviewController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-        //ToDo: Migrate SM calls here
-        return new OverviewController();
+
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
+        $authService = $container->get(AuthorizationService::class);
+        $applicationOverviewHelper = $container->get(ApplicationOverviewHelperService::class);
+        $formHelper = $container->get(FormHelperService::class);
+
+        return new OverviewController(
+            $niTextTranslationUtil,
+            $authService,
+            $applicationOverviewHelper,
+            $formHelper
+        );
     }
 
     /**

@@ -6,6 +6,7 @@
  * @author Nick Payne <nick.payne@valtech.co.uk>
  * @author Rob Caiger <rob.caiger@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Traits;
 
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -23,10 +24,8 @@ use Laminas\Http\Response;
  */
 trait LicenceControllerTrait
 {
-    use InternalControllerTrait,
-        // @TODO: the LVA trait importing the old, generic licence trait
-        // should be a temporary measure; they need consolidating into one
-        Traits\LicenceControllerTrait;
+    use InternalControllerTrait;
+    use Traits\LicenceControllerTrait;
 
     private $searchForm;
 
@@ -147,7 +146,8 @@ trait LicenceControllerTrait
                     }
                 } elseif ($content == 'operating_centres') {
                     $licence = $this->getLicence();
-                    if (isset($licence['vehicleType']['id']) &&
+                    if (
+                        isset($licence['vehicleType']['id']) &&
                         $licence['vehicleType']['id'] == RefData::APP_VEHICLE_TYPE_LGV
                     ) {
                         $title .= '.lgv';

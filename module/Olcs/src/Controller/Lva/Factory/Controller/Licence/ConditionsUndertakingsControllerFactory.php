@@ -2,10 +2,16 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
+use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Table\TableFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Licence\ConditionsUndertakingsController;
+use ZfcRbac\Service\AuthorizationService;
 
 class ConditionsUndertakingsControllerFactory implements FactoryInterface
 {
@@ -18,8 +24,22 @@ class ConditionsUndertakingsControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ConditionsUndertakingsController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-        //ToDo: Migrate SM calls here
-        return new ConditionsUndertakingsController();
+
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
+        $authService = $container->get(AuthorizationService::class);
+        $formHelper = $container->get(FormHelperService::class);
+        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
+        $formServiceManager = $container->get(FormServiceManager::class);
+        $tableFactory = $container->get(TableFactory::class);
+
+        return new ConditionsUndertakingsController(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $tableFactory
+        );
     }
 
     /**

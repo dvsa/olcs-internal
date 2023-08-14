@@ -2,10 +2,18 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
+use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Lva\VariationLvaService;
+use Common\Service\Script\ScriptFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Licence\OperatingCentresController;
+use ZfcRbac\Service\AuthorizationService;
 
 class OperatingCentresControllerFactory implements FactoryInterface
 {
@@ -18,8 +26,26 @@ class OperatingCentresControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OperatingCentresController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-        //ToDo: Migrate SM calls here
-        return new OperatingCentresController();
+
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
+        $authService = $container->get(AuthorizationService::class);
+        $formHelper = $container->get(FormHelperService::class);
+        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
+        $formServiceManager = $container->get(FormServiceManager::class);
+        $translationHelper = $container->get(TranslationHelperService::class);
+        $scriptFactory = $container->get(ScriptFactory::class);
+        $variationLvaService = $container->get(VariationLvaService::class);
+
+        return new OperatingCentresController(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $translationHelper,
+            $scriptFactory,
+            $variationLvaService
+        );
     }
 
     /**
