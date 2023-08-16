@@ -3,6 +3,7 @@
 use Common\Data\Object\Search\Licence as LicenceSearch;
 use Common\Service\Data as CommonDataService;
 use Olcs\Auth;
+use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Bus\Processing\BusProcessingNoteController;
 use Olcs\Controller\Cases;
@@ -233,8 +234,8 @@ return array(
             'ApplicationProcessingOverviewController'
                 => 'Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController',
             ApplicationProcessingNoteController::class => ApplicationProcessingNoteController::class,
-            'ApplicationProcessingInspectionRequestController'
-                => 'Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController',
+            ApplicationProcessingInspectionRequestController::class
+                => Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestControllerFactory::class,
             'LicenceProcessingOverviewController'
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController',
             'LicenceProcessingPublicationsController'
@@ -359,6 +360,9 @@ return array(
                 TmCntr\Details\TransportManagerDetailsResponsibilityController::class,
             \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class
         ],
+        'aliases' => [
+            'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class
+        ]
     ),
     'controller_plugins' => array(
         'invokables' => array(

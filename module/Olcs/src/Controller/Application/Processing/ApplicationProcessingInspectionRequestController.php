@@ -8,6 +8,8 @@
 namespace Olcs\Controller\Application\Processing;
 
 use Common\RefData;
+use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Helper\FlashMessengerHelperService;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\InspectionRequestTrait;
 use Dvsa\Olcs\Transfer\Query\Application\EnforcementArea as AppEnforcementAreaQry;
@@ -21,6 +23,8 @@ use Dvsa\Olcs\Transfer\Command\InspectionRequest\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\InspectionRequest\Update as UpdateDto;
 use Olcs\Form\Model\Form\InspectionRequest;
 use Laminas\View\Model\ViewModel;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
+use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
 /**
  * Application Processing Inspection Request Controller
@@ -91,6 +95,24 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
      */
     protected $section = 'inspection-request';
 
+    protected TransferAnnotationBuilder $transferAnnotationBuilder;
+    protected QueryService $queryService;
+    protected FlashMessengerHelperService $flashMessenger;
+    protected OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest;
+
+    public function __construct(
+        TransferAnnotationBuilder $transferAnnotationBuilder,
+        QueryService $queryService,
+        FlashMessengerHelperService $flashMessenger,
+        OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest
+    )
+    {
+        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
+        $this->queryService = $queryService;
+        $this->flashMessengerHelperService = $flashMessenger;
+        $this->operatingCentresForInspectionRequest = $operatingCentresForInspectionRequest;
+    }
+
     /**
      * get method LeftView
      *
@@ -122,16 +144,15 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
     protected function getEnforcementAreaName()
     {
         if (!$this->enforcementAreaName) {
-            $queryToSend = $this->getServiceLocator()
-                ->get('TransferAnnotationBuilder')
+            $queryToSend = $this->transferAnnotationBuilder
                 ->createQuery(
                     AppEnforcementAreaQry::create(['id' => $this->params()->fromRoute('application')])
                 );
 
-            $response = $this->getServiceLocator()->get('QueryService')->send($queryToSend);
+            $response = $this->queryService->send($queryToSend);
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isOk()) {
@@ -150,7 +171,8 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
      */
     protected function setUpOcListbox()
     {
-        $service = $this->getServiceLocator()->get('Olcs\Service\Data\OperatingCentresForInspectionRequest');
+        $service = $this->operatingCentresForInspectionRequest;
+
         $service->setType('application');
         $service->setIdentifier($this->params()->fromRoute('application'));
     }
