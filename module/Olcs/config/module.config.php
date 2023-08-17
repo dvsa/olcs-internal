@@ -5,6 +5,7 @@ use Common\Service\Data as CommonDataService;
 use Olcs\Auth;
 use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
+use Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController;
 use Olcs\Controller\Bus\Processing\BusProcessingNoteController;
 use Olcs\Controller\Cases;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
@@ -235,7 +236,9 @@ return array(
                 => 'Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController',
             ApplicationProcessingNoteController::class => ApplicationProcessingNoteController::class,
             ApplicationProcessingInspectionRequestController::class
-                => Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestControllerFactory::class,
+            => Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestControllerFactory::class,
+            ApplicationProcessingPublicationsController::class
+            => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
             'LicenceProcessingOverviewController'
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController',
             'LicenceProcessingPublicationsController'
@@ -361,7 +364,8 @@ return array(
             \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class
         ],
         'aliases' => [
-            'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class
+            'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
+            'ApplicationProcessingPublicationsController' => ApplicationProcessingPublicationsController::class
         ]
     ),
     'controller_plugins' => array(

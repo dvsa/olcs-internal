@@ -1,10 +1,8 @@
 <?php
 
-/**
- * Application Processing Publication Controller
- */
 namespace Olcs\Controller\Application\Processing;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Dvsa\Olcs\Transfer\Query\Publication\PublicationLinkList;
 use Dvsa\Olcs\Transfer\Query\Publication\PublicationLink as PublicationLinkDto;
 use Dvsa\Olcs\Transfer\Command\Publication\DeletePublicationLink;
@@ -17,9 +15,6 @@ use Olcs\Form\Model\Form\Publication as PublicationForm;
 use Olcs\Form\Model\Form\PublicationNotNew as PublicationNotNewForm;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Application Processing Publication Controller
- */
 class ApplicationProcessingPublicationsController extends AbstractInternalController implements
     ApplicationControllerInterface,
     LeftViewProvider
@@ -37,7 +32,14 @@ class ApplicationProcessingPublicationsController extends AbstractInternalContro
     protected $inlineScripts = array('indexAction' => ['table-actions']);
     protected $addContentTitle = 'Add publication';
     protected $editContentTitle = 'Edit publication';
+    protected FlashMessengerHelperService $flashMessenger;
 
+    public function __construct(
+        FlashMessengerHelperService $flashMessenger
+    )
+    {
+        $this->flashMessengerHelperService = $flashMessenger;
+    }
     /**
      * get Method Left View
      *
@@ -79,7 +81,7 @@ class ApplicationProcessingPublicationsController extends AbstractInternalContro
         $response = $this->handleQuery(PublicationLinkDto::create($params));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         return $response->getResult();
