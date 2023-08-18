@@ -2,7 +2,13 @@
 
 namespace OlcsTest\Controller\Application\Processing;
 
+
+use Common\Service\Data\PluginManager as DataServiceManager;
+use Common\Service\Helper\ComplaintsHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\OppositionHelperService;
+use Dvsa\Olcs\Api\Domain\Repository\DataService;
 use Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController;
 use Laminas\Mvc\Controller\Plugin\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\PluginInterface;
@@ -37,11 +43,19 @@ class ApplicationProcessingOverviewControllerTest extends MockeryTestCase
     {
         $mockFlashMessengerService = m::mock(FlashMessengerHelperService::class);
         $mockApplicationServiceData = m::mock(ApplicationData::class);
+        $oppositionHelperService = m::mock(OppositionHelperService::class);
+        $complaintsHelperService =m::mock(ComplaintsHelperService::class);
+        $formHelper = m::mock(FormHelperService::class);
+        $dataServiceManager = m::mock(DataServiceManager::Class);
 
         $controller = new ApplicationProcessingOverviewController(
             $mockApplicationServiceData,
-            $mockFlashMessengerService
-        );
+            $mockFlashMessengerService,
+            $oppositionHelperService,
+            $complaintsHelperService,
+            $formHelper,
+            $dataServiceManager
+    );
 
         $serviceManager = Bootstrap::getServiceManager();
 

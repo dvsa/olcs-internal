@@ -2,8 +2,12 @@
 
 namespace Olcs\Controller\Application;
 
+use Common\Service\Data\PluginManager as DataServiceManager;
 use Common\Controller\Traits\CheckForCrudAction;
+use Common\Service\Helper\ComplaintsHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\OppositionHelperService;
 use Dvsa\Olcs\Transfer\Command\Application\UndoGrant;
 use Dvsa\Olcs\Transfer\Command\ChangeOfEntity\CreateChangeOfEntity as CreateChangeOfEntityCmd;
 use Dvsa\Olcs\Transfer\Command\ChangeOfEntity\DeleteChangeOfEntity as DeleteChangeOfEntityCmd;
@@ -26,12 +30,25 @@ class ApplicationController extends AbstractController implements ApplicationCon
 
     protected ApplicationData $applicationData;
     protected FlashMessengerHelperService $flashMessenger;
+    protected OppositionHelperService $oppositionHelperService;
+    protected ComplaintsHelperService $complaintsHelperService;
+    protected FormHelperService $formHelper;
+    protected DataServiceManager $dataServiceManager;
+
     public function __construct(
         ApplicationData $applicationData,
-        FlashMessengerHelperService $flashMessenger
+        FlashMessengerHelperService $flashMessenger,
+        OppositionHelperService $oppositionHelperService,
+        ComplaintsHelperService $complaintsHelperService,
+        FormHelperService $formHelper,
+        DataServiceManager $dataServiceManager
     ){
         $this->applicationData = $applicationData;
         $this->flashMessengerHelperService = $flashMessenger;
+        $this->oppositionHelperService = $oppositionHelperService;
+        $this->complaintsHelperService = $complaintsHelperService;
+        $this->formHelperService = $formHelper;
+        $this->dataServiceManager = $dataServiceManager;
     }
     /**
      * Placeholder stub
@@ -47,8 +64,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
 
         $applicationId = $this->params()->fromRoute('application', null);
 
-        $canHaveCases = $this->getServiceLocator()
-            ->get('DataServiceManager')
+        $canHaveCases = $this->dataServiceManager
             ->applicationData
             ->canHaveCases($applicationId);
 
@@ -132,9 +148,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
         }
         $oppositionResults = $responseOppositions->getResult()['results'];
 
-        /* @var $oppositionHelperService \Common\Service\Helper\OppositionHelperService */
-        $oppositionHelperService = $this->getServiceLocator()->get('Helper\Opposition');
-        $oppositions = $oppositionHelperService->sortOpenClosed($oppositionResults);
+        $oppositions = $this->oppositionHelperService->sortOpenClosed($oppositionResults);
 
         $responseComplaints = $this->handleQuery(
             \Dvsa\Olcs\Transfer\Query\EnvironmentalComplaint\EnvironmentalComplaintList::create(
@@ -152,9 +166,8 @@ class ApplicationController extends AbstractController implements ApplicationCon
         }
         $casesResults = $responseComplaints->getResult()['results'];
 
-        /* @var $complaintsHelperService \Common\Service\Helper\ComplaintsHelperService */
-        $complaintsHelperService = $this->getServiceLocator()->get('Helper\Complaints');
-        $complaints = $complaintsHelperService->sortCasesOpenClosed($casesResults);
+
+        $complaints = $this->complaintsHelperService->sortCasesOpenClosed($casesResults);
 
         $view = new ViewModel(
             [
@@ -195,9 +208,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
             return $this->redirect()->toRouteAjax('lva-application', array('application' => $id));
         }
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
-
-        $form = $formHelper->createFormWithRequest('GenericConfirmation', $request);
+        $form = $this->formHelper->createFormWithRequest('GenericConfirmation', $request);
 
         $form->get('messages')->get('message')->setValue('confirm-undo-grant-application');
 
@@ -251,7 +262,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
             );
         }
 
-        $form = $this->getServiceLocator()->get('Helper\Form')
+        $form = $this->formHelper
             ->createFormWithRequest('ApplicationChangeOfEntity', $request);
 
         if (!is_null($changeOfEntity)) {
