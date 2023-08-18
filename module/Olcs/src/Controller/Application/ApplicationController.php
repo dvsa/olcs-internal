@@ -1,13 +1,9 @@
 <?php
 
-/**
- * Application Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 namespace Olcs\Controller\Application;
 
 use Common\Controller\Traits\CheckForCrudAction;
+use Common\Service\Helper\FlashMessengerHelperService;
 use Dvsa\Olcs\Transfer\Command\Application\UndoGrant;
 use Dvsa\Olcs\Transfer\Command\ChangeOfEntity\CreateChangeOfEntity as CreateChangeOfEntityCmd;
 use Dvsa\Olcs\Transfer\Command\ChangeOfEntity\DeleteChangeOfEntity as DeleteChangeOfEntityCmd;
@@ -20,6 +16,7 @@ use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Traits;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
+use Common\Service\Data\Application as ApplicationData;
 
 class ApplicationController extends AbstractController implements ApplicationControllerInterface
 {
@@ -27,6 +24,15 @@ class ApplicationController extends AbstractController implements ApplicationCon
         Traits\ApplicationControllerTrait,
         CheckForCrudAction;
 
+    protected ApplicationData $applicationData;
+    protected FlashMessengerHelperService $flashMessenger;
+    public function __construct(
+        ApplicationData $applicationData,
+        FlashMessengerHelperService $flashMessenger
+    ){
+        $this->applicationData = $applicationData;
+        $this->flashMessengerHelperService = $flashMessenger;
+    }
     /**
      * Placeholder stub
      *
@@ -43,10 +49,11 @@ class ApplicationController extends AbstractController implements ApplicationCon
 
         $canHaveCases = $this->getServiceLocator()
             ->get('DataServiceManager')
-            ->get('Common\Service\Data\Application')->canHaveCases($applicationId);
+            ->applicationData
+            ->canHaveCases($applicationId);
 
         if (!$canHaveCases) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
+            $this->flashMessengerHelperService
                 ->addErrorMessage('The application has no cases');
 
             return $this->redirect()->toRouteAjax('lva-application', array('application' => $applicationId));
@@ -72,7 +79,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
 
         $results = [];
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
@@ -177,10 +184,10 @@ class ApplicationController extends AbstractController implements ApplicationCon
                 $response = $this->handleCommand(UndoGrant::create(['id' => $id]));
 
                 if ($response->isOk()) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')
+                    $this->flashMessengerHelperService
                         ->addSuccessMessage('The application grant has been undone successfully');
                 } else {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')
+                    $this->flashMessengerHelperService
                         ->addErrorMessage('unknown-error');
                 }
             }

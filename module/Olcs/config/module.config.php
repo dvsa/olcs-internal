@@ -3,6 +3,8 @@
 use Common\Data\Object\Search\Licence as LicenceSearch;
 use Common\Service\Data as CommonDataService;
 use Olcs\Auth;
+use Olcs\Controller\Application\ApplicationController;
+use Olcs\Controller\Application\ApplicationControllerFactory;
 use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController;
@@ -227,7 +229,6 @@ return array(
             'LicenceDetailsConditionUndertakingController' =>
             'Olcs\Controller\Licence\Details\ConditionUndertakingController',
             'LicenceDetailsTaxiPhvController' => 'Olcs\Controller\Licence\Details\TaxiPhvController',
-            'ApplicationController' => 'Olcs\Controller\Application\ApplicationController',
             'ApplicationDocsController' => 'Olcs\Controller\Application\Docs\ApplicationDocsController',
             'ApplicationFeesController' => 'Olcs\Controller\Application\Fees\ApplicationFeesController',
             'ApplicationProcessingTasksController'
@@ -361,11 +362,13 @@ return array(
         'factories' => [
             TmCntr\Details\TransportManagerDetailsResponsibilityController::class =>
                 TmCntr\Details\TransportManagerDetailsResponsibilityController::class,
-            \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class
+            \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class,
+            ApplicationController::class => ApplicationControllerFactory::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
-            'ApplicationProcessingPublicationsController' => ApplicationProcessingPublicationsController::class
+            'ApplicationProcessingPublicationsController' => ApplicationProcessingPublicationsController::class,
+            'ApplicationController' => ApplicationController::class,
         ]
     ),
     'controller_plugins' => array(

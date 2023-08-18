@@ -2,6 +2,7 @@
 
 namespace OlcsTest\Controller\Application\Processing;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController;
 use Laminas\Mvc\Controller\Plugin\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\PluginInterface;
@@ -13,13 +14,11 @@ use Laminas\View\Model\ViewModel;
 use OlcsTest\Bootstrap;
 use Laminas\Http\Response;
 use Laminas\Mvc\MvcEvent;
+use Common\Service\Data\Application as ApplicationData;
+use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-/**
- * Class ApplicationProcessingOverviewControllerTest
- * @package OlcsTest\Controller\Application\Processing
- * @covers Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController
- */
-class ApplicationProcessingOverviewControllerTest extends \PHPUnit\Framework\TestCase
+class ApplicationProcessingOverviewControllerTest extends MockeryTestCase
 {
     public function testIndexActionRedirects()
     {
@@ -36,7 +35,13 @@ class ApplicationProcessingOverviewControllerTest extends \PHPUnit\Framework\Tes
 
     private function getController($action)
     {
-        $controller = new ApplicationProcessingOverviewController();
+        $mockFlashMessengerService = m::mock(FlashMessengerHelperService::class);
+        $mockApplicationServiceData = m::mock(ApplicationData::class);
+
+        $controller = new ApplicationProcessingOverviewController(
+            $mockApplicationServiceData,
+            $mockFlashMessengerService
+        );
 
         $serviceManager = Bootstrap::getServiceManager();
 
