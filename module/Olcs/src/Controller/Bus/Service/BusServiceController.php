@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Bus\Service;
 
+use Common\Service\Helper\FormHelperService;
 use Dvsa\Olcs\Transfer\Command\Bus\UpdateServiceRegister as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Bus\BusReg as ItemDto;
 use Dvsa\Olcs\Transfer\Query\ConditionUndertaking\GetList as ConditionUndertakingListDto;
@@ -48,6 +49,12 @@ class BusServiceController extends AbstractInternalController implements BusRegC
     protected $mapperClass = Mapper::class;
 
     protected $editContentTitle = 'Register service';
+    protected FormHelperService $formHelper;
+    public function __construct(
+        FormHelperService $formHelper
+    ){
+        $this->formHelperService = $formHelper;
+    }
 
     /**
      * Get form
@@ -58,7 +65,7 @@ class BusServiceController extends AbstractInternalController implements BusRegC
      */
     public function getForm($name)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $form = $this->formHelper;
 
         $form = $formHelper->createForm($name);
         $formHelper->setFormActionFromRequest($form, $this->getRequest());

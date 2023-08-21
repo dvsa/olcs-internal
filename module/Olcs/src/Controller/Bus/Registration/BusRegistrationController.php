@@ -24,6 +24,14 @@ class BusRegistrationController extends AbstractActionController implements BusR
     /** @var  int */
     private $busRegId;
 
+    protected FlashMessengerHelperService $flashMessenger;
+    public function __construct(
+        FlashMessengerHelperService $flashMessenger
+    )
+    {
+        $this->flashMessengerHelperService = $flashMessenger;
+    }
+
     /**
      * On Dispatch
      *
@@ -33,7 +41,7 @@ class BusRegistrationController extends AbstractActionController implements BusR
      */
     public function onDispatch(MvcEvent $e)
     {
-        $this->hlpFlashMsgr = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $this->hlpFlashMsgr =  $this->flashMessengerHelperService;
 
         $this->busRegId = $this->params()->fromRoute('busRegId');
 

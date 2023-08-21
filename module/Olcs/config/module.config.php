@@ -8,7 +8,13 @@ use Olcs\Controller\Application\ApplicationControllerFactory;
 use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController;
+use Olcs\Controller\Bus\Processing\BusProcessingDecisionController;
+use Olcs\Controller\Bus\Processing\BusProcessingDecisionControllerFactory;
 use Olcs\Controller\Bus\Processing\BusProcessingNoteController;
+use Olcs\Controller\Bus\Registration\BusRegistrationController;
+use Olcs\Controller\Bus\Registration\BusRegistrationControllerFactory;
+use Olcs\Controller\Bus\Service\BusServiceController;
+use Olcs\Controller\Bus\Service\BusServiceControllerFactory;
 use Olcs\Controller\Cases;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
@@ -210,7 +216,7 @@ return array(
             'LicenceController' => 'Olcs\Controller\Licence\LicenceController',
             'LicenceDocsController' => 'Olcs\Controller\Licence\Docs\LicenceDocsController',
             'LicenceFeesController' => 'Olcs\Controller\Licence\Fees\LicenceFeesController',
-            LicenceBusController::class => LicenceBusController::class,
+            LicenceBusController::class => BusRegistrationControllerFactory::class,
             'LicenceDecisionsController' => 'Olcs\Controller\Licence\LicenceDecisionsController',
             'LicencePermitsController' => 'Olcs\Controller\Licence\Permits\LicencePermitsController',
             'LicenceGracePeriodsController' => 'Olcs\Controller\Licence\LicenceGracePeriodsController',
@@ -275,7 +281,7 @@ return array(
             'BusFeesController' => 'Olcs\Controller\Bus\Fees\BusFeesController',
             'BusFeesPlaceholderController' => 'Olcs\Controller\Bus\Fees\BusFeesPlaceholderController',
             Olcs\Controller\Bus\Service\BusServiceController::class =>
-                Olcs\Controller\Bus\Service\BusServiceController::class,
+                Olcs\Controller\Bus\Service\BusServiceControllerFactory::class,
             'BusRequestMapController' => 'Olcs\Controller\Bus\BusRequestMapController',
             Olcs\Controller\Operator\OperatorController::class => Olcs\Controller\Operator\OperatorController::class,
             'OperatorDocsController' => 'Olcs\Controller\Operator\Docs\OperatorDocsController',
@@ -364,6 +370,9 @@ return array(
                 TmCntr\Details\TransportManagerDetailsResponsibilityController::class,
             \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class,
             ApplicationController::class => ApplicationControllerFactory::class,
+            BusProcessingDecisionController::class => BusProcessingDecisionControllerFactory::class,
+            BusRegistrationController::class => BusRegistrationControllerFactory::class,
+            BusServiceController::class => BusServiceControllerFactory::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

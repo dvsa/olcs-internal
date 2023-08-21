@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Bus Processing Decision Controller
- */
 namespace Olcs\Controller\Bus\Processing;
 
 use Dvsa\Olcs\Transfer\Command\Bus\AdminCancelBusReg as AdminCancelDto;
@@ -25,6 +22,7 @@ use Common\RefData;
 use Laminas\View\Model\ViewModel;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use \Laminas\Http\Response;
+use Common\Service\Helper\FlashMessengerHelperService;
 
 /**
  * Bus Processing Decision Controller
@@ -74,6 +72,13 @@ class BusProcessingDecisionController extends AbstractInternalController impleme
             'action' => 'details'
         ]
     ];
+    protected FlashMessengerHelperService $flashMessenger;
+    public function __construct(
+        FlashMessengerHelperService $flashMessenger
+    )
+    {
+        $this->flashMessengerHelperService = $flashMessenger;
+    }
 
     /**
      * get method Left View
@@ -160,7 +165,7 @@ class BusProcessingDecisionController extends AbstractInternalController impleme
 
             if (empty($busReg) || !$busReg['isGrantable']) {
                 // not grantable
-                $this->getServiceLocator()->get('Helper\FlashMessenger')
+                $this->flashMessengerHelperService
                     ->addErrorMessage('The record is not grantable');
                 return $this->redirectTo([]);
             }
@@ -174,7 +179,7 @@ class BusProcessingDecisionController extends AbstractInternalController impleme
             }
         } else {
             // can't get the record
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         return $this->redirectTo([]);

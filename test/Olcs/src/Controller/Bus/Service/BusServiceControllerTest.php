@@ -5,6 +5,7 @@
  */
 namespace OlcsTest\Controller\Bus\Service;
 
+use Common\Service\Helper\FormHelperService;
 use Olcs\Controller\Bus\Service\BusServiceController as Sut;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery as m;
@@ -19,7 +20,8 @@ class BusServiceControllerTest extends MockeryTestCase
 
     public function setUp(): void
     {
-        $this->sut = new Sut;
+        $formHelper = m::mock(FormHelperService::class);
+        $this->sut = new Sut($formHelper);
     }
 
     public function testGetForm()
