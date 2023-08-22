@@ -43,8 +43,7 @@ class BusinessDetailsControllerFactory implements FactoryInterface
             $flashMessengerHelper,
             $formServiceManager,
             $scriptFactory,
-            $identityProvider,
-            $stringHelper
+            $identityProvider
         );
     }
 

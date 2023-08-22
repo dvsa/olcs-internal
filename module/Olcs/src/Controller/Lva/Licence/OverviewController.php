@@ -39,6 +39,8 @@ class OverviewController extends AbstractController implements LicenceController
     /**
      * @param NiTextTranslation $niTextTranslationUtil
      * @param AuthorizationService $authService
+     * @param LicenceOverviewHelperService $licenceOverviewHelper
+     * @param FormHelperService $formHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,

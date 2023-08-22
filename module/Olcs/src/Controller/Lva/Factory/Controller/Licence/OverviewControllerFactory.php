@@ -3,7 +3,6 @@
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
 use Common\Service\Helper\FormHelperService;
-use Common\Service\Helper\StringHelperService;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
@@ -24,7 +23,7 @@ class OverviewControllerFactory implements FactoryInterface
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
-        $niTextTranslationUtil = $container->get(N::class);
+        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
         $authService = $container->get(AuthorizationService::class);
         $applicationOverviewHelper = $container->get(ApplicationOverviewHelperService::class);
         $formHelper = $container->get(FormHelperService::class);

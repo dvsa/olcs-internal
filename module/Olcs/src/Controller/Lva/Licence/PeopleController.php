@@ -50,12 +50,6 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
         VariationLvaService $variationLvaService,
         GuidanceHelperService $guidanceHelper
     ) {
-        $this->formHelper = $formHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->variationLvaService = $variationLvaService;
-        $this->guidanceHelper = $guidanceHelper;
-
         parent::__construct(
             $niTextTranslationUtil,
             $authService,
