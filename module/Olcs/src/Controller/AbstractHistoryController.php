@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller;
 
+use Common\Service\Helper\FormHelperService;
 use Dvsa\Olcs\Transfer\Query\Processing\History;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Laminas\View\Model\ViewModel;
@@ -9,11 +10,6 @@ use Olcs\Form\Model\Form\EventHistory as EventHistorytForm;
 use Olcs\Data\Mapper\EventHistory as Mapper;
 use Dvsa\Olcs\Transfer\Query\EventHistory\EventHistory as ItemDto;
 
-/**
- * Abstract History Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class AbstractHistoryController extends AbstractInternalController implements LeftViewProvider
 {
     protected $defaultTableSortField = 'eventDatetime';
@@ -24,6 +20,7 @@ class AbstractHistoryController extends AbstractInternalController implements Le
     protected $mapperClass = Mapper::class;
     protected $editContentTitle = 'Action';
     protected $editViewTemplate = 'sections/processing/pages/event-history-popup';
+    protected FormHelperService $formHelper;
 
     /**
      * Get left view
@@ -54,7 +51,7 @@ class AbstractHistoryController extends AbstractInternalController implements Le
                 $this->getDetailsTable($formData['eventHistoryDetails'])
             );
         } else {
-            $this->getServiceLocator()->get('Helper\Form')->remove($form, 'event-history-details->table');
+            $this->formHelper->remove($form, 'event-history-details->table');
         }
         return $form;
     }
