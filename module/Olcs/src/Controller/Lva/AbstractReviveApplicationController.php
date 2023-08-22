@@ -18,8 +18,8 @@ use ZfcRbac\Service\AuthorizationService;
  */
 abstract class AbstractReviveApplicationController extends AbstractApplicationDecisionController
 {
-    protected $lva               = 'application';
-    protected $location          = 'internal';
+    protected string $lva               = 'application';
+    protected string $location          = 'internal';
     protected $cancelMessageKey  = 'application-not-revive-application';
     protected $successMessageKey = 'application-revive-application-successfully';
     protected $titleKey          = 'internal-application-revive-application-title';

@@ -30,8 +30,8 @@ class InterimController extends AbstractInterimController implements Application
 {
     use ApplicationControllerTrait;
 
-    protected $lva = 'application';
-    protected $location = 'internal';
+    protected string $lva = 'application';
+    protected string $location = 'internal';
     protected $updateInterimCommand = UpdateInterim::class;
 
     protected StringHelperService $stringHelper;

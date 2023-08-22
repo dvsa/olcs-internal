@@ -29,8 +29,8 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
         ApplicationControllerTrait::getSectionsForView as genericGetSectionsForView;
     }
 
-    protected $location = 'internal';
-    protected $lva = 'application';
+    protected string $location = 'internal';
+    protected string $lva = 'application';
 
     protected StringHelperService $stringHelper;
 

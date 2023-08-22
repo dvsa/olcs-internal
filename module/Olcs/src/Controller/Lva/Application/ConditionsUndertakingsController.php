@@ -29,8 +29,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
 {
     use ApplicationControllerTrait;
 
-    protected $lva = 'application';
-    protected $location = 'internal';
+    protected string $lva = 'application';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

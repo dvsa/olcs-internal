@@ -37,8 +37,8 @@ class VehiclesController extends AbstractGenericVehiclesController implements Va
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

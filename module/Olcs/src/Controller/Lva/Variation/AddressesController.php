@@ -23,8 +23,8 @@ class AddressesController extends AbstractAddressesController implements Variati
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 
@@ -48,6 +48,13 @@ class AddressesController extends AbstractAddressesController implements Variati
     ) {
         $this->stringHelper = $stringHelper;
 
-        parent::__construct($niTextTranslationUtil, $authService, $formHelper, $flashMessengerHelper, $formServiceManager, $scriptFactory);
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $scriptFactory
+        );
     }
 }

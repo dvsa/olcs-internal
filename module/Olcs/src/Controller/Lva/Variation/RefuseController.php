@@ -27,8 +27,8 @@ class RefuseController extends AbstractRefuseController implements VariationCont
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

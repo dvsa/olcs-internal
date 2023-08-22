@@ -29,8 +29,8 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
 {
     use LicenceControllerTrait;
 
-    protected $lva = 'licence';
-    protected $location = 'internal';
+    protected string $lva = 'licence';
+    protected string $location = 'internal';
 
     /**
      * @param NiTextTranslation $niTextTranslationUtil

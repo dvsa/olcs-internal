@@ -37,8 +37,8 @@ class VehiclesController extends AbstractGenericVehiclesController implements Ap
 {
     use ApplicationControllerTrait;
 
-    protected $lva = 'application';
-    protected $location = 'internal';
+    protected string $lva = 'application';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

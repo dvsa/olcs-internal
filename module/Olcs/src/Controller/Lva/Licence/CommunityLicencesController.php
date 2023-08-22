@@ -28,8 +28,8 @@ class CommunityLicencesController extends Lva\AbstractCommunityLicencesControlle
 {
     use LicenceControllerTrait;
 
-    protected $lva = 'licence';
-    protected $location = 'internal';
+    protected string $lva = 'licence';
+    protected string $location = 'internal';
 
     /**
      * @param NiTextTranslation $niTextTranslationUtil
@@ -49,7 +49,7 @@ class CommunityLicencesController extends Lva\AbstractCommunityLicencesControlle
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
         AnnotationBuilder $transferAnnotationBuilder,
-        CommandService $commandService,
+        CommandService $commandService
     ) {
         parent::__construct(
             $niTextTranslationUtil,

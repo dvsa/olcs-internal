@@ -27,8 +27,8 @@ class VariationController extends AbstractVariationController implements Licence
 {
     use LicenceControllerTrait;
 
-    protected $lva = 'licence';
-    protected $location = 'internal';
+    protected string $lva = 'licence';
+    protected string $location = 'internal';
 
     protected FormHelperService $formHelper;
 

@@ -29,8 +29,8 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 
@@ -41,6 +41,7 @@ class FinancialHistoryController extends Lva\AbstractFinancialHistoryController 
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param DataHelperService $dataHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,

@@ -29,8 +29,8 @@ class InterimController extends AbstractInterimController implements VariationCo
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
     protected $updateInterimCommand = UpdateInterim::class;
 
     protected StringHelperService $stringHelper;

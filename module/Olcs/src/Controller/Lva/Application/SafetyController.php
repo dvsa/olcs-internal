@@ -34,8 +34,8 @@ class SafetyController extends Lva\AbstractSafetyController implements Applicati
     use ApplicationControllerTrait;
     use ApplicationSafetyControllerTrait;
 
-    protected $lva = 'application';
-    protected $location = 'internal';
+    protected string $lva = 'application';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

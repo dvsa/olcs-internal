@@ -29,8 +29,8 @@ class VehiclesDeclarationsController extends Lva\AbstractVehiclesDeclarationsCon
 {
     use ApplicationControllerTrait;
 
-    protected $lva = 'application';
-    protected $location = 'internal';
+    protected string $lva = 'application';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

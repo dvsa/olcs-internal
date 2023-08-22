@@ -32,35 +32,6 @@ class VehiclesControllerFactory implements FactoryInterface
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
-        $niTextTranslationUtil = $container->get(NiTextTranslation::class);
-        $authService = $container->get(AuthorizationService::class);
-        $formHelper = $container->get(FormHelperService::class);
-        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-        $formServiceManager = $container->get(FormServiceManager::class);
-        $tableFactory = $container->get(TableFactory::class);
-        $guidanceHelper = $container->get(GuidanceHelperService::class);
-        $translationHelper = $container->get(TranslationHelperService::class);
-        $scriptFactory = $container->get(ScriptFactory::class);
-        $variationLvaService = $container->get(VariationLvaService::class);
-        $goodsVehicleMapper = $container->get(GoodsVehiclesVehicle::class);
-        $responseHelper = $container->get(ResponseHelperService::class);
-        $stringHelper = $container->get(StringHelperService::class);
-
-        return new VehiclesController(
-            $niTextTranslationUtil,
-            $authService,
-            $formHelper,
-            $flashMessengerHelper,
-            $formServiceManager,
-            $tableFactory,
-            $guidanceHelper,
-            $translationHelper,
-            $scriptFactory,
-            $variationLvaService,
-            $goodsVehicleMapper,
-            $responseHelper,
-            $stringHelper
-        );
     }
 
     /**

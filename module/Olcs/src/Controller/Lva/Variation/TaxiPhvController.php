@@ -30,8 +30,8 @@ class TaxiPhvController extends Lva\AbstractTaxiPhvController implements Variati
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

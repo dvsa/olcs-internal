@@ -28,8 +28,8 @@ class DiscsController extends Lva\AbstractDiscsController implements VariationCo
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 
@@ -53,13 +53,16 @@ class DiscsController extends Lva\AbstractDiscsController implements VariationCo
         GuidanceHelperService $guidanceHelper,
         StringHelperService $stringHelper
     ) {
-        $this->formHelper = $formHelper;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->tableFactory = $tableFactory;
-        $this->guidanceHelper = $guidanceHelper;
         $this->stringHelper = $stringHelper;
 
-        parent::__construct($niTextTranslationUtil, $authService);
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $flashMessengerHelper,
+            $formServiceManager,
+            $tableFactory,
+            $guidanceHelper
+        );
     }
 }

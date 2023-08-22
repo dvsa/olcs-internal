@@ -33,8 +33,8 @@ class LicenceGracePeriodsController extends AbstractController implements Licenc
     use LicenceControllerTrait,
         CrudTableTrait;
 
-    protected $lva = 'licence';
-    protected $location = 'internal';
+    protected string $lva = 'licence';
+    protected string $location = 'internal';
 
     protected $section = 'grace-periods';
 

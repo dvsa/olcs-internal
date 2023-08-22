@@ -34,8 +34,8 @@ class SafetyController extends Lva\AbstractSafetyController implements Variation
     use VariationControllerTrait;
     use ApplicationSafetyControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 

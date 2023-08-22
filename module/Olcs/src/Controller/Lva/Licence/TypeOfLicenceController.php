@@ -27,8 +27,8 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
 {
     use Traits\LicenceControllerTrait;
 
-    protected $location = 'internal';
-    protected $lva = 'licence';
+    protected string $location = 'internal';
+    protected string $lva = 'licence';
 
     protected FormHelperService $formHelper;
 

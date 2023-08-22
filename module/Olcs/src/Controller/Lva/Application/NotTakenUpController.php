@@ -21,8 +21,8 @@ class NotTakenUpController extends AbstractApplicationDecisionController
 {
     use ApplicationControllerTrait;
 
-    protected $lva               = 'application';
-    protected $location          = 'internal';
+    protected string $lva               = 'application';
+    protected string $location          = 'internal';
     protected $cancelMessageKey  = 'application-not-ntu';
     protected $successMessageKey = 'application-ntu-successfully';
     protected $titleKey          = 'internal-application-ntu-title';

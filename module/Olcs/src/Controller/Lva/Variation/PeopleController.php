@@ -30,8 +30,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
 {
     use VariationControllerTrait;
 
-    protected $lva = 'variation';
-    protected $location = 'internal';
+    protected string $lva = 'variation';
+    protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
 
@@ -55,11 +55,6 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
         GuidanceHelperService $guidanceHelper,
         StringHelperService $stringHelper
     ) {
-        $this->formHelper = $formHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->variationLvaService = $variationLvaService;
-        $this->guidanceHelper = $guidanceHelper;
         $this->stringHelper = $stringHelper;
 
         parent::__construct(
