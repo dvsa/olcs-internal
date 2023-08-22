@@ -19,9 +19,11 @@ class BusProcessingDecisionControllerFactory implements FactoryInterface
         $flashMessengerHelper);
     }
 
-    public function createService(ServiceLocatorInterface $serviceLocator): ApplicationProcessingPublicationsController
+    public function createService(ServiceLocatorInterface $serviceLocator): BusProcessingDecisionController
     {
-        return $this->__invoke($serviceLocator,
+        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
+
+        return $this->__invoke($container,
             BusProcessingDecisionController::class);
     }
 }

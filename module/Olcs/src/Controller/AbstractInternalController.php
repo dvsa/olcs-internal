@@ -3,13 +3,24 @@
 namespace Olcs\Controller;
 
 use Common\Controller\AbstractOlcsController;
+use Common\Controller\Plugin\FeaturesEnabled as FeaturesEnabledPlugin;
+use Common\Controller\Plugin\Redirect;
 use Common\Data\Mapper\MapperInterface;
-use Common\Service\Cqrs\Response;
-use Common\Service\Table\TableBuilder;
+use Common\Form\Form;
 use Common\Service\Cqrs\Exception\NotFoundException;
+use Common\Service\Cqrs\Response;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\CommandInterface;
 use Dvsa\Olcs\Transfer\Query\QueryInterface;
 use Laminas\Http\Request;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Navigation\Navigation;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Model\ViewModel;
 use Olcs\Listener\CrudListener;
 use Olcs\Logging\Log\Logger;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
@@ -18,12 +29,7 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Olcs\Mvc\Controller\ParameterProvider\ParameterProviderInterface;
 use Olcs\Mvc\Controller\Plugin;
-use Common\Controller\Plugin\FeaturesEnabled as FeaturesEnabledPlugin;
 use Olcs\View\Builder\BuilderInterface as ViewBuilderInterface;
-use Laminas\Http\Response as HttpResponse;
-use Laminas\Mvc\MvcEvent;
-use Laminas\Stdlib\ArrayUtils;
-use Laminas\View\Model\ViewModel;
 
 /**
  * Abstract class to extend for BASIC list/edit/delete functions
@@ -40,7 +46,7 @@ use Laminas\View\Model\ViewModel;
  * @method FeaturesEnabledPlugin featuresEnabled(array $toggleConfig, MvcEvent $e)
  * @method Response handleQuery(QueryInterface $query)
  * @method Response handleCommand(CommandInterface $query)
- * @method \Common\Controller\Plugin\Redirect redirect()
+ * @method Redirect redirect()
  * @method Plugin\Confirm confirm(string $string, bool $setTerminal, string|null $custom, string $customConfirmBtn , string $customCancelBtn)
  */
 abstract class AbstractInternalController extends AbstractOlcsController
@@ -253,6 +259,22 @@ abstract class AbstractInternalController extends AbstractOlcsController
      */
     protected $listData;
 
+    protected TranslationHelperService $translationHelperService;
+
+    protected FormHelperService $formHelperService;
+
+    protected FlashMessengerHelperService $flashMessengerHelperService;
+
+    protected Navigation $navigation;
+
+    public function __construct(TranslationHelperService $translationHelper, FormHelperService $formHelper, FlashMessengerHelperService $flashMessenger, Navigation $navigation)
+    {
+        $this->translationHelperService = $translationHelper;
+        $this->formHelperService = $formHelper;
+        $this->flashMessengerHelperService = $flashMessenger;
+        $this->navigation = $navigation;
+    }
+
     /**
      * Gets a comment box
      *
@@ -449,9 +471,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
             $this->handleErrors($response->getResult());
         }
         if ($filterForm !== '') {
-            /** @var \Common\Service\Helper\FormHelperService $formHelper */
-            $formHelper = $this->getServiceLocator()->get('Helper\Form');
-            $form = $formHelper->createForm($filterForm, false);
+            $form = $this->formHelperService->createForm($filterForm, false);
             $form->setData($this->params()->fromQuery());
             $this->placeholder()->setPlaceholder('tableFilters', $form);
         }
@@ -548,7 +568,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
 
         $action = ucfirst($this->params()->fromRoute('action'));
 
-        /** @var \Common\Form\Form $form */
+        /** @var Form $form */
         $form = $this->getForm($formClass);
         $initialData = $mapperClass::mapFromResult($defaultDataProvider->provideParameters());
 
@@ -568,7 +588,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
         }
 
         $hasProcessed =
-            $this->getServiceLocator()->get('Helper\Form')->processAddressLookupForm($form, $this->getRequest());
+            $this->formHelperService->processAddressLookupForm($form, $this->getRequest());
 
         if (!$hasProcessed && $this->persist && $request->isPost() && $form->isValid()) {
             $data = ArrayUtils::merge($initialData, $form->getData());
@@ -577,7 +597,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
             $response = $this->handleCommand($createCommand::create($commandData));
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+                $this->flashMessengerHelperService->addSuccessMessage($successMessage);
                 $formActions = $this->params()->fromPost('form-actions');
 
                 if (isset($formActions['addAnother'])) {
@@ -588,7 +608,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
                 $flashErrors = $mapperClass::mapFromErrors($form, $response->getResult());
 
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessengerHelperService->addErrorMessage($error);
                 }
             } elseif ($response->isServerError()) {
                     $this->handleErrors($response->getResult());
@@ -642,20 +662,20 @@ abstract class AbstractInternalController extends AbstractOlcsController
         }
 
         $hasProcessed =
-            $this->getServiceLocator()->get('Helper\Form')->processAddressLookupForm($form, $this->getRequest());
+            $this->formHelperService->processAddressLookupForm($form, $this->getRequest());
 
         if (!$hasProcessed && $this->persist && $request->isPost() && $form->isValid()) {
             $commandData = $this->mapFromForm($mapperClass, $form->getData());
             $response = $this->handleCommand($updateCommand::create($commandData));
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+                $this->flashMessengerHelperService->addSuccessMessage($successMessage);
                 return $this->redirectTo($response->getResult());
             } elseif ($response->isClientError()) {
                 $flashErrors = $mapperClass::mapFromErrors($form, $response->getResult());
 
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessengerHelperService->addErrorMessage($error);
                 }
             } elseif ($response->isServerError()) {
                 $this->handleErrors($response->getResult());
@@ -737,7 +757,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
         $response = $this->handleCommand($confirmCommand::create($params));
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+            $this->flashMessengerHelperService->addSuccessMessage($successMessage);
         } elseif ($response->isClientError() || $response->isServerError()) {
             $this->handleErrors($response->getResult());
         }
@@ -757,10 +777,8 @@ abstract class AbstractInternalController extends AbstractOlcsController
         $errors = [];
 
         if (!empty($restResponse['messages']) && is_array($restResponse['messages'])) {
-            $translator = $this->getServiceLocator()->get('Translator');
-
             foreach ($restResponse['messages'] as $message) {
-                if (!empty($message) && is_string($message) && ($message !== $translator->translate($message))) {
+                if (!empty($message) && is_string($message) && ($message !== $this->translationHelperService->translate($message))) {
                     // display only error which has translation
                     $errors[] = $message;
                 }
@@ -777,7 +795,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
         }
 
         foreach ($errors as $errorMessage) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($errorMessage);
+            $this->flashMessengerHelperService->addErrorMessage($errorMessage);
         }
     }
 
@@ -804,7 +822,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
         $response = $this->handleCommand($command::create($params));
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+            $this->flashMessengerHelperService->addSuccessMessage($successMessage);
         } elseif ($response->isClientError() || $response->isServerError()) {
             $this->handleErrors($response->getResult());
         }
@@ -1039,9 +1057,8 @@ abstract class AbstractInternalController extends AbstractOlcsController
      */
     final public function setNavigationCurrentLocation()
     {
-        $navigation = $this->getServiceLocator()->get('Navigation');
         if (!empty($this->navigationId)) {
-            $navigation->findOneBy('id', $this->navigationId)->setActive();
+            $this->navigation->findOneBy('id', $this->navigationId)->setActive();
         }
 
         return true;
@@ -1056,8 +1073,8 @@ abstract class AbstractInternalController extends AbstractOlcsController
      */
     public function getForm($name)
     {
-        $form = $this->getServiceLocator()->get('Helper\Form')->createForm($name);
-        $this->getServiceLocator()->get('Helper\Form')->setFormActionFromRequest($form, $this->getRequest());
+        $form = $this->formHelperService->createForm($name);
+        $this->formHelperService->setFormActionFromRequest($form, $this->getRequest());
         return $form;
     }
 

@@ -258,8 +258,6 @@ return array(
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController',
             Olcs\Controller\Bus\Registration\BusRegistrationController::class =>
                 Olcs\Controller\Bus\Registration\BusRegistrationController::class,
-            Olcs\Controller\Bus\Details\BusDetailsController::class =>
-                Olcs\Controller\Bus\Details\BusDetailsController::class,
             'BusDetailsServiceController' => 'Olcs\Controller\Bus\Details\BusDetailsServiceController',
             'BusDetailsStopController' => 'Olcs\Controller\Bus\Details\BusDetailsStopController',
             'BusDetailsTaController' => 'Olcs\Controller\Bus\Details\BusDetailsTaController',
@@ -280,8 +278,6 @@ return array(
             'BusProcessingTaskController' => 'Olcs\Controller\Bus\Processing\BusProcessingTaskController',
             'BusFeesController' => 'Olcs\Controller\Bus\Fees\BusFeesController',
             'BusFeesPlaceholderController' => 'Olcs\Controller\Bus\Fees\BusFeesPlaceholderController',
-            Olcs\Controller\Bus\Service\BusServiceController::class =>
-                Olcs\Controller\Bus\Service\BusServiceControllerFactory::class,
             'BusRequestMapController' => 'Olcs\Controller\Bus\BusRequestMapController',
             Olcs\Controller\Operator\OperatorController::class => Olcs\Controller\Operator\OperatorController::class,
             'OperatorDocsController' => 'Olcs\Controller\Operator\Docs\OperatorDocsController',
@@ -373,6 +369,9 @@ return array(
             BusProcessingDecisionController::class => BusProcessingDecisionControllerFactory::class,
             BusRegistrationController::class => BusRegistrationControllerFactory::class,
             BusServiceController::class => BusServiceControllerFactory::class,
+            Olcs\Controller\Bus\Details\BusDetailsController::class =>
+                Olcs\Controller\Bus\Details\BusDetailsControllerFactory::class,
+
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

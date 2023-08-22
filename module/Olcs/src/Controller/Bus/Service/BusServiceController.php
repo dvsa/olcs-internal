@@ -2,10 +2,15 @@
 
 namespace Olcs\Controller\Bus\Service;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
+use CommonTest\Service\Table\TableBuilderTest;
 use Dvsa\Olcs\Transfer\Command\Bus\UpdateServiceRegister as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Bus\BusReg as ItemDto;
 use Dvsa\Olcs\Transfer\Query\ConditionUndertaking\GetList as ConditionUndertakingListDto;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\BusRegControllerInterface;
 use Olcs\Controller\Traits as ControllerTraits;
@@ -49,11 +54,19 @@ class BusServiceController extends AbstractInternalController implements BusRegC
     protected $mapperClass = Mapper::class;
 
     protected $editContentTitle = 'Register service';
-    protected FormHelperService $formHelper;
+
+    protected TableBuilder $tableBuilder;
+
     public function __construct(
-        FormHelperService $formHelper
-    ){
-        $this->formHelperService = $formHelper;
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        TableBuilder $tableBuilder
+    )
+    {
+        $this->tableBuilder = $tableBuilder;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
     }
 
     /**
@@ -65,11 +78,9 @@ class BusServiceController extends AbstractInternalController implements BusRegC
      */
     public function getForm($name)
     {
-        $formHelper = $form = $this->formHelper;
-
-        $form = $formHelper->createForm($name);
-        $formHelper->setFormActionFromRequest($form, $this->getRequest());
-        $formHelper->populateFormTable($form->get('conditions')->get('table'), $this->getConditionsTable());
+        $form = $this->formHelperService->createForm($name);
+        $this->formHelperService->setFormActionFromRequest($form, $this->getRequest());
+        $this->formHelperService->populateFormTable($form->get('conditions')->get('table'), $this->getConditionsTable());
 
         return $form;
     }
@@ -81,7 +92,7 @@ class BusServiceController extends AbstractInternalController implements BusRegC
      */
     protected function getConditionsTable()
     {
-        return $this->getServiceLocator()->get('Table')->prepareTable('Bus/conditions', $this->getTableData());
+        return $this->tableBuilder->prepareTable('Bus/conditions', $this->getTableData());
     }
 
     /**
@@ -99,7 +110,7 @@ class BusServiceController extends AbstractInternalController implements BusRegC
         $response = $this->handleQuery($query::create($data));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {

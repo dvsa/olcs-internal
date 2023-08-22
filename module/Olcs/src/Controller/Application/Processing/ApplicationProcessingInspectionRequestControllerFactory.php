@@ -2,7 +2,7 @@
 
 namespace Olcs\Controller\Application\Processing;
 
-use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Cqrs\Query\CachingQueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
 use Laminas\ServiceManager\FactoryInterface;
@@ -14,25 +14,27 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationProcessingInspectionRequestController
     {
-        if (method_exists($container, 'getServiceLocator') && $container->getServiceLocator()) {
-        $container = $container->getServiceLocator();
-    }
+        $transferAnnotationBuilder = $container->get(TransferAnnotationBuilder::class);
+        assert($transferAnnotationBuilder instanceof TransferAnnotationBuilder);
 
-    $transferAnnotationBuilder = $container->get(TransferAnnotationBuilder::class);
-    $queryService = $container->get(QueryService::class);
-    $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-    $operatingCentresForInspectionRequest = $container->get(OperatingCentresForInspectionRequest::class);
+        $queryService = $container->get(CachingQueryService::class);
+        assert($queryService instanceof CachingQueryService);
 
-    return new ApplicationProcessingInspectionRequestController(
-        $transferAnnotationBuilder,
-        $queryService,
-        $flashMessengerHelper,
-        $operatingCentresForInspectionRequest);
+        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
+        $operatingCentresForInspectionRequest = $container->get(OperatingCentresForInspectionRequest::class);
+
+        return new ApplicationProcessingInspectionRequestController(
+            $transferAnnotationBuilder,
+            $queryService,
+            $flashMessengerHelper,
+            $operatingCentresForInspectionRequest);
     }
 
     public function createService(ServiceLocatorInterface $serviceLocator): ApplicationProcessingInspectionRequestController
     {
-        return $this->__invoke($serviceLocator,
+        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
+
+        return $this->__invoke($container,
             ApplicationProcessingInspectionRequestController::class);
     }
 }

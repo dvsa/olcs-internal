@@ -55,6 +55,7 @@ class ConfirmTest extends TestCase
             ->once()
             ->getMock();
 
+
         $controller = m::mock('\Olcs\Controller\Cases\Submission\SubmissionController[getForm]');
         $controller
             ->shouldReceive('getForm')

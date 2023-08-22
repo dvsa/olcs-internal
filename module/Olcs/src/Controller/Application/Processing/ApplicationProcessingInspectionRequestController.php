@@ -1,14 +1,9 @@
 <?php
 
-/**
- * Application Processing Inspection Request Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Olcs\Controller\Application\Processing;
 
 use Common\RefData;
-use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Cqrs\Query\CachingQueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\InspectionRequestTrait;
@@ -96,13 +91,13 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
     protected $section = 'inspection-request';
 
     protected TransferAnnotationBuilder $transferAnnotationBuilder;
-    protected QueryService $queryService;
+    protected CachingQueryService $queryService;
     protected FlashMessengerHelperService $flashMessenger;
     protected OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest;
 
     public function __construct(
         TransferAnnotationBuilder $transferAnnotationBuilder,
-        QueryService $queryService,
+        CachingQueryService $queryService,
         FlashMessengerHelperService $flashMessenger,
         OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest
     )
