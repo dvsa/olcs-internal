@@ -159,7 +159,6 @@ return array(
             Cases\Opposition\OppositionController::class => Cases\Opposition\OppositionController::class,
             Cases\Hearing\HearingAppealController::class => Cases\Hearing\HearingAppealController::class,
             Cases\Conviction\ConvictionController::class => Cases\Conviction\ConvictionController::class,
-            Cases\Submission\SubmissionController::class => Cases\Submission\SubmissionController::class,
             Cases\Statement\StatementController::class => Cases\Statement\StatementController::class,
             Cases\Overview\OverviewController::class => Cases\Overview\OverviewController::class,
             Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiController::class,
@@ -340,8 +339,7 @@ return array(
             'OperatorReadHistoryController' => 'Olcs\Controller\Operator\Processing\ReadHistoryController',
             \Olcs\Controller\Licence\ContinuationController::class =>
                 \Olcs\Controller\Licence\ContinuationController::class,
-            Olcs\Controller\DisqualifyController::class => Olcs\Controller\DisqualifyController::class,
-            'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
+           'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
             'LicenceDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController',
             \Olcs\Controller\IrhpPermits\ApplicationController::class => \Olcs\Controller\IrhpPermits\ApplicationController::class,
             \Olcs\Controller\IrhpPermits\PermitController::class => \Olcs\Controller\IrhpPermits\PermitController::class,
@@ -371,6 +369,9 @@ return array(
             BusServiceController::class => BusServiceControllerFactory::class,
             Olcs\Controller\Bus\Details\BusDetailsController::class =>
                 Olcs\Controller\Bus\Details\BusDetailsControllerFactory::class,
+            Olcs\Controller\DisqualifyController::class => Olcs\Controller\DisqualifyControllerFactory::class,
+            Cases\Submission\SubmissionController::class => Cases\Submission\SubmissionControllerFactory::class,
+
 
         ],
         'aliases' => [

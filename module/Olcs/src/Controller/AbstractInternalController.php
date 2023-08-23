@@ -267,7 +267,10 @@ abstract class AbstractInternalController extends AbstractOlcsController
 
     protected Navigation $navigation;
 
-    public function __construct(TranslationHelperService $translationHelper, FormHelperService $formHelper, FlashMessengerHelperService $flashMessenger, Navigation $navigation)
+    public function __construct(TranslationHelperService $translationHelper,
+                                FormHelperService $formHelper,
+                                FlashMessengerHelperService $flashMessenger,
+                                Navigation $navigation)
     {
         $this->translationHelperService = $translationHelper;
         $this->formHelperService = $formHelper;

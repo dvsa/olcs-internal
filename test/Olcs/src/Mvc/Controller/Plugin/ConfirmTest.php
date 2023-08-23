@@ -2,8 +2,17 @@
 
 namespace OlcsTest\Mvc\Controller\Plugin;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Helper\UrlHelperService;
+use Common\View\Helper\Config;
+use Laminas\Navigation\Navigation;
+use Laminas\View\Renderer\PhpRenderer as ViewRenderer;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
+use Olcs\Controller\Cases\Submission\SubmissionController;
+use Olcs\Form\Model\Form\Submission as SubmissionForm;
 
 /**
  * Class ComfirmPluginTest
@@ -12,7 +21,25 @@ use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 class ConfirmTest extends TestCase
 {
     protected $sut;
+    public function setUp(): void
+    {
 
+        $this->translationHelper = m::mock(TranslationHelperService::class);
+        $this->formHelper = m::mock(FormHelperService::class);
+        $this->flashMessengerHelper = m::mock(FlashMessengerHelperService::class);
+        $this->navigation = m::mock(Navigation::class);
+        $this->urlHelper = m::mock(UrlHelperService::class);
+        $this->configHelper = m::mock(Config::class);
+        $this->viewRenderer = m::mock(ViewRenderer::class);
+//        $this->sut = (new \Olcs\Controller\Cases\Submission\SubmissionController(
+//            $this->translationHelper,
+//            $this->formHelper,
+//            $this->flashMessengerHelper,
+//            $this->navigation,
+//            $this->urlHelper,
+//            $this->configHelper,
+//            $this->viewRenderer));
+    }
     /**
      * @group confirmPlugin
      * @dataProvider dpTestInvokeGenerateForm
@@ -55,8 +82,14 @@ class ConfirmTest extends TestCase
             ->once()
             ->getMock();
 
+        $controller =m::mock(new SubmissionController($this->translationHelper,
+            $this->formHelper,
+            $this->flashMessengerHelper,
+            $this->navigation,
+            $this->urlHelper,
+            $this->configHelper,
+            $this->viewRenderer));
 
-        $controller = m::mock('\Olcs\Controller\Cases\Submission\SubmissionController[getForm]');
         $controller
             ->shouldReceive('getForm')
             ->with('Confirm')
@@ -119,7 +152,14 @@ class ConfirmTest extends TestCase
         $mockRequest = m::mock('Laminas\Http\Request');
         $mockRequest->shouldReceive('isPost')->andReturn(true);
 
-        $controller = m::mock('\Olcs\Controller\Cases\Submission\SubmissionController[getForm, getRequest, params]');
+        $controller =m::mock(new SubmissionController($this->translationHelper,
+            $this->formHelper,
+            $this->flashMessengerHelper,
+            $this->navigation,
+            $this->urlHelper,
+            $this->configHelper,
+            $this->viewRenderer));
+
         $controller->shouldReceive('getForm')->with('Confirm')->andReturn($mockForm);
         $controller->shouldReceive('getRequest')->andReturn($mockRequest);
         $controller->shouldReceive('params')->andReturn($mockParams);
@@ -172,7 +212,14 @@ class ConfirmTest extends TestCase
         $mockRequest = m::mock('Laminas\Http\Request');
         $mockRequest->shouldReceive('isPost')->andReturn(true);
 
-        $controller = m::mock('\Olcs\Controller\Cases\Submission\SubmissionController[getForm, getRequest, params]');
+        $controller =m::mock(new SubmissionController($this->translationHelper,
+            $this->formHelper,
+            $this->flashMessengerHelper,
+            $this->navigation,
+            $this->urlHelper,
+            $this->configHelper,
+            $this->viewRenderer));
+
         $controller->shouldReceive('getForm')->with('Confirm')->andReturn($mockForm);
         $controller->shouldReceive('getRequest')->andReturn($mockRequest);
         $controller->shouldReceive('params')->andReturn($mockParams);

@@ -4,6 +4,11 @@ namespace Olcs\Controller\Cases\Submission;
 
 use Common\Controller\Traits\GenericUpload;
 use Common\Service\Data\CategoryDataService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Helper\UrlHelperService;
+use Common\View\Helper\Config;
 use Dvsa\Olcs\Transfer\Command\Submission\CloseSubmission as CloseCmd;
 use Dvsa\Olcs\Transfer\Command\Submission\CreateSubmission as CreateDto;
 use Dvsa\Olcs\Transfer\Command\Submission\DeleteSubmission as DeleteDto;
@@ -14,6 +19,7 @@ use Dvsa\Olcs\Transfer\Command\Submission\StoreSubmissionSnapshot;
 use Dvsa\Olcs\Transfer\Command\Submission\UpdateSubmission as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Submission\Submission as ItemDto;
 use Dvsa\Olcs\Transfer\Query\Submission\SubmissionList as ListDto;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\SubmissionControllerInterface;
 use Olcs\Data\Mapper\Submission as SubmissionMapper;
@@ -23,12 +29,8 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer as ViewRenderer;
 
-/**
- * Cases Submission Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class SubmissionController extends AbstractInternalController implements SubmissionControllerInterface
 {
     use GenericUpload;
@@ -177,6 +179,34 @@ class SubmissionController extends AbstractInternalController implements Submiss
     /** @var \Common\Service\Helper\FlashMessengerHelperService */
     private $hlpFlash;
 
+    protected TranslationHelperService $translationHelperService;
+
+    protected FormHelperService $formHelperService;
+
+    protected FlashMessengerHelperService $flashMessengerHelperService;
+
+    protected Navigation $navigation;
+    protected UrlHelperService $urlHelper;
+    protected Config $configHelper;
+
+    public function __construct(TranslationHelperService $translationHelper,
+                                FormHelperService $formHelper,
+                                FlashMessengerHelperService $flashMessenger,
+                                Navigation $navigation,
+                                UrlHelperService $urlHelper,
+                                Config $configHelper,
+                                ViewRenderer $viewRenderer
+    )
+    {
+        $this->translationHelperService = $translationHelper;
+        $this->formHelperService = $formHelper;
+        $this->flashMessengerHelperService = $flashMessenger;
+        $this->navigation = $navigation;
+        $this->urlHelper = $urlHelper;
+        $this->configHelper = $configHelper;
+        $this->viewRenderer = $viewRenderer;
+    }
+
     /**
      * On Dispatch
      *
@@ -186,7 +216,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
      */
     public function onDispatch(MvcEvent $e)
     {
-        $this->hlpFlash = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $this->hlpFlash = $this->flashMessengerHelperService;
 
         return parent::onDispatch($e);
     }
@@ -222,18 +252,18 @@ class SubmissionController extends AbstractInternalController implements Submiss
             $response = $this->handleCommand(CreateDto::create($commandData));
 
             if ($response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isClientError()) {
                 $flashErrors = SubmissionMapper::mapFromErrors($form, $response->getResult());
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessengerHelperService->addErrorMessage($error);
                 }
             }
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage('Created record');
+                $this->flashMessengerHelperService->addSuccessMessage('Created record');
                 return $this->redirectTo($response->getResult());
             }
         }
@@ -266,19 +296,19 @@ class SubmissionController extends AbstractInternalController implements Submiss
             $response = $this->handleCommand(UpdateDto::create($commandData));
 
             if ($response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isClientError()) {
                 $flashErrors = SubmissionMapper::mapFromErrors($form, $response->getResult());
 
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessengerHelperService->addErrorMessage($error);
                 }
             }
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage('Submission updated');
+                $this->flashMessengerHelperService->addSuccessMessage('Submission updated');
                 return $this->redirectTo($response->getResult());
             }
         } elseif (!$request->isPost()) {
@@ -287,7 +317,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
             $response = $this->handleQuery(ItemDto::create($itemParams));
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isOk()) {
@@ -367,14 +397,12 @@ class SubmissionController extends AbstractInternalController implements Submiss
         $paramProvider->setParams($this->plugin('params'));
         $params = $paramProvider->provideParameters();
 
-        /** @var \Laminas\View\Renderer\PhpRenderer $viewRenderer */
-        $viewRenderer = $this->getServiceLocator()->get('ViewRenderer');
         $layout = $this->printAction();
-        $layout->setVariable('content', $viewRenderer->render($layout->getChildrenByCaptureTo('content')[0]));
+        $layout->setVariable('content', $this->viewRenderer->render($layout->getChildrenByCaptureTo('content')[0]));
 
         $this->handleCommand(
             StoreSubmissionSnapshot::create(
-                ['id' => $params['id'], 'html' => $viewRenderer->render($layout)]
+                ['id' => $params['id'], 'html' => $this->viewRenderer->render($layout)]
             )
         );
 
@@ -406,7 +434,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
         $response = $this->handleQuery($query);
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
@@ -608,7 +636,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
     private function generateSectionForms($selectedSectionsArray, $readOnly = false)
     {
 
-        $configService = $this->getServiceLocator()->get('config');
+        $configService = $this->configHelper;
         $submissionConfig = $configService['submission_config'];
 
         if (is_array($selectedSectionsArray)) {
@@ -650,7 +678,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
      */
     private function getSectionForm($sectionId)
     {
-        $form = $this->getServiceLocator()->get('Helper\Form')
+        $form = $this->formHelperService
             ->createForm('SubmissionSectionAttachment');
 
         $form->get('sectionId')->setValue($sectionId);
@@ -698,7 +726,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
      */
     public function loadFiles()
     {
-        $urlHelper = $this->getServiceLocator()->get('Helper\Url');
+        $urlHelper = $this->urlHelper;
 
         $submission = $this->getSubmissionData();
         $sectionDocuments = [];
@@ -733,7 +761,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
         $response = $this->handleQuery($query);
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {
