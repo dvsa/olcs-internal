@@ -65,7 +65,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
         $applicationId = $this->params()->fromRoute('application', null);
 
         $canHaveCases = $this->dataServiceManager
-            ->applicationData
+            ->get('Common\Service\Data\Application')
             ->canHaveCases($applicationId);
 
         if (!$canHaveCases) {

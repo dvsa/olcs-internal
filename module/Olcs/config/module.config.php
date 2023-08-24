@@ -160,7 +160,6 @@ return array(
             Cases\Hearing\HearingAppealController::class => Cases\Hearing\HearingAppealController::class,
             Cases\Conviction\ConvictionController::class => Cases\Conviction\ConvictionController::class,
             Cases\Statement\StatementController::class => Cases\Statement\StatementController::class,
-            Cases\Overview\OverviewController::class => Cases\Overview\OverviewController::class,
             Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiController::class,
             Cases\Processing\NoteController::class => Cases\Processing\NoteController::class,
             Cases\Processing\TaskController::class => Cases\Processing\TaskController::class,
@@ -178,7 +177,7 @@ return array(
                 Cases\Submission\SubmissionSectionCommentController::class,
             'CaseSubmissionDecisionController'
                 => 'Olcs\Controller\Cases\Submission\DecisionController',
-            'CasePenaltyController' => 'Olcs\Controller\Cases\Penalty\PenaltyController',
+            'CasePenaltyController' => Olcs\Controller\Cases\Penalty\PenaltyController::class,
             'CaseSiController' => 'Olcs\Controller\Cases\Penalty\SiController',
             'CaseProhibitionController' => 'Olcs\Controller\Cases\Prohibition\ProhibitionController',
             'CaseProhibitionDefectController' => 'Olcs\Controller\Cases\Prohibition\ProhibitionDefectController',
@@ -371,6 +370,8 @@ return array(
                 Olcs\Controller\Bus\Details\BusDetailsControllerFactory::class,
             Olcs\Controller\DisqualifyController::class => Olcs\Controller\DisqualifyControllerFactory::class,
             Cases\Submission\SubmissionController::class => Cases\Submission\SubmissionControllerFactory::class,
+            Olcs\Controller\Cases\Penalty\PenaltyController::class => Olcs\Controller\Cases\Penalty\PenaltyControllerFactory::class,
+            Cases\Overview\OverviewController::class => Cases\Overview\OverviewControllerfactory::class,
 
 
         ],

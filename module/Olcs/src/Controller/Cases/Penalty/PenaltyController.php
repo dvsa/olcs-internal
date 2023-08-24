@@ -1,12 +1,8 @@
 <?php
 
-/**
- * Case Penalty Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- */
 namespace Olcs\Controller\Cases\Penalty;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -22,11 +18,6 @@ use Dvsa\Olcs\Transfer\Command\Cases\Si\Applied\Update as UpdateDto;
 use Olcs\Form\Model\Form\ErruPenalty;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 
-/**
- * Case Penalty Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- */
 class PenaltyController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**
@@ -61,6 +52,8 @@ class PenaltyController extends AbstractInternalController implements CaseContro
     protected $inlineScripts = array(
         'indexAction' => ['table-actions']
     );
+
+    protected FlashMessengerHelperService $flashMessenger;
 
     /**
      * Get method LeftView
@@ -145,7 +138,7 @@ class PenaltyController extends AbstractInternalController implements CaseContro
         );
 
         if (!$response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessenger->addErrorMessage('unknown-error');
             return [];
         }
 
