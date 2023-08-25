@@ -597,7 +597,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
      */
     private function getSubmissionConfig()
     {
-        $submissionConfig = $this->getServiceLocator()->get('config')['submission_config'];
+        $submissionConfig = $this->configHelper['submission_config'];
         return $submissionConfig;
     }
 

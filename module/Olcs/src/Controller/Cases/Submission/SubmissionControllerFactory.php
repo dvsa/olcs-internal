@@ -39,7 +39,6 @@ class SubmissionControllerFactory implements FactoryInterface
         $viewRenderer = $container->get(ViewRenderer::class);
         assert($viewRenderer instanceof ViewRenderer);
 
-
         return new SubmissionController(
             $translationHelper,
             $formHelper,

@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Cases\PublicInquiry;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\AbstractInternalController;
 use Laminas\View\Model\ViewModel;
@@ -59,6 +60,7 @@ class HearingController extends AbstractInternalController implements CaseContro
         'indexAction' => ['table-actions']
     ];
 
+    protected FlashMessengerHelperService $flashMessenger;
     /**
      * get Method Left View
      *
@@ -105,7 +107,7 @@ class HearingController extends AbstractInternalController implements CaseContro
         $pi = $this->getPi();
 
         if ($pi['isClosed']) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage(self::MSG_CLOSED_PI);
+            $this->flashMessenger->addErrorMessage(self::MSG_CLOSED_PI);
 
             return $this->redirectTo([]);
         }
@@ -131,7 +133,7 @@ class HearingController extends AbstractInternalController implements CaseContro
         $pi = $this->getPi();
 
         if ($pi['isClosed']) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage(self::MSG_CLOSED_PI);
+            $this->flashMessenger->addErrorMessage(self::MSG_CLOSED_PI);
 
             return $this->redirectTo([]);
         }
@@ -157,7 +159,7 @@ class HearingController extends AbstractInternalController implements CaseContro
         $response = $this->handleQuery(PiHearingDto::create($params));
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessenger->addErrorMessage('unknown-error');
         }
 
         return $response->getResult();
@@ -174,7 +176,7 @@ class HearingController extends AbstractInternalController implements CaseContro
         $response = $this->handleQuery(PiDto::create($params));
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessenger->addErrorMessage('unknown-error');
         }
 
         return $response->getResult();

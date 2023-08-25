@@ -3,6 +3,9 @@
 namespace Olcs\Controller\Cases\PublicInquiry;
 
 use Common\Exception\BadRequestException;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
@@ -22,10 +25,9 @@ use Dvsa\Olcs\Transfer\Command\Cases\Pi\Close as CloseCmd;
 use Dvsa\Olcs\Transfer\Command\Cases\Pi\Reopen as ReopenCmd;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
+use Olcs\Mvc\Controller\Plugin\Script;
+use Laminas\Navigation\Navigation;
 
-/**
- * Class PiController
- */
 class PiController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /** Details view */
@@ -94,6 +96,24 @@ class PiController extends AbstractInternalController implements CaseControllerI
         ]
     ];
 
+    protected FlashMessengerHelperService $flashMessenger;
+    protected TranslationHelperService $translationHelper;
+    protected FormHelperService $formHelper;
+    protected Navigation $navigation;
+    protected Script $scriptService;
+
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelper,
+        Navigation $navigation,
+        Script $scriptService
+    ) {
+        $this->scriptService = $scriptService;
+        parent::__construct($translationHelper, $formHelper, $flashMessengerHelper, $navigation, $scriptService);
+    }
+
+
     /**
      * get method View Model
      *
@@ -125,7 +145,7 @@ class PiController extends AbstractInternalController implements CaseControllerI
     public function indexAction()
     {
         $pi = $this->getPi();
-        $this->getServiceLocator()->get('Script')->loadFile('pi-form');
+        $this->scriptService->loadFile('pi-form');
         //if we don't have a Pi, display the add Pi page
         if (!isset($pi['id'])) {
             return $this->viewBuilder()->buildViewFromTemplate($this->detailsViewTemplate);
@@ -328,7 +348,7 @@ class PiController extends AbstractInternalController implements CaseControllerI
             //don't display error for pi not found on index, as it shouldn't necessarily have one
             $action = $this->getEvent()->getRouteMatch()->getParam('action');
             if ($action !== 'index') {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessenger->addErrorMessage('unknown-error');
             }
         }
 

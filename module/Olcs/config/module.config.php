@@ -160,7 +160,6 @@ return array(
             Cases\Hearing\HearingAppealController::class => Cases\Hearing\HearingAppealController::class,
             Cases\Conviction\ConvictionController::class => Cases\Conviction\ConvictionController::class,
             Cases\Statement\StatementController::class => Cases\Statement\StatementController::class,
-            Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiController::class,
             Cases\Processing\NoteController::class => Cases\Processing\NoteController::class,
             Cases\Processing\TaskController::class => Cases\Processing\TaskController::class,
             Cases\Hearing\AppealController::class => Cases\Hearing\AppealController::class,
@@ -188,7 +187,6 @@ return array(
             'CasePublicInquiryController' => 'Olcs\Controller\Cases\PublicInquiry\PublicInquiryController',
             'CaseNonPublicInquiryController' => 'Olcs\Controller\Cases\NonPublicInquiry\NonPublicInquiryController',
             'PublicInquiry\SlaController' => 'Olcs\Controller\Cases\PublicInquiry\SlaController',
-            Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingController::class,
             'PublicInquiry\AgreedAndLegislationController'
                 => 'Olcs\Controller\Cases\PublicInquiry\AgreedAndLegislationController',
             'PublicInquiry\RegisterDecisionController'
@@ -372,8 +370,8 @@ return array(
             Cases\Submission\SubmissionController::class => Cases\Submission\SubmissionControllerFactory::class,
             Olcs\Controller\Cases\Penalty\PenaltyController::class => Olcs\Controller\Cases\Penalty\PenaltyControllerFactory::class,
             Cases\Overview\OverviewController::class => Cases\Overview\OverviewControllerfactory::class,
-
-
+            Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiControllerFactory::class,
+            Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingController::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
