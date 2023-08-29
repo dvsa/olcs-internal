@@ -246,8 +246,6 @@ return array(
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController',
             'LicenceProcessingPublicationsController'
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsController',
-            'ApplicationProcessingPublicationsController'
-                => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class,
             'LicenceProcessingTasksController' => 'Olcs\Controller\Licence\Processing\LicenceProcessingTasksController',
             LicenceProcessingNoteController::class => LicenceProcessingNoteController::class,
             'LicenceProcessingInspectionRequestController'
@@ -372,6 +370,8 @@ return array(
             Cases\Overview\OverviewController::class => Cases\Overview\OverviewControllerfactory::class,
             Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiControllerFactory::class,
             Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingController::class,
+            Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class
+            => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

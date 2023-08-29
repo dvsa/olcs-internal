@@ -24,6 +24,6 @@ class ApplicationProcessingPublicationsControllerFactory implements FactoryInter
     public function createService(ServiceLocatorInterface $serviceLocator): ApplicationProcessingPublicationsController
     {
         return $this->__invoke($serviceLocator,
-            ApplicationProcessingInspectionRequestController::class);
+            ApplicationProcessingPublicationsController::class);
     }
 }
