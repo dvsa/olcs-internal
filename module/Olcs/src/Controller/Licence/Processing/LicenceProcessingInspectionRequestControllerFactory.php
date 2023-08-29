@@ -1,21 +1,19 @@
 <?php
 
-namespace Olcs\Controller\Application\Processing;
+namespace Olcs\Controller\Licence\Processing;
 
-use Common\Service\Cqrs\Query\CachingQueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
-class ApplicationProcessingInspectionRequestControllerFactory implements FactoryInterface
+class LicenceProcessingInspectionRequestControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationProcessingInspectionRequestController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceProcessingInspectionRequestController
     {
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
@@ -23,32 +21,27 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
         $formHelper = $container->get(FormHelperService::class);
         assert($formHelper instanceof FormHelperService);
 
-        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
+        $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $transferAnnotationBuilder = $container->get(TransferAnnotationBuilder::class);
-        assert($transferAnnotationBuilder instanceof TransferAnnotationBuilder);
+        $setUpOcListboxService = $container->get(OperatingCentresForInspectionRequest::class);
+        assert($setUpOcListboxService instanceof OperatingCentresForInspectionRequest);
 
-        $queryService = $container->get(CachingQueryService::class);
-        assert($queryService instanceof CachingQueryService);
-
-        return new ApplicationProcessingInspectionRequestController(
+        return new LicenceProcessingInspectionRequestController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
             $navigation,
-            $transferAnnotationBuilder,
-            $queryService);
+            $setUpOcListboxService);
     }
-
-    public function createService(ServiceLocatorInterface $serviceLocator): ApplicationProcessingInspectionRequestController
+    public function createService(ServiceLocatorInterface $serviceLocator): LicenceProcessingInspectionRequestController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            ApplicationProcessingInspectionRequestController::class);
+            LicenceProcessingInspectionRequestController::class);
     }
 }

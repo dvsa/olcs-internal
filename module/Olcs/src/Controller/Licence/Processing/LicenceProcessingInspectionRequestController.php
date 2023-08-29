@@ -8,6 +8,10 @@
 namespace Olcs\Controller\Licence\Processing;
 
 use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\InspectionRequestTrait;
 use Dvsa\Olcs\Transfer\Query\Licence\EnforcementArea as LicEnforcementAreaQry;
@@ -21,12 +25,8 @@ use Dvsa\Olcs\Transfer\Command\InspectionRequest\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\InspectionRequest\Update as UpdateDto;
 use Olcs\Form\Model\Form\InspectionRequest;
 use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
-/**
- * Licence Processing Inspection Request Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class LicenceProcessingInspectionRequestController extends AbstractInternalController implements
     LicenceControllerInterface,
     LeftViewProvider
@@ -93,6 +93,19 @@ class LicenceProcessingInspectionRequestController extends AbstractInternalContr
      */
     protected $section = 'inspection-request';
 
+    protected OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest;
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest
+    )
+    {
+        $this->operatingCentresForInspectionRequest = $operatingCentresForInspectionRequest;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
+
     /**
      * get method Left View
      *
@@ -130,10 +143,10 @@ class LicenceProcessingInspectionRequestController extends AbstractInternalContr
                     LicEnforcementAreaQry::create(['id' => $this->params()->fromRoute('licence')])
                 );
 
-            $response = $this->getServiceLocator()->get('QueryService')->send($queryToSend);
+            $response = $this->queryService->send($queryToSend);
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isOk()) {
@@ -152,7 +165,7 @@ class LicenceProcessingInspectionRequestController extends AbstractInternalContr
      */
     protected function setUpOcListbox()
     {
-        $service = $this->getServiceLocator()->get('Olcs\Service\Data\OperatingCentresForInspectionRequest');
+        $service = $this->operatingCentresForInspectionRequest;
         $service->setType('licence');
         $service->setIdentifier($this->params()->fromRoute('licence'));
     }

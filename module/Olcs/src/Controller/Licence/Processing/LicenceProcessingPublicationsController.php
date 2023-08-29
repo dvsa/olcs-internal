@@ -79,7 +79,7 @@ class LicenceProcessingPublicationsController extends AbstractInternalController
         $response = $this->handleQuery(PublicationLinkDto::create($params));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         return $response->getResult();

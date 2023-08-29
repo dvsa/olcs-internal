@@ -5,6 +5,9 @@ namespace Olcs\Controller\Application\Processing;
 use Common\RefData;
 use Common\Service\Cqrs\Query\CachingQueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\InspectionRequestTrait;
 use Dvsa\Olcs\Transfer\Query\Application\EnforcementArea as AppEnforcementAreaQry;
@@ -21,11 +24,6 @@ use Laminas\View\Model\ViewModel;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
 use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
-/**
- * Application Processing Inspection Request Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class ApplicationProcessingInspectionRequestController extends AbstractInternalController implements
     LeftViewProvider,
     ApplicationControllerInterface
@@ -90,22 +88,18 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
      */
     protected $section = 'inspection-request';
 
-    protected TransferAnnotationBuilder $transferAnnotationBuilder;
-    protected CachingQueryService $queryService;
-    protected FlashMessengerHelperService $flashMessenger;
-    protected OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest;
-
     public function __construct(
-        TransferAnnotationBuilder $transferAnnotationBuilder,
-        CachingQueryService $queryService,
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
-        OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest
+        Navigation $navigation,
+        TransferAnnotationBuilder $transferAnnotationBuilder,
+        CachingQueryService $queryService
     )
     {
         $this->transferAnnotationBuilder = $transferAnnotationBuilder;
         $this->queryService = $queryService;
-        $this->flashMessengerHelperService = $flashMessenger;
-        $this->operatingCentresForInspectionRequest = $operatingCentresForInspectionRequest;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
     }
 
     /**

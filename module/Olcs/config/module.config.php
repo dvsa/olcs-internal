@@ -6,6 +6,7 @@ use Olcs\Auth;
 use Olcs\Controller\Application\ApplicationController;
 use Olcs\Controller\Application\ApplicationControllerFactory;
 use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController;
+use Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestControllerFactory;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController;
 use Olcs\Controller\Bus\Processing\BusProcessingDecisionController;
@@ -20,7 +21,11 @@ use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpPermitProcessingReadHistoryController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
+use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController;
+use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestControllerFactory;
 use Olcs\Controller\Licence\Processing\LicenceProcessingNoteController;
+use Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsController;
+use Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsControllerFactory;
 use Olcs\Controller\Operator\OperatorProcessingNoteController;
 use Olcs\Controller\SearchController;
 use Olcs\Controller\TransportManager as TmCntr;
@@ -238,18 +243,12 @@ return array(
             'ApplicationProcessingOverviewController'
                 => 'Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController',
             ApplicationProcessingNoteController::class => ApplicationProcessingNoteController::class,
-            ApplicationProcessingInspectionRequestController::class
-            => Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestControllerFactory::class,
             ApplicationProcessingPublicationsController::class
             => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
             'LicenceProcessingOverviewController'
                 => 'Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController',
-            'LicenceProcessingPublicationsController'
-                => 'Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsController',
             'LicenceProcessingTasksController' => 'Olcs\Controller\Licence\Processing\LicenceProcessingTasksController',
             LicenceProcessingNoteController::class => LicenceProcessingNoteController::class,
-            'LicenceProcessingInspectionRequestController'
-                => 'Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController',
             Olcs\Controller\Bus\Registration\BusRegistrationController::class =>
                 Olcs\Controller\Bus\Registration\BusRegistrationController::class,
             'BusDetailsServiceController' => 'Olcs\Controller\Bus\Details\BusDetailsServiceController',
@@ -351,7 +350,6 @@ return array(
                 \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteController::class,
             \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingTasksController::class =>
                 \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingTasksController::class,
-            Olcs\Controller\Licence\SurrenderController::class => Olcs\Controller\Licence\SurrenderController::class,
         ),
         'factories' => [
             TmCntr\Details\TransportManagerDetailsResponsibilityController::class =>
@@ -372,6 +370,10 @@ return array(
             Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class
             => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
             Olcs\Controller\IrhpPermits\IrhpApplicationController::class => Olcs\Controller\IrhpPermits\IrhpApplicationController::class,
+            Olcs\Controller\Licence\SurrenderController::class => Olcs\Controller\Licence\SurrenderControllerFactory::class,
+            LicenceProcessingInspectionRequestController::class => LicenceProcessingInspectionRequestControllerFactory::class,
+            ApplicationProcessingInspectionRequestController::class => ApplicationProcessingInspectionRequestControllerFactory::class,
+            LicenceProcessingPublicationsController::class => LicenceProcessingPublicationsControllerfactory::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

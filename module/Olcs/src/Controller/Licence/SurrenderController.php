@@ -141,7 +141,7 @@ class SurrenderController extends AbstractInternalController implements
     {
         /** @var TranslationHelperService $translator
          */
-        $translator = $this->getServiceLocator()->get('Helper\Translation');
+        $translator = $this->translationHelperService;
 
         $form = $this->getForm(Confirmation::class);
         $message = $translator->translateReplace(
