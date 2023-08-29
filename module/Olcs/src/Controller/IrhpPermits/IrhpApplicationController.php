@@ -5,6 +5,10 @@ namespace Olcs\Controller\IrhpPermits;
 use Common\Data\Mapper\Permits\NoOfPermits;
 use Common\RefData;
 use Common\Service\Cqrs\Exception\NotFoundException;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Qa\FieldsetPopulatorFactory;
 use Common\Service\Qa\UsageContext;
 use Dvsa\Olcs\Transfer\Command\IrhpApplication\CancelApplication;
 use Dvsa\Olcs\Transfer\Command\IrhpApplication\Grant;
@@ -18,6 +22,7 @@ use Dvsa\Olcs\Transfer\Command\IrhpApplication\Withdraw;
 use Dvsa\Olcs\Transfer\Command\Permits\AcceptEcmtPermits;
 use Dvsa\Olcs\Transfer\Query\Permits\AvailableStocks;
 use Dvsa\Olcs\Transfer\Query\Permits\AvailableYears;
+use Laminas\Navigation\Navigation;
 use Olcs\Form\Model\Form\IrhpApplicationWithdraw as WithdrawForm;
 use Olcs\Form\Model\Form\IrhpCandidatePermit as IrhpCandidatePermitForm;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\ApplicationPath;
@@ -160,6 +165,18 @@ class IrhpApplicationController extends AbstractInternalController implements
         'addAction' => ['forms/irhp-bilateral-application'],
         'editAction' => ['forms/irhp-application', 'forms/irhp-bilateral-application'],
     ];
+    protected  FieldsetPopulatorFactory $QaFieldsetPopulator;
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        FieldsetPopulatorFactory $QaFieldsetPopulator
+    )
+    {
+        $this->fieldsetPopulatorFactory = $QaFieldsetPopulator;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
 
     /**
      * Get left view
@@ -741,7 +758,7 @@ class IrhpApplicationController extends AbstractInternalController implements
         } elseif (!empty($formData['fields']['irhpPermitApplications'][0]['irhpPermitWindow']['irhpPermitStock'])) {
             $irhpPermitStock = $formData['fields']['irhpPermitApplications'][0]['irhpPermitWindow']['irhpPermitStock'];
 
-            $translator = $this->getServiceLocator()->get('Helper\Translation');
+            $translator = $this->translationHelperService;
             $stockText = sprintf(
                 '%s %s',
                 $irhpPermitStock['irhpPermitType']['name']['description'],
@@ -850,7 +867,7 @@ class IrhpApplicationController extends AbstractInternalController implements
 
         $this->applicationSteps = $response->getResult();
 
-        $fieldsetPopulator = $this->getServiceLocator()->get('QaFieldsetPopulator');
+        $fieldsetPopulator = $this->QaFieldsetPopulator;
         $fieldsetPopulator->populate($form, $this->applicationSteps, UsageContext::CONTEXT_INTERNAL);
 
         // remove validation for fieldsets that are not enabled
@@ -1118,7 +1135,7 @@ class IrhpApplicationController extends AbstractInternalController implements
         ));
         $stocks = [];
         if ($response->isOk()) {
-            $translator = $this->getServiceLocator()->get('Helper\Translation');
+            $translator = $this->translationHelperService;
             $stocks = $response->getResult();
             foreach ($stocks['stocks'] as $key => $stock) {
                 $stocks['stocks'][$key]['periodName'] = $translator->translate($stock['periodNameKey']);

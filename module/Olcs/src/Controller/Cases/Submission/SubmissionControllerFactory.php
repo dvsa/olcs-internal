@@ -23,7 +23,6 @@ class SubmissionControllerFactory implements FactoryInterface
         $formHelper = $container->get(FormHelperService::class);
         assert($formHelper instanceof FormHelperService);
 
-
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 

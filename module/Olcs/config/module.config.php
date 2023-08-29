@@ -338,7 +338,6 @@ return array(
             'LicenceDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController',
             \Olcs\Controller\IrhpPermits\ApplicationController::class => \Olcs\Controller\IrhpPermits\ApplicationController::class,
             \Olcs\Controller\IrhpPermits\PermitController::class => \Olcs\Controller\IrhpPermits\PermitController::class,
-            \Olcs\Controller\IrhpPermits\IrhpApplicationController::class => \Olcs\Controller\IrhpPermits\IrhpApplicationController::class,
             \Olcs\Controller\IrhpPermits\IrhpApplicationFeesController::class => \Olcs\Controller\IrhpPermits\IrhpApplicationFeesController::class,
             'IrhpPermitController' => 'Olcs\Controller\IrhpPermits\IrhpPermitController',
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
@@ -372,6 +371,7 @@ return array(
             Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingController::class,
             Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class
             => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
+            Olcs\Controller\IrhpPermits\IrhpApplicationController::class => Olcs\Controller\IrhpPermits\IrhpApplicationController::class,
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
