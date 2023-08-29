@@ -53,6 +53,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
      * @param CommandService $commandService
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param TransportManagerHelperService $transportManagerHelper
+     * @param StringHelperService $stringHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,

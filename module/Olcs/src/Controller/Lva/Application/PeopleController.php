@@ -55,11 +55,6 @@ class PeopleController extends Lva\AbstractPeopleController implements Applicati
         GuidanceHelperService $guidanceHelper,
         StringHelperService $stringHelper
     ) {
-        $this->formHelper = $formHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->variationLvaService = $variationLvaService;
-        $this->guidanceHelper = $guidanceHelper;
         $this->stringHelper = $stringHelper;
 
         parent::__construct(
