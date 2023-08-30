@@ -13,11 +13,6 @@ use Olcs\Controller\Interfaces\OperatorControllerInterface;
 use Olcs\Data\Mapper\OperatorPeople as Mapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * OperatorPeopleController
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class OperatorPeopleController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider
@@ -172,7 +167,7 @@ class OperatorPeopleController extends AbstractInternalController implements
             $response = $this->handleQuery(\Dvsa\Olcs\Transfer\Query\Organisation\People::create($listParams));
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->$this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             $this->organisationData = $response->getResult();
@@ -228,7 +223,7 @@ class OperatorPeopleController extends AbstractInternalController implements
     protected function alterForm($form, $showAddAnotherButton = false)
     {
         $data = $this->loadOrganisationData();
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         // if org type is not Other, then remove position element
         if ($data['type']['id'] !== \Common\RefData::ORG_TYPE_OTHER) {
             $formHelper->remove($form, 'data->position');

@@ -2,21 +2,33 @@
 
 namespace Olcs\Controller\Operator;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\OperatorControllerInterface;
 use Olcs\Form\Model\Form;
 use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\ApplicationStatus;
 
-/**
- * OperatorLicencesApplicationsController Controller
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class OperatorLicencesApplicationsController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider
 {
+    protected  ApplicationStatus $operAppStatusService;
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation,
+        ApplicationStatus $operAppStatusService
+    )
+    {
+        $this->operAppStatusService = $operAppStatusService;
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
     /**
      * Get Left View
      *
@@ -31,7 +43,7 @@ class OperatorLicencesApplicationsController extends AbstractInternalController 
     }
 
     /**
-     * Process action: Licenes
+     * Process action: Licenses
      *
      * @return ViewModel
      */
@@ -117,8 +129,7 @@ class OperatorLicencesApplicationsController extends AbstractInternalController 
         $this->inlineScripts = ['forms/filter'];
 
         /** @var \Olcs\Service\Data\ApplicationStatus $operAppStatusSrv */
-        $operAppStatusSrv = $this->getServiceLocator()
-                ->get(\Olcs\Service\Data\ApplicationStatus::class);
+        $operAppStatusSrv = $this->operAppStatusService;
 
         $operAppStatusSrv->setOrgId(
             $this->params()->fromRoute('organisation')

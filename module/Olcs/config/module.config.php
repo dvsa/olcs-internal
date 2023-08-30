@@ -26,7 +26,6 @@ use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestControl
 use Olcs\Controller\Licence\Processing\LicenceProcessingNoteController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsControllerFactory;
-use Olcs\Controller\Operator\OperatorProcessingNoteController;
 use Olcs\Controller\SearchController;
 use Olcs\Controller\TransportManager as TmCntr;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailController;
@@ -279,16 +278,13 @@ return array(
                 Olcs\Controller\Operator\UnlicensedBusinessDetailsController::class,
             'UnlicensedCasesOperatorController' => 'Olcs\Controller\Operator\Cases\UnlicensedCasesOperatorController',
             'UnlicensedOperatorVehiclesController' => 'Olcs\Controller\Operator\UnlicensedOperatorVehiclesController',
-            'OperatorPeopleController' => 'Olcs\Controller\Operator\OperatorPeopleController',
-            Olcs\Controller\Operator\OperatorLicencesApplicationsController::class =>
-                Olcs\Controller\Operator\OperatorLicencesApplicationsController::class,
+            'OperatorPeopleController' => Olcs\Controller\Operator\OperatorPeopleController::class,
             'OperatorIrfoDetailsController'
                 => 'Olcs\Controller\Operator\OperatorIrfoDetailsController',
             'OperatorIrfoGvPermitsController'
                 => 'Olcs\Controller\Operator\OperatorIrfoGvPermitsController',
             'OperatorIrfoPsvAuthorisationsController'
                 => 'Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController',
-            OperatorProcessingNoteController::class => OperatorProcessingNoteController::class,
             'OperatorProcessingTasksController'
                 => 'Olcs\Controller\Operator\OperatorProcessingTasksController',
             'OperatorFeesController' => 'Olcs\Controller\Operator\OperatorFeesController',
@@ -374,6 +370,11 @@ return array(
             LicenceProcessingInspectionRequestController::class => LicenceProcessingInspectionRequestControllerFactory::class,
             ApplicationProcessingInspectionRequestController::class => ApplicationProcessingInspectionRequestControllerFactory::class,
             LicenceProcessingPublicationsController::class => LicenceProcessingPublicationsControllerfactory::class,
+            Olcs\Controller\Operator\OperatorLicencesApplicationsController::class =>
+                Olcs\Controller\Operator\OperatorLicencesApplicationsControllerFactory::class,
+            Olcs\Controller\Operator\OperatorPeopleController::class => Olcs\Controller\Operator\OperatorPeopleControllerFactory::class,
+            Olcs\Controller\Operator\OperatorProcessingNoteController::class => Olcs\Controller\Operator\OperatorProcessingNoteControllerFactory::class,
+
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

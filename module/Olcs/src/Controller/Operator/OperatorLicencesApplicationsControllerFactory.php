@@ -1,6 +1,6 @@
 <?php
 
-namespace Olcs\Controller\Licence\Processing;
+namespace Olcs\Controller\Operator;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -9,12 +9,12 @@ use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Olcs\Service\Data\OperatingCentresForInspectionRequest;
-use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController;
+use Olcs\Service\Data\ApplicationStatus;
 
-class LicenceProcessingInspectionRequestControllerFactory implements FactoryInterface
+class OperatorLicencesApplicationsControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceProcessingInspectionRequestController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OperatorLicencesApplicationsController
     {
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
@@ -28,25 +28,21 @@ class LicenceProcessingInspectionRequestControllerFactory implements FactoryInte
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $setUpOcListboxService = $container->get(OperatingCentresForInspectionRequest::class);
-        assert($setUpOcListboxService instanceof OperatingCentresForInspectionRequest);
+        $operAppStatusService = $container->get(ApplicationStatus::class);
+        assert($operAppStatusService instanceof ApplicationStatus);
 
-        $annotationBuilderService = $container->get(AnnotationBuilder::class);
-        assert($annotationBuilderService instanceof AnnotationBuilder);
-
-        return new LicenceProcessingInspectionRequestController(
+        return new OperatorLicencesApplicationsController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
             $navigation,
-            $setUpOcListboxService,
-            $annotationBuilderService);
+            $operAppStatusService);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): LicenceProcessingInspectionRequestController
+    public function createService(ServiceLocatorInterface $serviceLocator): OperatorLicencesApplicationsController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            LicenceProcessingInspectionRequestController::class);
+            OperatorLicencesApplicationsController::class);
     }
 }

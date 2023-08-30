@@ -16,9 +16,6 @@ use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 use Common\Service\Table\TableBuilder;
 
-/**
- * Note Controller
- */
 class OperatorProcessingNoteController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider
@@ -148,7 +145,7 @@ class OperatorProcessingNoteController extends AbstractInternalController implem
         $title = ($table->getTotal() === 1)
             ? 'internal-operator-processing-notes-table-header-singular'
             : 'internal-operator-processing-notes-table-header';
-        $table->setVariable('title', $this->getServiceLocator()->get('Helper\Translation')->translate($title));
+        $table->setVariable('title', $this->translationHelperService->translate($title));
 
         return $table;
     }

@@ -1,16 +1,12 @@
 <?php
 
-/**
- * Licence Processing Inspection Request Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Olcs\Controller\Licence\Processing;
 
 use Common\RefData;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\InspectionRequestTrait;
@@ -94,15 +90,19 @@ class LicenceProcessingInspectionRequestController extends AbstractInternalContr
     protected $section = 'inspection-request';
 
     protected OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest;
+    protected  AnnotationBuilder $annotationBuilderService;
+
     public function __construct(
         TranslationHelperService $translationHelper,
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
         Navigation $navigation,
-        OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest
+        OperatingCentresForInspectionRequest $operatingCentresForInspectionRequest,
+        AnnotationBuilder $annotationBuilderService
     )
     {
         $this->operatingCentresForInspectionRequest = $operatingCentresForInspectionRequest;
+        $this->annotationBuilderService = $annotationBuilderService;
         parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
     }
 
@@ -137,8 +137,7 @@ class LicenceProcessingInspectionRequestController extends AbstractInternalContr
     protected function getEnforcementAreaName()
     {
         if (!$this->enforcementAreaName) {
-            $queryToSend = $this->getServiceLocator()
-                ->get('TransferAnnotationBuilder')
+            $queryToSend = $this->annotationBuilderService
                 ->createQuery(
                     LicEnforcementAreaQry::create(['id' => $this->params()->fromRoute('licence')])
                 );
