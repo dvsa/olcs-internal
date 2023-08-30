@@ -4,12 +4,17 @@ namespace Olcs\Controller\TransportManager\Details;
 
 use Common\Controller\Traits\GenericUpload;
 use Common\Service\Cqrs\Response;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Helper\TransportManagerHelperService;
 use Dvsa\Olcs\Transfer\Command\TmQualification\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\TmQualification\Delete as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\TmQualification\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Tm\Documents as DocumentsQry;
 use Dvsa\Olcs\Transfer\Query\TmQualification\TmQualification as TmQualificationQry;
 use Dvsa\Olcs\Transfer\Query\TmQualification\TmQualificationsList as TmQualificationsListQry;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
@@ -19,12 +24,9 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Laminas\Form\FormInterface;
 use Laminas\View\Model\ViewModel;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
+use Common\Service\Cqrs\Query\CachingQueryService;
 
-/**
- * Transport Manager Details Competence Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class TransportManagerDetailsCompetenceController extends AbstractInternalController implements
     TransportManagerControllerInterface,
     LeftViewProvider
@@ -73,6 +75,31 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
     protected $deleteCommand = DeleteDto::class;
     protected $deleteParams = ['ids' => 'id'];
     protected $hasMultiDelete = true;
+
+    protected TranslationHelperService $translationHelper;
+    protected FormHelperService $formHelper;
+    protected FlashMessengerHelperService $flashMessenger;
+    protected Navigation $navigation;
+    protected TransferAnnotationBuilder $transferAnnotationBuilder;
+    protected CachingQueryService $queryService;
+    protected TransportManagerHelperService $transportMangerHelper;
+
+    public function __construct(
+        TranslationHelperService      $translationHelper,
+        FormHelperService             $formHelper,
+        FlashMessengerHelperService   $flashMessenger,
+        Navigation                    $navigation,
+        TransferAnnotationBuilder     $transferAnnotationBuilder,
+        CachingQueryService           $queryService,
+        TransportManagerHelperService $transportMangerHelper
+    )
+    {
+        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
+        $this->queryService = $queryService;
+        $this->transportMangerHelper = $transportMangerHelper;
+
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
 
     /**
      * Index action
@@ -139,8 +166,7 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
     public function getDocuments()
     {
         if ($this->documents === null) {
-            $queryToSend = $this->getServiceLocator()
-                ->get('TransferAnnotationBuilder')
+            $queryToSend = $this->transferAnnotationBuilder
                 ->createQuery(
                     DocumentsQry::create(
                         [
@@ -150,10 +176,10 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
                 );
 
             /** @var Response $response */
-            $response = $this->getServiceLocator()->get('QueryService')->send($queryToSend);
+            $response = $this->queryService->send($queryToSend);
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessenger->addErrorMessage('unknown-error');
             }
             $mappedResults = [];
             if ($response->isOk()) {
@@ -174,7 +200,7 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
     {
         $tmId = $this->params()->fromRoute('transportManager');
 
-        $data = $this->getServiceLocator()->get('Helper\TransportManager')
+        $data = $this->transportMangerHelper
             ->getCertificateFileData($tmId, $file);
 
         return $this->uploadFile($file, $data);

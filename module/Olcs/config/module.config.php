@@ -29,6 +29,7 @@ use Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsControllerFa
 use Olcs\Controller\SearchController;
 use Olcs\Controller\TransportManager as TmCntr;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailController;
+use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailControllerFactory;
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController as TMProcessingNoteController;
 use Olcs\Controller\TransportManager\TransportManagerController;
 use Olcs\Form\Element\SearchDateRangeFieldsetFactory;
@@ -297,11 +298,11 @@ return array(
             'TMDetailsCompetenceController'
                 => 'Olcs\Controller\TransportManager\Details\TransportManagerDetailsCompetenceController',
             'TMDetailsEmploymentController'
-                => 'Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentController',
+                => Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentController::class,
             'TMDetailsPreviousHistoryController'
                 => 'Olcs\Controller\TransportManager\Details\TransportManagerDetailsPreviousHistoryController',
             'TMProcessingPublicationController'
-                => 'Olcs\Controller\TransportManager\Processing\PublicationController',
+                => Olcs\Controller\TransportManager\Processing\PublicationController::class,
             TMProcessingNoteController::class => TMProcessingNoteController::class,
             'TMProcessingTaskController'
                 => 'Olcs\Controller\TransportManager\Processing\TransportManagerProcessingTaskController',
@@ -374,8 +375,12 @@ return array(
                 Olcs\Controller\Operator\OperatorLicencesApplicationsControllerFactory::class,
             Olcs\Controller\Operator\OperatorPeopleController::class => Olcs\Controller\Operator\OperatorPeopleControllerFactory::class,
             Olcs\Controller\Operator\OperatorProcessingNoteController::class => Olcs\Controller\Operator\OperatorProcessingNoteControllerFactory::class,
-
-        ],
+            Olcs\Controller\TransportManager\Details\TransportManagerDetailsCompetenceController::class => Olcs\Controller\TransportManager\Details\TransportManagerDetailsCompetenceControllerFactory::class,
+            TransportManagerDetailsDetailController::class => TransportManagerDetailsDetailControllerFactory::class,
+            Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentController::class => Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentControllerFactory::class,
+            Olcs\Controller\TransportManager\HistoricTm\HistoricTmController::class =>  Olcs\Controller\TransportManager\HistoricTm\HistoricTmControllerFactory::class,
+            Olcs\Controller\TransportManager\Processing\PublicationController::class => Olcs\Controller\TransportManager\Processing\PublicationControllerFactory::class,
+            ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
             'ApplicationProcessingPublicationsController' => ApplicationProcessingPublicationsController::class,

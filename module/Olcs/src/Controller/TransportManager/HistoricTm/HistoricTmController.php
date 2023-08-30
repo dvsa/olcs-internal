@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Historic Tm Details Controller
- *
- * @author Shaun Lizzio <shaun@lizzio.co.uk>
- */
 namespace Olcs\Controller\TransportManager\HistoricTm;
 
 use Dvsa\Olcs\Transfer\Query\Tm\HistoricTm as HistoricTmQry;
@@ -19,11 +14,6 @@ use Laminas\View\Model\ViewModel;
 use Common\RefData;
 use Olcs\Logging\Log\Logger;
 
-/**
- * Historic Tm Details Controller
- *
- * @author Shaun Lizzio <shaun@lizzio.co.uk>
- */
 class HistoricTmController extends AbstractInternalController
 {
     protected $section = 'transport-manager';
@@ -61,7 +51,7 @@ class HistoricTmController extends AbstractInternalController
         $response = $this->handleQuery($query);
 
         if ($response->isClientError() || $response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         if ($response->isOk()) {

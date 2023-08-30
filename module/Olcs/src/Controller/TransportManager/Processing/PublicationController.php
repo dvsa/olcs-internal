@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Transport Manager Processing Publication Controller
- */
 namespace Olcs\Controller\TransportManager\Processing;
 
 use Dvsa\Olcs\Transfer\Query\Publication\PublicationLinkTmList;
@@ -17,9 +14,6 @@ use Olcs\Form\Model\Form\Publication as PublicationForm;
 use Olcs\Form\Model\Form\PublicationNotNew as PublicationNotNewForm;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Transport Manager Processing Publication Controller
- */
 class PublicationController extends AbstractInternalController implements
     TransportManagerControllerInterface,
     LeftViewProvider
@@ -71,7 +65,7 @@ class PublicationController extends AbstractInternalController implements
         $response = $this->handleQuery(PublicationLinkDto::create($params));
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         return $response->getResult();

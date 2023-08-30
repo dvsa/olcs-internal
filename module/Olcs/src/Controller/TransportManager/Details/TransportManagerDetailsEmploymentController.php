@@ -89,7 +89,7 @@ class TransportManagerDetailsEmploymentController extends AbstractInternalContro
 
     protected function alterFormForEdit(\Laminas\Form\Form $form, $data)
     {
-        $this->getServiceLocator()->get('Helper\Form')->remove($form, 'form-actions->addAnother');
+        $this->formHelperService->remove($form, 'form-actions->addAnother');
 
         return $form;
     }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Transport Manager Details Detail Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Olcs\Controller\TransportManager\Details;
 
 use Dvsa\Olcs\Transfer\Command\Tm\Create as CreateDto;
@@ -20,11 +15,6 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Laminas\View\Model\ViewModel;
 use Common\RefData;
 
-/**
- * Transport Manager Details Detail Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class TransportManagerDetailsDetailController extends AbstractInternalController implements
     TransportManagerControllerInterface,
     LeftViewProvider
@@ -138,8 +128,7 @@ class TransportManagerDetailsDetailController extends AbstractInternalController
             $form->setOption('readonly', true);
         }
         if (empty($data['transport-manager-details']['id'])) {
-            $this->getServiceLocator()
-                ->get('Helper\Form')
+            $this->formHelperService
                 ->remove($form, 'transport-manager-details->transport-manager-id');
         } else {
             $form->get('transport-manager-details')

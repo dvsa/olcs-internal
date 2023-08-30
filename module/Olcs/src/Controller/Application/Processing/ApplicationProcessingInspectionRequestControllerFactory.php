@@ -11,7 +11,6 @@ use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
 class ApplicationProcessingInspectionRequestControllerFactory implements FactoryInterface
 {
@@ -24,7 +23,7 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
         assert($formHelper instanceof FormHelperService);
 
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-        assert($flashMessenger instanceof FlashMessengerHelperService);
+        assert($flashMessengerHelper instanceof FlashMessengerHelperService);
 
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
@@ -38,7 +37,7 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
         return new ApplicationProcessingInspectionRequestController(
             $translationHelper,
             $formHelper,
-            $flashMessenger,
+            $flashMessengerHelper,
             $navigation,
             $transferAnnotationBuilder,
             $queryService);
