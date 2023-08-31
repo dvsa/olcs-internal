@@ -9,9 +9,6 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Class LegacyOffenceController
- */
 class LegacyOffenceController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

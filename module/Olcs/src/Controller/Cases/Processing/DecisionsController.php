@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Processing Controller
- */
 namespace Olcs\Controller\Cases\Processing;
 
 use Dvsa\Olcs\Transfer\Query\Cases\Cases as CasesItemDto;
@@ -14,9 +11,7 @@ use Common\Exception\ResourceNotFoundException;
 use Laminas\View\Model\ConsoleModel;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Decisions Controller
- */
+
 class DecisionsController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

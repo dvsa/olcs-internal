@@ -17,9 +17,9 @@ use Olcs\Controller\Bus\Registration\BusRegistrationControllerFactory;
 use Olcs\Controller\Bus\Service\BusServiceController;
 use Olcs\Controller\Bus\Service\BusServiceControllerFactory;
 use Olcs\Controller\Cases;
+use Olcs\Controller\IrhpPermits\ChangeHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
-use Olcs\Controller\IrhpPermits\IrhpPermitProcessingReadHistoryController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestControllerFactory;
@@ -163,47 +163,27 @@ return array(
             Cases\Submission\RecommendationController::class => Cases\Submission\RecommendationController::class,
             Cases\Opposition\OppositionController::class => Cases\Opposition\OppositionController::class,
             Cases\Hearing\HearingAppealController::class => Cases\Hearing\HearingAppealController::class,
-            Cases\Conviction\ConvictionController::class => Cases\Conviction\ConvictionController::class,
             Cases\Statement\StatementController::class => Cases\Statement\StatementController::class,
             Cases\Processing\NoteController::class => Cases\Processing\NoteController::class,
             Cases\Processing\TaskController::class => Cases\Processing\TaskController::class,
             Cases\Hearing\AppealController::class => Cases\Hearing\AppealController::class,
             Cases\Hearing\StayController::class => Cases\Hearing\StayController::class,
-
-
             'CaseDocsController' => 'Olcs\Controller\Cases\Docs\CaseDocsController',
-            'CaseComplaintController' => 'Olcs\Controller\Cases\Complaint\ComplaintController',
-            'CaseEnvironmentalComplaintController'
-                => 'Olcs\Controller\Cases\Complaint\EnvironmentalComplaintController',
             'CaseOffenceController' => 'Olcs\Controller\Cases\Conviction\OffenceController',
-            'CaseLegacyOffenceController' => 'Olcs\Controller\Cases\Conviction\LegacyOffenceController',
             Cases\Submission\SubmissionSectionCommentController::class =>
                 Cases\Submission\SubmissionSectionCommentController::class,
-            'CaseSubmissionDecisionController'
-                => 'Olcs\Controller\Cases\Submission\DecisionController',
-            'CasePenaltyController' => Olcs\Controller\Cases\Penalty\PenaltyController::class,
-            'CaseSiController' => 'Olcs\Controller\Cases\Penalty\SiController',
-            'CaseProhibitionController' => 'Olcs\Controller\Cases\Prohibition\ProhibitionController',
-            'CaseProhibitionDefectController' => 'Olcs\Controller\Cases\Prohibition\ProhibitionDefectController',
-            'CaseAnnualTestHistoryController' => 'Olcs\Controller\Cases\AnnualTestHistory\AnnualTestHistoryController',
-            'CaseImpoundingController' => 'Olcs\Controller\Cases\Impounding\ImpoundingController',
-            'CaseConditionUndertakingController'
-                => 'Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingController',
             'CasePublicInquiryController' => 'Olcs\Controller\Cases\PublicInquiry\PublicInquiryController',
-            'CaseNonPublicInquiryController' => 'Olcs\Controller\Cases\NonPublicInquiry\NonPublicInquiryController',
             'PublicInquiry\SlaController' => 'Olcs\Controller\Cases\PublicInquiry\SlaController',
             'PublicInquiry\AgreedAndLegislationController'
                 => 'Olcs\Controller\Cases\PublicInquiry\AgreedAndLegislationController',
             'PublicInquiry\RegisterDecisionController'
                 => 'Olcs\Controller\Cases\PublicInquiry\RegisterDecisionController',
-            'CaseDecisionsController' => 'Olcs\Controller\Cases\Processing\DecisionsController',
             'CaseDecisionsReputeNotLostController'
                 => 'Olcs\Controller\Cases\Processing\DecisionsReputeNotLostController',
             'CaseDecisionsDeclareUnfitController'
                 => 'Olcs\Controller\Cases\Processing\DecisionsDeclareUnfitController',
             'CaseDecisionsNoFurtherActionController'
                 => 'Olcs\Controller\Cases\Processing\DecisionsNoFurtherActionController',
-            'CaseRevokeController' => 'Olcs\Controller\Cases\Processing\RevokeController',
             \Olcs\Controller\Sla\RevocationsSlaController::class =>
                 \Olcs\Controller\Sla\RevocationsSlaController::class,
             'DefaultController' => 'Olcs\Olcs\Placeholder\Controller\DefaultController',
@@ -314,8 +294,6 @@ return array(
             'SplitScreenController' => 'Olcs\Controller\SplitScreenController',
 
             // Event History Controllers
-            'CaseHistoryController' => 'Olcs\Controller\Cases\Processing\HistoryController',
-            'CaseReadHistoryController' => 'Olcs\Controller\Cases\Processing\ReadHistoryController',
             'BusRegHistoryController' => 'Olcs\Controller\Bus\Processing\HistoryController',
             'BusRegReadHistoryController' => 'Olcs\Controller\Bus\Processing\ReadHistoryController',
             'LicenceHistoryController' => 'Olcs\Controller\Licence\Processing\HistoryController',
@@ -339,8 +317,7 @@ return array(
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
             'IrhpApplicationDocsController' => 'Olcs\Controller\IrhpPermits\IrhpApplicationDocsController',
             IrhpApplicationProcessingHistoryController::class => IrhpApplicationProcessingHistoryController::class,
-            \Olcs\Controller\IrhpPermits\ChangeHistoryController::class =>
-                \Olcs\Controller\IrhpPermits\ChangeHistoryController::class,
+            ChangeHistoryController::class => ChangeHistoryController::class,
             \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingOverviewController::class =>
                 \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingOverviewController::class,
             \Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteController::class =>
@@ -380,6 +357,25 @@ return array(
             Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentController::class => Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentControllerFactory::class,
             Olcs\Controller\TransportManager\HistoricTm\HistoricTmController::class =>  Olcs\Controller\TransportManager\HistoricTm\HistoricTmControllerFactory::class,
             Olcs\Controller\TransportManager\Processing\PublicationController::class => Olcs\Controller\TransportManager\Processing\PublicationControllerFactory::class,
+            Olcs\Controller\Cases\Conviction\ConvictionController::class => Olcs\Controller\Cases\Conviction\ConvictionControllerFactory::class,
+            Olcs\Controller\Cases\Conviction\LegacyOffenceController::class => Olcs\Controller\Cases\Conviction\LegacyOffenceControllerFactory::class,
+            Olcs\Controller\Cases\AnnualTestHistory\AnnualTestHistoryController::class => Olcs\Controller\Cases\AnnualTestHistory\AnnualTestHistoryControllerFactory::class,
+            \Olcs\Controller\Application\Processing\ApplicationProcessingNoteController::class => \Olcs\Controller\Application\Processing\ApplicationProcessingNoteControllerFactory::class,
+            \Olcs\Controller\Application\Processing\ReadHistoryController::class => \Olcs\Controller\Application\Processing\ReadHistoryControllerFactory::class,
+            Olcs\Controller\Cases\Prohibition\ProhibitionController::class => Olcs\Controller\Cases\Prohibition\ProhibitionControllerFactory::class,
+            Olcs\Controller\Cases\Prohibition\ProhibitionDefectController::class => Olcs\Controller\Cases\Prohibition\ProhibitionDefectControllerFactory::class,
+            Olcs\Controller\Cases\Penalty\SiController::class => Olcs\Controller\Cases\Penalty\SiControllerFactory::class,
+            Olcs\Controller\Cases\Complaint\ComplaintController::class => Olcs\Controller\Cases\Complaint\ComplaintControllerFactory::class,
+            Olcs\Controller\Cases\Complaint\EnvironmentalComplaintController::class => Olcs\Controller\Cases\Complaint\EnvironmentalComplaintControllerFactory::class,
+            Olcs\Controller\Cases\NonPublicInquiry\NonPublicInquiryController::class => Olcs\Controller\Cases\NonPublicInquiry\NonPublicInquiryControllerFactory::class,
+            Olcs\Controller\Cases\Submission\DecisionController::class =>  Olcs\Controller\Cases\Submission\DecisionControllerFactory::class,
+            Olcs\Controller\Cases\Processing\DecisionsController::class => Olcs\Controller\Cases\Processing\DecisionsControllerFactory::class,
+            Olcs\Controller\Cases\Processing\RevokeController::class =>  Olcs\Controller\Cases\Processing\RevokeControllerFactory::class,
+            Olcs\Controller\Cases\Processing\HistoryController::class => Olcs\Controller\Cases\Processing\HistoryControllerFactory::Class,
+            Olcs\Controller\Cases\Processing\ReadHistoryController::class => Olcs\Controller\Cases\Processing\ReadHistoryControllerFactory::class,
+            Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingController::class => Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingControllerFactory::class,
+            Olcs\Controller\Cases\Impounding\ImpoundingController::class =>  Olcs\Controller\Cases\Impounding\ImpoundingControllerFactory::class,
+
             ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,

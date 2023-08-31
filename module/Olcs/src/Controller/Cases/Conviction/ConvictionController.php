@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Conviction Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Conviction;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Conviction\Create as CreateDto;
@@ -22,11 +17,6 @@ use Olcs\Form\Model\Form\Comment as CommentForm;
 use Olcs\Data\Mapper\ConvictionCommentBox as CommentMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Conviction Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class ConvictionController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

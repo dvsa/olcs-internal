@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Class AnnualTestHistoryController
- */
 namespace Olcs\Controller\Cases\AnnualTestHistory;
 
 use Dvsa\Olcs\Transfer\Query\Cases\AnnualTestHistory as AnnualTestHistoryQuery;
@@ -14,9 +11,6 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Class AnnualTestHistoryController
- */
 class AnnualTestHistoryController extends AbstractInternalController implements
     CaseControllerInterface,
     LeftViewProvider
