@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Statement Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Statement;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Statement\CreateStatement as CreateDto;
@@ -19,11 +14,6 @@ use Olcs\Form\Model\Form\Statement;
 use Olcs\Controller\Traits as ControllerTraits;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Statement Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- */
 class StatementController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     use ControllerTraits\GenerateActionTrait;

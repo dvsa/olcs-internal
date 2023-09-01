@@ -9,8 +9,6 @@ use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use \Laminas\View\HelperPluginManager;
-use Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingController;
 
 class PenaltyControllerFactory implements FactoryInterface
 {

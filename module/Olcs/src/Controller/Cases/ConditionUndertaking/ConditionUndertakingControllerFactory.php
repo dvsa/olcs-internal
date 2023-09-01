@@ -9,7 +9,7 @@ use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use \Laminas\View\HelperPluginManager;
+use Laminas\View\HelperPluginManager;
 
 class ConditionUndertakingControllerFactory implements FactoryInterface
 {
@@ -27,7 +27,7 @@ class ConditionUndertakingControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $viewHelperManager = $container->get(HelperPluginManager::class);
+        $viewHelperManager = $container->get('ViewHelperManager');
         assert($viewHelperManager instanceof HelperPluginManager);
         
         return new ConditionUndertakingController(

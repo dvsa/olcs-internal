@@ -1,10 +1,10 @@
 <?php
 
+use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationFeesController;
 use Olcs\Controller\Licence\SurrenderController;
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController as TMProcessingNoteController;
-use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingNoteController;
 use Olcs\Controller\Bus\Processing\BusProcessingDecisionController;
@@ -1129,7 +1129,7 @@ $routes = [
                 'options' => [
                     'route' => 'processing[/]',
                     'defaults' => [
-                        'controller' => 'LicenceProcessingOverviewController',
+                        'controller' => Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController::class,
                         'action' => 'index',
                     ]
                 ],
@@ -1140,7 +1140,7 @@ $routes = [
                         'options' => [
                             'route' => 'publications[/:action][/:id][/]',
                             'defaults' => [
-                                'controller' => 'LicenceProcessingPublicationsController',
+                                'controller' => Olcs\Controller\Licence\Processing\LicenceProcessingPublicationsController::class,
                                 'action' => 'index'
                             ],
                             'constraints' => [
@@ -2452,7 +2452,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                     'options' => [
                         'route' => 'publications[/:action][/:id][/]',
                         'defaults' => [
-                            'controller' => 'ApplicationProcessingPublicationsController',
+                            'controller' => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class,
                             'action' => 'index'
                         ]
                     ],
@@ -2495,7 +2495,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                     'options' => [
                         'route' => 'event-history[/:action[/:id]][/]',
                         'defaults' => [
-                            'controller' => 'ApplicationHistoryController',
+                            'controller' => Olcs\Controller\Application\Processing\HistoryController::class,
                             'action' => 'index'
                         ]
                     ],

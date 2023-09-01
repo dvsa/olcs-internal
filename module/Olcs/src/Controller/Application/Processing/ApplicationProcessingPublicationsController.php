@@ -32,14 +32,7 @@ class ApplicationProcessingPublicationsController extends AbstractInternalContro
     protected $inlineScripts = array('indexAction' => ['table-actions']);
     protected $addContentTitle = 'Add publication';
     protected $editContentTitle = 'Edit publication';
-    protected FlashMessengerHelperService $flashMessenger;
 
-    public function __construct(
-        FlashMessengerHelperService $flashMessenger
-    )
-    {
-        $this->flashMessengerHelperService = $flashMessenger;
-    }
     /**
      * get Method Left View
      *
