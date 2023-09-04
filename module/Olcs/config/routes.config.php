@@ -681,7 +681,7 @@ $routes = [
                         'options' => [
                             'route' => 'event-history[/:action[/:id]][/]',
                             'defaults' => [
-                                'controller' => 'BusRegHistoryController',
+                                'controller' => Olcs\Controller\Bus\Processing\HistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1107,7 +1107,7 @@ $routes = [
                                 'id' => '[0-9]+',
                             ],
                             'defaults' => [
-                                'controller' => IrhpApplicationProcessingHistoryController::class,
+                                'controller' => Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1187,7 +1187,7 @@ $routes = [
                         'options' => [
                             'route' => 'event-history[/:action[/:id]][/]',
                             'defaults' => [
-                                'controller' => 'LicenceHistoryController',
+                                'controller' => Olcs\Controller\Licence\Processing\HistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1781,7 +1781,7 @@ $routes = [
                         'options' => [
                             'route' => 'event-history[/:action[/:id]][/]',
                             'defaults' => [
-                                'controller' => 'TransportManagerHistoryController',
+                                'controller' => Olcs\Controller\TransportManager\Processing\HistoryController::class,
                                 'action' => 'index',
                             ]
                         ],

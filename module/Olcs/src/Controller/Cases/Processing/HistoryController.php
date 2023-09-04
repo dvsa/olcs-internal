@@ -9,11 +9,6 @@ namespace Olcs\Controller\Cases\Processing;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Controller\AbstractHistoryController;
 
-/**
- * Application History Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class HistoryController extends AbstractHistoryController implements CaseControllerInterface
 {
     protected $itemParams = ['case', 'id' => 'id'];

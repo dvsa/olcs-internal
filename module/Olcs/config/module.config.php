@@ -38,7 +38,6 @@ use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
 use Olcs\Controller\IrhpPermits\ChangeHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationFeesController;
-use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingOverviewController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
@@ -330,12 +329,10 @@ return array(
             'SplitScreenController' => 'Olcs\Controller\SplitScreenController',
 
             // Event History Controllers
-            'BusRegHistoryController' => 'Olcs\Controller\Bus\Processing\HistoryController',
+
             'BusRegReadHistoryController' => 'Olcs\Controller\Bus\Processing\ReadHistoryController',
-            'LicenceHistoryController' => 'Olcs\Controller\Licence\Processing\HistoryController',
             'LicenceReadHistoryController' => 'Olcs\Controller\Licence\Processing\ReadHistoryController',
-            'TransportManagerHistoryController' => 'Olcs\Controller\TransportManager\Processing\HistoryController',
-            Olcs\Controller\Cases\Processing\HistoryController::class => Olcs\Controller\Cases\Processing\HistoryController::Class,
+
             IrhpApplicationProcessingReadHistoryController::class => IrhpApplicationProcessingReadHistoryController::class,
             'TransportManagerReadHistoryController'
                 => 'Olcs\Controller\TransportManager\Processing\ReadHistoryController',
@@ -352,7 +349,7 @@ return array(
             'IrhpPermitController' => 'Olcs\Controller\IrhpPermits\IrhpPermitController',
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
             'IrhpApplicationDocsController' => 'Olcs\Controller\IrhpPermits\IrhpApplicationDocsController',
-            IrhpApplicationProcessingHistoryController::class => IrhpApplicationProcessingHistoryController::class,
+
             ChangeHistoryController::class => ChangeHistoryController::class,
             IrhpApplicationProcessingOverviewController::class =>
                 IrhpApplicationProcessingOverviewController::class,
@@ -409,11 +406,19 @@ return array(
             Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingController::class => Olcs\Controller\Cases\ConditionUndertaking\ConditionUndertakingControllerFactory::class,
             Olcs\Controller\Cases\Impounding\ImpoundingController::class =>  Olcs\Controller\Cases\Impounding\ImpoundingControllerFactory::class,
             Cases\Statement\StatementController::class => Cases\Statement\StatementControllerFactory::class,
+            Olcs\Controller\TransportManager\Processing\HistoryController::class => Olcs\Controller\TransportManager\Processing\HistoryControllerfactory::class,
+            Olcs\Controller\Licence\Processing\HistoryController::class => Olcs\Controller\Licence\Processing\HistoryControllerFactory::class,
+            Olcs\Controller\IrhpPermits\ChangeHistoryController::class => Olcs\Controller\IrhpPermits\ChangeHistoryControllerFactory::class,
+            Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController::class => Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryControllerFactory::class,
+            Olcs\Controller\Cases\Processing\HistoryController::class => Olcs\Controller\Cases\Processing\HistoryControllerFactory::Class,
+            Olcs\Controller\Bus\Processing\HistoryController::class => Olcs\Controller\Bus\Processing\HistoryControllerFactory::class,
+            Olcs\Controller\Application\Processing\HistoryController::class => Olcs\Controller\Application\Processing\HistoryControllerFactory::class,
 
         ],
         'aliases' => [
             'ApplicationProcessingInspectionRequestController' => ApplicationProcessingInspectionRequestController::class,
             'ApplicationController' => ApplicationController::class,
+
         ]
     ),
     'controller_plugins' => array(

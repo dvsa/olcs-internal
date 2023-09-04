@@ -2,8 +2,11 @@
 
 namespace Olcs\Controller;
 
+use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Query\Processing\History;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Laminas\View\Model\ViewModel;
 use Olcs\Form\Model\Form\EventHistory as EventHistorytForm;
@@ -22,6 +25,15 @@ class AbstractHistoryController extends AbstractInternalController implements Le
     protected $editViewTemplate = 'sections/processing/pages/event-history-popup';
     protected FormHelperService $formHelper;
 
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation
+    )
+    {
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
     /**
      * Get left view
      *
