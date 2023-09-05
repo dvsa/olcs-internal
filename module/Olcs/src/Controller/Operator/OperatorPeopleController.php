@@ -3,10 +3,14 @@
 namespace Olcs\Controller\Operator;
 
 use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Command\OrganisationPerson\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\OrganisationPerson\DeleteList as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\OrganisationPerson\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\OrganisationPerson\GetSingle as ItemDto;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\OperatorControllerInterface;
@@ -46,6 +50,15 @@ class OperatorPeopleController extends AbstractInternalController implements
     protected $deleteCommand = DeleteDto::class;
     protected $hasMultiDelete = true;
 
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelperService,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation
+    )
+    {
+        parent::__construct($translationHelper, $formHelperService, $flashMessenger, $navigation);
+    }
     /**
      * Get Left View
      *
@@ -223,17 +236,17 @@ class OperatorPeopleController extends AbstractInternalController implements
     protected function alterForm($form, $showAddAnotherButton = false)
     {
         $data = $this->loadOrganisationData();
-        $formHelper = $this->formHelper;
+        $formHelperService = $this->formHelperService;
         // if org type is not Other, then remove position element
         if ($data['type']['id'] !== \Common\RefData::ORG_TYPE_OTHER) {
-            $formHelper->remove($form, 'data->position');
+            $formHelperService->remove($form, 'data->position');
         }
         // if not a sole trader OR no person OR already disqualified then hide the disqualify button
         if ($data['type']['id'] !== \Common\RefData::ORG_TYPE_SOLE_TRADER ||
             !isset($data['organisationPersons'][0]['person']['id']) ||
             $data['organisationPersons'][0]['person']['disqualificationStatus'] !== 'None'
         ) {
-            $formHelper->remove($form, 'form-actions->disqualify');
+            $formHelperService->remove($form, 'form-actions->disqualify');
         } else {
             // put the correct link onto the form disqualify button
             $personId = $data['organisationPersons'][0]['person']['id'];
@@ -246,7 +259,7 @@ class OperatorPeopleController extends AbstractInternalController implements
         }
 
         if (!$showAddAnotherButton) {
-            $formHelper->remove($form, 'form-actions->addAnother');
+            $formHelperService->remove($form, 'form-actions->addAnother');
         }
         if ($data['isUnlicensed']) {
             $form->getInputFilter()->get('data')->get('birthDate')->setRequired(false);

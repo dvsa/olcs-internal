@@ -902,7 +902,7 @@ $routes = [
                 'options' => [
                     'route' => 'irhp-application[/]',
                     'defaults' => [
-                        'controller' => IrhpApplicationController::class,
+                        'controller' => Olcs\Controller\IrhpPermits\IrhpApplicationController::class,
                         'action' => 'index',
                     ]
                 ],
@@ -981,7 +981,7 @@ $routes = [
                                 'permitTypeId' => '[0-9]+',
                             ],
                             'defaults' => [
-                                'controller' => 'IrhpPermitController',
+                                'controller' => Olcs\Controller\IrhpPermits\IrhpPermitController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1266,7 +1266,7 @@ $routes = [
                         'id' => '([0-9]+,?)+',
                     ],
                     'defaults' => [
-                        'controller' => 'OperatorPeopleController',
+                        'controller' => Olcs\Controller\Operator\OperatorPeopleController::class,
                         'action' => 'index',
                     ]
                 ]
@@ -2353,7 +2353,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'case[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => Olcs\Controller\Application\ApplicationController::class,
                     'action' => 'case'
                 )
             )
@@ -2363,7 +2363,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'opposition[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => Olcs\Controller\Application\ApplicationController::class,
                     'action' => 'opposition'
                 )
             )
@@ -2506,7 +2506,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                     'options' => [
                         'route' => 'read-history[/]',
                         'defaults' => [
-                            'controller' => 'ApplicationReadHistoryController',
+                            'controller' => Olcs\Controller\Application\Processing\ReadHistoryController::class,
                             'action' => 'index'
                         ]
                     ],

@@ -11,9 +11,9 @@ use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
-class IrhpApplicationControllerFactory implements FactoryInterface
+class IrhpPermitControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): IrhpApplicationController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): IrhpPermitController
     {
         $formHelper = $container->get(FormHelperService::class);
         assert($formHelper instanceof FormHelperService);
@@ -27,21 +27,18 @@ class IrhpApplicationControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $QaFieldsetPopulator = $container->get('QaFieldsetPopulator');
-        assert($QaFieldsetPopulator instanceof FieldsetPopulator);
         
-        return new IrhpApplicationController(
+        return new IrhpPermitController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
-            $navigation,
-            $QaFieldsetPopulator);
+            $navigation);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): IrhpApplicationController
+    public function createService(ServiceLocatorInterface $serviceLocator): IrhpPermitController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            IrhpApplicationController::class);
+            IrhpPermitController::class);
     }
 }

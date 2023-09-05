@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Application Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 namespace Olcs\Controller\Application;
 
 use Common\Controller\Traits\CheckForCrudAction;
@@ -21,11 +16,6 @@ use Olcs\Controller\Traits;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Application Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class ApplicationController extends AbstractController implements ApplicationControllerInterface
 {
     use Traits\LicenceControllerTrait,

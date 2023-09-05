@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Exception\NotFoundException;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Qa\FieldsetPopulator;
 use Common\Service\Qa\FieldsetPopulatorFactory;
 use Common\Service\Qa\UsageContext;
 use Dvsa\Olcs\Transfer\Command\IrhpApplication\CancelApplication;
@@ -168,14 +169,14 @@ class IrhpApplicationController extends AbstractInternalController implements
     protected  FieldsetPopulatorFactory $QaFieldsetPopulator;
     public function __construct(
         TranslationHelperService $translationHelper,
-        FormHelperService $formHelper,
+        FormHelperService $formHelperService,
         FlashMessengerHelperService $flashMessenger,
         Navigation $navigation,
-        FieldsetPopulatorFactory $QaFieldsetPopulator
+        FieldsetPopulator $QaFieldsetPopulator
     )
     {
         $this->fieldsetPopulatorFactory = $QaFieldsetPopulator;
-        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+        parent::__construct($translationHelper, $formHelperService, $flashMessenger, $navigation);
     }
 
     /**

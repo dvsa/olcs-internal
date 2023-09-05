@@ -87,6 +87,8 @@ class ApplicationProcessingInspectionRequestController extends AbstractInternalC
      * @var string
      */
     protected $section = 'inspection-request';
+    protected TransferAnnotationBuilder $transferAnnotationBuilder;
+    protected CachingQueryService $queryService;
 
     public function __construct(
         TranslationHelperService $translationHelper,

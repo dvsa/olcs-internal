@@ -18,11 +18,6 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Laminas\View\Model\ConsoleModel;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Opposition Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- */
 class OppositionController extends AbstractInternalController implements CaseControllerInterface
 {
     /**

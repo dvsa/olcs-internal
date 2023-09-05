@@ -23,16 +23,15 @@ class AbstractHistoryController extends AbstractInternalController implements Le
     protected $mapperClass = Mapper::class;
     protected $editContentTitle = 'Action';
     protected $editViewTemplate = 'sections/processing/pages/event-history-popup';
-    protected FormHelperService $formHelper;
 
     public function __construct(
         TranslationHelperService $translationHelper,
-        FormHelperService $formHelper,
+        FormHelperService $formHelperService,
         FlashMessengerHelperService $flashMessenger,
         Navigation $navigation
     )
     {
-        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+        parent::__construct($translationHelper, $formHelperService, $flashMessenger, $navigation);
     }
     /**
      * Get left view
@@ -63,7 +62,7 @@ class AbstractHistoryController extends AbstractInternalController implements Le
                 $this->getDetailsTable($formData['eventHistoryDetails'])
             );
         } else {
-            $this->formHelper->remove($form, 'event-history-details->table');
+            $this->formHelperService->remove($form, 'event-history-details->table');
         }
         return $form;
     }
