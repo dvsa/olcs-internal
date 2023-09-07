@@ -17,9 +17,6 @@ use Olcs\Controller\Traits as ControllerTraits;
 use Olcs\Data\Mapper\BusRegisterService as Mapper;
 use Olcs\Form\Model\Form\BusRegisterService as Form;
 
-/**
- * Bus Service Controller
- */
 class BusServiceController extends AbstractInternalController implements BusRegControllerInterface
 {
     use ControllerTraits\BusControllerTrait;

@@ -32,8 +32,7 @@ class SubmissionControllerFactory implements FactoryInterface
         $urlHelper = $container->get(UrlHelperService::class);
         assert($urlHelper instanceof UrlHelperService);
 
-        $configHelper = $container->get(Config::class);
-        assert($configHelper instanceof Config);
+        $configHelper = $container->get('config');
 
         $viewRenderer = $container->get(ViewRenderer::class);
         assert($viewRenderer instanceof ViewRenderer);

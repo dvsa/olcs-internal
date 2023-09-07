@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Processing Controller
- */
 namespace Olcs\Controller\Cases\Processing;
 
 use Dvsa\Olcs\Transfer\Command\TmCaseDecision\CreateDeclareUnfit as CreateDto;
@@ -16,9 +13,6 @@ use Olcs\Data\Mapper\TmCaseDecision as Mapper;
 use Olcs\Form\Model\Form\TmCaseUnfit as Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Decisions DeclareUnfit Controller
- */
 class DecisionsDeclareUnfitController extends AbstractInternalController implements
     CaseControllerInterface,
     LeftViewProvider

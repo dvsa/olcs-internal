@@ -6,6 +6,7 @@ use Common\Exception\BadRequestException;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
@@ -25,7 +26,6 @@ use Dvsa\Olcs\Transfer\Command\Cases\Pi\Close as CloseCmd;
 use Dvsa\Olcs\Transfer\Command\Cases\Pi\Reopen as ReopenCmd;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
-use Olcs\Mvc\Controller\Plugin\Script;
 use Laminas\Navigation\Navigation;
 
 class PiController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
@@ -100,17 +100,17 @@ class PiController extends AbstractInternalController implements CaseControllerI
     protected TranslationHelperService $translationHelper;
     protected FormHelperService $formHelper;
     protected Navigation $navigation;
-    protected Script $scriptService;
+    protected ScriptFactory $scriptService;
 
     public function __construct(
         TranslationHelperService $translationHelper,
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelper,
         Navigation $navigation,
-        Script $scriptService
+        ScriptFactory $scriptService
     ) {
         $this->scriptService = $scriptService;
-        parent::__construct($translationHelper, $formHelper, $flashMessengerHelper, $navigation, $scriptService);
+        parent::__construct($translationHelper, $formHelper, $flashMessengerHelper, $navigation);
     }
 
 

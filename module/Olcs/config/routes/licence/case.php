@@ -484,7 +484,7 @@ return [
                         'id' => '[0-9]+'
                     ],
                     'defaults' => [
-                        'controller' => 'CaseDecisionsDeclareUnfitController'
+                        'controller' => Olcs\Controller\Cases\Processing\DecisionsDeclareUnfitController::class,
                     ]
                 ],
             ],

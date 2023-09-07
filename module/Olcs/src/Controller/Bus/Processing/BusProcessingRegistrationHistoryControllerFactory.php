@@ -1,19 +1,19 @@
 <?php
 
-namespace Olcs\Controller\Cases\PublicInquiry;
+namespace Olcs\Controller\Bus\Processing;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Script\ScriptFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
-class PiControllerFactory implements FactoryInterface
+class BusProcessingRegistrationHistoryControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): PiController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): BusProcessingRegistrationHistoryController
+
     {
         $formHelper = $container->get(FormHelperService::class);
         assert($formHelper instanceof FormHelperService);
@@ -27,21 +27,18 @@ class PiControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $scriptService = $container->get(ScriptFactory::class);
-        assert($scriptService instanceof ScriptFactory);
-        
-        return new PiController(
+        return new BusProcessingRegistrationHistoryController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
-            $navigation,
-            $scriptService);
+            $navigation);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): PiController
+    public function createService(ServiceLocatorInterface $serviceLocator): BusProcessingRegistrationHistoryController
+
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            PiController::class);
+            BusProcessingRegistrationHistoryController::class);
     }
 }

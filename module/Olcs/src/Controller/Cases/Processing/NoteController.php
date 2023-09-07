@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Note Controller
- */
 namespace Olcs\Controller\Cases\Processing;
 
 use Dvsa\Olcs\Transfer\Command\Processing\Note\Create as CreateDto;
@@ -21,9 +18,6 @@ use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Traits\NotesProcessingTrait;
 
-/**
- * Note Controller
- */
 class NoteController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     use NotesProcessingTrait;

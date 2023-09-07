@@ -4,6 +4,7 @@ use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationFeesController;
 use Olcs\Controller\Licence\SurrenderController;
+use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailController;
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController as TMProcessingNoteController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingNoteController;
@@ -446,7 +447,7 @@ $routes = [
                                 'constraints' => [
                                     'busRegId' => '[0-9]+',
                                 ],
-                                'controller' => 'BusRequestMapController',
+                                'controller' => Olcs\Controller\Bus\BusRequestMapController::class,
                                 'action' => 'add',
                             ]
                         ]
@@ -531,7 +532,7 @@ $routes = [
                 'options' => [
                     'route' => 'bus/:busRegId/short[/]',
                     'defaults' => [
-                        'controller' => 'BusShortController',
+                        'controller' => Olcs\Controller\Bus\Short\BusShortController::class,
                         'action' => 'edit',
                     ]
                 ],
@@ -648,7 +649,7 @@ $routes = [
                                 'action' => '(index|delete)'
                             ],
                             'defaults' => [
-                                'controller' => 'BusProcessingRegistrationHistoryController',
+                                'controller' => Olcs\Controller\Bus\Processing\BusProcessingRegistrationHistoryController::class,
                                 'action' => 'index'
                             ]
                         ],
@@ -691,7 +692,7 @@ $routes = [
                         'options' => [
                             'route' => 'read-history[/]',
                             'defaults' => [
-                                'controller' => 'BusRegReadHistoryController',
+                                'controller' => Olcs\Controller\Bus\Processing\ReadHistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1666,7 +1667,7 @@ $routes = [
                 'options' => [
                     'route' => 'details[/]',
                     'defaults' => [
-                        'controller' => 'TMDetailsDetailController',
+                        'controller' => TransportManagerDetailsDetailController::class,
                         'action' => 'index',
                     ]
                 ],
@@ -1677,7 +1678,7 @@ $routes = [
                         'options' => [
                             'route' => 'competences[/:action][/:id][/]',
                             'defaults' => [
-                                'controller' => 'TMDetailsCompetenceController',
+                                'controller' => Olcs\Controller\TransportManager\Details\TransportManagerDetailsCompetenceController::class,
                                 'action' => 'index',
                             ],
                             'constraints' => [
@@ -1701,7 +1702,7 @@ $routes = [
                         'options' => [
                             'route' => 'employment[/:action[/:id]][/]',
                             'defaults' => [
-                                'controller' => 'TMDetailsEmploymentController',
+                                'controller' => Olcs\Controller\TransportManager\Details\TransportManagerDetailsEmploymentController::class,
                                 'action' => 'index',
                             ]
                         ]
@@ -1804,7 +1805,7 @@ $routes = [
                 'options' => [
                     'route' => 'cases[/:action][/:id][/]',
                     'defaults' => [
-                        'controller' => 'TMCaseController',
+                        'controller' => Olcs\Controller\TransportManager\TransportManagerCaseController::class,
                         'action' => 'index',
                     ],
                     'constraints' => [
@@ -1964,7 +1965,7 @@ $routes = [
         'options' => [
             'route' => '/transport-manager/create[/]',
             'defaults' => [
-                'controller' => 'TMDetailsDetailController',
+                'controller' => TransportManagerDetailsDetailController::class,
                 'action' => 'index',
             ],
         ],

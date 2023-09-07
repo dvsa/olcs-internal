@@ -2,9 +2,13 @@
 
 namespace Olcs\Controller\TransportManager\Details;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Command\Tm\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\Tm\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Tm\TransportManager as TransportManagerQry;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\TransportManager as Mapper;
 use Olcs\Controller\AbstractInternalController;
@@ -49,7 +53,14 @@ class TransportManagerDetailsDetailController extends AbstractInternalController
             ]
         ]
     ];
-
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelper,
+        Navigation $navigation
+    ) {
+        parent::__construct($translationHelper, $formHelper, $flashMessengerHelper, $navigation);
+    }
     public function getLeftView()
     {
         $tmId = $this->params()->fromRoute('transportManager');

@@ -76,14 +76,6 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
     protected $deleteParams = ['ids' => 'id'];
     protected $hasMultiDelete = true;
 
-    protected TranslationHelperService $translationHelper;
-    protected FormHelperService $formHelper;
-    protected FlashMessengerHelperService $flashMessenger;
-    protected Navigation $navigation;
-    protected TransferAnnotationBuilder $transferAnnotationBuilder;
-    protected CachingQueryService $queryService;
-    protected TransportManagerHelperService $transportMangerHelper;
-
     public function __construct(
         TranslationHelperService      $translationHelper,
         FormHelperService             $formHelper,

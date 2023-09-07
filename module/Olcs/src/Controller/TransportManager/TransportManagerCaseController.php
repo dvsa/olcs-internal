@@ -1,10 +1,11 @@
 <?php
 
-/**
- * Transport Manager Case Controller
- */
 namespace Olcs\Controller\TransportManager;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Dvsa\Olcs\Transfer\Command\Cases\CreateCase as CreateCaseCommand;
 use Dvsa\Olcs\Transfer\Command\Cases\UpdateCase as UpdateCaseCommand;
@@ -16,9 +17,6 @@ use Olcs\Form\Model\Form\Cases as CaseForm;
 use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 
-/**
- * Transport Manager Case Controller
- */
 class TransportManagerCaseController extends AbstractInternalController implements
     TransportManagerControllerInterface
 {
@@ -50,6 +48,15 @@ class TransportManagerCaseController extends AbstractInternalController implemen
             'reUseParams' => false
         ],
     ];
+    public function __construct(
+        TranslationHelperService      $translationHelper,
+        FormHelperService             $formHelper,
+        FlashMessengerHelperService   $flashMessenger,
+        Navigation                    $navigation
+    )
+    {
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+    }
 
     /**
      * Alter Form to remove case type options depending on where the case was added from.

@@ -1,25 +1,25 @@
 <?php
 
-namespace Olcs\Controller\Cases\PublicInquiry;
+namespace Olcs\Controller\Cases\Submission;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Script\ScriptFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Renderer\PhpRenderer as ViewRenderer;
 
-class PiControllerFactory implements FactoryInterface
+class RecommendationControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): PiController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): RecommendationController
     {
-        $formHelper = $container->get(FormHelperService::class);
-        assert($formHelper instanceof FormHelperService);
-
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
+
+        $formHelper = $container->get(FormHelperService::class);
+        assert($formHelper instanceof FormHelperService);
 
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
@@ -27,21 +27,17 @@ class PiControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $scriptService = $container->get(ScriptFactory::class);
-        assert($scriptService instanceof ScriptFactory);
-        
-        return new PiController(
+        return new RecommendationController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
-            $navigation,
-            $scriptService);
+            $navigation);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): PiController
+    public function createService(ServiceLocatorInterface $serviceLocator): RecommendationController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            PiController::class);
+            RecommendationController::class);
     }
 }
