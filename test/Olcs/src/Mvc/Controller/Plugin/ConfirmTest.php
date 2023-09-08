@@ -14,6 +14,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Controller\Cases\Submission\SubmissionController;
 use Olcs\Form\Model\Form\Submission as SubmissionForm;
 
+
 /**
  * Class ComfirmPluginTest
  * @package OlcsTest\Mvc\Controller\Plugin
@@ -29,16 +30,16 @@ class ConfirmTest extends TestCase
         $this->flashMessengerHelper = m::mock(FlashMessengerHelperService::class);
         $this->navigation = m::mock(Navigation::class);
         $this->urlHelper = m::mock(UrlHelperService::class);
-        $this->configHelper = m::mock(Config::class);
+        $this->configHelper = array();
         $this->viewRenderer = m::mock(ViewRenderer::class);
-//        $this->sut = (new \Olcs\Controller\Cases\Submission\SubmissionController(
-//            $this->translationHelper,
-//            $this->formHelper,
-//            $this->flashMessengerHelper,
-//            $this->navigation,
-//            $this->urlHelper,
-//            $this->configHelper,
-//            $this->viewRenderer));
+        $this->sut = (new SubmissionController(
+            $this->translationHelper,
+            $this->formHelper,
+            $this->flashMessengerHelper,
+            $this->navigation,
+            $this->urlHelper,
+            $this->configHelper,
+            $this->viewRenderer));
     }
     /**
      * @group confirmPlugin
@@ -47,7 +48,7 @@ class ConfirmTest extends TestCase
     public function testInvokeGenerateForm($confirmLabel, $cancelLabel, $defaultLabelParams)
     {
         $plugin = new \Olcs\Mvc\Controller\Plugin\Confirm();
-
+        $this->configHelper = array();
         $mockFormCustomLabels = m::mock('Laminas\Form\Form')
             ->shouldReceive('getAttribute')
             ->with('action')
