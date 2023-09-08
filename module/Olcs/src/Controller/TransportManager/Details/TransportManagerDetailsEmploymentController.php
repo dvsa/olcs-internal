@@ -15,9 +15,6 @@ use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
 use Laminas\View\Model\ViewModel;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 
-/**
- * Transport Manager Details Employment Controller
- */
 class TransportManagerDetailsEmploymentController extends AbstractInternalController implements
     TransportManagerControllerInterface,
     LeftViewProvider

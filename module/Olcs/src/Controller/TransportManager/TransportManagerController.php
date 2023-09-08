@@ -7,11 +7,6 @@ use Olcs\Controller\AbstractController;
 use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
 use Laminas\Mvc\MvcEvent;
 
-/**
- * Transport Manager Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class TransportManagerController extends AbstractController implements TransportManagerControllerInterface
 {
     /**

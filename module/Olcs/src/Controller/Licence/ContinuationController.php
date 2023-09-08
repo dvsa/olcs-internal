@@ -7,11 +7,6 @@ use Olcs\Controller\AbstractController;
 use Olcs\Data\Mapper\Continuation as ContinuationMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Continuation Controller
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class ContinuationController extends AbstractController
 {
     /**

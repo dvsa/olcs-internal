@@ -13,11 +13,6 @@ use Dvsa\Olcs\Transfer\Command\Document\CopyDocument;
 use Dvsa\Olcs\Transfer\Command\Document\MoveDocument;
 use Olcs\Data\Mapper\DocumentRelink as DocumentRelinkMapper;
 
-/**
- * Document Relink Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class DocumentRelinkController extends AbstractDocumentController
 {
     private $labels = [

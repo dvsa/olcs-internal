@@ -1,17 +1,11 @@
 <?php
 
-/**
- * Operator Fees Controller
- */
 namespace Olcs\Controller\Operator;
 
 use Common\Controller\Traits\GenericReceipt;
 use Olcs\Controller\Traits\FeesActionTrait;
 use Common\Service\Table\TableBuilder;
 
-/**
- * Operator Fees Controller
- */
 class OperatorFeesController extends OperatorController
 {
     use FeesActionTrait,

@@ -11,11 +11,6 @@ use Olcs\Controller\Lva;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Licence Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class LicenceController extends AbstractController implements LicenceControllerInterface
 {
     use Lva\Traits\LicenceControllerTrait,

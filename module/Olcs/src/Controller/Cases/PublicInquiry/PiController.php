@@ -28,6 +28,7 @@ use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 use Laminas\Navigation\Navigation;
 
+
 class PiController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /** Details view */

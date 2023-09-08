@@ -1,6 +1,6 @@
 <?php
 
-namespace Olcs\Controller\Cases\Processing;
+namespace Olcs\Controller\Operator;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -9,10 +9,12 @@ use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Olcs\Controller\Licence\Processing\ReadHistoryController;
+use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
-class DecisionDeclareUnfitControllerFactory implements FactoryInterface
+class OperatorIrfoDetailsControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): DecisionsDeclareUnfitController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OperatorIrfoDetailsController
     {
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
@@ -26,17 +28,17 @@ class DecisionDeclareUnfitControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        return new DecisionsDeclareUnfitController(
+        return new OperatorIrfoDetailsController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
             $navigation);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): DecisionsDeclareUnfitController
+    public function createService(ServiceLocatorInterface $serviceLocator): OperatorIrfoDetailsController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            DecisionsDeclareUnfitController::class);
+            OperatorIrfoDetailsController::class);
     }
 }

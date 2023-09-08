@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Licence Processing Publication Controller
- */
 namespace Olcs\Controller\Licence\Processing;
 
 use Dvsa\Olcs\Transfer\Query\Publication\PublicationLinkList;
@@ -17,9 +14,6 @@ use Olcs\Form\Model\Form\Publication as PublicationForm;
 use Olcs\Form\Model\Form\PublicationNotNew as PublicationNotNewForm;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Licence Processing Publication Controller
- */
 class LicenceProcessingPublicationsController extends AbstractInternalController implements
     LicenceControllerInterface,
     LeftViewProvider

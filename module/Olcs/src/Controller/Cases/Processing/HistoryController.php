@@ -1,9 +1,5 @@
 <?php
-/**
- * Application History Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
+
 namespace Olcs\Controller\Cases\Processing;
 
 use Olcs\Controller\Interfaces\CaseControllerInterface;

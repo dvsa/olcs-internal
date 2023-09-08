@@ -1,8 +1,5 @@
 <?php
 
-/**
- * History Controller
- */
 namespace Olcs\Controller\Operator;
 
 use Dvsa\Olcs\Transfer\Query\EventHistory\EventHistory as ItemDto;
@@ -10,9 +7,6 @@ use Olcs\Form\Model\Form\EventHistory as EventHistorytForm;
 use Olcs\Data\Mapper\EventHistory as Mapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * History Controller
- */
 class HistoryController extends OperatorController
 {
     /**

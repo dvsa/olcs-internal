@@ -8,11 +8,6 @@ use Laminas\Form\FormInterface;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Transport Manager Details Previous History Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class TransportManagerDetailsPreviousHistoryController extends AbstractTransportManagerDetailsController implements
     LeftViewProvider
 {

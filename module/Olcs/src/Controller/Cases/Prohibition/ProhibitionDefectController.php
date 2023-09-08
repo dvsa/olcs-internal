@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Prohibition Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Prohibition;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Prohibition\Defect\Create as CreateDto;
@@ -21,11 +16,6 @@ use Dvsa\Olcs\Transfer\Query\Cases\Prohibition\Prohibition as ProhibitionDto;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Prohibition Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class ProhibitionDefectController extends AbstractInternalController implements
     CaseControllerInterface,
     LeftViewProvider

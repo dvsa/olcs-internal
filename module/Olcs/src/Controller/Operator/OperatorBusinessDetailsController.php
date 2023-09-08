@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Operator Business Details Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Olcs\Controller\Operator;
 
 use Common\Controller\Traits\CompanySearch;
@@ -16,11 +11,6 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\OperatorBusinessDetails as Mapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Operator Business Details Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class OperatorBusinessDetailsController extends OperatorController implements LeftViewProvider
 {
     use CompanySearch;

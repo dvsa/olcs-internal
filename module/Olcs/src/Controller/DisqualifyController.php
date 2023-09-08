@@ -5,11 +5,6 @@ namespace Olcs\Controller;
 use Dvsa\Olcs\Transfer\Command\Disqualification\Delete;
 use Laminas\View\Model\ViewModel;
 
-/**
- * DisqualifyController
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class DisqualifyController extends AbstractController
 {
     /**

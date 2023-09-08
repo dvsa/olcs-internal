@@ -8,11 +8,6 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Abstract Transport Manager Details Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 abstract class AbstractTransportManagerDetailsController extends TransportManagerController implements FactoryInterface
 {
     use GenericUpload;

@@ -4,12 +4,6 @@ namespace Olcs\Controller\Licence\Processing;
 
 use Olcs\Controller\Traits;
 
-/**
- * Licence Processing Tasks Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class LicenceProcessingTasksController extends AbstractLicenceProcessingController
 {
     use Traits\TaskActionTrait {

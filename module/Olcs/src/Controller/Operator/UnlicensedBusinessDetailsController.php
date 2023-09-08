@@ -7,11 +7,6 @@ use Dvsa\Olcs\Transfer\Command\Operator\UpdateUnlicensed as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Operator\UnlicensedBusinessDetails as BusinessDetailsDto;
 use Olcs\Data\Mapper\UnlicensedOperatorBusinessDetails as Mapper;
 
-/**
- * Unlicensed Operator Business Details Controller
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class UnlicensedBusinessDetailsController extends OperatorBusinessDetailsController
 {
     protected $subNavRoute = 'unlicensed_operator_profile';

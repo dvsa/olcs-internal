@@ -1198,7 +1198,7 @@ $routes = [
                         'options' => [
                             'route' => 'read-history[/]',
                             'defaults' => [
-                                'controller' => 'LicenceReadHistoryController',
+                                'controller' => Olcs\Controller\Licence\Processing\ReadHistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1317,7 +1317,7 @@ $routes = [
                 'options' => array(
                     'route' => 'irfo[/]',
                     'defaults' => array(
-                        'controller' => 'OperatorIrfoDetailsController',
+                        'controller' => Olcs\Controller\Operator\OperatorIrfoDetailsController::class,
                         'action' => 'index'
                     )
                 ),
@@ -1329,7 +1329,7 @@ $routes = [
                         'options' => [
                             'route' => 'details[/]',
                             'defaults' => [
-                                'controller' => 'OperatorIrfoDetailsController',
+                                'controller' => Olcs\Controller\Operator\OperatorIrfoDetailsController::class,
                                 'action' => 'edit'
                             ]
                         ],
@@ -1344,7 +1344,7 @@ $routes = [
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => 'OperatorIrfoGvPermitsController',
+                                'controller' => Olcs\Controller\Operator\OperatorIrfoGvPermitsController::class,
                                 'action' => 'index'
                             ]
                         ],
@@ -1359,7 +1359,7 @@ $routes = [
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => 'OperatorIrfoPsvAuthorisationsController',
+                                'controller' => Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController::Class,
                                 'action' => 'index'
                             ]
                         ],
@@ -1392,7 +1392,7 @@ $routes = [
                         'options' => [
                             'route' => 'read-history[/]',
                             'defaults' => [
-                                'controller' => 'OperatorReadHistoryController',
+                                'controller' => Olcs\Controller\Operator\Processing\ReadHistoryController::Class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1592,7 +1592,7 @@ $routes = [
                         'action' => 'index|details|add|edit|delete',
                     ],
                     'defaults' => [
-                        'controller' => 'UnlicensedOperatorVehiclesController',
+                        'controller' => Olcs\Controller\Operator\UnlicensedOperatorVehiclesController::class,
                         'action' => 'index',
                     ]
                 ]
@@ -1793,7 +1793,7 @@ $routes = [
                         'options' => [
                             'route' => 'read-history[/]',
                             'defaults' => [
-                                'controller' => 'TransportManagerReadHistoryController',
+                                'controller' => Olcs\Controller\TransportManager\Processing\ReadHistoryController::class,
                                 'action' => 'index',
                             ]
                         ],

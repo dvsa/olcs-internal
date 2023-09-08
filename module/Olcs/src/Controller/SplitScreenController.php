@@ -10,11 +10,6 @@ namespace Olcs\Controller;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Split Screen Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class SplitScreenController extends AbstractActionController
 {
     public function indexAction()

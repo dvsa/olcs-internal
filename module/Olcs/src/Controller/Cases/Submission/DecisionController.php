@@ -11,9 +11,6 @@ use Olcs\Data\Mapper\SubmissionAction as Mapper;
 use Olcs\Form\Model\Form\SubmissionDecision as Form;
 use Laminas\Form\Form as LaminasForm;
 
-/**
- * Submission Decision Controller
- */
 class DecisionController extends AbstractInternalController implements CaseControllerInterface
 {
     /**

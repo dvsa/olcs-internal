@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LicenceDecisionsController.php
- */
-
 namespace Olcs\Controller\Licence;
 
 use Common\Controller\Interfaces\MethodToggleAwareInterface;
@@ -27,14 +23,6 @@ use Dvsa\Olcs\Transfer\Command\Licence\SurrenderLicence;
 use Dvsa\Olcs\Transfer\Command\Licence\ResetToValid;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 
-/**
- * Class LicenceDecisionsController
- *
- * Calling code for logic around actions directly against the licence. E.g.
- * suspending or revoking the licence for a specified amount of time.
- *
- * @package Olcs\Controller\Licence
- */
 class LicenceDecisionsController extends AbstractController implements
     LicenceControllerInterface,
     MethodToggleAwareInterface

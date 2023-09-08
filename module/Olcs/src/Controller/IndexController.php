@@ -8,14 +8,6 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Model\JsonModel;
 use Olcs\Controller\Traits\TaskSearchTrait;
 
-/**
- * Index Controller
- *
- * @author Mike Cooper <michael.cooper@valtech.co.uk>
- * @author Nick Payne <nick.payne@valtech.co.uk>
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class IndexController extends AbstractController implements LeftViewProvider
 {
     use TaskSearchTrait;

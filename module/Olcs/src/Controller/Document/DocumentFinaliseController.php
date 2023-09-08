@@ -11,11 +11,6 @@ use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use Olcs\Service\Helper\WebDavJsonWebTokenGenerationService;
 
-/**
- * Document Upload Controller
- *
- * @author Nick Payne <nick.payne@valtech.co.uk>
- */
 class DocumentFinaliseController extends AbstractDocumentController
 {
     const PRINT_MSGS_SUCCESS = [

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Conviction Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\NonPublicInquiry;
 
 use Dvsa\Olcs\Transfer\Command\Cases\NonPi\Create as CreateDto;
@@ -19,11 +14,6 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Form\Model\Form\NonPi as FormClass;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Conviction Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class NonPublicInquiryController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

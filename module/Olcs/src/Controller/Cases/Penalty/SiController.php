@@ -20,11 +20,6 @@ use Olcs\Form\Model\Form\Si as Form;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Si Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- */
 class SiController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Stay Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Hearing;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Hearing\CreateStay as CreateDto;
@@ -18,12 +12,6 @@ use Olcs\Form\Model\Form\CaseStay as FormClass;
 use Olcs\Data\Mapper\Stay as Mapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Stay Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class StayController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

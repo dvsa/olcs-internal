@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Prohibition Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Prohibition;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Prohibition\Create as CreateDto;
@@ -23,11 +18,6 @@ use Olcs\Form\Model\Form\Comment as CommentForm;
 use Olcs\Data\Mapper\ProhibitionCommentBox as CommentMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Prohibition Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class ProhibitionController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

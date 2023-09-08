@@ -5,11 +5,6 @@ namespace Olcs\Controller\IrhpPermits;
 use Common\Controller\Traits\GenericReceipt;
 use Olcs\Controller\Traits\FeesActionTrait;
 
-/**
- * IRHP Application Fees Controller
- *
- * @author Andy Newton <andy@vitri.ltd>
- */
 class IrhpApplicationFeesController extends AbstractIrhpPermitController
 {
     use FeesActionTrait,

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * IRHP Permit Application Controller
- *
- * @author Andy Newton <andy@vitri.ltd>
- */
-
 namespace Olcs\Controller\IrhpPermits;
 
 use Common\RefData;

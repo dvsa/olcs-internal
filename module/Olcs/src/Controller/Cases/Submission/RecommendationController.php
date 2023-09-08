@@ -15,9 +15,6 @@ use Olcs\Data\Mapper\SubmissionAction as Mapper;
 use Olcs\Form\Model\Form\SubmissionRecommendation as Form;
 use Laminas\Form\FormInterface;
 
-/**
- * Submission Recommendation Controller
- */
 class RecommendationController extends AbstractInternalController implements CaseControllerInterface
 {
     /**

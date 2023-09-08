@@ -1,8 +1,5 @@
 <?php
 
-/**
- * LicenceGracePeriodsController.php
- */
 namespace Olcs\Controller\Licence;
 
 use Dvsa\Olcs\Transfer\Query\GracePeriod\GracePeriod;
@@ -19,15 +16,6 @@ use Dvsa\Olcs\Transfer\Command\GracePeriod\DeleteGracePeriod;
 
 use Laminas\Form\FormInterface;
 
-/**
- * Class LicenceGracePeriodController
- *
- * Controller for managing licence grace periods, provides basic crud functionality.
- *
- * @package Olcs\Controller\Licence
- *
- * @author Josh Curtis <josh.curtis@valtech.co.uk>
- */
 class LicenceGracePeriodsController extends AbstractController implements LicenceControllerInterface
 {
     use LicenceControllerTrait,

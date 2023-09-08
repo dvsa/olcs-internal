@@ -43,7 +43,6 @@ use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingOverviewController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingTasksController;
 use Olcs\Controller\IrhpPermits\PermitController;
-use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
 use Olcs\Controller\Licence\ContinuationController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestControllerFactory;
@@ -198,10 +197,7 @@ return array(
             'LvaVariation/Publish' => 'Olcs\Controller\Lva\Variation\PublishController',
         ),
         'invokables' => array(
-            Cases\Hearing\HearingAppealController::class => Cases\Hearing\HearingAppealController::class,
             Cases\Processing\TaskController::class => Cases\Processing\TaskController::class,
-            Cases\Hearing\AppealController::class => Cases\Hearing\AppealController::class,
-            Cases\Hearing\StayController::class => Cases\Hearing\StayController::class,
             'CaseDocsController' => 'Olcs\Controller\Cases\Docs\CaseDocsController',
             'CaseOffenceController' => 'Olcs\Controller\Cases\Conviction\OffenceController',
             'CasePublicInquiryController' => 'Olcs\Controller\Cases\PublicInquiry\PublicInquiryController',
@@ -210,12 +206,7 @@ return array(
                 => 'Olcs\Controller\Cases\PublicInquiry\AgreedAndLegislationController',
             'PublicInquiry\RegisterDecisionController'
                 => 'Olcs\Controller\Cases\PublicInquiry\RegisterDecisionController',
-            'CaseDecisionsReputeNotLostController'
-                => 'Olcs\Controller\Cases\Processing\DecisionsReputeNotLostController',
-            'CaseDecisionsNoFurtherActionController'
-                => 'Olcs\Controller\Cases\Processing\DecisionsNoFurtherActionController',
-            RevocationsSlaController::class =>
-                RevocationsSlaController::class,
+
             'DefaultController' => 'Olcs\Olcs\Placeholder\Controller\DefaultController',
             Olcs\Controller\IndexController::class => Olcs\Controller\IndexController::class,
             SearchController::class => SearchController::class,
@@ -227,7 +218,7 @@ return array(
             'LicenceController' => 'Olcs\Controller\Licence\LicenceController',
             'LicenceDocsController' => 'Olcs\Controller\Licence\Docs\LicenceDocsController',
             'LicenceFeesController' => 'Olcs\Controller\Licence\Fees\LicenceFeesController',
-            LicenceBusController::class => BusRegistrationControllerFactory::class,
+
             'LicenceDecisionsController' => 'Olcs\Controller\Licence\LicenceDecisionsController',
             'LicencePermitsController' => 'Olcs\Controller\Licence\Permits\LicencePermitsController',
             'LicenceGracePeriodsController' => 'Olcs\Controller\Licence\LicenceGracePeriodsController',
@@ -255,7 +246,6 @@ return array(
             Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController::class
                 => Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController::class,
             'LicenceProcessingTasksController' => 'Olcs\Controller\Licence\Processing\LicenceProcessingTasksController',
-            LicenceProcessingNoteController::class => LicenceProcessingNoteController::class,
             Olcs\Controller\Bus\Registration\BusRegistrationController::class =>
                 Olcs\Controller\Bus\Registration\BusRegistrationController::class,
             'BusDetailsServiceController' => 'Olcs\Controller\Bus\Details\BusDetailsServiceController',
@@ -278,18 +268,9 @@ return array(
             Olcs\Controller\Operator\UnlicensedBusinessDetailsController::class =>
                 Olcs\Controller\Operator\UnlicensedBusinessDetailsController::class,
             'UnlicensedCasesOperatorController' => 'Olcs\Controller\Operator\Cases\UnlicensedCasesOperatorController',
-            'UnlicensedOperatorVehiclesController' => 'Olcs\Controller\Operator\UnlicensedOperatorVehiclesController',
-            'OperatorIrfoDetailsController'
-                => 'Olcs\Controller\Operator\OperatorIrfoDetailsController',
-            'OperatorIrfoGvPermitsController'
-                => 'Olcs\Controller\Operator\OperatorIrfoGvPermitsController',
-            'OperatorIrfoPsvAuthorisationsController'
-                => 'Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController',
             'OperatorProcessingTasksController'
                 => 'Olcs\Controller\Operator\OperatorProcessingTasksController',
             'OperatorFeesController' => 'Olcs\Controller\Operator\OperatorFeesController',
-            Olcs\Controller\Operator\OperatorUsersController::class =>
-                Olcs\Controller\Operator\OperatorUsersController::class,
             'TMController' => TransportManagerController::class,
             'HistoricTmController'
                 => Olcs\Controller\TransportManager\HistoricTm\HistoricTmController::class,
@@ -298,7 +279,6 @@ return array(
                 => 'Olcs\Controller\TransportManager\Details\TransportManagerDetailsPreviousHistoryController',
             'TMProcessingPublicationController'
                 => Olcs\Controller\TransportManager\Processing\PublicationController::class,
-            TMProcessingNoteController::class => TMProcessingNoteController::class,
             'TMProcessingTaskController'
                 => 'Olcs\Controller\TransportManager\Processing\TransportManagerProcessingTaskController',
             'TMDocumentController' => 'Olcs\Controller\TransportManager\TransportManagerDocumentController',
@@ -308,13 +288,7 @@ return array(
 
             // Event History Controllers
 
-            'LicenceReadHistoryController' => 'Olcs\Controller\Licence\Processing\ReadHistoryController',
-
-            IrhpApplicationProcessingReadHistoryController::class => IrhpApplicationProcessingReadHistoryController::class,
-            'TransportManagerReadHistoryController'
-                => 'Olcs\Controller\TransportManager\Processing\ReadHistoryController',
             'OperatorHistoryController' => 'Olcs\Controller\Operator\HistoryController',
-            'OperatorReadHistoryController' => 'Olcs\Controller\Operator\Processing\ReadHistoryController',
             ContinuationController::class =>
                 ContinuationController::class,
            'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
@@ -328,8 +302,7 @@ return array(
             ChangeHistoryController::class => ChangeHistoryController::class,
             IrhpApplicationProcessingOverviewController::class =>
                 IrhpApplicationProcessingOverviewController::class,
-            IrhpApplicationProcessingNoteController::class =>
-                IrhpApplicationProcessingNoteController::class,
+
             IrhpApplicationProcessingTasksController::class =>
                 IrhpApplicationProcessingTasksController::class,
             Olcs\Controller\Application\ApplicationController::class => Olcs\Controller\Application\ApplicationController::class,
@@ -349,7 +322,7 @@ return array(
             Olcs\Controller\Cases\Penalty\PenaltyController::class => Olcs\Controller\Cases\Penalty\PenaltyControllerFactory::class,
             Cases\Overview\OverviewController::class => Cases\Overview\OverviewControllerfactory::class,
             Olcs\Controller\Cases\PublicInquiry\PiController::class => Olcs\Controller\Cases\PublicInquiry\PiControllerFactory::class,
-            Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingController::class,
+            Cases\PublicInquiry\HearingController::class => Cases\PublicInquiry\HearingControllerFactory::class,~
             Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsController::class
             => Olcs\Controller\Application\Processing\ApplicationProcessingPublicationsControllerFactory::class,
             Olcs\Controller\IrhpPermits\IrhpApplicationController::class => Olcs\Controller\IrhpPermits\IrhpApplicationControllerFactory::class,
@@ -406,6 +379,25 @@ return array(
             Olcs\Controller\Bus\Processing\ReadHistoryController::class => Olcs\Controller\Bus\Processing\ReadHistoryControllerFactory::class,
             Olcs\Controller\Bus\Short\BusShortController::class => Olcs\Controller\Bus\Short\BusShortControllerFactory::class,
             Olcs\Controller\Bus\BusRequestMapController::class =>  Olcs\Controller\Bus\BusRequestMapControllerFactory::class,
+            Olcs\Controller\Cases\Hearing\AppealController::class => Olcs\Controller\Cases\Hearing\AppealControllerFactory::class,
+            Olcs\Controller\Cases\Hearing\HearingAppealController::class =>  Olcs\Controller\Cases\Hearing\HearingAppealControllerFactory::class,
+            Olcs\Controller\Cases\Hearing\StayController::class =>  Olcs\Controller\Cases\Hearing\StayControllerFactory::class,
+            Olcs\Controller\Cases\Processing\DecisionsNoFurtherActionController::class => Olcs\Controller\Cases\Processing\DecisionsNoFurtherActionControllerFactory::class,
+            Olcs\Controller\Cases\Processing\DecisionsReputeNotLostController::class => Olcs\Controller\Cases\Processing\DecisionsReputeNotLostControllerFactory::class,
+            Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteController::class => Olcs\Controller\IrhpPermits\IrhpApplicationProcessingNoteControllerFactory::class,
+            Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryController::class => Olcs\Controller\IrhpPermits\IrhpApplicationProcessingReadHistoryControllerFactory::class,
+            Olcs\Controller\Licence\Processing\LicenceProcessingNoteController::class => Olcs\Controller\Licence\Processing\LicenceProcessingNoteControllerFactory::class,
+            Olcs\Controller\Licence\Processing\ReadHistoryController::class => Olcs\Controller\Licence\Processing\ReadHistoryControllerFactory::class,
+            Olcs\Controller\Licence\BusRegistrationController::class => Olcs\Controller\Licence\BusRegistrationControllerFactory::class,
+            Olcs\Controller\Operator\Processing\ReadHistoryController::class => Olcs\Controller\Operator\Processing\ReadHistoryControllerFactory::class,
+            Olcs\Controller\Operator\OperatorIrfoDetailsController::class => Olcs\Controller\Operator\OperatorIrfoDetailsControllerFactory::class,
+            Olcs\Controller\Operator\OperatorIrfoGvPermitsController::class => Olcs\Controller\Operator\OperatorIrfoGvPermitsControllerFactory::class,
+            Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController::Class => Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsControllerFactory::Class,
+            Olcs\Controller\Operator\OperatorUsersController::class => Olcs\Controller\Operator\OperatorUsersControllerFactory::class,
+            Olcs\Controller\Operator\UnlicensedOperatorVehiclesController::class => Olcs\Controller\Operator\UnlicensedOperatorVehiclesControllerFactory::class,
+            Olcs\Controller\Sla\RevocationsSlaController::class => Olcs\Controller\Sla\RevocationsSlaControllerFactory::class,
+            Olcs\Controller\TransportManager\Processing\ReadHistoryController::class => Olcs\Controller\TransportManager\Processing\ReadHistoryControllerFactory::class,
+            Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController::class => Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteControllerFactory::class,
 
             ],
         'aliases' => [

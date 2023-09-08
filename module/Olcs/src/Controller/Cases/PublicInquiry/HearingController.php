@@ -18,10 +18,6 @@ use Olcs\Mvc\Controller\ParameterProvider\PreviousPiHearingData;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Laminas\Form\Form as LaminasForm;
 
-/**
- * Class HearingController
- * @package Olcs\Controller\Cases\PublicInquiry
- */
 class HearingController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     const MSG_CLOSED_PI = 'The Pi has already been closed';

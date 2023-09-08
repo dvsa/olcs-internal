@@ -6,11 +6,6 @@ use Olcs\Controller\Operator\OperatorController;
 use Olcs\Controller\Traits;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Operator Docs Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class OperatorDocsController extends OperatorController
 {
     use Traits\DocumentSearchTrait,

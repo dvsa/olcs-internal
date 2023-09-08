@@ -11,12 +11,6 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Logging\Log\Logger;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Hearing Appeal Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class HearingAppealController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

@@ -18,9 +18,6 @@ use Olcs\Form\Model\Form\IrfoGvPermit as Form;
 use Laminas\View\Model\ViewModel;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 
-/**
- * Operator Irfo Gv Permits Controller
- */
 class OperatorIrfoGvPermitsController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider

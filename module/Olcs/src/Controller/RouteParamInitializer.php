@@ -5,10 +5,6 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\InitializerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
-/**
- * Class RouteParamInitializer
- * @package Olcs\Controller
- */
 class RouteParamInitializer implements InitializerInterface
 {
     /**

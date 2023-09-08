@@ -7,13 +7,6 @@ use Dvsa\Olcs\Transfer\Command\Document\Upload;
 use Laminas\Form\Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Document Generation Controller
- *
- * @author Jessica Rowbottom <jess.rowbottom@valtech.co.uk>
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- * @author Nick Payne <nick.payne@valtech.co.uk>
- */
 class DocumentUploadController extends AbstractDocumentController
 {
     const ERR_UPLOAD_DEF = '4';

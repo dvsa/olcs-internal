@@ -1,7 +1,5 @@
 <?php
-/**
- * Note Controller
- */
+
 namespace Olcs\Controller\TransportManager\Processing;
 
 use Dvsa\Olcs\Transfer\Command\Processing\Note\Create as CreateDto;
@@ -20,9 +18,6 @@ use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Traits\NotesProcessingTrait;
 
-/**
- * Note Controller
- */
 class TransportManagerProcessingNoteController extends AbstractInternalController implements
     TransportManagerControllerInterface,
     LeftViewProvider

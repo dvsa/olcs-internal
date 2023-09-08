@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Operator Irfo Psv Authorisations Controller
- */
 namespace Olcs\Controller\Operator;
 
 use Dvsa\Olcs\Transfer\Command\Irfo\CreateIrfoPsvAuth as CreateDto;
@@ -28,9 +25,6 @@ use Laminas\Form\Form as LaminasForm;
 use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Olcs\Mvc\Controller\ParameterProvider\ConfirmItem;
 
-/**
- * Operator Irfo Psv Authorisations Controller
- */
 class OperatorIrfoPsvAuthorisationsController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider

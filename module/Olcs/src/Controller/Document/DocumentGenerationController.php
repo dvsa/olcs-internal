@@ -11,12 +11,6 @@ use Laminas\Form\Fieldset;
 use Laminas\Form\Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Document Generation Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- * @author Nick Payne <nick.payne@valtech.co.uk>
- */
 class DocumentGenerationController extends AbstractDocumentController
 {
     /**

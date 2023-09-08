@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Case Impounding Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- */
 namespace Olcs\Controller\Cases\Impounding;
 
 use Dvsa\Olcs\Transfer\Command\Cases\Impounding\CreateImpounding as CreateDto;
@@ -20,11 +15,6 @@ use Olcs\Form\Model\Form\Impounding;
 use Laminas\View\Model\ViewModel;
 use Common\RefData as RefData;
 
-/**
- * Case Impounding Controller
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
- */
 class ImpoundingController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     use ControllerTraits\GenerateActionTrait;

@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Processing Controller
- */
 namespace Olcs\Controller\Cases\Processing;
 
 use Dvsa\Olcs\Transfer\Command\TmCaseDecision\CreateReputeNotLost as CreateDto;
@@ -16,9 +13,6 @@ use Olcs\Data\Mapper\TmCaseDecision as Mapper;
 use Olcs\Form\Model\Form\TmCaseRepute as Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Case Decisions ReputeNotLost Controller
- */
 class DecisionsReputeNotLostController extends AbstractInternalController implements
     CaseControllerInterface,
     LeftViewProvider

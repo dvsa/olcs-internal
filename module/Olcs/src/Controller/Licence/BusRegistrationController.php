@@ -9,11 +9,6 @@ use Dvsa\Olcs\Transfer\Query\Bus\SearchViewList as ListDto;
 use Olcs\Form\Model\Form\BusRegList as FilterForm;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Licence Bus Reg Controller
- *
- * @author Craig Reasbeck <craig.reasbeck@valtech.co.uk>
- */
 class BusRegistrationController extends AbstractInternalController implements
     LicenceControllerInterface,
     LeftViewProvider

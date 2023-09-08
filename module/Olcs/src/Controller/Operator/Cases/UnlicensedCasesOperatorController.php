@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unlicensed Cases Operator Controller
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 namespace Olcs\Controller\Operator\Cases;
 
 use Dvsa\Olcs\Transfer\Query\Organisation\UnlicensedCases as OrganisationWithCases;
@@ -13,11 +8,6 @@ use Laminas\View\Model\ViewModel;
 use Common\Controller\Traits\CheckForCrudAction;
 use Laminas\Http\Response;
 
-/**
- * Unlicensed Cases Operator Controller
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class UnlicensedCasesOperatorController extends OperatorController
 {
     use CheckForCrudAction;

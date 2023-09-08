@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Overview Controller, also deals with add and edit of cases
- */
 namespace Olcs\Controller\Cases\Overview;
 
 use Olcs\Controller\AbstractInternalController;
@@ -21,9 +18,6 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Overview Controller, also deals with add and edit of cases
- */
 class OverviewController extends AbstractInternalController implements
     CaseControllerInterface,
     LeftViewProvider,

@@ -471,7 +471,7 @@ return [
                         'id' => '[0-9]+'
                     ],
                     'defaults' => [
-                        'controller' => 'CaseDecisionsReputeNotLostController'
+                        'controller' => Olcs\Controller\Cases\Processing\DecisionsReputeNotLostController::class
                     ]
                 ],
             ],
@@ -497,7 +497,7 @@ return [
                         'id' => '[0-9]+'
                     ],
                     'defaults' => [
-                        'controller' => 'CaseDecisionsNoFurtherActionController'
+                        'controller' => Olcs\Controller\Cases\Processing\DecisionsNoFurtherActionController::class
                     ]
                 ],
             ],
@@ -512,7 +512,7 @@ return [
                 'action' => 'edit'
             ],
             'defaults' => [
-                'controller' => \Olcs\Controller\Sla\RevocationsSlaController::class,
+                'controller' => Olcs\Controller\Sla\RevocationsSlaController::class,
             ]
         ]
     ],

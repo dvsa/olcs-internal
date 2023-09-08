@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Operator Irfo Details Controller
- */
 namespace Olcs\Controller\Operator;
 
 use Dvsa\Olcs\Transfer\Command\Irfo\UpdateIrfoDetails as UpdateDto;

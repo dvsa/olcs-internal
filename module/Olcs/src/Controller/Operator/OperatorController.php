@@ -11,11 +11,6 @@ use Olcs\Controller\Traits;
 use Olcs\Data\Mapper\OperatorTransfer as OperatorTransferMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Operator Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class OperatorController extends AbstractController implements OperatorControllerInterface, LeftViewProvider
 {
     use Traits\OperatorControllerTrait,

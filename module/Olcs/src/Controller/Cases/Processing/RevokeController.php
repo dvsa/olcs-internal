@@ -12,9 +12,6 @@ use Olcs\Data\Mapper\Revoke as Mapper;
 use Olcs\Form\Model\Form\Revoke as Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Revoke Controller
- */
 class RevokeController extends AbstractInternalController implements CaseControllerInterface, LeftViewProvider
 {
     /**

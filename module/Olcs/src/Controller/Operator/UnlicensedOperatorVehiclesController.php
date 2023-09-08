@@ -1,7 +1,5 @@
 <?php
-/**
- * Unlicensed Operator Vehicles Controller
- */
+
 namespace Olcs\Controller\Operator;
 
 use Common\RefData;
@@ -19,9 +17,6 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Unlicensed Operator Vehicles Controller
- */
 class UnlicensedOperatorVehiclesController extends AbstractInternalController implements
     OperatorControllerInterface,
     LeftViewProvider

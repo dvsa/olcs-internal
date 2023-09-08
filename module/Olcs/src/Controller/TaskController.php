@@ -17,13 +17,6 @@ use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use \Olcs\Data\Mapper;
 
-/**
- * Task Controller
- *
- * @author Nick Payne <nick.payne@valtech.co.uk>
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class TaskController extends AbstractController
 {
     use ControllerTraits\BusControllerTrait,

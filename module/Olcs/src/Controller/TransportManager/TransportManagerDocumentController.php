@@ -5,12 +5,6 @@ namespace Olcs\Controller\TransportManager;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits;
 
-/**
- * Transport Manager Document Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class TransportManagerDocumentController extends TransportManagerController implements LeftViewProvider
 {
     use Traits\DocumentActionTrait,

@@ -8,12 +8,6 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits as ControllerTraits;
 
-/**
- * Case Task controller
- * Case task search and display
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class TaskController extends AbstractController implements CaseControllerInterface, LeftViewProvider
 {
     use ControllerTraits\CaseControllerTrait,

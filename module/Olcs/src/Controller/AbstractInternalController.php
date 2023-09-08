@@ -272,10 +272,12 @@ abstract class AbstractInternalController extends AbstractOlcsController
                                 FlashMessengerHelperService $flashMessenger,
                                 Navigation $navigation)
     {
+
         $this->translationHelperService = $translationHelper;
         $this->formHelperService = $formHelper;
         $this->flashMessengerHelperService = $flashMessenger;
         $this->navigation = $navigation;
+
     }
 
     /**
