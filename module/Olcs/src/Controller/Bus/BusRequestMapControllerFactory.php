@@ -24,7 +24,7 @@ class BusRequestMapControllerFactory implements FactoryInterface
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get(Navigation::class);
+        $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
         return new BusRequestMapController(
