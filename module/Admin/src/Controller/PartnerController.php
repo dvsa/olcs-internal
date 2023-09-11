@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Partner Controller
- */
 namespace Admin\Controller;
 
 use Dvsa\Olcs\Transfer\Command\User\CreatePartner as CreateDto;
@@ -16,9 +13,6 @@ use Olcs\Data\Mapper\Partner as Mapper;
 use Admin\Form\Model\Form\Partner as Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Partner Controller
- */
 class PartnerController extends AbstractInternalController implements LeftViewProvider
 {
     /**

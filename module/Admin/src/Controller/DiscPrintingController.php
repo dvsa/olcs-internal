@@ -21,8 +21,6 @@ use Common\Util\FlashMessengerTrait;
 /**
  * Disc Printing Controller
  *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- *
  * @method \Common\Service\Cqrs\Response handleQuery(\Dvsa\Olcs\Transfer\Query\QueryInterface $query)
  * @method \Common\Service\Cqrs\Response handleCommand(\Dvsa\Olcs\Transfer\Command\CommandInterface $query)
  */

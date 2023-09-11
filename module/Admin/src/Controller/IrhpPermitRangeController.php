@@ -15,9 +15,6 @@ use Admin\Data\Mapper\IrhpPermitRange as PermitRangeMapper;
 
 use Laminas\View\Model\ViewModel;
 
-/**
- * IRHP Permits Stock Range Controller
- */
 class IrhpPermitRangeController extends AbstractIrhpPermitAdminController implements LeftViewProvider
 {
     /**

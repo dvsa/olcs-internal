@@ -12,11 +12,6 @@ use Dvsa\Olcs\Transfer\Query\Fee\FeeType as ItemDTO;
 use Dvsa\Olcs\Transfer\Command\FeeType\Update as UpdateDTO;
 use Admin\Data\Mapper\FeeRate as FeeRateMapper;
 
-/**
- * FeeRate Controller
- *
- * @author Andy Newton <andy@vitri.ltd>
- */
 class FeeRateController extends AbstractInternalController implements LeftViewProvider
 {
     protected $tableName = 'admin-fee-rates';

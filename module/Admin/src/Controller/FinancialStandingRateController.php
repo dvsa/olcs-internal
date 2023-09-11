@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Financial Standing Rate Controller
- */
 namespace Admin\Controller;
 
 use Admin\Form\Model\Form\FinancialStandingRate as FormClass;

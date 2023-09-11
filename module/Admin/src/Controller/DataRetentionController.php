@@ -16,9 +16,6 @@ use Laminas\View\Model\ViewModel;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Olcs\Mvc\Controller\ParameterProvider\ConfirmItem;
 
-/**
- * Data retention controller
- */
 class DataRetentionController extends AbstractInternalController implements LeftViewProvider
 {
     protected $itemsDelayedSuccessMessage = 'Record(s) are now updated';

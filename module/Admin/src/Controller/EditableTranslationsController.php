@@ -17,9 +17,6 @@ use Dvsa\Olcs\Transfer\Command\TranslationKey\Update as UpdateCommand;
 use Dvsa\Olcs\Transfer\Command\TranslationKey\Create as CreateCommand;
 use Admin\Data\Mapper\EditableTranslation as EditableTranslationMapper;
 
-/**
- * Editable Translations Controller
- */
 class EditableTranslationsController extends AbstractInternalController implements LeftViewProvider
 {
     protected $navigationId = 'admin-dashboard/content-management/editable-translations';
@@ -143,11 +140,11 @@ class EditableTranslationsController extends AbstractInternalController implemen
 
             $result = $response->getResult();
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($this->editSuccessMessage);
+                $this->flashMessengerHelperService->addSuccessMessage($this->editSuccessMessage);
                 return $this->redirectTo($response->getResult());
             } else {
                 $message = isset($result['messages']) ? implode('<br />', $result['messages']) : 'Error saving translations';
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($message);
+                $this->flashMessengerHelperService->addErrorMessage($message);
             }
         }
 

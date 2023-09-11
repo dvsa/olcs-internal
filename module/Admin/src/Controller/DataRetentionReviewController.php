@@ -7,9 +7,6 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\AbstractInternalController;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Data retention review controller
- */
 class DataRetentionReviewController extends AbstractInternalController implements LeftViewProvider
 {
     /**

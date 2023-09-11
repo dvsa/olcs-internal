@@ -9,11 +9,6 @@ use Dvsa\Olcs\Transfer\Query\ContinuationDetail\GetList as GetListQry;
 use Dvsa\Olcs\Transfer\Command\Continuation\Create as CreateCmd;
 use Dvsa\Olcs\Transfer\Command\ContinuationDetail\PrepareContinuations as PrepareCmd;
 
-/**
- * Continuation Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class ContinuationController extends AbstractController
 {
     use CrudActionTrait;

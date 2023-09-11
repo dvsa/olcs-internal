@@ -14,9 +14,6 @@ use Admin\Form\Model\Form\IrhpPermitWindow as PermitWindowForm;
 use Admin\Data\Mapper\IrhpPermitWindow as PermitWindowMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * IRHP Permits Admin Controller
- */
 class IrhpPermitWindowController extends AbstractIrhpPermitAdminController implements LeftViewProvider
 {
     protected $tableName = 'admin-irhp-permit-window';

@@ -7,12 +7,6 @@ use Common\Controller\Lva\Traits\CrudActionTrait;
 use Dvsa\Olcs\Transfer\Query\ContinuationDetail\ChecklistReminders as ChecklistRemindersQry;
 use Dvsa\Olcs\Transfer\Command\ContinuationDetail\Queue as QueueCmd;
 
-/**
- * ContinuationChecklistReminderController
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class ContinuationChecklistReminderController extends AbstractController
 {
     const TYPE_CONT_CHECKLIST_REMINDER_GENERATE_LETTER = 'que_typ_cont_check_rem_gen_let';

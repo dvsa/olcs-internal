@@ -10,9 +10,6 @@ use Dvsa\Olcs\Transfer\Query\Permits\ReadyToPrint as ListDto;
 use Dvsa\Olcs\Transfer\Query\Permits\ReadyToPrintConfirm as ConfirmListDto;
 use Laminas\View\Model\ViewModel;
 
-/**
- * IRHP Permits Stock Print Controller
- */
 class IrhpPermitPrintController extends AbstractInternalController implements LeftViewProvider
 {
     protected $tableName = 'admin-irhp-permit-print';

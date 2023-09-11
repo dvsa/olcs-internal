@@ -13,11 +13,6 @@ use Dvsa\Olcs\Transfer\Query\FeatureToggle\GetList as ListDto;
 use Admin\Data\Mapper\FeatureToggle as FeatureToggleMapper;
 use Admin\Form\Model\Form\FeatureToggle as FeatureToggleForm;
 
-/**
- * FeatureToggle Controller
- *
- * @author Ian Lindsay <ian@hemera-business-services.co.uk>
- */
 class FeatureToggleController extends AbstractInternalController implements LeftViewProvider
 {
     protected $navigationId = 'admin-dashboard/admin-feature-toggle';

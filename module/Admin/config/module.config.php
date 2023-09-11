@@ -187,7 +187,7 @@ return [
                                         'action' => '(index|add|in-stock|issued|void|returned)'
                                     ],
                                     'defaults' => [
-                                        'controller' => 'Admin\IrfoStockControlController',
+                                        'controller' => Admin\Controller\IrfoStockControlController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -264,7 +264,7 @@ return [
                         'options' => [
                             'route' => 'your-account[/]',
                             'defaults' => [
-                                'controller' => 'Admin\MyDetailsController',
+                                'controller' => Admin\Controller\MyDetailsController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -275,7 +275,7 @@ return [
                                 'options' => [
                                     'route' => 'details[/]',
                                     'defaults' => [
-                                        'controller' => 'Admin\MyDetailsController',
+                                        'controller' => Admin\Controller\MyDetailsController::class,
                                         'action' => 'edit'
                                     ]
                                 ]
@@ -324,7 +324,7 @@ return [
                                         'id' => '([0-9]+,?)+',
                                     ],
                                     'defaults' => [
-                                        'controller' => 'Admin\IrfoPsvAuthContinuationController',
+                                        'controller' => Admin\Controller\IrfoPsvAuthContinuationController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -408,7 +408,7 @@ return [
                                 'options' => [
                                     'route' => 'pi[/]',
                                     'defaults' => [
-                                        'controller' => 'Admin\PiReportController',
+                                        'controller' => Admin\Controller\PiReportController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -492,7 +492,7 @@ return [
                                 'action' => '(index|add|edit|delete)'
                             ],
                             'defaults' => [
-                                'controller' => 'Admin\PartnerController',
+                                'controller' => Admin\Controller\PartnerController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -505,7 +505,7 @@ return [
                                 'id' => '[0-9\,]+'
                             ],
                             'defaults' => [
-                                'controller' => 'Admin\FinancialStandingRateController',
+                                'controller' => Admin\Controller\FinancialStandingRateController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -566,7 +566,7 @@ return [
                         'options' => [
                             'route' => 'permits[/]',
                             'defaults' => [
-                                'controller' => \Admin\Controller\PermitsController::class,
+                                'controller' => Admin\Controller\PermitsController::class,
                                 'action' => 'index'
                             ]
                         ],
@@ -582,7 +582,7 @@ return [
                                         'id' => '[0-9\,]+'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitStockController::class,
+                                        'controller' => Admin\Controller\IrhpPermitStockController::class,
                                         'action' => 'index'
                                     ],
                                 ],
@@ -599,7 +599,7 @@ return [
                                         'id' => '[0-9\,]+'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitRangeController::class,
+                                        'controller' => Admin\Controller\IrhpPermitRangeController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -616,7 +616,7 @@ return [
                                         'id' => '[0-9\,]+',
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitWindowController::class,
+                                        'controller' => Admin\Controller\IrhpPermitWindowController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -633,7 +633,7 @@ return [
                                         'id' => '[0-9\,]+',
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitSectorController::class,
+                                        'controller' => Admin\Controller\IrhpPermitSectorController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -650,7 +650,7 @@ return [
                                         'action' => '(index|add|edit|delete)'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitJurisdictionController::class,
+                                        'controller' => Admin\Controller\IrhpPermitJurisdictionController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -667,7 +667,7 @@ return [
                                         'deviation' =>'[0-9\.]+'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitScoringController::class,
+                                        'controller' => Admin\Controller\IrhpPermitScoringController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -681,7 +681,7 @@ return [
                                         'action' => '(index|add|edit|delete)'
                                     ],
                                     'defaults' => [
-                                        'controller' => \Admin\Controller\IrhpPermitReportingController::class,
+                                        'controller' => Admin\Controller\IrhpPermitReportingController::class,
                                         'action' => 'index',
                                     ],
                                 ],
@@ -919,10 +919,7 @@ return [
     'controllers' => [
         'invokables' => [
             Admin\Controller\IndexController::class => Admin\Controller\IndexController::class,
-            Admin\Controller\BusNoticePeriodController::class => Admin\Controller\BusNoticePeriodController::class,
             'Admin\PrintingController' => 'Admin\Controller\PrintingController',
-            'Admin\IrfoStockControlController' => 'Admin\Controller\IrfoStockControlController',
-            'Admin\IrfoPsvAuthContinuationController' => 'Admin\Controller\IrfoPsvAuthContinuationController',
             Admin\Controller\ScanningController::class => Admin\Controller\ScanningController::class,
             'Admin\PublicationController' => 'Admin\Controller\PublicationController',
             PublishedPublicationController::class => PublishedPublicationController::class,
@@ -932,57 +929,50 @@ return [
             'Admin\UserManagementController' => 'Admin\Controller\UserManagementController',
             Admin\Controller\PublicHolidayController::class => Admin\Controller\PublicHolidayController::class,
             'Admin\DiscPrintingController' => 'Admin\Controller\DiscPrintingController',
-            'Admin\MyDetailsController' => 'Admin\Controller\MyDetailsController',
-            Admin\Controller\PaymentProcessingFeesController::class =>
-                Admin\Controller\PaymentProcessingFeesController::class,
-            'Admin\PartnerController' => 'Admin\Controller\PartnerController',
             'Admin\ContinuationChecklistReminderController' =>
                 'Admin\Controller\ContinuationChecklistReminderController',
-            Admin\Controller\CompaniesHouseAlertController::class =>
-                Admin\Controller\CompaniesHouseAlertController::class,
-            'Admin\FinancialStandingRateController' => 'Admin\Controller\FinancialStandingRateController',
-            Admin\Controller\CpmsReportController::class => Admin\Controller\CpmsReportController::class,
             Admin\Controller\TeamController::class => \Admin\Controller\TeamController::class,
             'Admin\SystemParametersController' => \Admin\Controller\SystemParametersController::class,
-            \Admin\Controller\FeatureToggleController::class => \Admin\Controller\FeatureToggleController::class,
             'Admin\TaskAllocationRulesController' => \Admin\Controller\TaskAllocationRulesController::class,
-            'Admin\PiReportController' => 'Admin\Controller\PiReportController',
             Admin\Controller\SystemInfoMessageController::class => Admin\Controller\SystemInfoMessageController::class,
             Admin\Controller\ReportCasesOpenController::class => Admin\Controller\ReportCasesOpenController::class,
-            Admin\Controller\PermitsReportController::class => Admin\Controller\PermitsReportController::class,
-            Admin\Controller\DataRetentionController::class => Admin\Controller\DataRetentionController::class,
-            Admin\Controller\DataRetentionReviewController::class =>
-                Admin\Controller\DataRetentionReviewController::class,
-            Admin\Controller\DataRetention\ExportController::class =>
-                Admin\Controller\DataRetention\ExportController::class,
-            Admin\Controller\DataRetention\RuleAdminController::class =>
+             Admin\Controller\DataRetention\RuleAdminController::class =>
                 Admin\Controller\DataRetention\RuleAdminController::class,
-            Admin\Controller\PermitsController::class =>
-                Admin\Controller\PermitsController::class,
-            Admin\Controller\IrhpPermitStockController::class =>
-                Admin\Controller\IrhpPermitStockController::class,
-            Admin\Controller\IrhpPermitWindowController::class =>
-                Admin\Controller\IrhpPermitWindowController::class,
-            Admin\Controller\IrhpPermitRangeController::class =>
-                Admin\Controller\IrhpPermitRangeController::class,
-            Admin\Controller\IrhpPermitSectorController::class =>
-                Admin\Controller\IrhpPermitSectorController::class,
-            Admin\Controller\IrhpPermitJurisdictionController::class =>
-                Admin\Controller\IrhpPermitJurisdictionController::class,
-            Admin\Controller\IrhpPermitScoringController::class =>
-                Admin\Controller\IrhpPermitScoringController::class,
-            Admin\Controller\IrhpPermitReportingController::class =>
-                Admin\Controller\IrhpPermitReportingController::class,
-            Admin\Controller\IrhpPermitPrintController::class =>
-                Admin\Controller\IrhpPermitPrintController::class,
-            Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadController::class,
-            Admin\Controller\DocumentTemplateController::class => Admin\Controller\DocumentTemplateController::class,
+           Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadController::class,
             Admin\Controller\TemplateController::class => Admin\Controller\TemplateController::class,
-            Admin\Controller\InterimRefundsController::class =>Admin\Controller\InterimRefundsController::class,
-            Admin\Controller\FeeRateController::class => Admin\Controller\FeeRateController::class,
-            Admin\Controller\EditableTranslationsController::class => Admin\Controller\EditableTranslationsController::class,
             Admin\Controller\ReplacementsController::class => Admin\Controller\ReplacementsController::class,
             Admin\Controller\PresidingTcController::class => Admin\Controller\PresidingTcController::class
+        ],
+        'factories' => [
+            Admin\Controller\DataRetention\ExportController::class => Admin\Controller\DataRetention\ExportControllerFactory::class,
+            Admin\Controller\BusNoticePeriodController::class => Admin\Controller\BusNoticePeriodControllerFactory::class,
+            Admin\Controller\CompaniesHouseAlertController::class => Admin\Controller\CompaniesHouseAlertControllerFactory::class,
+            Admin\Controller\CpmsReportController::class => Admin\Controller\CpmsReportControllerFactory::class,
+            Admin\Controller\DataRetentionReviewController::class => Admin\Controller\DataRetentionReviewControllerFactory::class,
+            Admin\Controller\DataRetentionController::class => Admin\Controller\DataRetentionControllerFactory::class,
+            Admin\Controller\DocumentTemplateController::class => Admin\Controller\DocumentTemplateControllerFactory::class,
+            Admin\Controller\EditableTranslationsController::class => Admin\Controller\EditableTranslationsControllerFactory::class,
+            Admin\Controller\FeatureToggleController::class => Admin\Controller\FeatureToggleControllerFactory::class,
+            Admin\Controller\FeeRateController::class => Admin\Controller\FeeRateControllerFactory::class,
+            Admin\Controller\FinancialStandingRateController::class => Admin\Controller\FinancialStandingRateControllerFactory::class,
+            Admin\Controller\InterimRefundsController::class =>Admin\Controller\InterimRefundsControllerFactory::class,
+            Admin\Controller\IrfoPsvAuthContinuationController::class => Admin\Controller\IrfoPsvAuthContinuationControllerFactory::class,
+            Admin\Controller\IrfoStockControlController::class => Admin\Controller\IrfoStockControlControllerFactory::class,
+            Admin\Controller\IrhpPermitJurisdictionController::class => Admin\Controller\IrhpPermitJurisdictionControllerFactory::class,
+            Admin\Controller\IrhpPermitPrintController::class => Admin\Controller\IrhpPermitPrintControllerFactory::class,
+            Admin\Controller\IrhpPermitRangeController::class => Admin\Controller\IrhpPermitRangeControllerFactory::class,
+            Admin\Controller\IrhpPermitReportingController::class => Admin\Controller\IrhpPermitReportingControllerFactory::class,
+            Admin\Controller\IrhpPermitScoringController::class => Admin\Controller\IrhpPermitScoringControllerFactory::class,
+            Admin\Controller\IrhpPermitSectorController::class => Admin\Controller\IrhpPermitSectorControllerFactory::class,
+            Admin\Controller\IrhpPermitStockController::class => Admin\Controller\IrhpPermitStockControllerFactory::class,
+            Admin\Controller\IrhpPermitWindowController::class => Admin\Controller\IrhpPermitWindowControllerFactory::class,
+            Admin\Controller\MyDetailsController::class => Admin\Controller\MyDetailsControllerFactory::class,
+            Admin\Controller\PartnerController::class => Admin\Controller\PartnerControllerFactory::class,
+            Admin\Controller\PaymentProcessingFeesController::class => Admin\Controller\PaymentProcessingFeesControllerFactory::class,
+            Admin\Controller\PermitsController::class => Admin\Controller\PermitsControllerFactory::class,
+            Admin\Controller\PermitsReportController::class => Admin\Controller\PermitsReportControllerFactory::class,
+            Admin\Controller\PiReportController::class => Admin\Controller\PiReportControllerFactory::class,
+
         ],
     ],
     'view_manager' => [
@@ -1013,7 +1003,7 @@ return [
     'local_scripts_path' => [__DIR__ . '/../assets/js/inline/'],
     'my_account_route' => 'admin-dashboard/admin-your-account',
     'route_param_listeners' => [
-        \Admin\Controller\Interfaces\IrhpPermitStockControllerInterface::class => [
+        Admin\Controller\Interfaces\IrhpPermitStockControllerInterface::class => [
             RouteParam\IrhpPermitAdminFurniture::class,
         ],
     ]

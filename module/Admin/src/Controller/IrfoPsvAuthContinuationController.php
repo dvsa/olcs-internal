@@ -1,8 +1,5 @@
 <?php
 
-/**
- * IRFO PSV Auth Continuation Controller
- */
 namespace Admin\Controller;
 
 use Dvsa\Olcs\Transfer\Query\Irfo\IrfoPsvAuthContinuationList as ListDto;
@@ -13,9 +10,6 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Mvc\Controller\ParameterProvider\AddFormDefaultData;
 use Laminas\View\Model\ViewModel;
 
-/**
- * IRFO PSV Auth Continuation Controller
- */
 class IrfoPsvAuthContinuationController extends AbstractInternalController implements LeftViewProvider
 {
     /**

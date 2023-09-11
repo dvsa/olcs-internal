@@ -8,11 +8,6 @@ use Dvsa\Olcs\Transfer\Query\Fee\InterimRefunds as ListDto;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 
-/**
- * Class InterimRefundsController
- *
- * @package Admin\Controller
- */
 class InterimRefundsController extends AbstractInternalController implements LeftViewProvider
 {
     use ReportLeftViewTrait;

@@ -1,9 +1,5 @@
 <?php
-/**
- * IRHP Permits Scoring Controller
- *
- * @author Andy Newton <andy@vitri.ltd>
- */
+
 namespace Admin\Controller;
 
 use DateTime;

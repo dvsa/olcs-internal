@@ -10,9 +10,6 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\CpmsReport as Mapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Cpms Report Controller
- */
 class CpmsReportController extends AbstractInternalController implements LeftViewProvider
 {
     use ReportLeftViewTrait;
@@ -65,19 +62,19 @@ class CpmsReportController extends AbstractInternalController implements LeftVie
             $response = $this->handleCommand(GenerateCmd::create($commandData));
 
             if ($response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessenger->addErrorMessage('unknown-error');
             }
 
             if ($response->isClientError()) {
                 $flashErrors = Mapper::mapFromErrors($form, $response->getResult());
 
                 foreach ($flashErrors as $error) {
-                    $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                    $this->flashMessenger->addErrorMessage($error);
                 }
             }
 
             if ($response->isOk()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($successMessage);
+                $this->flashMessenger->addSuccessMessage($successMessage);
                 return $this->redirectTo($response->getResult());
             }
         }
