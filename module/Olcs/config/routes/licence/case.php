@@ -644,7 +644,7 @@ return [
                         'entityType' => '(document)',
                     ],
                     'defaults' => [
-                        'controller' => 'CaseDocumentSlaTargetDateController',
+                        'controller' => Olcs\Controller\Sla\CaseDocumentSlaTargetDateController::class,
                         'action' => 'addSla'
                     ]
                 ],
@@ -659,7 +659,7 @@ return [
                     ],
                     'defaults' => [
                         'type' => 'case',
-                        'controller' => 'CaseDocumentSlaTargetDateController',
+                        'controller' => Olcs\Controller\Sla\CaseDocumentSlaTargetDateController::class,
                         'action' => 'editSla'
                     ]
                 ],

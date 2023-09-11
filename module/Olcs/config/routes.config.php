@@ -760,7 +760,7 @@ $routes = [
                                 'entityType' => '(document)',
                             ],
                             'defaults' => [
-                                'controller' => 'LicenceDocumentSlaTargetDateController',
+                                'controller' => Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController::class,
                                 'action' => 'addSla'
                             ]
                         ],
@@ -775,7 +775,7 @@ $routes = [
                             ],
                             'defaults' => [
                                 'type' => 'case',
-                                'controller' => 'LicenceDocumentSlaTargetDateController',
+                                'controller' => Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController::class,
                                 'action' => 'editSla'
                             ]
                         ],

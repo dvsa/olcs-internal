@@ -291,8 +291,6 @@ return array(
             'OperatorHistoryController' => 'Olcs\Controller\Operator\HistoryController',
             ContinuationController::class =>
                 ContinuationController::class,
-           'CaseDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\CaseDocumentSlaTargetDateController',
-            'LicenceDocumentSlaTargetDateController' => 'Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController',
             PermitController::class => PermitController::class,
             IrhpApplicationFeesController::class => IrhpApplicationFeesController::class,
             'IrhpPermitController' => 'Olcs\Controller\IrhpPermits\IrhpPermitController',
@@ -398,6 +396,8 @@ return array(
             Olcs\Controller\Sla\RevocationsSlaController::class => Olcs\Controller\Sla\RevocationsSlaControllerFactory::class,
             Olcs\Controller\TransportManager\Processing\ReadHistoryController::class => Olcs\Controller\TransportManager\Processing\ReadHistoryControllerFactory::class,
             Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController::class => Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteControllerFactory::class,
+            Olcs\Controller\Sla\CaseDocumentSlaTargetDateController::class => Olcs\Controller\Sla\CaseDocumentSlaTargetDateControllerFactory::class,
+            Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController::class => Olcs\Controller\Sla\LicenceDocumentSlaTargetDateControllerFactory::class,
 
             ],
         'aliases' => [
