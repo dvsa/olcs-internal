@@ -68,11 +68,23 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
         FlashMessengerHelperService $flashMessengerHelper,
         Licence $licenceDataService,
         QueryService $queryService,
-        Navigation $navigationHelper,
+        \Laminas\Navigation\Navigation $navigation,
         TranslationHelperService $translatorHelper
     ) {
         $this->translationHelper = $translatorHelper;
-        parent::__construct($scriptFactory, $formHelper, $tableFactory, $viewHelperManager, $dateHelper, $transferAnnotationBuilder, $commandService, $flashMessengerHelper, $licenceDataService, $queryService, $navigationHelper);
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager,
+            $dateHelper,
+            $transferAnnotationBuilder,
+            $commandService,
+            $flashMessengerHelper,
+            $licenceDataService,
+            $queryService,
+            $navigation
+        );
     }
 
     /**
@@ -152,7 +164,7 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
             $form->setData($originalData);
         }
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
 
         // process company lookup
         if (isset($post['operator-details']['companyNumber']['submit_lookup_company'])) {
@@ -229,10 +241,10 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
         $response = $this->handleCommand($dto);
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
+            $this->flashMessengerHelper
                 ->addSuccessMessage('The operator has been updated successfully');
         } else {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addUnknownError();
+            $this->flashMessengerHelper->addUnknownError();
         }
 
         return $this->redirectToBusinessDetails($operator);
@@ -299,7 +311,7 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
 
             $labels = [];
 
-            $translation = $this->getServiceLocator()->get('Helper\Translation');
+            $translation = $this->translationHelper;
 
             foreach ($transitions as $transition) {
                 $labels[] = $translation->translate($transition);
@@ -331,7 +343,7 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
         $mapper = $this->mapperClass;
         $errors = $mapper::mapFromErrors($form, $errors);
         if (!empty($errors)) {
-            $fm = $this->getServiceLocator()->get('Helper\FlashMessenger');
+            $fm = $this->flashMessengerHelper;
             foreach ($errors as $error) {
                 $fm->addCurrentErrorMessage($error);
             }
@@ -349,7 +361,7 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
      */
     private function makeFormAlterations($businessType, $form, $operatorId)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         switch ($businessType) {
             case RefData::ORG_TYPE_REGISTERED_COMPANY:
             case RefData::ORG_TYPE_LLP:
@@ -404,7 +416,7 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
             $response = $this->handleQuery($query::create(['id' => $organisationId]));
 
             if ($response->isClientError() || $response->isServerError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addCurrentErrorMessage('unknown-error');
+                $this->flashMessengerHelper->addCurrentErrorMessage('unknown-error');
                 return $this->notFoundAction();
             }
             $this->organisation = $response->getResult();

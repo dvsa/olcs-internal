@@ -14,13 +14,13 @@ use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\View\Helper\Navigation;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Operator\OperatorBusinessDetailsController;
 use Olcs\Controller\Operator\OperatorController;
+use Olcs\Controller\Operator\OperatorFeesController;
 use Olcs\Service\Data\Licence;
 
-class OperatorBusinessDetailsControllerFactory implements FactoryInterface
+class OperatorFeesControllerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
@@ -28,7 +28,7 @@ class OperatorBusinessDetailsControllerFactory implements FactoryInterface
      * @param array|null $options
      * @return OperatorController
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OperatorBusinessDetailsController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): OperatorFeesController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
@@ -45,7 +45,7 @@ class OperatorBusinessDetailsControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         $translationHelper = $container->get(TranslationHelperService::class);
 
-        return new OperatorBusinessDetailsController(
+        return new OperatorFeesController(
             $scriptFactory,
             $formHelper,
             $tableFactory,
@@ -68,8 +68,8 @@ class OperatorBusinessDetailsControllerFactory implements FactoryInterface
      *
      * @return OperatorBusinessDetailsController
      */
-    public function createService(ServiceLocatorInterface $serviceLocator): OperatorBusinessDetailsController
+    public function createService(ServiceLocatorInterface $serviceLocator): OperatorFeesController
     {
-        return $this->__invoke($serviceLocator, OperatorBusinessDetailsController::class);
+        return $this->__invoke($serviceLocator, OperatorFeesController::class);
     }
 }

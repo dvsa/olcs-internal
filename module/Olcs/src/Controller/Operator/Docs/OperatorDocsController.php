@@ -13,8 +13,8 @@ use Laminas\View\Model\ViewModel;
  */
 class OperatorDocsController extends OperatorController
 {
-    use Traits\DocumentSearchTrait,
-        Traits\DocumentActionTrait;
+    use Traits\DocumentSearchTrait;
+    use Traits\DocumentActionTrait;
 
     /**
      * Table to use

@@ -4,6 +4,8 @@ use Olcs\Controller\IrhpPermits\IrhpApplicationController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationFeesController;
 use Olcs\Controller\Licence\SurrenderController;
 use Olcs\Controller\Operator\OperatorBusinessDetailsController;
+use Olcs\Controller\Operator\OperatorFeesController;
+use Olcs\Controller\Operator\OperatorProcessingTasksController;
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController as TMProcessingNoteController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
@@ -23,6 +25,8 @@ use Olcs\Controller\Bus\Service\BusServiceController;
 use Olcs\Controller\SearchController;
 use Laminas\Mvc\Router\Http\Segment;
 use Olcs\Controller\TransportManager as TmCntr;
+use Olcs\Controller\Operator as OperatorControllers;
+use Olcs\Controller\Application as ApplicationControllers;
 
 $feeActionRoute = [
     // child route config that is used in multiple places
@@ -1371,7 +1375,7 @@ $routes = [
                 'options' => array(
                     'route' => 'processing[/]',
                     'defaults' => array(
-                        'controller' => 'OperatorHistoryController',
+                        'controller' => OperatorControllers\HistoryController::class,
                         'action' => 'index'
                     )
                 ),
@@ -1382,7 +1386,7 @@ $routes = [
                         'options' => [
                             'route' => 'history[/:action[/:id]][/]',
                             'defaults' => [
-                                'controller' => 'OperatorHistoryController',
+                                'controller' => OperatorControllers\HistoryController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -1416,7 +1420,7 @@ $routes = [
                         'options' => [
                             'route' => 'tasks[/]',
                             'defaults' => [
-                                'controller' => 'OperatorProcessingTasksController',
+                                'controller' => OperatorProcessingTasksController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -1428,7 +1432,7 @@ $routes = [
                 'options' => [
                     'route' => 'fees[/]',
                     'defaults' => [
-                        'controller' => 'OperatorFeesController',
+                        'controller' => OperatorFeesController::class,
                         'action' => 'fees',
                     ]
                 ],
@@ -1444,7 +1448,7 @@ $routes = [
                 'options' => [
                     'route' => 'documents[/]',
                     'defaults' => [
-                        'controller' => 'OperatorDocsController',
+                        'controller' => OperatorControllers\Docs\OperatorDocsController::class,
                         'action' => 'documents',
                     ]
                 ],
@@ -1489,7 +1493,7 @@ $routes = [
                             'route' => 'delete/:doc[/]',
                             'defaults' => [
                                 'type' => 'irfoOrganisation',
-                                'controller' => 'OperatorDocsController',
+                                'controller' => OperatorControllers\Docs\OperatorDocsController::class,
                                 'action' => 'delete-document'
                             ]
                         ],
@@ -1602,7 +1606,7 @@ $routes = [
                 'options' => [
                     'route' => 'cases[/]',
                     'defaults' => [
-                        'controller' => 'UnlicensedCasesOperatorController',
+                        'controller' => OperatorControllers\Cases\UnlicensedCasesOperatorController::class,
                         'action' => 'cases',
                     ]
                 ]
@@ -2221,7 +2225,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'undo-grant[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => ApplicationControllers\ApplicationController::class,
                     'action' => 'undoGrant'
                 )
             )
@@ -2344,7 +2348,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'change-of-entity[/:changeId][/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => ApplicationControllers\ApplicationController::class,
                     'action' => 'changeOfEntity'
                 )
             )
@@ -2354,7 +2358,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'case[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => ApplicationControllers\ApplicationController::class,
                     'action' => 'case'
                 )
             )
@@ -2364,7 +2368,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'opposition[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationController',
+                    'controller' => ApplicationControllers\ApplicationController::class,
                     'action' => 'opposition'
                 )
             )
