@@ -9,6 +9,7 @@
 
 namespace Olcs\Controller\Lva\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationTransportManagerAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
@@ -37,7 +38,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -54,6 +55,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param TransportManagerHelperService $transportManagerHelper
      * @param StringHelperService $stringHelper
+     * @param ApplicationTransportManagerAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -66,7 +68,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
         CommandService $commandService,
         AnnotationBuilder $transferAnnotationBuilder,
         TransportManagerHelperService $transportManagerHelper,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        ApplicationTransportManagerAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -80,7 +83,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
             $queryService,
             $commandService,
             $transferAnnotationBuilder,
-            $transportManagerHelper
+            $transportManagerHelper,
+            $lvaAdapter
         );
     }
 }

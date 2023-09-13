@@ -28,7 +28,7 @@ class DiscsController extends Lva\AbstractDiscsController implements VariationCo
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

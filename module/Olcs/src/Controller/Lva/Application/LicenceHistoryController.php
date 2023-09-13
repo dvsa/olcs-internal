@@ -23,7 +23,7 @@ class LicenceHistoryController extends Lva\AbstractLicenceHistoryController impl
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     /**

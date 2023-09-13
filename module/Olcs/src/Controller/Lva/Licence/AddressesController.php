@@ -22,7 +22,7 @@ class AddressesController extends AbstractAddressesController implements Licence
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**

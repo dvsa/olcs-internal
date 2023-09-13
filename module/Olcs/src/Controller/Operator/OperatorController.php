@@ -3,13 +3,24 @@
 namespace Olcs\Controller\Operator;
 
 use Common\RefData;
+use Common\Service\Cqrs\Command\CommandService;
+use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Helper\DateHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\Application\CreateApplication;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Laminas\View\Helper\Navigation;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\AbstractController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\OperatorControllerInterface;
 use Olcs\Controller\Traits;
 use Olcs\Data\Mapper\OperatorTransfer as OperatorTransferMapper;
 use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\Licence;
 
 /**
  * Operator Controller
@@ -18,8 +29,8 @@ use Laminas\View\Model\ViewModel;
  */
 class OperatorController extends AbstractController implements OperatorControllerInterface, LeftViewProvider
 {
-    use Traits\OperatorControllerTrait,
-        Traits\ListDataTrait;
+    use Traits\OperatorControllerTrait;
+    use Traits\ListDataTrait;
 
     /**
      * @var string
@@ -30,6 +41,37 @@ class OperatorController extends AbstractController implements OperatorControlle
      * @var string
      */
     protected $section;
+
+    protected DateHelperService $dateHelper;
+    protected AnnotationBuilder $transferAnnotationBuilder;
+    protected CommandService $commandService;
+    protected FlashMessengerHelperService $flashMessengerHelper;
+    protected Licence $licenceDataService;
+    protected QueryService $queryService;
+    protected Navigation $navigationHelper;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        DateHelperService $dateHelper,
+        AnnotationBuilder $transferAnnotationBuilder,
+        CommandService $commandService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        Licence $licenceDataService,
+        QueryService $queryService,
+        Navigation $navigationHelper
+    ) {
+        parent::__construct($scriptFactory, $formHelper, $tableFactory, $viewHelperManager);
+        $this->dateHelper = $dateHelper;
+        $this->transferAnnotationBuilder = $transferAnnotationBuilder;
+        $this->commandService = $commandService;
+        $this->flashMessengerHelper = $flashMessengerHelper;
+        $this->licenceDataService = $licenceDataService;
+        $this->queryService = $queryService;
+        $this->navigationHelper = $navigationHelper;
+    }
 
     /**
      * Get Left View

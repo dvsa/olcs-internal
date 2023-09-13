@@ -9,6 +9,7 @@
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\LicencePeopleAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
@@ -29,7 +30,7 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -40,6 +41,7 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
      * @param ScriptFactory $scriptFactory
      * @param VariationLvaService $variationLvaService
      * @param GuidanceHelperService $guidanceHelper
+     * @param LicencePeopleAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -48,7 +50,8 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
         VariationLvaService $variationLvaService,
-        GuidanceHelperService $guidanceHelper
+        GuidanceHelperService $guidanceHelper,
+        LicencePeopleAdapter $lvaAdapter
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -57,7 +60,8 @@ class PeopleController extends Lva\AbstractPeopleController implements LicenceCo
             $formServiceManager,
             $scriptFactory,
             $variationLvaService,
-            $guidanceHelper
+            $guidanceHelper,
+            $lvaAdapter
         );
     }
 }

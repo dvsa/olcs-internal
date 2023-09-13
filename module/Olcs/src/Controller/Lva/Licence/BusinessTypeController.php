@@ -9,6 +9,7 @@
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\GenericBusinessTypeAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -32,7 +33,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -46,6 +47,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
      * @param TranslationHelperService $translationHelper
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param QueryService $queryService
+     * @param GenericBusinessTypeAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -57,7 +59,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         IdentityProviderInterface $identityProvider,
         TranslationHelperService $translationHelper,
         AnnotationBuilder $transferAnnotationBuilder,
-        QueryService $queryService
+        QueryService $queryService,
+        GenericBusinessTypeAdapter $lvaAdapter
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -69,7 +72,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
             $identityProvider,
             $translationHelper,
             $transferAnnotationBuilder,
-            $queryService
+            $queryService,
+            $lvaAdapter
         );
     }
 }

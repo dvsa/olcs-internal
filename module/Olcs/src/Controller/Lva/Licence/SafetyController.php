@@ -33,7 +33,7 @@ class SafetyController extends Lva\AbstractSafetyController implements LicenceCo
     use LicenceSafetyControllerTrait;
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**

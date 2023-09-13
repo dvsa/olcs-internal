@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationFinancialEvidenceAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -37,6 +38,7 @@ class FinancialEvidenceControllerFactory implements FactoryInterface
         $stringHelper = $container->get(StringHelperService::class);
         $commandService = $container->get(CommandService::class);
         $transferAnnotationBuilder = $container->get(AnnotationBuilder::class);
+        $lvaAdapter = $container->get(ApplicationFinancialEvidenceAdapter::class);
 
         return new FinancialEvidenceController(
             $niTextTranslationUtil,
@@ -47,7 +49,8 @@ class FinancialEvidenceControllerFactory implements FactoryInterface
             $tableFactory,
             $transferAnnotationBuilder,
             $commandService,
-            $stringHelper
+            $stringHelper,
+            $lvaAdapter
         );
     }
 

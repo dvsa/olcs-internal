@@ -30,7 +30,7 @@ class GrantController extends AbstractGrantController implements VariationContro
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

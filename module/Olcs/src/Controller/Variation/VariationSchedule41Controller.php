@@ -26,7 +26,7 @@ class VariationSchedule41Controller extends Schedule41Controller implements Appl
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected $section = 'operating_centres';

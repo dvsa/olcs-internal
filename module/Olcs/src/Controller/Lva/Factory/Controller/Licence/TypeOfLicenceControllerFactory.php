@@ -6,6 +6,7 @@ use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\StringHelperService;
+use Common\Service\Lva\VariationLvaService;
 use Common\Service\Script\ScriptFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
@@ -32,6 +33,7 @@ class TypeOfLicenceControllerFactory implements FactoryInterface
         $scriptFactory = $container->get(ScriptFactory::class);
         $formServiceManager = $container->get(FormServiceManager::class);
         $formHelper = $container->get(FormHelperService::class);
+        $variationLvaService = $container->get(VariationLvaService::class);
 
         return new TypeOfLicenceController(
             $niTextTranslationUtil,
@@ -39,7 +41,8 @@ class TypeOfLicenceControllerFactory implements FactoryInterface
             $flashMessengerHelper,
             $scriptFactory,
             $formServiceManager,
-            $formHelper
+            $formHelper,
+            $variationLvaService
         );
     }
 

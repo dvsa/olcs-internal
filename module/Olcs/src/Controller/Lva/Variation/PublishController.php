@@ -17,7 +17,7 @@ class PublishController extends \Olcs\Controller\Lva\AbstractPublishController
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

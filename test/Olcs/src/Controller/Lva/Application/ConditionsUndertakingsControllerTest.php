@@ -2,9 +2,21 @@
 
 namespace OlcsTest\Controller\Lva\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationConditionsUndertakingsAdapter;
+use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\GuidanceHelperService;
+use Common\Service\Helper\StringHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableFactory;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
+use Olcs\Controller\Lva\Application\ConditionsUndertakingsController;
+use Olcs\Mvc\Controller\Plugin\ScriptFactory;
 use OlcsTest\Bootstrap;
 use Mockery as m;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Class ConditionsUndertakingsControllerTest
@@ -21,14 +33,36 @@ class ConditionsUndertakingsControllerTest extends AbstractLvaControllerTestCase
     {
         parent::setUp();
 
-        $this->mockController('\Olcs\Controller\Lva\Application\ConditionsUndertakingsController');
-        $this->sut->setAdapter(m::mock('\Common\Controller\Lva\Interfaces\AdapterInterface'));
+        $this->mockNiTextTranslationUtil = m::mock(NiTextTranslation::class);
+        $this->mockAuthService = m::mock(AuthorizationService::class);
+        $this->mockFormHelper = m::mock(FormHelperService::class);
+        $this->mockFlashMessengerHelper = m::mock(FlashMessengerHelperService::class);
+        $this->mockFormServiceManager = m::mock(FormServiceManager::class);
+        $this->mockTableFactory = m::mock(TableFactory::class);
+        $this->mockStringHelper = m::mock(StringHelperService::class);
+        $this->mockLvaAdapter = m::mock(ApplicationConditionsUndertakingsAdapter::class);
+
+        $this->mockController(ConditionsUndertakingsController::class, [
+            $this->mockNiTextTranslationUtil,
+            $this->mockAuthService,
+            $this->mockFormHelper,
+            $this->mockFlashMessengerHelper,
+            $this->mockFormServiceManager,
+            $this->mockTableFactory,
+            $this->mockStringHelper,
+            $this->mockLvaAdapter
+        ]);
+
+        $this->sut->shouldReceive('setAdapter');
+
+
     }
 
     public function testIndexActionWithGet()
     {
         $this->setService(
-            'Table', m::mock()
+            'Table',
+            m::mock()
         );
 
         $mockForm = $this->createMockForm('Lva\ConditionsUndertakings');

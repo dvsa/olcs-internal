@@ -33,7 +33,7 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
     use VariationControllerTrait;
     use VariationOperatingCentresControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

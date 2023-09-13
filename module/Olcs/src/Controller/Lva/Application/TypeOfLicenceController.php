@@ -30,7 +30,7 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
     }
 
     protected string $location = 'internal';
-    protected string $lva = 'application';
+    protected $lva = 'application';
 
     protected StringHelperService $stringHelper;
 

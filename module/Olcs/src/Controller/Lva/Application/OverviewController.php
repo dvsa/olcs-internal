@@ -32,7 +32,7 @@ class OverviewController extends AbstractController implements ApplicationContro
     use ApplicationControllerTrait;
     use ApplicationOverviewTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

@@ -10,6 +10,7 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\VariationFinancialEvidenceAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -33,7 +34,7 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -47,6 +48,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
      * @param TableFactory $tableFactory
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param CommandService $commandService
+     * @param StringHelperService $stringHelper
+     * @param VariationFinancialEvidenceAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -57,7 +60,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
         TableFactory $tableFactory,
         AnnotationBuilder $transferAnnotationBuilder,
         CommandService $commandService,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        VariationFinancialEvidenceAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -69,7 +73,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
             $scriptFactory,
             $tableFactory,
             $transferAnnotationBuilder,
-            $commandService
+            $commandService,
+            $lvaAdapter
         );
     }
 }

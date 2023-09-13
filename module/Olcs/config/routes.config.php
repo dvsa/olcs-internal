@@ -3,6 +3,7 @@
 use Olcs\Controller\IrhpPermits\IrhpApplicationController;
 use Olcs\Controller\IrhpPermits\IrhpApplicationFeesController;
 use Olcs\Controller\Licence\SurrenderController;
+use Olcs\Controller\Operator\OperatorBusinessDetailsController;
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingNoteController as TMProcessingNoteController;
 use Olcs\Controller\Application\Processing\ApplicationProcessingNoteController;
 use Olcs\Controller\Licence\BusRegistrationController as LicenceBusController;
@@ -1252,7 +1253,7 @@ $routes = [
                 'options' => [
                     'route' => 'business-details[/]',
                     'defaults' => [
-                        'controller' => 'OperatorBusinessDetailsController',
+                        'controller' => OperatorBusinessDetailsController::class,
                         'action' => 'index',
                     ]
                 ]
@@ -1553,7 +1554,7 @@ $routes = [
         'options' => [
             'route' => '/operator/create[/]',
             'defaults' => [
-                'controller' => 'OperatorBusinessDetailsController',
+                'controller' => OperatorBusinessDetailsController::class,
                 'action' => 'index',
             ],
         ],

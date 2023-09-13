@@ -20,7 +20,7 @@ class DeclarationsInternalController extends \Olcs\Controller\Lva\AbstractDeclar
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

@@ -28,7 +28,7 @@ class TypeOfLicenceController extends AbstractTypeOfLicenceController implements
     use Traits\VariationControllerTrait;
 
     protected string $location = 'internal';
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
 
     protected StringHelperService $stringHelper;
 

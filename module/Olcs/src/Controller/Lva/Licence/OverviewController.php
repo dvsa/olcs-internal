@@ -30,7 +30,7 @@ class OverviewController extends AbstractController implements LicenceController
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     protected LicenceOverviewHelperService $licenceOverviewHelper;

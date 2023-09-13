@@ -9,6 +9,7 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\VariationPeopleAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
@@ -30,7 +31,7 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -44,6 +45,7 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
      * @param VariationLvaService $variationLvaService
      * @param GuidanceHelperService $guidanceHelper
      * @param StringHelperService $stringHelper
+     * @param VariationPeopleAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -53,7 +55,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
         ScriptFactory $scriptFactory,
         VariationLvaService $variationLvaService,
         GuidanceHelperService $guidanceHelper,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        VariationPeopleAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -64,7 +67,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Variation
             $formServiceManager,
             $scriptFactory,
             $variationLvaService,
-            $guidanceHelper
+            $guidanceHelper,
+            $lvaAdapter
         );
     }
 }

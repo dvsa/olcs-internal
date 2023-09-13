@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationTransportManagerAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
@@ -41,6 +42,7 @@ class TransportManagersControllerFactory implements FactoryInterface
         $transferAnnotationBuilder = $container->get(AnnotationBuilder::class);
         $transportManagerHelper = $container->get(TransportManagerHelperService::class);
         $stringHelper = $container->get(StringHelperService::class);
+        $lvaAdapter = $container->get(ApplicationTransportManagerAdapter::class);
 
         return new TransportManagersController(
             $niTextTranslationUtil,
@@ -53,7 +55,8 @@ class TransportManagersControllerFactory implements FactoryInterface
             $commandService,
             $transferAnnotationBuilder,
             $transportManagerHelper,
-            $stringHelper
+            $stringHelper,
+            $lvaAdapter
         );
     }
 

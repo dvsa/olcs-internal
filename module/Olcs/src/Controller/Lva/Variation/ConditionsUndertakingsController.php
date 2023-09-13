@@ -3,6 +3,7 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\VariationConditionsUndertakingsAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -23,7 +24,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -36,6 +37,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
      * @param FormServiceManager $formServiceManager
      * @param TableFactory $tableFactory
      * @param StringHelperService $stringHelper
+     * @param VariationConditionsUndertakingsAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -44,7 +46,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
         TableFactory $tableFactory,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        VariationConditionsUndertakingsAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -54,7 +57,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
             $formHelper,
             $flashMessengerHelper,
             $formServiceManager,
-            $tableFactory
+            $tableFactory,
+            $lvaAdapter
         );
     }
 

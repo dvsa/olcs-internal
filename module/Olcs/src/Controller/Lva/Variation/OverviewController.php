@@ -29,7 +29,7 @@ class OverviewController extends AbstractController implements VariationControll
     use VariationControllerTrait;
     use ApplicationOverviewTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected ApplicationOverviewHelperService $applicationOverviewHelper;

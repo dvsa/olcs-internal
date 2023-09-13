@@ -26,7 +26,7 @@ class VehiclesPsvController extends AbstractVehiclesPsvController implements Lic
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**

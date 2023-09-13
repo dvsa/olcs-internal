@@ -3,10 +3,12 @@
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
 use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FileUploadHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\StringHelperService;
 use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
@@ -33,8 +35,9 @@ class BusinessDetailsControllerFactory implements FactoryInterface
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $formServiceManager = $container->get(FormServiceManager::class);
         $scriptFactory = $container->get(ScriptFactory::class);
-        $stringHelper = $container->get(StringHelperService::class);
         $identityProvider = $container->get(IdentityProviderInterface::class);
+        $tableFactory = $container->get(TableFactory::class);
+        $fileUploadHelper = $container->get(FileUploadHelperService::class);
 
         return new BusinessDetailsController(
             $niTextTranslationUtil,
@@ -43,7 +46,9 @@ class BusinessDetailsControllerFactory implements FactoryInterface
             $flashMessengerHelper,
             $formServiceManager,
             $scriptFactory,
-            $identityProvider
+            $identityProvider,
+            $tableFactory,
+            $fileUploadHelper
         );
     }
 

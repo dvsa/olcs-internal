@@ -10,6 +10,7 @@
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\LicenceTransportManagerAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
@@ -38,7 +39,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -52,6 +53,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
      * @param CommandService $commandService
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param TransportManagerHelperService $transportManagerHelper
+     * @param LicenceTransportManagerAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -63,7 +65,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
         QueryService $queryService,
         CommandService $commandService,
         AnnotationBuilder $transferAnnotationBuilder,
-        TransportManagerHelperService $transportManagerHelper
+        TransportManagerHelperService $transportManagerHelper,
+        LicenceTransportManagerAdapter $lvaAdapter
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -75,7 +78,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
             $queryService,
             $commandService,
             $transferAnnotationBuilder,
-            $transportManagerHelper
+            $transportManagerHelper,
+            $lvaAdapter
         );
     }
 

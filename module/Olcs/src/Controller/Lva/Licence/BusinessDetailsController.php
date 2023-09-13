@@ -10,9 +10,11 @@ namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva\AbstractBusinessDetailsController;
 use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FileUploadHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Olcs\Controller\Lva\Traits\LicenceControllerTrait;
@@ -29,7 +31,7 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -40,6 +42,7 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param IdentityProviderInterface $identityProvider
+     * @param FileUploadHelperService $fileUploadHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -48,7 +51,9 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
-        IdentityProviderInterface $identityProvider
+        IdentityProviderInterface $identityProvider,
+        TableFactory $tableFactory,
+        FileUploadHelperService $fileUploadHelper
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -57,7 +62,9 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
             $flashMessengerHelper,
             $formServiceManager,
             $scriptFactory,
-            $identityProvider
+            $identityProvider,
+            $tableFactory,
+            $fileUploadHelper
         );
     }
 }

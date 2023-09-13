@@ -9,6 +9,7 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\VariationTransportManagerAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
@@ -35,7 +36,7 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     /**
@@ -60,7 +61,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
         QueryService $queryService,
         CommandService $commandService,
         AnnotationBuilder $transferAnnotationBuilder,
-        TransportManagerHelperService $transportManagerHelper
+        TransportManagerHelperService $transportManagerHelper,
+        VariationTransportManagerAdapter $lvaAdapter
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -72,7 +74,8 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
             $queryService,
             $commandService,
             $transferAnnotationBuilder,
-            $transportManagerHelper
+            $transportManagerHelper,
+            $lvaAdapter
         );
     }
 }

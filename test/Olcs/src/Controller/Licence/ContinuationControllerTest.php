@@ -8,6 +8,7 @@
 namespace OlcsTest\Controller\Licence;
 
 use Common\RefData;
+use Olcs\Controller\Licence\ContinuationController;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
 
 /**
@@ -21,7 +22,7 @@ class ContinuationControllerTest extends AbstractLvaControllerTestCase
     {
         parent::setUp();
 
-        $this->mockController('\Olcs\Controller\Licence\ContinuationController');
+        $this->mockController(ContinuationController::class);
     }
 
     public function testAlterFormActionsComplete()

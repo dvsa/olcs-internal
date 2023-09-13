@@ -27,7 +27,7 @@ class DiscsController extends Lva\AbstractDiscsController implements LicenceCont
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**

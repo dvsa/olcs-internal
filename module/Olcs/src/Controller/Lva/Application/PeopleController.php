@@ -8,6 +8,7 @@
  */
 namespace Olcs\Controller\Lva\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationPeopleAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\GuidanceHelperService;
@@ -30,7 +31,7 @@ class PeopleController extends Lva\AbstractPeopleController implements Applicati
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -44,6 +45,7 @@ class PeopleController extends Lva\AbstractPeopleController implements Applicati
      * @param VariationLvaService $variationLvaService
      * @param GuidanceHelperService $guidanceHelper
      * @param StringHelperService $stringHelper
+     * @param ApplicationPeopleAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -53,7 +55,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Applicati
         ScriptFactory $scriptFactory,
         VariationLvaService $variationLvaService,
         GuidanceHelperService $guidanceHelper,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        ApplicationPeopleAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -64,7 +67,8 @@ class PeopleController extends Lva\AbstractPeopleController implements Applicati
             $formServiceManager,
             $scriptFactory,
             $variationLvaService,
-            $guidanceHelper
+            $guidanceHelper,
+            $lvaAdapter
         );
     }
 }

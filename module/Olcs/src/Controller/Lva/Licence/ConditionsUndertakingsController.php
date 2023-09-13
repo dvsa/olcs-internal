@@ -8,6 +8,7 @@
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\LicenceConditionsUndertakingsAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -27,7 +28,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -37,6 +38,7 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
      * @param FlashMessengerHelperService $flashMessengerHelper
      * @param FormServiceManager $formServiceManager
      * @param TableFactory $tableFactory
+     * @param LicenceConditionsUndertakingsAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -44,7 +46,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelper,
         FormServiceManager $formServiceManager,
-        TableFactory $tableFactory
+        TableFactory $tableFactory,
+        LicenceConditionsUndertakingsAdapter $lvaAdapter
     ) {
         parent::__construct(
             $niTextTranslationUtil,
@@ -52,7 +55,8 @@ class ConditionsUndertakingsController extends Lva\AbstractConditionsUndertaking
             $formHelper,
             $flashMessengerHelper,
             $formServiceManager,
-            $tableFactory
+            $tableFactory,
+            $lvaAdapter
         );
     }
 

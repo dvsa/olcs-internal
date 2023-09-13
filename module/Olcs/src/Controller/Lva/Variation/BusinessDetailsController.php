@@ -10,7 +10,9 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva\AbstractBusinessDetailsController;
+use Common\Form\Elements\InputFilters\File;
 use Common\FormService\FormServiceManager;
+use Common\Service\Helper\FileUploadHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\StringHelperService;
@@ -31,7 +33,7 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -44,6 +46,8 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
      * @param FormServiceManager $formServiceManager
      * @param ScriptFactory $scriptFactory
      * @param IdentityProviderInterface $identityProvider
+     * @param StringHelperService $stringHelper
+     * @param FileUploadHelperService $fileUploadHelper
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -53,7 +57,8 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
         FormServiceManager $formServiceManager,
         ScriptFactory $scriptFactory,
         IdentityProviderInterface $identityProvider,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        FileUploadHelperService $fileUploadHelper
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -64,7 +69,8 @@ class BusinessDetailsController extends AbstractBusinessDetailsController implem
             $flashMessengerHelper,
             $formServiceManager,
             $scriptFactory,
-            $identityProvider
+            $identityProvider,
+            $fileUploadHelper
         );
     }
 }

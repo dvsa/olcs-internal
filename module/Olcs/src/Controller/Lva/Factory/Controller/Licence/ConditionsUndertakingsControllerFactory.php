@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Licence;
 
+use Common\Controller\Lva\Adapters\LicenceConditionsUndertakingsAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -31,6 +32,7 @@ class ConditionsUndertakingsControllerFactory implements FactoryInterface
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $formServiceManager = $container->get(FormServiceManager::class);
         $tableFactory = $container->get(TableFactory::class);
+        $lvaAdapter = $container->get(LicenceConditionsUndertakingsAdapter::class);
 
         return new ConditionsUndertakingsController(
             $niTextTranslationUtil,
@@ -38,7 +40,8 @@ class ConditionsUndertakingsControllerFactory implements FactoryInterface
             $formHelper,
             $flashMessengerHelper,
             $formServiceManager,
-            $tableFactory
+            $tableFactory,
+            $lvaAdapter
         );
     }
 

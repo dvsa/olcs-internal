@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Variation;
 
+use Common\Controller\Lva\Adapters\GenericBusinessTypeAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -41,6 +42,7 @@ class BusinessTypeControllerFactory implements FactoryInterface
         $queryService = $container->get(QueryService::class);
         $transferAnnotationBuilder = $container->get(AnnotationBuilder::class);
         $translationHelper = $container->get(TranslationHelperService::class);
+        $lvaAdapter = $container->get(GenericBusinessTypeAdapter::class);
 
         return new BusinessTypeController(
             $niTextTranslationUtil,
@@ -53,7 +55,8 @@ class BusinessTypeControllerFactory implements FactoryInterface
             $translationHelper,
             $transferAnnotationBuilder,
             $queryService,
-            $stringHelper
+            $stringHelper,
+            $lvaAdapter
         );
     }
 

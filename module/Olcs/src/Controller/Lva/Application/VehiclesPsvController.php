@@ -33,7 +33,7 @@ class VehiclesPsvController extends AbstractVehiclesPsvController implements App
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;

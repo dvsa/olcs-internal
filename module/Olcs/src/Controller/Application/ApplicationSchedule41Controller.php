@@ -27,7 +27,7 @@ class ApplicationSchedule41Controller extends Schedule41Controller implements Ap
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected $section = 'operating_centres';

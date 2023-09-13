@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\Controller\Lva\Licence\OverviewController;
-use Olcs\Service\Helper\ApplicationOverviewHelperService;
+use Olcs\Service\Helper\LicenceOverviewHelperService;
 use ZfcRbac\Service\AuthorizationService;
 
 class OverviewControllerFactory implements FactoryInterface
@@ -25,7 +25,7 @@ class OverviewControllerFactory implements FactoryInterface
 
         $niTextTranslationUtil = $container->get(NiTextTranslation::class);
         $authService = $container->get(AuthorizationService::class);
-        $applicationOverviewHelper = $container->get(ApplicationOverviewHelperService::class);
+        $applicationOverviewHelper = $container->get(LicenceOverviewHelperService::class);
         $formHelper = $container->get(FormHelperService::class);
 
         return new OverviewController(

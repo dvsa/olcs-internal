@@ -29,7 +29,7 @@ class TrailersController extends Lva\AbstractTrailersController implements Licen
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
@@ -54,14 +54,16 @@ class TrailersController extends Lva\AbstractTrailersController implements Licen
         DateHelperService $dateHelper,
         QuerySender $querySender
     ) {
-        $this->formHelper = $formHelper;
-        $this->formServiceManager = $formServiceManager;
-        $this->scriptFactory = $scriptFactory;
-        $this->flashMessengerHelper = $flashMessengerHelper;
-        $this->tableFactory = $tableFactory;
-        $this->dateHelper = $dateHelper;
-        $this->querySender = $querySender;
-
-        parent::__construct($niTextTranslationUtil, $authService);
+        parent::__construct(
+            $niTextTranslationUtil,
+            $authService,
+            $formHelper,
+            $formServiceManager,
+            $flashMessengerHelper,
+            $tableFactory,
+            $scriptFactory,
+            $dateHelper,
+            $querySender
+        );
     }
 }

@@ -8,6 +8,7 @@
  */
 namespace Olcs\Controller\Lva\Application;
 
+use Common\Controller\Lva\Adapters\GenericBusinessTypeAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -33,7 +34,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -62,7 +63,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         TranslationHelperService $translationHelper,
         AnnotationBuilder $transferAnnotationBuilder,
         QueryService $queryService,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        GenericBusinessTypeAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -76,7 +78,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
             $identityProvider,
             $translationHelper,
             $transferAnnotationBuilder,
-            $queryService
+            $queryService,
+            $lvaAdapter
         );
     }
 }

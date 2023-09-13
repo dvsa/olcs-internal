@@ -34,7 +34,7 @@ class VehiclesController extends AbstractGenericVehiclesController implements Li
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**

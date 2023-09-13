@@ -9,6 +9,7 @@
 
 namespace Olcs\Controller\Lva\Application;
 
+use Common\Controller\Lva\Adapters\ApplicationFinancialEvidenceAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -33,7 +34,7 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
 {
     use ApplicationControllerTrait;
 
-    protected string $lva = 'application';
+    protected $lva = 'application';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -58,7 +59,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
         TableFactory $tableFactory,
         AnnotationBuilder $transferAnnotationBuilder,
         CommandService $commandService,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        ApplicationFinancialEvidenceAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -70,7 +72,8 @@ class FinancialEvidenceController extends Lva\AbstractFinancialEvidenceControlle
             $scriptFactory,
             $tableFactory,
             $transferAnnotationBuilder,
-            $commandService
+            $commandService,
+            $lvaAdapter
         );
     }
 }

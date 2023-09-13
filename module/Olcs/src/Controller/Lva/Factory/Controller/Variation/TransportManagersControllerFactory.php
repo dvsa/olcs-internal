@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Lva\Factory\Controller\Variation;
 
+use Common\Controller\Lva\Adapters\VariationTransportManagerAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
@@ -40,6 +41,7 @@ class TransportManagersControllerFactory implements FactoryInterface
         $commandService = $container->get(CommandService::class);
         $transferAnnotationBuilder = $container->get(AnnotationBuilder::class);
         $transportManagerHelper = $container->get(TransportManagerHelperService::class);
+        $lvaAdapter = $container->get(VariationTransportManagerAdapter::class);
 
         return new TransportManagersController(
             $niTextTranslationUtil,
@@ -51,7 +53,8 @@ class TransportManagersControllerFactory implements FactoryInterface
             $queryService,
             $commandService,
             $transferAnnotationBuilder,
-            $transportManagerHelper
+            $transportManagerHelper,
+            $lvaAdapter
         );
     }
 

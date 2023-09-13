@@ -25,7 +25,7 @@ class LicenceHistoryController extends Lva\AbstractLicenceHistoryController impl
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     /**

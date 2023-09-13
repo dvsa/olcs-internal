@@ -10,6 +10,7 @@
 namespace Olcs\Controller\Lva\Variation;
 
 use Common\Controller\Lva;
+use Common\Controller\Lva\Adapters\GenericBusinessTypeAdapter;
 use Common\FormService\FormServiceManager;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -34,7 +35,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
 {
     use VariationControllerTrait;
 
-    protected string $lva = 'variation';
+    protected $lva = 'variation';
     protected string $location = 'internal';
 
     protected StringHelperService $stringHelper;
@@ -51,6 +52,7 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
      * @param AnnotationBuilder $transferAnnotationBuilder
      * @param QueryService $queryService
      * @param StringHelperService $stringHelper
+     * @param GenericBusinessTypeAdapter $lvaAdapter
      */
     public function __construct(
         NiTextTranslation $niTextTranslationUtil,
@@ -63,7 +65,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
         TranslationHelperService $translationHelper,
         AnnotationBuilder $transferAnnotationBuilder,
         QueryService $queryService,
-        StringHelperService $stringHelper
+        StringHelperService $stringHelper,
+        GenericBusinessTypeAdapter $lvaAdapter
     ) {
         $this->stringHelper = $stringHelper;
 
@@ -77,7 +80,8 @@ class BusinessTypeController extends Lva\AbstractBusinessTypeController implemen
             $identityProvider,
             $translationHelper,
             $transferAnnotationBuilder,
-            $queryService
+            $queryService,
+            $lvaAdapter
         );
     }
 }

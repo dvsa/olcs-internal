@@ -5,16 +5,29 @@
  *
  * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
  */
+
 namespace Olcs\Controller\Operator;
 
 use Common\Controller\Traits\CompanySearch;
 use Common\RefData;
+use Common\Service\Cqrs\Command\CommandService;
+use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Helper\DateHelperService;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\Operator\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\Operator\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Operator\BusinessDetails as BusinessDetailsDto;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Laminas\View\Helper\Navigation;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\OperatorBusinessDetails as Mapper;
 use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\Licence;
 
 /**
  * Operator Business Details Controller
@@ -41,6 +54,26 @@ class OperatorBusinessDetailsController extends OperatorController implements Le
     protected $createDtoClass = CreateDto::class;
     protected $updateDtoClass = UpdateDto::class;
     protected $queryDtoClass = BusinessDetailsDto::class;
+
+    protected TranslationHelperService $translationHelper;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        DateHelperService $dateHelper,
+        AnnotationBuilder $transferAnnotationBuilder,
+        CommandService $commandService,
+        FlashMessengerHelperService $flashMessengerHelper,
+        Licence $licenceDataService,
+        QueryService $queryService,
+        Navigation $navigationHelper,
+        TranslationHelperService $translatorHelper
+    ) {
+        $this->translationHelper = $translatorHelper;
+        parent::__construct($scriptFactory, $formHelper, $tableFactory, $viewHelperManager, $dateHelper, $transferAnnotationBuilder, $commandService, $flashMessengerHelper, $licenceDataService, $queryService, $navigationHelper);
+    }
 
     /**
      * Index action

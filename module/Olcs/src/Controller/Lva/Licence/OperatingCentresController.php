@@ -30,7 +30,7 @@ class OperatingCentresController extends Lva\AbstractOperatingCentresController 
 {
     use LicenceControllerTrait;
 
-    protected string $lva = 'licence';
+    protected $lva = 'licence';
     protected string $location = 'internal';
 
     /**
