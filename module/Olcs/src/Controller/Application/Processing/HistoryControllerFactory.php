@@ -5,11 +5,11 @@ namespace Olcs\Controller\Application\Processing;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Olcs\Controller\Application\Processing\HistoryController;
 
 class HistoryControllerFactory implements FactoryInterface
 {
@@ -27,11 +27,16 @@ class HistoryControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
+        $tableBuilder = $container->get('TableBuilder');
+        assert($tableBuilder instanceof TableBuilder);
+
         return new HistoryController(
             $translationHelper,
             $formHelperService,
             $flashMessenger,
-            $navigation);
+            $navigation,
+            $tableBuilder
+        );
     }
     public function createService(ServiceLocatorInterface $serviceLocator): HistoryController
     {

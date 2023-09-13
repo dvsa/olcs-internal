@@ -1,20 +1,22 @@
 <?php
 
-namespace Olcs\Controller\Cases\Processing;
+namespace Olcs\Controller;
 
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
-use Olcs\Controller\Cases\Processing\HistoryController;
 
-class HistoryControllerFactory implements FactoryInterface
+class DisqualifyControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HistoryController
+
+    /**
+     * @inheritDoc
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): DisqualifyController
     {
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
@@ -28,22 +30,23 @@ class HistoryControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $tableBuilder = $container->get('TableBuilder');
-        assert($tableBuilder instanceof TableBuilder);
-
-        return new HistoryController(
+        return new DisqualifyController(
             $translationHelper,
             $formHelperService,
             $flashMessenger,
-            $navigation,
-            $tableBuilder
+            $navigation
         );
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): HistoryController
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator): DisqualifyController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            HistoryController::class);
+            DisqualifyController::class);
     }
 }

@@ -5,6 +5,7 @@ namespace Olcs\Controller\Application\Processing;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\AbstractHistoryController;
@@ -18,9 +19,16 @@ class HistoryController extends AbstractHistoryController implements Application
         TranslationHelperService $translationHelper,
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
-        Navigation $navigation
+        Navigation $navigation,
+        TableBuilder $tableBuilder
     )
     {
-        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+        parent::__construct(
+            $translationHelper,
+            $formHelper,
+            $flashMessenger,
+            $navigation,
+            $tableBuilder
+        );
     }
 }

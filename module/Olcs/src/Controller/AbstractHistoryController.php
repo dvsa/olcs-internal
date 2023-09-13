@@ -5,11 +5,12 @@ namespace Olcs\Controller;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Query\Processing\History;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Laminas\View\Model\ViewModel;
-use Olcs\Form\Model\Form\EventHistory as EventHistorytForm;
+use Olcs\Form\Model\Form\EventHistory as EventHistoryForm;
 use Olcs\Data\Mapper\EventHistory as Mapper;
 use Dvsa\Olcs\Transfer\Query\EventHistory\EventHistory as ItemDto;
 
@@ -19,19 +20,27 @@ class AbstractHistoryController extends AbstractInternalController implements Le
     protected $tableName = 'event-history';
     protected $listDto = History::class;
     protected $itemDto = ItemDto::class;
-    protected $formClass = EventHistorytForm::class;
+    protected $formClass = EventHistoryForm::class;
     protected $mapperClass = Mapper::class;
     protected $editContentTitle = 'Action';
     protected $editViewTemplate = 'sections/processing/pages/event-history-popup';
+    protected $tableBuilder = TableBuilder::class;
 
     public function __construct(
         TranslationHelperService $translationHelper,
         FormHelperService $formHelperService,
         FlashMessengerHelperService $flashMessenger,
-        Navigation $navigation
+        Navigation $navigation,
+        TableBuilder $tableBuilder
     )
     {
-        parent::__construct($translationHelper, $formHelperService, $flashMessenger, $navigation);
+        parent::__construct(
+            $translationHelper,
+            $formHelperService,
+            $flashMessenger,
+            $navigation,
+            $tableBuilder
+        );
     }
     /**
      * Get left view
@@ -76,8 +85,6 @@ class AbstractHistoryController extends AbstractInternalController implements Le
      */
     protected function getDetailsTable($details)
     {
-        return $this->getServiceLocator()
-            ->get('Table')
-            ->prepareTable('event-history-details', $details);
+        return $this->tableBuilder->prepareTable('event-history-details', $details);
     }
 }
