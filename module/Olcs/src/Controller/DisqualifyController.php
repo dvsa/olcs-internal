@@ -2,11 +2,27 @@
 
 namespace Olcs\Controller;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Command\Disqualification\Delete;
+use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 
 class DisqualifyController extends AbstractController
 {
+    public function __construct(
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation $navigation
+    ){
+        $this->translationHelper = $translationHelper;
+        $this->formHelper = $formHelper;
+        $this->flashMessenger = $flashMessenger;
+        $this->navigation = $navigation;
+    }
+
     /**
      * index action
      *
@@ -32,17 +48,16 @@ class DisqualifyController extends AbstractController
             $data = (array)$request->getPost();
         }
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
         /* @var $form \Common\Form\Form */
-        $form = $formHelper->createForm('Disqualify');
+        $form = $this->formHelper->createForm('Disqualify');
         $form->setData($data);
-        $formHelper->setFormActionFromRequest($form, $request);
+        $this->formHelper->setFormActionFromRequest($form, $request);
 
         // Must be ticked if no disqualification record exists
         if ($existingDisqualification === false) {
             $validator = new \Laminas\Validator\Identical('Y');
             $validator->setMessage('form.disqualify.is-disqualified.validation');
-            $formHelper->attachValidator($form, 'isDisqualified', $validator);
+            $this->formHelper->attachValidator($form, 'isDisqualified', $validator);
         }
         // Start date is required if isDisqualified is ticked
         if (isset($data['isDisqualified']) && $data['isDisqualified'] == 'N') {
@@ -89,7 +104,7 @@ class DisqualifyController extends AbstractController
             return $this->redirect()->toRouteAjax('operator', [], [], true);
         }
 
-        throw new \RuntimeException('Not setup to redirect back to anywhere');
+        throw new \RuntimeException('Not set up to redirect back to anywhere');
     }
 
 
@@ -137,11 +152,10 @@ class DisqualifyController extends AbstractController
 
         $response = $this->handleCommand($command);
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
-                ->addSuccessMessage('The disqualification details have been changed');
+            $this->flashMessenger->addSuccessMessage('The disqualification details have been changed');
             return true;
         } else {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessenger->addErrorMessage('unknown-error');
             return false;
         }
     }

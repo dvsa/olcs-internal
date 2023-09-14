@@ -9,8 +9,6 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 /**
  * Class SubmissionSectionsTableFactory
  * @package Olcs\View\Helper
- *
- * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
  */
 class SubmissionSectionTableFactory implements FactoryInterface
 {

@@ -21,8 +21,11 @@ class PartialHelperInitializer implements InitializerInterface
      */
     public function __invoke(ContainerInterface $container, $instance)
     {
+        $viewHelperManager = $container->get('ViewHelperManager');
+        assert($viewHelperManager instanceof HelperPluginManager);
+
         $instance->setPartialHelper(
-            $container->getServiceLocator()->get('ViewHelperManager')->get('partial')
+            $viewHelperManager->get('partial')
         );
 
         return $instance;
@@ -33,6 +36,7 @@ class PartialHelperInitializer implements InitializerInterface
      */
     public function initialize($instance, ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, $instance);
+        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
+        return $this->__invoke($container, $instance);
     }
 }
