@@ -7,6 +7,11 @@ use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Common\Controller\Lva\AbstractController;
 use Dvsa\Olcs\Transfer\Command\Application\UpdateAuthSignature;
 
+/**
+* Internal Application Undertakings Controller
+ *
+ * @author Mat Evans <mat.evans@valtech.co.uk>
+ */
 abstract class AbstractDeclarationsInternalController extends AbstractController implements
     ApplicationControllerInterface
 {
