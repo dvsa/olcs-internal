@@ -1,12 +1,8 @@
 <?php
 
-namespace Olcs\Controller\Factory\Application\Docs;
+namespace Olcs\Controller\Factory\Cases\Docs;
 
-use Common\Service\Data\PluginManager;
-use Common\Service\Helper\ComplaintsHelperService;
-use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
-use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
@@ -14,19 +10,19 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
-use Olcs\Controller\Application\ApplicationController;
-use Olcs\Controller\Application\Docs\ApplicationDocsController;
+use Olcs\Controller\Bus\Docs\BusDocsController;
+use Olcs\Controller\Cases\Docs\CaseDocsController;
 use Olcs\Service\Data\DocumentSubCategory;
 
-class ApplicationDocsControllerFactory implements FactoryInterface
+class CaseDocsControllerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param $requestedName
      * @param array|null $options
-     * @return ApplicationDocsController
+     * @return CaseDocsController
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationDocsController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): CaseDocsController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
@@ -34,22 +30,14 @@ class ApplicationDocsControllerFactory implements FactoryInterface
         $formHelper = $container->get(FormHelperService::class);
         $tableFactory = $container->get(TableFactory::class);
         $viewHelperManager = $container->get(HelperPluginManager::class);
-        $dataServiceManager = $container->get(PluginManager::class);
-        $oppositionHelper = $container->get(OppositionHelperService::class);
-        $complaintsHelper = $container->get(ComplaintsHelperService::class);
-        $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $docSubCategoryDataService = $container->get(DocumentSubCategory::class);
         $translationHelper = $container->get(TranslationHelperService::class);
 
-        return new ApplicationDocsController(
+        return new CaseDocsController(
             $scriptFactory,
             $formHelper,
             $tableFactory,
             $viewHelperManager,
-            $dataServiceManager,
-            $oppositionHelper,
-            $complaintsHelper,
-            $flashMessengerHelper,
             $docSubCategoryDataService,
             $translationHelper
         );
@@ -60,10 +48,10 @@ class ApplicationDocsControllerFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return ApplicationDocsController
+     * @return CaseDocsController
      */
-    public function createService(ServiceLocatorInterface $serviceLocator): ApplicationDocsController
+    public function createService(ServiceLocatorInterface $serviceLocator): CaseDocsController
     {
-        return $this->__invoke($serviceLocator, ApplicationDocsController::class);
+        return $this->__invoke($serviceLocator, CaseDocsController::class);
     }
 }

@@ -2285,7 +2285,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'schedule41[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationSchedule41Controller',
+                    'controller' => ApplicationControllers\ApplicationSchedule41Controller::class,
                     'action' => 'licenceSearch'
                 )
             ),
@@ -2296,7 +2296,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                     'options' => array(
                         'route' => 'transfer[/:licNo][/]',
                         'defaults' => array(
-                            'controller' => 'ApplicationSchedule41Controller',
+                            'controller' => ApplicationControllers\ApplicationSchedule41Controller::class,
                             'action' => 'transfer'
                         )
                     )
@@ -2308,7 +2308,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'approve-schedule-41[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationSchedule41Controller',
+                    'controller' => ApplicationControllers\ApplicationSchedule41Controller::class,
                     'action' => 'approveSchedule41'
                 )
             )
@@ -2318,7 +2318,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'reset-schedule-41[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationSchedule41Controller',
+                    'controller' => ApplicationControllers\ApplicationSchedule41Controller::class,
                     'action' => 'resetSchedule41'
                 )
             )
@@ -2328,7 +2328,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'refuse-schedule-41[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationSchedule41Controller',
+                    'controller' => ApplicationControllers\ApplicationSchedule41Controller::class,
                     'action' => 'refuseSchedule41'
                 )
             )
@@ -2378,7 +2378,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => [
                 'route' => 'documents[/]',
                 'defaults' => [
-                    'controller' => 'ApplicationDocsController',
+                    'controller' => ApplicationControllers\Docs\ApplicationDocsController::class,
                     'action' => 'documents',
                 ]
             ],
@@ -2423,7 +2423,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => 'delete/:doc[/]',
                         'defaults' => [
                             'type' => 'application',
-                            'controller' => 'ApplicationDocsController',
+                            'controller' => ApplicationControllers\Docs\ApplicationDocsController::class,
                             'action' => 'delete-document'
                         ]
                     ],
@@ -2446,7 +2446,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             'options' => array(
                 'route' => 'processing[/]',
                 'defaults' => array(
-                    'controller' => 'ApplicationProcessingOverviewController',
+                    'controller' => ApplicationControllers\Processing\ApplicationProcessingOverviewController::class,
                     'action' => 'index'
                 )
             ),
@@ -2468,7 +2468,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                     'options' => [
                         'route' => 'tasks[/]',
                         'defaults' => [
-                            'controller' => 'ApplicationProcessingTasksController',
+                            'controller' => ApplicationControllers\Processing\ApplicationProcessingTasksController::class,
                             'action' => 'index'
                         ]
                     ]

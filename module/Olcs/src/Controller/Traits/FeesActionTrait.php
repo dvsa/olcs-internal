@@ -92,7 +92,7 @@ trait FeesActionTrait
             return $this->getResponse();
         }
 
-        $this->getServiceLocator()->get('Helper\Form')
+        $this->formHelper
             ->setDefaultDate($form->get('fee-details')->get('createdDate'));
 
         $view = new ViewModel(['form' => $form]);
@@ -176,7 +176,7 @@ trait FeesActionTrait
     protected function getFeeFilterForm($filters = [])
     {
         /** @var \Common\Service\Helper\FormHelperService $formHelper */
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         $form = $formHelper->createForm('FeeFilter', false);
         $form->setData($filters);
 
@@ -249,7 +249,7 @@ trait FeesActionTrait
         $fee = $this->getFee($id);
 
         $form = $this->alterFeeForm($this->getForm('Fee'), $fee);
-        $this->getServiceLocator()->get('Helper\Form')->setFormActionFromRequest($form, $this->getRequest());
+        $this->formHelper->setFormActionFromRequest($form, $this->getRequest());
         $form = $this->setDataFeeForm($fee, $form);
         $this->processForm($form);
 
@@ -372,7 +372,7 @@ trait FeesActionTrait
         $table = $this->getTable('transaction-fees', $fees);
         $this->updateTableActionWithQuery($table);
 
-        $urlHelper = $this->getServiceLocator()->get('Helper\Url');
+        $urlHelper = $this->urlHelper;
 
         $backLink = $urlHelper->fromRoute(
             $this->getFeesRoute() . '/fee_action',
@@ -434,7 +434,7 @@ trait FeesActionTrait
     protected function getReverseLink(array $transaction)
     {
         if ($transaction['displayReversalOption']) {
-            return $this->getServiceLocator()->get('Helper\Url')->fromRoute(
+            return $this->urlHelper->fromRoute(
                 $this->getFeesRoute() . '/fee_action/transaction/reverse',
                 ['transaction' => $transaction['id']],
                 ['query' => $this->getRequest()->getQuery()->toArray()],
@@ -503,7 +503,7 @@ trait FeesActionTrait
         $hasProcessed = false;
         if ($form->has('address')) {
             $hasProcessed =
-                $this->getServiceLocator()->get('Helper\Form')->processAddressLookupForm($form, $this->getRequest());
+                $this->formHelper->processAddressLookupForm($form, $this->getRequest());
         }
 
         if (!$hasProcessed && $request->isPost()) {
@@ -516,8 +516,7 @@ trait FeesActionTrait
 
             if ($this->isCardPayment($data)) {
                 // remove field and validator if this is a card payment
-                $this->getServiceLocator()
-                    ->get('Helper\Form')
+                $this->formHelper
                     ->remove($form, 'details->received');
             }
 
@@ -558,7 +557,7 @@ trait FeesActionTrait
     public function refundFeeAction()
     {
         /** @var IdentityProviderInterface $authenticationService */
-        $authenticationService = $this->getServiceLocator()->get(IdentityProviderInterface::class);
+        $authenticationService = $this->identityProvider;
         /** @var User $user */
         $user = $authenticationService->getIdentity();
         $isAdmin = $user->hasRole(RefData::ROLE_INTERNAL_ADMIN);
@@ -576,7 +575,7 @@ trait FeesActionTrait
         }
         if ($form->has('address')) {
             $hasProcessed =
-                $this->getServiceLocator()->get('Helper\Form')->processAddressLookupForm($form, $this->getRequest());
+                $this->formHelper->processAddressLookupForm($form, $this->getRequest());
         }
 
         if (!$hasProcessed && $this->getRequest()->isPost()) {
@@ -659,7 +658,7 @@ trait FeesActionTrait
     private function getRefundFeeForm($isAdmin)
     {
         $formName = $this->isMiscellaneousFees() || $isAdmin ? 'RefundFee' : 'GenericConfirmation';
-        $form = $this->getServiceLocator()->get('Helper\Form')->createFormWithRequest($formName, $this->getRequest());
+        $form = $this->formHelper->createFormWithRequest($formName, $this->getRequest());
         if ($formName === 'GenericConfirmation') {
             $form->setSubmitLabel('Refund');
         }
@@ -686,7 +685,7 @@ trait FeesActionTrait
         $hasProcessed = false;
         if ($form->has('address')) {
             $hasProcessed =
-                $this->getServiceLocator()->get('Helper\Form')->processAddressLookupForm($form, $this->getRequest());
+                $this->formHelper->processAddressLookupForm($form, $this->getRequest());
         }
 
         if (!$hasProcessed && $request->isPost()) {
@@ -710,7 +709,7 @@ trait FeesActionTrait
             return $this->redirectToTransaction(true);
         }
 
-        $translator = $this->getServiceLocator()->get('Helper\Translation');
+        $translator = $this->translationHelper;
         $message = $translator->translateReplace(
             'fees.reverse-transaction.confirm',
             [strtolower($transaction['paymentMethod']['description'])]
@@ -730,7 +729,7 @@ trait FeesActionTrait
      */
     private function getReverseTransactionForm()
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         $form = $formHelper->createFormWithRequest('ReverseTransaction', $this->getRequest());
         if (!$this->isMiscellaneousFees()) {
             $formHelper->remove($form, 'details->customerReference');
@@ -834,7 +833,7 @@ trait FeesActionTrait
         $maxAmount = $feeData['extra']['totalOutstanding'];
 
         // default the receipt date to 'today'
-        $today = $this->getServiceLocator()->get('Helper\Date')->getDateObject();
+        $today = $this->dateHelper->getDateObject();
         $form->get('details')
             ->get('receiptDate')
             ->setValue($today);
@@ -858,7 +857,7 @@ trait FeesActionTrait
             $form->get('details')->get('backToFee')->setValue($feeData['results'][0]['id']);
         }
 
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
         if (!$this->isMiscellaneousFees()) {
             $formHelper->remove($form, 'details->customerReference');
             $formHelper->remove($form, 'details->customerName');
@@ -878,7 +877,7 @@ trait FeesActionTrait
      */
     protected function alterCreateFeeForm($form)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelper;
 
         // disable amount validation by default
         $form->get('fee-details')->get('amount')->setAttribute('readonly', true);
@@ -1261,7 +1260,7 @@ trait FeesActionTrait
     protected function getResolvingErrorMessage($messages)
     {
         $errorMessage = '';
-        $translateHelper = $this->getServiceLocator()->get('Helper\Translation');
+        $translateHelper = $this->translationHelper;
         foreach ($messages as $message) {
             if (is_array($message) && array_key_exists(RefData::ERR_WAIT, $message)) {
                 $errorMessage = $translateHelper->translate('payment.error.15sec');

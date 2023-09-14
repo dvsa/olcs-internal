@@ -69,11 +69,8 @@ trait DocumentSearchTrait
      */
     protected function getDocumentForm($filters = [])
     {
-        /** @var \Laminas\ServiceManager\ServiceLocatorInterface $sm */
-        $sm = $this->getServiceLocator();
-
         /** @var \Common\Service\Helper\FormHelperService $formHelper */
-        $formHelper = $sm->get('Helper\Form');
+        $formHelper = $this->formHelper;
 
         $form = $formHelper->createForm('DocumentsHome', false);
         $formHelper->setFormActionFromRequest($form, $this->getRequest());
@@ -82,7 +79,7 @@ trait DocumentSearchTrait
 
         // grab all the relevant backend data needed to populate the
         // various dropdowns on the filter form
-        $sm->get(\Olcs\Service\Data\DocumentSubCategory::class)
+        $this->documentSubCategoryDataService
             ->setCategory($category);
 
         //  show document field

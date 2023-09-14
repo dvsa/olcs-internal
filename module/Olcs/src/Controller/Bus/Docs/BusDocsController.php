@@ -2,11 +2,17 @@
 
 namespace Olcs\Controller\Bus\Docs;
 
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Constants\FilterOptions;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\AbstractController;
 use Olcs\Controller\Interfaces\BusRegControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits as ControllerTraits;
+use Olcs\Service\Data\DocumentSubCategory;
 
 /**
  * Bus Docs Controller
@@ -16,8 +22,29 @@ use Olcs\Controller\Traits as ControllerTraits;
  */
 class BusDocsController extends AbstractController implements BusRegControllerInterface, LeftViewProvider
 {
-    use ControllerTraits\DocumentActionTrait,
-        ControllerTraits\DocumentSearchTrait;
+    use ControllerTraits\DocumentActionTrait;
+    use ControllerTraits\DocumentSearchTrait;
+
+    protected TranslationHelperService $translationHelper;
+    protected DocumentSubCategory $docSubCategoryDataService;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        TranslationHelperService $translationHelper,
+        DocumentSubCategory $docSubCategoryDataService
+    ) {
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager
+        );
+        $this->translationHelper = $translationHelper;
+        $this->docSubCategoryDataService = $docSubCategoryDataService;
+    }
 
     /**
      * Get configured document form

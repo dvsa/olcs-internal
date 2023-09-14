@@ -55,6 +55,10 @@ use Olcs\Controller\Operator as OperatorControllers;
 use Olcs\Controller\Factory\Operator as OperatorControllerFactories;
 use Olcs\Controller\Application as ApplicationControllers;
 use Olcs\Controller\Factory\Application as ApplicationControllerFactories;
+use Olcs\Controller\Bus as BusControllers;
+use Olcs\Controller\Factory\Bus as BusControllerFactories;
+use Olcs\Controller\Cases as CaseControllers;
+use Olcs\Controller\Factory\Cases as CaseControllerFactories;
 
 return array(
     'router' => [
@@ -239,12 +243,9 @@ return array(
             'Olcs\Controller\Licence\Details\ConditionUndertakingController',
             'LicenceDetailsTaxiPhvController' => 'Olcs\Controller\Licence\Details\TaxiPhvController',
 
-            'ApplicationDocsController' => 'Olcs\Controller\Application\Docs\ApplicationDocsController',
             'ApplicationFeesController' => 'Olcs\Controller\Application\Fees\ApplicationFeesController',
             'ApplicationProcessingTasksController'
                 => 'Olcs\Controller\Application\Processing\ApplicationProcessingTasksController',
-            'ApplicationProcessingOverviewController'
-                => 'Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController',
             ApplicationProcessingNoteController::class => ApplicationProcessingNoteController::class,
             'ApplicationProcessingInspectionRequestController'
                 => 'Olcs\Controller\Application\Processing\ApplicationProcessingInspectionRequestController',
@@ -272,7 +273,6 @@ return array(
             'BusRoutePlaceholderController' => 'Olcs\Controller\Bus\Route\BusRoutePlaceholderController',
             'BusTrcController' => 'Olcs\Controller\Bus\Trc\BusTrcController',
             'BusTrcPlaceholderController' => 'Olcs\Controller\Bus\Trc\BusTrcPlaceholderController',
-            'BusDocsController' => 'Olcs\Controller\Bus\Docs\BusDocsController',
             'BusDocsPlaceholderController' => 'Olcs\Controller\Bus\Docs\BusDocsPlaceholderController',
             Olcs\Controller\Bus\Processing\BusProcessingDecisionController::class =>
                 Olcs\Controller\Bus\Processing\BusProcessingDecisionController::class,
@@ -444,8 +444,15 @@ return array(
             OperatorControllers\Docs\OperatorDocsController::class => OperatorControllerFactories\Docs\OperatorDocsControllerFactory::class,
             OperatorControllers\OperatorController::class => OperatorControllerFactories\OperatorControllerFactory::class,
             ApplicationControllers\ApplicationController::class => ApplicationControllerFactories\ApplicationControllerFactory::class,
-
-
+            ApplicationControllers\Docs\ApplicationDocsController::class => ApplicationControllerFactories\Docs\ApplicationDocsControllerFactory::class,
+            ApplicationControllers\Fees\ApplicationFeesController::class => ApplicationControllerFactories\Fees\ApplicationFeesControllerFactory::class,
+            ApplicationControllers\Processing\ApplicationProcessingOverviewController::class => ApplicationControllerFactories\Processing\ApplicationProcessingOverviewControllerFactory::class,
+            ApplicationControllers\Processing\ApplicationProcessingTasksController::class => ApplicationControllerFactories\Processing\ApplicationProcessingTasksControllerFactory::class,
+            ApplicationControllers\ApplicationSchedule41Controller::class => ApplicationControllerFactories\ApplicationSchedule41ControllerFactory::class,
+            BusControllers\Docs\BusDocsController::class => BusControllerFactories\Docs\BusDocsControllerFactory::class,
+            BusControllers\Fees\BusFeesController::class => BusControllerFactories\Fees\BusFeesControllerFactory::class,
+            BusControllers\Processing\BusProcessingTaskController::class => BusControllerFactories\Processing\BusProcessingTaskControllerFactory::class,
+            CaseControllers\Docs\CaseDocsController::class => CaseControllerFactories\Docs\CaseDocsControllerFactory::class,
         ],
         'aliases' => array(
             'LvaApplication' => Olcs\Controller\Lva\Application\OverviewController::class,
@@ -476,7 +483,6 @@ return array(
             'LvaApplication/DeclarationsInternal' => LvaApplicationControllers\DeclarationsInternalController::class,
             'LvaApplication/Publish' => LvaApplicationControllers\PublishController::class,
             'LvaApplication/Submit' => LvaApplicationControllers\SubmitController::class,
-            'ApplicationSchedule41Controller' => 'Olcs\Controller\Application\ApplicationSchedule41Controller',
             'VariationSchedule41Controller' => 'Olcs\Controller\Variation\VariationSchedule41Controller',
             'LvaLicence' => LvaLicenceControllers\OverviewController::class,
             'LvaLicence/TypeOfLicence' => LvaLicenceControllers\TypeOfLicenceController::class,

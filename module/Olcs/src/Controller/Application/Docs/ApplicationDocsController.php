@@ -7,6 +7,7 @@ use Common\Service\Helper\ComplaintsHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\OppositionHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Constants\FilterOptions;
@@ -28,6 +29,7 @@ class ApplicationDocsController extends ApplicationController implements LeftVie
     use Traits\DocumentActionTrait;
 
     protected DocumentSubCategory $docSubCategoryDataService;
+    protected TranslationHelperService $translationHelper;
 
     public function __construct(
         ScriptFactory $scriptFactory,
@@ -38,7 +40,8 @@ class ApplicationDocsController extends ApplicationController implements LeftVie
         OppositionHelperService $oppositionHelper,
         ComplaintsHelperService $complaintsHelper,
         FlashMessengerHelperService $flashMessengerHelper,
-        DocumentSubCategory $docSubCategoryDataService
+        DocumentSubCategory $docSubCategoryDataService,
+        TranslationHelperService $translationHelper
     ) {
         parent::__construct(
             $scriptFactory,
@@ -51,6 +54,7 @@ class ApplicationDocsController extends ApplicationController implements LeftVie
             $flashMessengerHelper
         );
         $this->docSubCategoryDataService = $docSubCategoryDataService;
+        $this->translationHelper = $translationHelper;
     }
 
     /**
