@@ -922,7 +922,6 @@ return [
             'Admin\ContinuationController' => 'Admin\Controller\ContinuationController',
              'Admin\DiscPrintingController' => 'Admin\Controller\DiscPrintingController',
             'Admin\ContinuationChecklistReminderController' => 'Admin\Controller\ContinuationChecklistReminderController',
-              Admin\Controller\DataRetention\RuleAdminController::class => Admin\Controller\DataRetention\RuleAdminController::class,
              ],
         'factories' => [
             Admin\Controller\DataRetention\ExportController::class => Admin\Controller\DataRetention\ExportControllerFactory::class,
@@ -968,7 +967,9 @@ return [
             Admin\Controller\TaskAllocationRulesController::class => Admin\Controller\TaskAllocationRulesControllerFactory::class,
             Admin\Controller\TeamController::class => Admin\Controller\TeamControllerFactory::class,
             Admin\Controller\TemplateController::class => Admin\Controller\TemplateControllerFactory::class,
-            Admin\Controller\UserManagementController::class => Admin\Controller\UserManagementControllerFactory::class
+            Admin\Controller\UserManagementController::class => Admin\Controller\UserManagementControllerFactory::class,
+            Admin\Controller\DataRetention\RuleAdminController::class => Admin\Controller\DataRetention\RuleAdminControllerFactory::class,
+
         ],
     ],
     'view_manager' => [

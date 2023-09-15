@@ -7,7 +7,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\ResponseHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Query\DataRetention\GetProcessedList;
 use Dvsa\Olcs\Transfer\Query\DataRetention\RuleList;
 use Laminas\Navigation\Navigation;
@@ -23,15 +23,15 @@ class ExportController extends AbstractInternalController implements LeftViewPro
     public function __construct(
         TranslationHelperService $translationHelper,
         FormHelperService $formHelper,
-        FlashMessengerHelperService $flashMessenger,
+        FlashMessengerHelperService $flashMessengerHelperService,
         Navigation $navigation,
-        TableBuilder $tableBuilder,
+        TableFactory $tableFactory,
         ResponseHelperService $responseHelperService
     )
     {
-        $this->tableBuilder = $tableBuilder;
+        $this->tableFactory = $tableFactory;
         $this->responseHelperService = $responseHelperService;
-        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+        parent::__construct($translationHelper, $formHelper, $flashMessengerHelperService, $navigation);
     }
     /**
      * Left View setting
@@ -78,20 +78,18 @@ class ExportController extends AbstractInternalController implements LeftViewPro
 
             if ($response->isOk()) {
                 if ($response->getResult()['count'] > 0) {
-                    /** @var TableBuilder $table */
-                    $table = $this->tableBuilder->prepareTable(
+
+                    $table = $this->tableFactory->prepareTable(
                         'data-retention-export',
                         $response->getResult()
                     );
 
-                    return $this-responseHelperService
+                    return $this->responseHelperService
                         ->tableToCsv($this->getResponse(), $table, 'data-retention');
                 }
-                $this->flashMessenger->addErrorMessage(
-                    'No data retention items were found'
-                );
+                $this->$flashMessengerHelperService->addErrorMessage('No data retention items were found');
             } else {
-                $this->flashMessenger->addUnknownError();
+                $this->$flashMessengerHelperService->addUnknownError();
             }
         }
 

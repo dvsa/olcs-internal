@@ -1,28 +1,27 @@
 <?php
 
-namespace Olcs\Controller\Bus\Service;
+namespace Admin\Controller\DataRetention;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\ResponseHelperService;
 use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableBuilder;
 use Common\Service\Table\TableFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
-class BusServiceControllerFactory implements FactoryInterface
+class RuleAdminControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): BusServiceController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): RuleAdminController
     {
-        $formHelper = $container->get(FormHelperService::class);
-        assert($formHelper instanceof FormHelperService);
-
-        $tableFactory = $container->get(TableFactory::class);
-        assert($tableFactory instanceof TableFactory);
-
         $translationHelper = $container->get(TranslationHelperService::class);
         assert($translationHelper instanceof TranslationHelperService);
+
+        $formHelperService = $container->get(FormHelperService::class);
+        assert($formHelperService instanceof FormHelperService);
 
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
@@ -30,18 +29,18 @@ class BusServiceControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        return new BusServiceController(
+
+        return new RuleAdminController(
             $translationHelper,
-            $formHelper,
+            $formHelperService,
             $flashMessenger,
-            $navigation,
-            $tableFactory);
+            $navigation);
     }
-    public function createService(ServiceLocatorInterface $serviceLocator): BusServiceController
+    public function createService(ServiceLocatorInterface $serviceLocator): RuleAdminController
     {
         $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator(): $serviceLocator;
 
         return $this->__invoke($container,
-            BusServiceController::class);
+            RuleAdminController::class);
     }
 }

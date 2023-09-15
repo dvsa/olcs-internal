@@ -7,6 +7,7 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\ResponseHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
@@ -28,8 +29,9 @@ class ExportControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $tableBuilder = $container->get(TableBuilder::class);
-        assert($tableBuilder instanceof TableBuilder);
+        $tableFactory = $container->get(TableFactory::class);
+        assert($tableFactory instanceof TableFactory);
+
 
         $responseHelperService = $container->get(ResponseHelperService::class);
         assert($responseHelperService instanceof ResponseHelperService);
@@ -39,7 +41,7 @@ class ExportControllerFactory implements FactoryInterface
             $formHelperService,
             $flashMessenger,
             $navigation,
-            $tableBuilder,
+            $tableFactory,
             $responseHelperService);
     }
     public function createService(ServiceLocatorInterface $serviceLocator): ExportController

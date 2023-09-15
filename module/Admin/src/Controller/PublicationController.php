@@ -60,7 +60,7 @@ class PublicationController extends AbstractInternalController implements LeftVi
      */
     protected function getPublicationLinkData($data)
     {
-        $webDavJsonWebTokenGenerationService = $this->webDavJsonWebTokenGenerationService;
+      $webDavJsonWebTokenGenerationService = $this->webDavJsonWebTokenGenerationService;
 
         foreach ($data['results'] as $result => $value) {
             if (isset($value['document'])) {

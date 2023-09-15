@@ -5,7 +5,7 @@ namespace Admin\Controller;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
@@ -34,8 +34,8 @@ class TeamControllerFactory implements FactoryInterface
         $viewHelperManager = $container->get('ViewHelperManager');
         assert($viewHelperManager instanceof HelperPluginManager);
 
-        $tableBuilder = $container->get(TableBuilder::class);
-        assert($tableBuilder instanceof TableBuilder);
+        $tableFactory = $container->get(TableFactory::class);
+        assert($tableFactory instanceof TableFactory);
 
         $subCategory = $container->get(SubCategory::class);
         assert($subCategory instanceof SubCategory);
@@ -49,7 +49,7 @@ class TeamControllerFactory implements FactoryInterface
             $flashMessenger,
             $navigation,
             $viewHelperManager,
-            $tableBuilder,
+            $tableFactory,
             $subCategory,
             $userWithNameService);
     }

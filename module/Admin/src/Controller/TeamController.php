@@ -9,7 +9,6 @@ use Common\Controller\Traits\GenericRenderView;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\Team\CreateTeam as CreateDto;
 use Dvsa\Olcs\Transfer\Command\Team\DeleteTeam as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\Team\UpdateTeam as UpdateDto;
@@ -32,6 +31,7 @@ use Olcs\Mvc\Controller\ParameterProvider\GenericItem;
 use Laminas\View\Model\ViewModel;
 use Olcs\Service\Data\SubCategory;
 use Olcs\Service\Data\UserWithName;
+use Common\Service\Table\TableFactory;
 
 class TeamController extends AbstractInternalController implements LeftViewProvider
 {
@@ -110,15 +110,15 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         FlashMessengerHelperService $flashMessengerHelperService,
         Navigation $navigation,
         HelperPluginManager $viewHelperPluginManager,
-        TableBuilder $tableBuilder,
+        TableFactory $tableFactory,
         SubCategory $subCategory,
-        UserWithNameService $userWithNameService
+        UserWithName $userWithName
     )
     {
         $this->viewHelperPluginManager = $viewHelperPluginManager;
         $this->subCategory = $subCategory;
-        $this->tableBuilder = $tableBuilder;
-        $this->userWithNameService = $userWithNameService;
+        $this->tableFactory = $tableFactory;
+        $this->userWithName = $userWithName;
 
         parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
     }
@@ -340,7 +340,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
         $defaultTeam = isset($formData['exception-details']['team']) ?
             $formData['exception-details']['team'] : $this->params()->fromRoute('team', null);
 
-        $this->userWithNameService
+        $this->userWithName
             ->setTeam($defaultTeam);
 
         return $form;
@@ -361,7 +361,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
 
         $defaultTeam = isset($formData['exception-details']['team']) ?
             $formData['exception-details']['team'] : $this->params()->fromRoute('team', null);
-        $this->userWithNameService
+        $this->userWithName
             ->setTeam($defaultTeam);
 
         return $form;
@@ -386,7 +386,7 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
             );
         } elseif ($name === 'Admin\Form\Model\Form\PrinterException') {
             $teamId = $this->params()->fromRoute('team');
-            $this->userWithNameService->setTeam($teamId);
+            $this->userWithName->setTeam($teamId);
         }
 
         return $form;
@@ -395,11 +395,11 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     /**
      * Get printer exceptions table
      *
-     * @return \Common\Service\Table\TableBuilder
+     * @return \Common\Service\Table\TableFactory
      */
     protected function getExceptionsTable()
     {
-        return $this->tableBuilder
+        return $this->tableFactory
             ->prepareTable('admin-printers-exceptions', $this->getTableData());
     }
 

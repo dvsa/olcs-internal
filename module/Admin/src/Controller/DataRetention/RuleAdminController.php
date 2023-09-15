@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Rule Admin Controller
- */
 namespace Admin\Controller\DataRetention;
 
 use Dvsa\Olcs\Transfer\Query\DataRetention\RuleAdmin as ListDto;
@@ -14,9 +11,6 @@ use Laminas\View\Model\ViewModel;
 use Admin\Form\Model\Form\DataRetentionAdmin as FormClass;
 use Dvsa\Olcs\Transfer\Query\DataRetention\GetRule as ItemDto;
 
-/**
- * Rule admin controller
- */
 class RuleAdminController extends AbstractInternalController implements LeftViewProvider
 {
 

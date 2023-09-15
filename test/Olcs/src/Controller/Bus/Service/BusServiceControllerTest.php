@@ -8,7 +8,7 @@ namespace OlcsTest\Controller\Bus\Service;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\Bus\Service\BusServiceController as Sut;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -25,7 +25,7 @@ class BusServiceControllerTest extends MockeryTestCase
     protected $formHelper;
     protected $flashMessengerHelper;
     protected $navigation;
-    protected $tableBuilder;
+    protected $tableFactory;
 
     public function setUp(): void
     {
@@ -33,19 +33,19 @@ class BusServiceControllerTest extends MockeryTestCase
         $this->formHelper = m::mock(FormHelperService::class);
         $this->flashMessengerHelper =  m::mock(FlashMessengerHelperService::class);
         $this->navigation = m::mock(Navigation::class);
-        $this->tableBuilder = m::mock(TableBuilder::class);
+        $this->tableFactory = m::mock(TableFactory::class);
 
         $this->sut = new Sut(
             $this->translationHelper,
             $this->formHelper,
             $this->flashMessengerHelper,
             $this->navigation,
-            $this->tableBuilder);
+            $this->tableFactory);
     }
 
     public function testGetForm()
     {
-        $this->sut = m::mock(Sut::class,[$this->translationHelper, $this->formHelper, $this->flashMessengerHelper, $this->navigation, $this->tableBuilder])
+        $this->sut = m::mock(Sut::class,[$this->translationHelper, $this->formHelper, $this->flashMessengerHelper, $this->navigation, $this->tableFactory])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -78,12 +78,12 @@ class BusServiceControllerTest extends MockeryTestCase
         )->andReturn($mockForm);
         $this->formHelper->shouldReceive('populateFormTable')->with(
             m::type('object'),
-            m::type(TableBuilder::class)
+            m::type(tableFactory::class)
         )->andReturn($mockForm);
 
-        $mockTable = m::mock(TableBuilder::class);
+        $mockTable = m::mock(tableFactory::class);
 
-        $this->tableBuilder->shouldReceive('prepareTable')->with(
+        $this->tableFactory->shouldReceive('prepareTable')->with(
             m::type('string'),
             m::type('array')
         )->andReturn($mockTable);

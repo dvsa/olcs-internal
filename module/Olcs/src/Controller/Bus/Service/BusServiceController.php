@@ -5,7 +5,7 @@ namespace Olcs\Controller\Bus\Service;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use CommonTest\Service\Table\TableBuilderTest;
 use Dvsa\Olcs\Transfer\Command\Bus\UpdateServiceRegister as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Bus\BusReg as ItemDto;
@@ -52,17 +52,17 @@ class BusServiceController extends AbstractInternalController implements BusRegC
 
     protected $editContentTitle = 'Register service';
 
-    protected TableBuilder $tableBuilder;
+    protected TableFactory $tableFactory;
 
     public function __construct(
         TranslationHelperService $translationHelper,
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
         Navigation $navigation,
-        TableBuilder $tableBuilder
+        TableFactory $tableFactory
     )
     {
-        $this->tableBuilder = $tableBuilder;
+        $this->tableFactory = $tableFactory;
         parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
     }
 
@@ -85,11 +85,11 @@ class BusServiceController extends AbstractInternalController implements BusRegC
     /**
      * Get conditions table
      *
-     * @return \Common\Service\Table\TableBuilder
+     * @return \Common\Service\Table\TableFactory
      */
     protected function getConditionsTable()
     {
-        return $this->tableBuilder->prepareTable('Bus/conditions', $this->getTableData());
+        return $this->tableFactory->prepareTable('Bus/conditions', $this->getTableData());
     }
 
     /**

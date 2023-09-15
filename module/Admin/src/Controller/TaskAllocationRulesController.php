@@ -6,7 +6,7 @@ use Admin\Form\Model\Form\TaskAllocationRule as FormClass;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Create as CreateDto;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\DeleteList as DeleteDto;
@@ -93,11 +93,11 @@ class TaskAllocationRulesController extends AbstractInternalController
         FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelperService,
         Navigation $navigation,
-        TableBuilder $tableBuilder,
+        TableFactory $tableFactory,
         UserListInternal $userListInternal
     )
     {
-        $this->tableBuilder = $tableBuilder;
+        $this->tableFactory = $tableFactory;
         $this->userListInternal = $userListInternal;
         parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
     }
@@ -134,11 +134,6 @@ class TaskAllocationRulesController extends AbstractInternalController
         return $form;
     }
 
-    /**
-     * Get the Task alpha split table
-     *
-     * @return \Common\Service\Table\TableBuilder
-     */
     protected function getAlphaSplitTable()
     {
         $tableData = [];
@@ -157,7 +152,7 @@ class TaskAllocationRulesController extends AbstractInternalController
             }
         }
 
-        return $this->tableBuilder->prepareTable('task-alpha-split', $tableData);
+        return $this->tableFactory->prepareTable('task-alpha-split', $tableData);
     }
 
     /**

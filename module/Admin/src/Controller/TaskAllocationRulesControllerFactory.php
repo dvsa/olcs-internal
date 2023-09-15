@@ -5,7 +5,7 @@ namespace Admin\Controller;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Table\TableBuilder;
+use Common\Service\Table\TableFactory;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\FactoryInterface;
 use Interop\Container\ContainerInterface;
@@ -28,8 +28,9 @@ class TaskAllocationRulesControllerFactory implements FactoryInterface
         $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $tableBuilder = $container->get(TableBuilder::class);
-        assert($tableBuilder instanceof TableBuilder);
+        $tableFactory = $container->get(TableFactory::class);
+        assert($tableFactory instanceof TableFactory);
+
 
         $userListInternal = $container->get(UserListInternal::class);
         assert($userListInternal instanceof UserListInternal);
@@ -39,7 +40,7 @@ class TaskAllocationRulesControllerFactory implements FactoryInterface
             $formHelperService,
             $flashMessenger,
             $navigation,
-            $tableBuilder,
+            $tableFactory,
             $userListInternal);
     }
     public function createService(ServiceLocatorInterface $serviceLocator): TaskAllocationRulesController
