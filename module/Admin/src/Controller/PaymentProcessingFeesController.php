@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Payment Processing Fees Controller
- */
 namespace Admin\Controller;
 
 use Common\Controller\Traits\GenericReceipt;
@@ -14,9 +11,6 @@ use Common\Controller\Traits\GenericRenderView;
 use Common\Controller\Traits\GenericMethods;
 use Common\Util\FlashMessengerTrait;
 
-/**
- * Payment Processing Fees Controller
- */
 class PaymentProcessingFeesController extends LaminasAbstractActionController implements LeftViewProvider
 {
     use FeesActionTrait,
@@ -43,7 +37,7 @@ class PaymentProcessingFeesController extends LaminasAbstractActionController im
         $form->get('fee-details')->get('feeType')->setValueOptions($options);
 
         // remove IRFO fields
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelperService;
         $formHelper->remove($form, 'fee-details->irfoGvPermit');
         $formHelper->remove($form, 'fee-details->irfoPsvAuth');
 

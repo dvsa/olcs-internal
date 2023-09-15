@@ -1,10 +1,5 @@
 <?php
 
-/**
- * System Parameters Controller
- *
- * @author Alexander Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Admin\Controller;
 
 use Olcs\Controller\AbstractInternalController;
@@ -18,11 +13,6 @@ use Dvsa\Olcs\Transfer\Query\SystemParameter\SystemParameterList as ListDto;
 use Olcs\Data\Mapper\SystemParameter as SystemParameterMapper;
 use Admin\Form\Model\Form\SystemParameter as SystemParameterForm;
 
-/**
- * System Parameters Controller
- *
- * @author Alexander Peshkov <alex.peshkov@valtech.co.uk>
- */
 class SystemParametersController extends AbstractInternalController implements LeftViewProvider
 {
 
@@ -87,7 +77,7 @@ class SystemParametersController extends AbstractInternalController implements L
 
     public function alterFormForEdit($form)
     {
-        $formHelper = $this->getServiceLocator()->get('Helper/Form');
+        $formHelper = $this->formHelperService;
 
         // id is disabled in hidden mode so it could be empty after form validation failed
         $form->get('system-parameter-details')

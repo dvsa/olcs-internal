@@ -1,7 +1,4 @@
 <?php
-/**
- * Report Controller
- */
 
 namespace Admin\Controller;
 
@@ -18,12 +15,6 @@ use Laminas\View\Model\ViewModel;
 use Common\Controller\Traits\GenericMethods;
 use Common\Controller\Traits\GenericRenderView;
 use Common\Controller\Traits\ViewHelperManagerAware;
-
-/**
- * Report Controller
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 
 class ReportController extends LaminasAbstractActionController implements LeftViewProvider
 {
@@ -76,7 +67,7 @@ class ReportController extends LaminasAbstractActionController implements LeftVi
                     ]
                 );
 
-                $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
+                $flashMessenger = $this->flashMessenger();
                 $response = $this->handleCommand($command);
                 if ($response->isOk()) {
                     $flashMessenger->addSuccessMessage('Mass Export Queued.');

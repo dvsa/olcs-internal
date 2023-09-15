@@ -5,7 +5,11 @@ namespace Admin\Controller;
 use Admin\Form\Model\Form\DocumentTemplateUpload as DocumentTemplateUploadForm;
 use Common\Category;
 use Common\Service\AntiVirus\Scan;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
 use Common\Util\FileContent;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Admin\Form\Model\Form\DocTemplateFilter;
@@ -18,10 +22,8 @@ use Dvsa\Olcs\Transfer\Command\DocTemplate\Create as CreateDTO;
 use Dvsa\Olcs\Transfer\Command\DocTemplate\Update as UpdateDTO;
 use Dvsa\Olcs\Transfer\Command\DocTemplate\Delete as DeleteDTO;
 use Admin\Data\Mapper\DocumentTemplate as DocumentTemplateMapper;
+use Olcs\Service\Data\SubCategory;
 
-/**
- * Report Upload Controller
- */
 class DocumentTemplateController extends AbstractInternalController implements LeftViewProvider
 {
     const ERR_UPLOAD_DEF = '4';
@@ -56,7 +58,20 @@ class DocumentTemplateController extends AbstractInternalController implements L
         'addAction' => ['forms/document-template'],
         'editAction' => ['forms/document-template']
     ];
+    public function __construct(
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        Navigation $navigation,
+        Scan $scannerAntiVirusService,
+        SubCategory $subCategoryDataService
+    )
+    {
+        $this->scannerAntiVirusService = $scannerAntiVirusService;
+        $this->subCategoryDataService = $subCategoryDataService;
 
+        parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
+    }
     /**
      * Left View setting
      *
@@ -167,7 +182,7 @@ class DocumentTemplateController extends AbstractInternalController implements L
         }
 
         // Run virus scan on file
-        $scanner = $this->getServiceLocator()->get(Scan::class);
+        $scanner = $this->scannerAntiVirusService;
         if ($scanner->isEnabled() && !$scanner->isClean($fileTmpName)) {
             $fileField->setMessages([self::FILE_UPLOAD_ERR_PREFIX . 'virus']);
             return $form;
@@ -192,7 +207,7 @@ class DocumentTemplateController extends AbstractInternalController implements L
             $actionDTO::create($dtoData)
         );
 
-        $flashMessenger = $this->getServiceLocator()->get('Helper\FlashMessenger');
+        $flashMessenger = $this->flashMessengerHelperService;
 
         if ($response->isOk()) {
             $flashMessenger->addSuccessMessage('Document Template uploaded sucessfully');
@@ -217,7 +232,7 @@ class DocumentTemplateController extends AbstractInternalController implements L
      */
     protected function alterFormForAdd($form, $formData)
     {
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
+        $this->subCategoryDataService
             ->setCategory(Category::CATEGORY_APPLICATION);
 
         return $form;
@@ -236,7 +251,7 @@ class DocumentTemplateController extends AbstractInternalController implements L
         $defaultCategory = isset($formData['fields']['category']) ?
             $formData['fields']['category'] : Category::CATEGORY_APPLICATION;
 
-        $this->getServiceLocator()->get(\Olcs\Service\Data\SubCategory::class)
+        $this->subCategoryDataService
             ->setCategory($defaultCategory);
 
         $form->get('fields')->get('templateSlug')->setAttributes(['disabled' => true]);

@@ -11,9 +11,6 @@ use Dvsa\Olcs\Transfer\Command\Cases\PresidingTc\Create as CreateCmd;
 use Dvsa\Olcs\Transfer\Command\Cases\PresidingTc\Delete as DeleteCmd;
 use Admin\Data\Mapper\PresidingTc as PresidingTcMapper;
 
-/**
- * Presiding TC admin controller
- */
 class PresidingTcController extends AbstractInternalController
 {
     /**

@@ -12,9 +12,6 @@ use Dvsa\Olcs\Transfer\Command\Replacement\Create as CreateDTO;
 use Dvsa\Olcs\Transfer\Command\Replacement\Update as UpdateDTO;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Editable Translations Controller
- */
 class ReplacementsController extends AbstractInternalController implements LeftViewProvider
 {
     protected $navigationId = 'admin-dashboard/content-management/replacements';

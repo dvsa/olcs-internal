@@ -2,11 +2,16 @@
 
 namespace Admin\Controller;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Helper\UrlHelperService;
 use Dvsa\Olcs\Transfer\Command\User\CreateUser as CreateDto;
 use Dvsa\Olcs\Transfer\Command\User\UpdateUser as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\User\DeleteUser as DeleteDto;
 use Dvsa\Olcs\Transfer\Query\User\User as ItemDto;
 use Dvsa\Olcs\Transfer\Query\TransportManagerApplication\GetList as TransportManagerApplicationListDto;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Data\Mapper\User as Mapper;
@@ -16,11 +21,6 @@ use Common\RefData;
 use Laminas\Form\Fieldset as FormFieldset;
 use Laminas\Form\Element\Radio as RadioElement;
 
-/**
- * User Management Controller
- *
- * @method redirect Laminas\Mvc\Controller\Plugin\Redirect
- */
 class UserManagementController extends AbstractInternalController implements LeftViewProvider
 {
     /**
@@ -92,7 +92,18 @@ class UserManagementController extends AbstractInternalController implements Lef
             'action' => 'index'
         ]
     ];
+    public function __construct(
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        Navigation $navigation,
+        UrlHelperService $urlHelperService
+    )
+    {
+        $this->urlHelper = $urlHelperService;
 
+        parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
+    }
     /**
      * Defines left view
      *
@@ -192,7 +203,7 @@ class UserManagementController extends AbstractInternalController implements Lef
         ) {
             $value = sprintf(
                 '<a class="govuk-link" href="%s">%s</a>',
-                $this->getServiceLocator()->get('Helper\Url')->fromRoute(
+                $this->urlHelperService->fromRoute(
                     'transport-manager',
                     ['transportManager' => $data['userType']['currentTransportManager']]
                 ),
@@ -290,7 +301,7 @@ class UserManagementController extends AbstractInternalController implements Lef
         );
 
         if ($response->isServerError() || $response->isClientError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelperService->addErrorMessage('unknown-error');
         }
 
         $optionData = [];

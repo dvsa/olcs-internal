@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Printing Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 namespace Admin\Controller;
 
 use Olcs\Controller\AbstractInternalController;
@@ -20,11 +15,6 @@ use Admin\Form\Model\Form\Printer as PrinterForm;
 use Laminas\View\Model\ViewModel;
 use Olcs\Mvc\Controller\ParameterProvider\ConfirmItem;
 
-/**
- * Printing Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class PrintingController extends AbstractInternalController implements LeftViewProvider
 {
     use GenericMethods;

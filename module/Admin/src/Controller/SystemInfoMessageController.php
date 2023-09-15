@@ -12,11 +12,6 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Data\Mapper\SystemInfoMessage as AddEditFormMapper;
 use Laminas\View\Model\ViewModel;
 
-/**
- * System Info Messages Controller
- *
- * @author Dmitry Golubev <dmitrij.golubev@valtech.co.uk>
- */
 class SystemInfoMessageController extends AbstractInternalController
 {
     protected $navigationId = 'admin-dashboard/admin-system-info-message';

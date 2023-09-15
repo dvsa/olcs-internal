@@ -1,6 +1,5 @@
 <?php
 
-use Admin\Controller\PublishedPublicationController;
 use Laminas\Mvc\Router\Http\Segment;
 
 use Admin\Listener\RouteParam\IrhpPermitAdminFurniture;
@@ -123,7 +122,7 @@ return [
                                 'team' => '[0-9]+',
                             ],
                             'defaults' => [
-                                'controller' => 'Admin\TaskAllocationRulesController',
+                                'controller' => Admin\Controller\TaskAllocationRulesController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -158,7 +157,7 @@ return [
                         'options' => [
                             'route' => 'printing[/]',
                             'defaults' => [
-                                'controller' => 'Admin\PrintingController',
+                                'controller' => Admin\Controller\PrintingController::class,
                                 'action' => 'jump',
                             ]
                         ],
@@ -201,7 +200,7 @@ return [
                                         'action' => '(index|add|edit|delete)'
                                     ],
                                     'defaults' => [
-                                        'controller' => 'Admin\PrintingController',
+                                        'controller' => Admin\Controller\PrintingController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -213,7 +212,7 @@ return [
                         'options' => [
                             'route' => 'publication[/]',
                             'defaults' => [
-                                'controller' => 'Admin\PublicationController',
+                                'controller' => Admin\Controller\PublicationController::class,
                                 'action' => 'jump',
                             ]
                         ],
@@ -228,7 +227,7 @@ return [
                                         'action' => '(index|generate|publish)'
                                     ],
                                     'defaults' => [
-                                        'controller' => 'Admin\PublicationController',
+                                        'controller' => Admin\Controller\PublicationController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -242,7 +241,7 @@ return [
                                         'action' => '(index|add|edit|delete)'
                                     ],
                                     'defaults' => [
-                                        'controller' => 'Admin\RecipientController',
+                                        'controller' => Admin\Controller\RecipientController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -252,7 +251,7 @@ return [
                                 'options' => [
                                     'route' => 'published[/]',
                                     'defaults' => [
-                                        'controller' => PublishedPublicationController::class,
+                                        'controller' => Admin\Controller\PublishedPublicationController::class,
                                         'action' => 'index'
                                     ]
                                 ]
@@ -336,7 +335,7 @@ return [
                         'options' => [
                             'route' => 'report[/]',
                             'defaults' => [
-                                'controller' => 'Admin\ReportController',
+                                'controller' => Admin\Controller\ReportController::class,
                                 'action' => 'index',
                             ]
                         ],
@@ -387,7 +386,7 @@ return [
                                 'options' => [
                                     'route' => 'cpid-classification[/:status][/]',
                                     'defaults' => [
-                                        'controller' => 'Admin\ReportController',
+                                        'controller' => Admin\Controller\ReportController::class,
                                         'action' => 'cpidClassification',
                                         'status' => null
                                     ]
@@ -398,7 +397,7 @@ return [
                                 'options' => [
                                     'route' => 'exported-reports[/]',
                                     'defaults' => [
-                                        'controller' => 'Admin\ReportController',
+                                        'controller' => Admin\Controller\ReportController::class,
                                         'action' => 'exportedReports'
                                     ]
                                 ]
@@ -463,7 +462,7 @@ return [
                                 'action' => '(index|add|edit|delete)'
                             ],
                             'defaults' => [
-                                'controller' => 'Admin\UserManagementController',
+                                'controller' => Admin\Controller\UserManagementController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -919,30 +918,12 @@ return [
     'controllers' => [
         'invokables' => [
             Admin\Controller\IndexController::class => Admin\Controller\IndexController::class,
-            'Admin\PrintingController' => 'Admin\Controller\PrintingController',
             Admin\Controller\ScanningController::class => Admin\Controller\ScanningController::class,
-            'Admin\PublicationController' => 'Admin\Controller\PublicationController',
-            PublishedPublicationController::class => PublishedPublicationController::class,
-            'Admin\RecipientController' => 'Admin\Controller\RecipientController',
             'Admin\ContinuationController' => 'Admin\Controller\ContinuationController',
-            'Admin\ReportController' => 'Admin\Controller\ReportController',
-            'Admin\UserManagementController' => 'Admin\Controller\UserManagementController',
-            Admin\Controller\PublicHolidayController::class => Admin\Controller\PublicHolidayController::class,
-            'Admin\DiscPrintingController' => 'Admin\Controller\DiscPrintingController',
-            'Admin\ContinuationChecklistReminderController' =>
-                'Admin\Controller\ContinuationChecklistReminderController',
-            Admin\Controller\TeamController::class => \Admin\Controller\TeamController::class,
-            'Admin\SystemParametersController' => \Admin\Controller\SystemParametersController::class,
-            'Admin\TaskAllocationRulesController' => \Admin\Controller\TaskAllocationRulesController::class,
-            Admin\Controller\SystemInfoMessageController::class => Admin\Controller\SystemInfoMessageController::class,
-            Admin\Controller\ReportCasesOpenController::class => Admin\Controller\ReportCasesOpenController::class,
-             Admin\Controller\DataRetention\RuleAdminController::class =>
-                Admin\Controller\DataRetention\RuleAdminController::class,
-           Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadController::class,
-            Admin\Controller\TemplateController::class => Admin\Controller\TemplateController::class,
-            Admin\Controller\ReplacementsController::class => Admin\Controller\ReplacementsController::class,
-            Admin\Controller\PresidingTcController::class => Admin\Controller\PresidingTcController::class
-        ],
+             'Admin\DiscPrintingController' => 'Admin\Controller\DiscPrintingController',
+            'Admin\ContinuationChecklistReminderController' => 'Admin\Controller\ContinuationChecklistReminderController',
+              Admin\Controller\DataRetention\RuleAdminController::class => Admin\Controller\DataRetention\RuleAdminController::class,
+             ],
         'factories' => [
             Admin\Controller\DataRetention\ExportController::class => Admin\Controller\DataRetention\ExportControllerFactory::class,
             Admin\Controller\BusNoticePeriodController::class => Admin\Controller\BusNoticePeriodControllerFactory::class,
@@ -972,7 +953,22 @@ return [
             Admin\Controller\PermitsController::class => Admin\Controller\PermitsControllerFactory::class,
             Admin\Controller\PermitsReportController::class => Admin\Controller\PermitsReportControllerFactory::class,
             Admin\Controller\PiReportController::class => Admin\Controller\PiReportControllerFactory::class,
-
+            Admin\Controller\PresidingTcController::class => Admin\Controller\PresidingTcControllerFactory::class,
+            Admin\Controller\PrintingController::class => Admin\Controller\PrintingControllerFactory::class,
+            Admin\Controller\PublicationController::class => Admin\Controller\PublicationControllerFactory::class,
+            Admin\Controller\PublicHolidayController::class => Admin\Controller\PublicHolidayControllerFactory::class,
+            Admin\Controller\PublishedPublicationController::class => Admin\Controller\PublishedPublicationControllerFactory::class,
+            Admin\Controller\RecipientController::class => Admin\Controller\RecipientControllerFactory::class,
+            Admin\Controller\ReplacementsController::class => Admin\Controller\ReplacementsControllerFactory::class,
+            Admin\Controller\ReportCasesOpenController::class => Admin\Controller\ReportCasesOpenControllerFactory::class,
+            Admin\Controller\ReportController::class =>  Admin\Controller\ReportControllerFactory::class,
+            Admin\Controller\ReportUploadController::class => Admin\Controller\ReportUploadControllerFactory::class,
+            Admin\Controller\SystemInfoMessageController::class => Admin\Controller\SystemInfoMessageControllerFactory::class,
+            Admin\Controller\SystemParametersController::class => Admin\Controller\SystemParametersControllerFactory::class,
+            Admin\Controller\TaskAllocationRulesController::class => Admin\Controller\TaskAllocationRulesControllerFactory::class,
+            Admin\Controller\TeamController::class => Admin\Controller\TeamControllerFactory::class,
+            Admin\Controller\TemplateController::class => Admin\Controller\TemplateControllerFactory::class,
+            Admin\Controller\UserManagementController::class => Admin\Controller\UserManagementControllerFactory::class
         ],
     ],
     'view_manager' => [

@@ -15,9 +15,6 @@ use Admin\Form\Model\Form\TemplateEdit;
 use Admin\Form\Model\Form\TemplateFilter;
 use Laminas\View\Model\JsonModel;
 
-/**
- * Email Template admin controller
- */
 class TemplateController extends AbstractInternalController implements LeftViewProvider
 {
     /**

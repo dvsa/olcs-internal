@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Published Publication Controller
- */
-
 namespace Admin\Controller;
 
 use Admin\Form\Model\Form\PublishedPublicationFilter;
@@ -14,11 +10,6 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Published Publication Controller
- *
- * @author Richard Ward <richard.ward@bjss.com>
- */
 class PublishedPublicationController extends AbstractInternalController implements LeftViewProvider
 {
     protected $navigationId = 'admin-dashboard/admin-publication/published';

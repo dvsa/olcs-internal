@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Recipient Controller
- */
 namespace Admin\Controller;
 
 use Dvsa\Olcs\Transfer\Command\Publication\CreateRecipient as CreateDto;
@@ -16,9 +13,6 @@ use Olcs\Data\Mapper\Recipient as Mapper;
 use Admin\Form\Model\Form\Recipient as Form;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Recipient Controller
- */
 class RecipientController extends AbstractInternalController implements LeftViewProvider
 {
     /**

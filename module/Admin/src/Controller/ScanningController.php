@@ -7,11 +7,6 @@ use Common\Service\Data\CategoryDataService;
 use Laminas\Mvc\Controller\AbstractActionController as LaminasAbstractActionController;
 use Common\Controller\Traits\GenericRenderView;
 
-/**
- * Scanning Controller
- *
- * @author Nick Payne <nick.payne@valtech.co.uk>
- */
 class ScanningController extends LaminasAbstractActionController
 {
     const ERR_NO_ENTITY_FOR_CATEGORY = 'ERR_NO_ENTITY_FOR_CATEGORY';
