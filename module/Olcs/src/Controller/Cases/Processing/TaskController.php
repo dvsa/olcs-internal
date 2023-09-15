@@ -2,7 +2,12 @@
 
 namespace Olcs\Controller\Cases\Processing;
 
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Utils\Constants\FilterOptions;
+use Laminas\Router\Http\TreeRouteStack;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\AbstractController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -16,10 +21,26 @@ use Olcs\Controller\Traits as ControllerTraits;
  */
 class TaskController extends AbstractController implements CaseControllerInterface, LeftViewProvider
 {
-    use ControllerTraits\CaseControllerTrait,
-    ControllerTraits\ProcessingControllerTrait,
-    ControllerTraits\TaskActionTrait {
+    use ControllerTraits\CaseControllerTrait, ControllerTraits\ProcessingControllerTrait, ControllerTraits\TaskActionTrait {
         ControllerTraits\TaskActionTrait::getTaskForm as traitGetTaskForm;
+    }
+
+    protected TreeRouteStack $router;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        TreeRouteStack $router
+    ) {
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager
+        );
+        $this->router = $router;
     }
 
     /**

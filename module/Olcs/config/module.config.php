@@ -59,6 +59,8 @@ use Olcs\Controller\Bus as BusControllers;
 use Olcs\Controller\Factory\Bus as BusControllerFactories;
 use Olcs\Controller\Cases as CaseControllers;
 use Olcs\Controller\Factory\Cases as CaseControllerFactories;
+use Olcs\Controller\Document as DocumentControllers;
+use Olcs\Controller\Factory\Document as DocumentControllerFactories;
 
 return array(
     'router' => [
@@ -173,7 +175,6 @@ return array(
             Cases\Overview\OverviewController::class => Cases\Overview\OverviewController::class,
             Cases\PublicInquiry\PiController::class => Cases\PublicInquiry\PiController::class,
             Cases\Processing\NoteController::class => Cases\Processing\NoteController::class,
-            Cases\Processing\TaskController::class => Cases\Processing\TaskController::class,
             Cases\Hearing\AppealController::class => Cases\Hearing\AppealController::class,
             Cases\Hearing\StayController::class => Cases\Hearing\StayController::class,
             'CaseDocsController' => 'Olcs\Controller\Cases\Docs\CaseDocsController',
@@ -216,10 +217,6 @@ return array(
 
             SearchController::class => SearchController::class,
             'DocumentController' => 'Olcs\Controller\Document\DocumentController',
-            'DocumentGenerationController' => 'Olcs\Controller\Document\DocumentGenerationController',
-            'DocumentUploadController' => 'Olcs\Controller\Document\DocumentUploadController',
-            'DocumentFinaliseController' => 'Olcs\Controller\Document\DocumentFinaliseController',
-            'DocumentRelinkController' => 'Olcs\Controller\Document\DocumentRelinkController',
             'LicenceController' => 'Olcs\Controller\Licence\LicenceController',
             'LicenceDocsController' => 'Olcs\Controller\Licence\Docs\LicenceDocsController',
             'LicenceFeesController' => 'Olcs\Controller\Licence\Fees\LicenceFeesController',
@@ -453,6 +450,11 @@ return array(
             BusControllers\Fees\BusFeesController::class => BusControllerFactories\Fees\BusFeesControllerFactory::class,
             BusControllers\Processing\BusProcessingTaskController::class => BusControllerFactories\Processing\BusProcessingTaskControllerFactory::class,
             CaseControllers\Docs\CaseDocsController::class => CaseControllerFactories\Docs\CaseDocsControllerFactory::class,
+            CaseControllers\Processing\TaskController::class => CaseControllerFactories\Processing\TaskControllerFactory::class,
+            DocumentControllers\DocumentFinaliseController::class => DocumentControllerFactories\DocumentFinaliseControllerFactory::class,
+            DocumentControllers\DocumentGenerationController::class => DocumentControllerFactories\DocumentGenerationControllerFactory::class,
+            DocumentControllers\DocumentRelinkController::class => DocumentControllerFactories\DocumentRelinkControllerFactory::class,
+            DocumentControllers\DocumentUploadController::class => DocumentControllerFactories\DocumentUploadControllerFactory::class,
         ],
         'aliases' => array(
             'LvaApplication' => Olcs\Controller\Lva\Application\OverviewController::class,

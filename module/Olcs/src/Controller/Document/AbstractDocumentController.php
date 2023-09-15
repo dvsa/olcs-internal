@@ -6,6 +6,9 @@ use Common\Data\Mapper\LetterGenerationDocument;
 use Common\Exception\ConfigurationException;
 use Common\Rbac\JWTIdentityProvider;
 use Common\RefData;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\Document\DeleteDocument;
 use Dvsa\Olcs\Transfer\Command\Task\CloseTasks;
 use Dvsa\Olcs\Transfer\Query\Application\Application;
@@ -13,6 +16,7 @@ use Dvsa\Olcs\Transfer\Query\Cases\Cases;
 use Dvsa\Olcs\Transfer\Query\Document\Letter;
 use Dvsa\Olcs\Transfer\Query as TransferQry;
 use Dvsa\Olcs\Transfer\Query\MyAccount\MyAccount;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\AbstractController;
 use Common\Category;
 use Common\Service\Cqrs\Response;
@@ -67,6 +71,19 @@ abstract class AbstractDocumentController extends AbstractController
     protected $docData = [];
 
     private $caseData;
+
+    protected array $config;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        array $config
+    ) {
+        parent::__construct($scriptFactory, $formHelper, $tableFactory, $viewHelperManager);
+        $this->config = $config;
+    }
 
     /**
      * Maps an entity type to the key needed to get the id from the route
@@ -262,7 +279,7 @@ abstract class AbstractDocumentController extends AbstractController
      */
     protected function getUriPattern(): string
     {
-        $config = $this->getServiceLocator()->get('Config');
+        $config = $this->config;
 
         $url_pattern = $config['webdav']['url_pattern'] ?? null;
         if (!isset($url_pattern)) {

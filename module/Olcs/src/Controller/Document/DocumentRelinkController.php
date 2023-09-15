@@ -7,11 +7,18 @@
  */
 namespace Olcs\Controller\Document;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\Http\Response;
 use Dvsa\Olcs\Transfer\Command\Document\CopyDocument;
 use Dvsa\Olcs\Transfer\Command\Document\MoveDocument;
 use Olcs\Data\Mapper\DocumentRelink as DocumentRelinkMapper;
+use Olcs\Service\Helper\WebDavJsonWebTokenGenerationService;
 
 /**
  * Document Relink Controller
@@ -29,6 +36,29 @@ class DocumentRelinkController extends AbstractDocumentController
         'irhpApplication'  => 'IRHP application id',
         'transportManager' => 'Transport manager ID'
     ];
+
+    protected FlashMessengerHelperService $flashMessengerHelper;
+    protected TranslationHelperService $translationHelper;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        array $config,
+        FlashMessengerHelperService $flashMessengerHelper,
+        TranslationHelperService $translationHelper
+    ) {
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager,
+            $config
+        );
+        $this->flashMessengerHelper = $flashMessengerHelper;
+        $this->translationHelper = $translationHelper;
+    }
 
     /**
      * Performs a copy or move document(s) and redirect back to index
@@ -69,7 +99,7 @@ class DocumentRelinkController extends AbstractDocumentController
      */
     protected function getRelinkView($form)
     {
-        $translator = $this->getServiceLocator()->get('translator');
+        $translator = $this->translationHelper;
         $view = new ViewModel(['form' => $form]);
 
         $view->setTemplate('pages/form');
@@ -87,7 +117,7 @@ class DocumentRelinkController extends AbstractDocumentController
      */
     protected function getRelinkForm($type, $ids)
     {
-        $form = $this->getServiceLocator()->get('Helper\Form')
+        $form = $this->formHelper
             ->createFormWithRequest('DocumentRelink', $this->getRequest());
 
         $form->get('document-relink-details')->get('type')->setValue($type);
@@ -123,19 +153,19 @@ class DocumentRelinkController extends AbstractDocumentController
         $response = $this->handleCommand($dto::create($data));
 
         if ($response->isOk()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addSuccessMessage($message);
+            $this->flashMessengerHelper->addSuccessMessage($message);
             return $this->redirectToDocumentRoute($type, null, $routeParams, true);
         }
 
         if ($response->isServerError()) {
-            $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+            $this->flashMessengerHelper->addErrorMessage('unknown-error');
         }
 
         if ($response->isClientError()) {
             $errors = DocumentRelinkMapper::mapFromErrors($form, $response->getResult());
 
             foreach ($errors as $error) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage($error);
+                $this->flashMessengerHelper->addErrorMessage($error);
             }
         }
     }

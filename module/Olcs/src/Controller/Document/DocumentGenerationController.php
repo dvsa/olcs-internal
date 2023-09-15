@@ -4,12 +4,19 @@ namespace Olcs\Controller\Document;
 
 use Common\Category;
 use Common\Form\Elements\InputFilters\MultiCheckboxEmpty;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\Document\CreateLetter;
 use Dvsa\Olcs\Transfer\Query\Document\TemplateParagraphs;
+use Laminas\View\HelperPluginManager;
 use Olcs\Logging\Log\Logger;
 use Laminas\Form\Fieldset;
 use Laminas\Form\Form;
 use Laminas\View\Model\ViewModel;
+use Olcs\Service\Data\DocumentSubCategoryWithDocs;
+use Olcs\Service\Helper\WebDavJsonWebTokenGenerationService;
 
 /**
  * Document Generation Controller
@@ -23,6 +30,29 @@ class DocumentGenerationController extends AbstractDocumentController
      * Labels for empty select options
      */
     const EMPTY_LABEL = 'Please select';
+
+    protected FlashMessengerHelperService $flashMessengerHelper;
+    protected DocumentSubCategoryWithDocs $docSubcategoryWithDocsDataService;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        array $config,
+        FlashMessengerHelperService $flashMessengerHelper,
+        DocumentSubCategoryWithDocs $docSubcategoryWithDocsDataService
+    ) {
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager,
+            $config
+        );
+        $this->flashMessengerHelper = $flashMessengerHelper;
+        $this->docSubcategoryWithDocsDataService = $docSubcategoryWithDocsDataService;
+    }
 
     /**
      * Process action - Generate
@@ -78,7 +108,7 @@ class DocumentGenerationController extends AbstractDocumentController
             return $this->processGenerateDocument($data);
         } catch (\ErrorException $e) {
             Logger::warn($e->getMessage());
-            $this->getServiceLocator()->get('Helper\FlashMessenger')
+            $this->flashMessengerHelper
                 ->addCurrentErrorMessage('Unable to generate the document');
         }
 
@@ -213,7 +243,7 @@ class DocumentGenerationController extends AbstractDocumentController
         $catId = (int)$details['category'];
 
         //  set dynamic select
-        $this->getServiceLocator()->get(\Olcs\Service\Data\DocumentSubCategoryWithDocs::class)
+        $this->docSubcategoryWithDocsDataService
             ->setCategory($catId);
 
         $docTemplates = ['' => self::EMPTY_LABEL];
