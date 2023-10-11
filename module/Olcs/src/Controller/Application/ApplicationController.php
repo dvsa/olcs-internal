@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Application Controller
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 namespace Olcs\Controller\Application;
 
 use Common\Controller\Traits\CheckForCrudAction;
