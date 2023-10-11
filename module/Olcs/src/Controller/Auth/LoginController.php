@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+// Test
+
 namespace Olcs\Controller\Auth;
 
 use Common\Auth\Service\AuthenticationServiceInterface;
