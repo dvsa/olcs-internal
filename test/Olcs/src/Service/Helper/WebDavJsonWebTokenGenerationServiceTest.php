@@ -136,14 +136,10 @@ class WebDavJsonWebTokenGenerationServiceTest extends MockeryTestCase
         $result = $this->sut->generateToken(static::JWT_SUBJECT, static::JWT_DOCUMENT);
         $decodedJwt = JWT::decode($result, new Key(base64_decode(static::JWT_PUBLIC_KEY_BASE64, true), WebDavJsonWebTokenGenerationService::TOKEN_ALGORITHM));
 
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_SUBJECT));
-
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_SUBJECT, $decodedJwt);
         $this->assertEquals(static::JWT_SUBJECT, $decodedJwt->sub);
 
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_DOCUMENT));
-
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_DOCUMENT, $decodedJwt);
         $this->assertEquals(static::JWT_DOCUMENT, $decodedJwt->doc);
     }
 
@@ -164,14 +160,10 @@ class WebDavJsonWebTokenGenerationServiceTest extends MockeryTestCase
         $result = $this->sut->generateToken(static::JWT_SUBJECT, static::JWT_DOCUMENT);
         $decodedJwt = JWT::decode($result, new Key(base64_decode(static::JWT_PUBLIC_KEY_BASE64, true), WebDavJsonWebTokenGenerationService::TOKEN_ALGORITHM));
 
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_SUBJECT));
-
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_SUBJECT, $decodedJwt);
         $this->assertEquals(static::JWT_SUBJECT, $decodedJwt->sub);
 
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_DOCUMENT));
-
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_DOCUMENT, $decodedJwt);
         $this->assertEquals(static::JWT_DOCUMENT, $decodedJwt->doc);
     }
 
@@ -190,11 +182,8 @@ class WebDavJsonWebTokenGenerationServiceTest extends MockeryTestCase
         $result = $this->sut->generateToken(static::JWT_SUBJECT, static::JWT_DOCUMENT);
         $decodedJwt = JWT::decode($result, new Key(base64_decode(static::JWT_PUBLIC_KEY_BASE64, true), WebDavJsonWebTokenGenerationService::TOKEN_ALGORITHM));
 
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_ISSUED_AT));
-
-        $this->assertIsObject($decodedJwt);
-        $this->assertTrue(property_exists($decodedJwt, WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_EXPIRES_AT));
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_ISSUED_AT, $decodedJwt);
+        $this->assertObjectHasProperty(WebDavJsonWebTokenGenerationService::TOKEN_PAYLOAD_KEY_EXPIRES_AT, $decodedJwt);
     }
 
     public function testGFetJwtWebDavLink(): void
