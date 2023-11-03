@@ -3,12 +3,19 @@ $config = array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'Dvsa\LaminasConfigCloudParameters',
+        'Laminas\Log',
+        'Olcs\Logging',
+        'Laminas\Cache\Module',
+        'Laminas\Cache\Storage\Adapter\Redis',
+        'Laminas\I18n',
+        'Laminas\Mvc\Plugin\FlashMessenger',
+        'Laminas\Filter',
+        'Laminas\Validator',
+        'Laminas\Form',
         'Dvsa\Olcs\Auth',
         'Dvsa\Olcs\Utils',
         'Dvsa\Olcs\Transfer',
-        'ZfcRbac',
-        'Olcs\Logging',
-        'Dvsa\Olcs\Transfer',
+        'LmcRbacMvc',
         // Common should be included before our applications modules, so we can override common behaviour
         'Common',
         'Soflomo\Purifier',
