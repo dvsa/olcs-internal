@@ -4,7 +4,6 @@ namespace OlcsTest;
 use Common\Service\Translator\TranslationLoader;
 use Mockery as m;
 use Laminas\I18n\Translator\LoaderPluginManager;
-use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Loader\AutoloaderFactory;
 use RuntimeException;
@@ -23,23 +22,13 @@ class Bootstrap
     public static function init()
     {
         ini_set('memory_limit', '500M');
-
-        $zf2ModulePaths = array(dirname(dirname(__DIR__)));
-        if (($path = static::findParentPath('vendor'))) {
-            $zf2ModulePaths[] = $path;
-        }
-        if (($path = static::findParentPath('module')) !== $zf2ModulePaths[0]) {
-            $zf2ModulePaths[] = $path;
-        }
-
         static::initAutoloader();
 
         // use ModuleManager to load this module and it's dependencies
         $config = include __DIR__.'/../config/application.config.php';
 
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        $serviceManager = new ServiceManager([]);
         $serviceManager->setService('ApplicationConfig', $config);
-        $serviceManager->get('ModuleManager')->loadModules();
 
         // If we want to a mock a service, we can.  But default services apply.
         $serviceManager->setAllowOverride(true);
