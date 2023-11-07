@@ -10,7 +10,7 @@ use Common\Controller\Plugin\Redirect;
 use Common\Service\Helper\FormHelperService;
 use Dvsa\Olcs\Auth\Container\AuthChallengeContainer;
 use Interop\Container\ContainerInterface;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\Layout;
 use Laminas\Mvc\Controller\Plugin\Url;
 use Laminas\ServiceManager\Factory\FactoryInterface;

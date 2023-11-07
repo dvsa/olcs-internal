@@ -11,16 +11,11 @@ use Common\Service\Table\TableFactory;
 use Laminas\Router\Http\TreeRouteStack;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger;
-use Laminas\Mvc\Controller\Plugin\PluginInterface;
 use Laminas\Mvc\Controller\Plugin\Redirect;
 use Laminas\Mvc\Controller\PluginManager;
-use Laminas\Mvc\Controller\Plugin\Params;
 use Laminas\Router\RouteMatch;
-use Laminas\View\Model\ViewModel;
 use Olcs\Service\Data\SubCategory;
 use OlcsTest\Bootstrap;
-use Laminas\Http\Response;
 use Laminas\Mvc\MvcEvent;
 use Mockery as m;
 

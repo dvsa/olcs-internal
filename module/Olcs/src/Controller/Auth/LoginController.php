@@ -16,7 +16,7 @@ use Laminas\EventManager\EventInterface;
 use Laminas\Form\Form;
 use Laminas\Http\Request;
 use Laminas\Http\Response;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\Layout;
 use Laminas\Mvc\Controller\Plugin\Url;
 use Laminas\Mvc\InjectApplicationEventInterface;
