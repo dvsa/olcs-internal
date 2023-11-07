@@ -3,7 +3,8 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\RefData;
-use OlcsTest\Bootstrap;
+use Interop\Container\ContainerInterface;
+use Olcs\Service\Marker\MarkerService;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery as m;
 use Olcs\Event\RouteParam;
@@ -11,10 +12,6 @@ use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\Application;
 use Laminas\Navigation\Page\AbstractPage;
 
-/**
- * Class ApplicationTest
- * @package OlcsTest\Listener\RouteParam
- */
 class ApplicationTest extends MockeryTestCase
 {
     public function setUp(): void
@@ -42,7 +39,7 @@ class ApplicationTest extends MockeryTestCase
 
         $mockQueryService->shouldReceive('send')->with('QUERY')->once()->andReturn($mockResult);
 
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $mockMarkerService->shouldReceive('addData')->with('organisation', $applicationData['licence']['organisation']);
 
         $mockApplicationService = m::mock()->shouldReceive('setId')->with($id)->getMock();
@@ -655,27 +652,27 @@ class ApplicationTest extends MockeryTestCase
         ];
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
         $mockNavigationService = m::mock('Laminas\Navigation\Navigation');
         $mockViewHelperManager = m::mock('Laminas\View\HelperPluginManager');
         $mockSidebar = m::mock();
         $mockTransferAnnotationBuilder = m::mock();
         $mockQueryService = m::mock();
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $mockApplicationService = m::mock();
 
-        $mockSl = m::mock('Laminas\ServiceManager\ServiceLocatorInterface');
+        $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mockNavigationService);
         $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($mockSidebar);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->andReturn($mockTransferAnnotationBuilder);
         $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
-        $mockSl->shouldReceive('get')->with(\Olcs\Service\Marker\MarkerService::class)->andReturn($mockMarkerService);
+        $mockSl->shouldReceive('get')->with(MarkerService::class)->andReturn($mockMarkerService);
         $mockSl->shouldReceive('get')->with('Common\Service\Data\Application')->andReturn($mockApplicationService);
 
         $sut = new Application();
-        $service = $sut->createService($mockSl);
+        $service = $sut->__invoke($mockSl, Application::class);
 
         $this->assertSame($sut, $service);
         $this->assertSame($mockNavigationService, $sut->getNavigationService());

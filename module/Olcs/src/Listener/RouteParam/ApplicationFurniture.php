@@ -15,16 +15,10 @@ use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Application Furniture
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class ApplicationFurniture implements
     ListenerAggregateInterface,
     FactoryInterface,
@@ -53,22 +47,6 @@ class ApplicationFurniture implements
     public function getRouter()
     {
         return $this->router;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->setViewHelperManager($serviceLocator->get('ViewHelperManager'));
-        $this->setQuerySender($serviceLocator->get('QuerySender'));
-        $this->setRouter($serviceLocator->get('Router'));
-        $this->setCommandSender($serviceLocator->get('CommandSender'));
-
-        return $this;
     }
 
     /**

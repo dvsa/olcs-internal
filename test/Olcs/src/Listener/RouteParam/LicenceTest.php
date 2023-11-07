@@ -4,6 +4,7 @@ namespace OlcsTest\Listener\RouteParam;
 
 use Common\Exception\DataServiceException;
 use Common\Service\Data\Surrender;
+use Interop\Container\ContainerInterface;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\Licence;
@@ -11,13 +12,8 @@ use Mockery as m;
 use Olcs\Listener\RouteParams;
 use Common\RefData;
 use Laminas\Navigation\Page\AbstractPage;
-use Laminas\View\Helper\Container;
+use Olcs\Service\Marker\MarkerService;
 
-/**
- * Class LicenceTest
- *
- * @package OlcsTest\Listener\RouteParam
- */
 class LicenceTest extends TestCase
 {
     /**
@@ -56,7 +52,7 @@ class LicenceTest extends TestCase
 
         $mockResult = m::mock();
 
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $this->sut->setMarkerService($mockMarkerService);
 
         $mockLicenceService = m::mock();
@@ -548,7 +544,7 @@ class LicenceTest extends TestCase
         $this->sut->onLicence($event);
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
         $mockViewHelperManager = m::mock('Laminas\View\HelperPluginManager');
         $mockLicenceService = m::mock('Common\Service\Data\Licence');
@@ -556,22 +552,22 @@ class LicenceTest extends TestCase
         $mockNavigation = m::mock(); // 'right-sidebar'
         $mockAnnotationBuilder = m::mock();
         $mockQueryService = m::mock();
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $mainNav = m::mock();
 
-        $mockSl = m::mock('Laminas\ServiceManager\ServiceLocatorInterface');
+        $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('DataServiceManager')->andReturnSelf();
         $mockSl->shouldReceive('get')->with('Common\Service\Data\Licence')->andReturn($mockLicenceService);
         $mockSl->shouldReceive('get')->with('Common\Service\Data\Surrender')->andReturn($mockSurrenderService);
         $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($mockNavigation);
-        $mockSl->shouldReceive('get')->with(\Olcs\Service\Marker\MarkerService::class)->andReturn($mockMarkerService);
+        $mockSl->shouldReceive('get')->with(MarkerService::class)->andReturn($mockMarkerService);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->andReturn($mockAnnotationBuilder);
         $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mainNav);
 
         $sut = new Licence();
-        $service = $sut->createService($mockSl);
+        $service = $sut->__invoke($mockSl, Licence::class);
 
         $this->assertSame($sut, $service);
         $this->assertSame($mockViewHelperManager, $sut->getViewHelperManager());

@@ -8,8 +8,7 @@ use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Service\Data\SubCategory;
 use Olcs\Service\Data\UserWithName;
@@ -51,15 +50,6 @@ class TeamControllerFactory implements FactoryInterface
             $tableFactory,
             $subCategory,
             $userWithNameService
-        );
-    }
-    public function createService(ServiceLocatorInterface $serviceLocator): TeamController
-    {
-        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator() : $serviceLocator;
-
-        return $this->__invoke(
-            $container,
-            TeamController::class
         );
     }
 }

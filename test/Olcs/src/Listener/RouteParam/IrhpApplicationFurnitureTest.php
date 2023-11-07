@@ -1,16 +1,12 @@
 <?php
 
-/**
- * IrhpApplication Furniture Test
- *
- * @author Andy Newton <andy@vitri.ltd>
- */
-
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Common\Service\Helper\UrlHelperService;
+use Interop\Container\ContainerInterface;
+use Laminas\View\HelperPluginManager;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\IrhpApplicationFurniture;
@@ -54,7 +50,7 @@ class IrhpApplicationFurnitureTest extends TestCase
 
         $mockResult = m::mock();
 
-        $mockViewHelperManager = m::mock(\Laminas\View\HelperPluginManager::class);
+        $mockViewHelperManager = m::mock(HelperPluginManager::class);
         $this->sut->setViewHelperManager($mockViewHelperManager);
 
         $mockQuerySender->shouldReceive('send')->andReturn($mockResult);
@@ -310,16 +306,16 @@ class IrhpApplicationFurnitureTest extends TestCase
         ];
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
-        $mockViewHelperManager = m::mock('Laminas\View\HelperPluginManager');
+        $mockViewHelperManager = m::mock(HelperPluginManager::class);
         $mockNavigation = m::mock('Laminas\Navigation\Navigation');
         $mockQuerySender = m::mock(QuerySender::class);
         $mockCommandSender = m::mock(CommandSender::class);
         $mockSidebar = m::mock('Laminas\Navigation\Navigation');
         $mockApplication = m::mock('Laminas\Mvc\Application');
 
-        $mockSl = m::mock('Laminas\ServiceManager\ServiceLocatorInterface');
+        $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('QuerySender')->andReturn($mockQuerySender);
         $mockSl->shouldReceive('get')->with('CommandSender')->andReturn($mockCommandSender);
@@ -328,7 +324,7 @@ class IrhpApplicationFurnitureTest extends TestCase
         $mockSl->shouldReceive('get')->with('Application')->andReturn($mockApplication);
 
         $sut = new IrhpApplicationFurniture();
-        $service = $sut->createService($mockSl);
+        $service = $sut->__invoke($mockSl, IrhpApplicationFurniture::class);
 
         $this->assertSame($sut, $service);
         $this->assertSame($mockViewHelperManager, $sut->getViewHelperManager());

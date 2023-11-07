@@ -8,8 +8,7 @@ use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class IrhpApplicationProcessingHistoryControllerFactory implements FactoryInterface
 {
@@ -35,15 +34,6 @@ class IrhpApplicationProcessingHistoryControllerFactory implements FactoryInterf
             $flashMessenger,
             $navigation,
             $tableFactory
-        );
-    }
-    public function createService(ServiceLocatorInterface $serviceLocator): IrhpApplicationProcessingHistoryController
-    {
-        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator() : $serviceLocator;
-
-        return $this->__invoke(
-            $container,
-            IrhpApplicationProcessingHistoryController::class
         );
     }
 }

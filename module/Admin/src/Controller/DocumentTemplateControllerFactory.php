@@ -8,8 +8,7 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Service\Data\SubCategory;
 
 class DocumentTemplateControllerFactory implements FactoryInterface
@@ -41,15 +40,6 @@ class DocumentTemplateControllerFactory implements FactoryInterface
             $navigation,
             $scannerAntiVirusService,
             $subCategoryDataService
-        );
-    }
-    public function createService(ServiceLocatorInterface $serviceLocator): DocumentTemplateController
-    {
-        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator() : $serviceLocator;
-
-        return $this->__invoke(
-            $container,
-            DocumentTemplateController::class
         );
     }
 }

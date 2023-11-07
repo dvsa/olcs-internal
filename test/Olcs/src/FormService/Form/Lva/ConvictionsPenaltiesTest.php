@@ -8,7 +8,6 @@ use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Helper\UrlHelperService;
 use Olcs\FormService\Form\Lva\ConvictionsPenalties;
 use Mockery as m;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Convictions & Penalties Form Service Test

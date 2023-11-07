@@ -7,8 +7,7 @@ use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Router\Http\TreeRouteStack;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\IrhpPermits\IrhpApplicationProcessingTasksController;
 
@@ -22,8 +21,7 @@ class IrhpApplicationProcessingTasksControllerFactory implements FactoryInterfac
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): IrhpApplicationProcessingTasksController
     {
-        $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-
+        
         $scriptFactory = $container->get(ScriptFactory::class);
         $formHelper = $container->get(FormHelperService::class);
         $tableFactory = $container->get(TableFactory::class);
@@ -37,17 +35,5 @@ class IrhpApplicationProcessingTasksControllerFactory implements FactoryInterfac
             $viewHelperManager,
             $router
         );
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return IrhpApplicationProcessingTasksController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator): IrhpApplicationProcessingTasksController
-    {
-        return $this->__invoke($serviceLocator, IrhpApplicationProcessingTasksController::class);
     }
 }

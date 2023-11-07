@@ -8,15 +8,10 @@ use \Dvsa\Olcs\Transfer\Query\Cases\Cases as ItemDto;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Common\Exception\ResourceNotFoundException;
 
-/**
- * Class Cases
- * @package Olcs\Listener\RouteParam
- */
 class Cases implements ListenerAggregateInterface, FactoryInterface
 {
     use ListenerAggregateTrait;
@@ -89,23 +84,6 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
     public function setSidebarNavigationService($sidebarNavigationService)
     {
         $this->sidebarNavigationService = $sidebarNavigationService;
-        return $this;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->setAnnotationBuilder($serviceLocator->get('TransferAnnotationBuilder'));
-        $this->setQueryService($serviceLocator->get('QueryService'));
-        $this->setViewHelperManager($serviceLocator->get('ViewHelperManager'));
-        $this->setNavigationService($serviceLocator->get('Navigation'));
-        $this->setSidebarNavigationService($serviceLocator->get('right-sidebar'));
-
         return $this;
     }
 

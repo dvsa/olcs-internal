@@ -7,9 +7,8 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Helper\UrlHelperService;
 use Common\Service\Table\TableBuilder;
-use Laminas\ServiceManager\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\FormService\Form\Lva\GoodsVehicles\AddVehicle;
 use Olcs\FormService\Form\Lva\GoodsVehicles\AddVehicleLicence;
 use Olcs\FormService\Form\Lva\GoodsVehicles\EditVehicle;
@@ -99,17 +98,6 @@ class AbstractLvaFormFactory implements AbstractFactoryInterface
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @param $requestedName
-     * @return bool
-     */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
-    {
-        return $this->canCreate($serviceLocator, $requestedName);
-    }
-
-    /**
      * @param $container
      * @param $requestedName
      * @param array|null $options
@@ -123,7 +111,7 @@ class AbstractLvaFormFactory implements AbstractFactoryInterface
         /** @var TranslationHelperService $translator */
         /** @var TableBuilder $tableBuilder */
 
-        $serviceLocator = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
+        $serviceLocator = $container;
         $formHelper = $serviceLocator->get(FormHelperService::class);
 
         switch ($requestedName) {
@@ -259,15 +247,5 @@ class AbstractLvaFormFactory implements AbstractFactoryInterface
             'FormServiceAbstractFactory claimed to be able to supply instance of type "%s", but nothing was returned',
             $requestedName
         ));
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @param $name
-     * @param $requestedName
-     */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
-    {
-        return $this->__invoke($serviceLocator, $requestedName);
     }
 }

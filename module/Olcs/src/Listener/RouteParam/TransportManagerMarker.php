@@ -8,14 +8,8 @@ use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
-use Dvsa\Olcs\Transfer\Query\TransportManagerLicence\GetListByVariation;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
-/**
- * Class TransportManagerMarker
- * @package Olcs\Listener\RouteParam
- */
 class TransportManagerMarker implements ListenerAggregateInterface, FactoryInterface
 {
     use ListenerAggregateTrait;
@@ -144,17 +138,6 @@ class TransportManagerMarker implements ListenerAggregateInterface, FactoryInter
         } else {
             $this->getMarkerService()->addData('page', 'transportManagerApplication');
         }
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator) : TransportManagerMarker
-    {
-        return $this->__invoke($serviceLocator, TransportManagerMarker::class);
     }
 
     public function getTransportManager($tmId)

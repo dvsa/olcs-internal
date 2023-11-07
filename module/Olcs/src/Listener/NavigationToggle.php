@@ -12,15 +12,9 @@ use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use ZfcRbac\Identity\IdentityProviderInterface;
 
-/**
- * Class NavigationToggle
- *
- * @package Olcs\Listener
- */
 class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
 {
     use ListenerAggregateTrait;
@@ -98,18 +92,6 @@ class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
         $goodsOrPsv = $licence['goodsOrPsv']['id'] ?? null;
 
         return $goodsOrPsv === RefData::LICENCE_CATEGORY_GOODS_VEHICLE;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator Service locator
-     *
-     * @return NavigationToggle
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator): NavigationToggle
-    {
-        return $this->__invoke($serviceLocator, NavigationToggle::class);
     }
 
     /**

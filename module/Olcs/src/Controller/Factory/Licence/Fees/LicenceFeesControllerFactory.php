@@ -12,8 +12,7 @@ use Common\Service\Helper\UrlHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Licence\Fees\LicenceFeesController;
 use ZfcRbac\Identity\IdentityProviderInterface;
@@ -28,8 +27,6 @@ class LicenceFeesControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceFeesController
     {
-        $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
-
         $scriptFactory = $container->get(ScriptFactory::class);
         $formHelper = $container->get(FormHelperService::class);
         $tableFactory = $container->get(TableFactory::class);
@@ -57,17 +54,5 @@ class LicenceFeesControllerFactory implements FactoryInterface
             $dateHelper,
             $navigation
         );
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return LicenceFeesController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator): LicenceFeesController
-    {
-        return $this->__invoke($serviceLocator, LicenceFeesController::class);
     }
 }

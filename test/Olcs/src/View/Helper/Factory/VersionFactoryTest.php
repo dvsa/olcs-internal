@@ -2,22 +2,18 @@
 
 namespace OlcsTest\View\Helper;
 
+use Interop\Container\ContainerInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
+use Olcs\View\Helper\Version;
 use OlcsTest\Bootstrap;
 use Olcs\View\Helper\Factory\VersionFactory;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class VersionFactoryTest
- * @package OlcsTest\View\Helper\Factory
  * @covers \OLCS\View\Helper\Factory\VersionFactory
  */
 class VersionFactoryTest extends TestCase
 {
-    /**
-     * @var ServiceLocatorInterface
-     */
     protected $serviceManager;
 
     /**
@@ -28,22 +24,19 @@ class VersionFactoryTest extends TestCase
     public function setUp(): void
     {
         $this->serviceManager = Bootstrap::getRealServiceManager();
-        $this->config = $this->serviceManager->get('config');
+        $this->config = $this->serviceManager->get('Config');
     }
 
     private function overrideConfig(array $config = [])
     {
-        $this->serviceManager->setService('config', $config);
+        $this->serviceManager->setService('Config', $config);
     }
 
-    /**
-     * @return m\MockInterface|ServiceLocatorInterface
-     */
     private function getMockViewServiceLocator()
     {
-        $serviceLocator = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
+        $serviceLocator = m::mock(ContainerInterface::class);
         $serviceLocator->shouldReceive('get')
-            ->with('config')
+            ->with('Config')
             ->once()
             ->andReturn($this->config);
 
@@ -56,8 +49,9 @@ class VersionFactoryTest extends TestCase
         $this->overrideConfig($this->config);
 
         $versionFactory = new VersionFactory();
-        $version = $versionFactory->createService(
-            $this->getMockViewServiceLocator()
+        $version = $versionFactory->__invoke(
+            $this->getMockViewServiceLocator(),
+            Version::class
         );
 
         $this->assertEquals('Not specified', $version->__invoke());
@@ -69,8 +63,9 @@ class VersionFactoryTest extends TestCase
         $this->overrideConfig($this->config);
 
         $versionFactory = new VersionFactory();
-        $version = $versionFactory->createService(
-            $this->getMockViewServiceLocator()
+        $version = $versionFactory->__invoke(
+            $this->getMockViewServiceLocator(),
+            Version::class
         );
 
         $this->assertEquals('Not specified', $version->__invoke());
@@ -82,8 +77,9 @@ class VersionFactoryTest extends TestCase
         $this->overrideConfig($this->config);
 
         $versionFactory = new VersionFactory();
-        $version = $versionFactory->createService(
-            $this->getMockViewServiceLocator()
+        $version = $versionFactory->__invoke(
+            $this->getMockViewServiceLocator(),
+            Version::class
         );
 
         $this->assertEquals('1.123.111', $version->__invoke());

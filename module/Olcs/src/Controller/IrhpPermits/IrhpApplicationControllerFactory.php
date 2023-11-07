@@ -9,8 +9,7 @@ use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Qa\FieldsetPopulator;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Data\Mapper\BilateralApplicationValidationModifier;
 use Olcs\Data\Mapper\IrhpApplication;
 
@@ -46,15 +45,6 @@ class IrhpApplicationControllerFactory implements FactoryInterface
             $bilateralApplicationValidationModifierMapper,
             $noOfPermitsMapper,
             $irhpApplicationMapper
-        );
-    }
-    public function createService(ServiceLocatorInterface $serviceLocator): IrhpApplicationController
-    {
-        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator() : $serviceLocator;
-
-        return $this->__invoke(
-            $container,
-            IrhpApplicationController::class
         );
     }
 }

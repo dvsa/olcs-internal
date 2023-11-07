@@ -13,16 +13,10 @@ use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Organisation Furniture
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class OrganisationFurniture implements
     ListenerAggregateInterface,
     FactoryInterface,
@@ -33,17 +27,6 @@ class OrganisationFurniture implements
         ViewHelperManagerAwareTrait,
         QuerySenderAwareTrait,
         CommandSenderAwareTrait;
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator) : OrganisationFurniture
-    {
-        return $this->__invoke($serviceLocator, OrganisationFurniture::class);
-    }
 
     /**
      * {@inheritdoc}

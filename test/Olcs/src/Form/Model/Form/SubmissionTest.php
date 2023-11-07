@@ -2,7 +2,6 @@
 
 namespace OlcsTest\Form\Model\Form;
 
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Olcs\TestHelpers\FormTester\AbstractFormValidationTestCase;
 
 /**

@@ -7,6 +7,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareInterface;
 use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
+use Interop\Container\ContainerInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\ById as ItemDto;
@@ -15,8 +16,7 @@ use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Common\Exception\ResourceNotFoundException;
 
@@ -41,18 +41,12 @@ class IrhpPermitAdminFurniture implements
      */
     protected $navigationService;
 
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $this->setQuerySender($serviceLocator->get('QuerySender'));
-        $this->setCommandSender($serviceLocator->get('CommandSender'));
-        $this->setViewHelperManager($serviceLocator->get('ViewHelperManager'));
-        $this->setNavigationService($serviceLocator->get('Navigation'));
+        $this->setQuerySender($container->get('QuerySender'));
+        $this->setCommandSender($container->get('CommandSender'));
+        $this->setViewHelperManager($container->get('ViewHelperManager'));
+        $this->setNavigationService($container->get('Navigation'));
 
         return $this;
     }

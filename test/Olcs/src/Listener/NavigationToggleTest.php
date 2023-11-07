@@ -7,6 +7,7 @@ use Common\Rbac\User;
 use Common\RefData;
 use Common\Service\Cqrs\Query\QuerySender;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence;
+use Interop\Container\ContainerInterface;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page\AbstractPage;
@@ -15,10 +16,6 @@ use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Listener\NavigationToggle;
 use ZfcRbac\Identity\IdentityProviderInterface;
 
-/**
- * Class NavigationToggleTest
- * @package OlcsTest\Listener
- */
 class NavigationToggleTest extends TestCase
 {
     /** @var \Olcs\Listener\NavigationToggle */
@@ -39,7 +36,7 @@ class NavigationToggleTest extends TestCase
         $this->mockNavigation = m::mock(Navigation::class);
         $this->mockQuerySender = m::mock(QuerySender::class);
 
-        $this->mockSm = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
+        $this->mockSm = m::mock(ContainerInterface::class);
         $this->mockSm
             ->shouldReceive('get')->with('Navigation')->andReturn($this->mockNavigation)
             ->shouldReceive('get')->with('QuerySender')->andReturn($this->mockQuerySender)
@@ -75,7 +72,7 @@ class NavigationToggleTest extends TestCase
         /** @var MvcEvent | m\MockInterface $mockEvent */
         $mockEvent = m::mock(MvcEvent::class);
 
-        $this->sut->createService($this->mockSm);
+        $this->sut->__invoke($this->mockSm, NavigationToggle::class);
         $this->sut->onDispatch($mockEvent);
         $mockEvent->shouldNotReceive('getRouteMatch->getParams');
     }
@@ -127,7 +124,7 @@ class NavigationToggleTest extends TestCase
             ->withNoArgs()
             ->andReturn($routeParams);
 
-        $this->sut->createService($this->mockSm);
+        $this->sut->__invoke($this->mockSm, NavigationToggle::class);
         $this->sut->onDispatch($mockEvent);
     }
 
