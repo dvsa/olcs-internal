@@ -10,7 +10,7 @@ use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Api\Domain\Repository\DataService;
-use Laminas\Mvc\Router\Http\TreeRouteStack;
+use Laminas\Router\Http\TreeRouteStack;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Application\Processing\ApplicationProcessingOverviewController;
 use Laminas\Mvc\Controller\Plugin\FlashMessenger;
@@ -18,7 +18,7 @@ use Laminas\Mvc\Controller\Plugin\PluginInterface;
 use Laminas\Mvc\Controller\Plugin\Redirect;
 use Laminas\Mvc\Controller\PluginManager;
 use Laminas\Mvc\Controller\Plugin\Params;
-use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Router\RouteMatch;
 use Laminas\View\Model\ViewModel;
 use OlcsTest\Bootstrap;
 use Laminas\Http\Response;
@@ -71,7 +71,7 @@ class ApplicationProcessingOverviewControllerTest extends MockeryTestCase
         $serviceManager = Bootstrap::getServiceManager();
 
         /**
-        * @var \Laminas\Mvc\Router\Http\TreeRouteStack $router
+        * @var \Laminas\Router\Http\TreeRouteStack $router
         */
         $router = $serviceManager->get('HttpRouter');
         $routeMatch = new RouteMatch(
