@@ -1,34 +1,22 @@
 <?php
 
-/**
- * Application Furniture Test
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\Exception\ResourceNotFoundException;
 use Common\RefData;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
-use Dvsa\Olcs\Transfer\Command\Audit\ReadApplication;
 use Dvsa\Olcs\Transfer\Query\Application\Application as ApplicationQry;
+use Interop\Container\ContainerInterface;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\ApplicationFurniture;
 use Mockery as m;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\Router\RouteStackInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 
-/**
- * Application Furniture Test
- *
- * @author Rob Caiger <rob@clocal.co.uk>
- */
 class ApplicationFurnitureTest extends TestCase
 {
     /**
@@ -50,14 +38,14 @@ class ApplicationFurnitureTest extends TestCase
 
         $this->sut = new ApplicationFurniture();
 
-        $sl = m::mock(ServiceLocatorInterface::class);
+        $sl = m::mock(ContainerInterface::class);
 
         $sl->shouldReceive('get')->with('ViewHelperManager')->andReturn($this->mockViewHelperManager);
         $sl->shouldReceive('get')->with('QuerySender')->andReturn($this->mockQuerySender);
         $sl->shouldReceive('get')->with('Router')->andReturn($this->mockRouter);
         $sl->shouldReceive('get')->with('CommandSender')->andReturn($this->mockCommandSender);
 
-        $this->sut->createService($sl);
+        $this->sut->__invoke($sl, ApplicationFurniture::class);
     }
 
     public function testAttach()

@@ -13,8 +13,7 @@ use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Laminas\View\Model\ViewModel;
 
@@ -33,17 +32,6 @@ class TransportManagerFurniture implements
         ViewHelperManagerAwareTrait,
         QuerySenderAwareTrait,
         CommandSenderAwareTrait;
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator) : TransportManagerFurniture
-    {
-        return $this->__invoke($serviceLocator, TransportManagerFurniture::class);
-    }
 
     /**
      * {@inheritdoc}

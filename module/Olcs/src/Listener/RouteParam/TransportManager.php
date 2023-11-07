@@ -9,16 +9,11 @@ use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Dvsa\Olcs\Transfer\Query\Nr\ReputeUrl as ReputeUrlQry;
 use Common\RefData;
 
-/**
- * Class Cases
- * @package Olcs\Listener\RouteParam
- */
 class TransportManager implements ListenerAggregateInterface, FactoryInterface
 {
     use ListenerAggregateTrait;
@@ -182,17 +177,6 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
                 ->findById('transport-manager-quick-actions-merge')
                 ->setVisible(false);
         }
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator) : TransportManager
-    {
-        return $this->__invoke($serviceLocator, TransportManager::class);
     }
 
     /**

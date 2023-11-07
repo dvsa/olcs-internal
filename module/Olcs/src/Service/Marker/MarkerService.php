@@ -3,13 +3,8 @@
 namespace Olcs\Service\Marker;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
-/**
- * MarkerService
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class MarkerService implements FactoryInterface
 {
     /**
@@ -41,16 +36,6 @@ class MarkerService implements FactoryInterface
     {
         $this->markerPluginManager = $markerPluginManager;
         return $this;
-    }
-
-    /**
-     * @param \Laminas\ServiceManager\ServiceLocatorInterface $serviceLocator
-     *
-     * @return MarkerService
-     */
-    public function createService(\Laminas\ServiceManager\ServiceLocatorInterface $serviceLocator) : MarkerService
-    {
-        return $this->__invoke($serviceLocator, MarkerService::class);
     }
 
     /**

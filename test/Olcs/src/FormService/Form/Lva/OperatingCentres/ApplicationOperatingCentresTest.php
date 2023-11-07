@@ -40,8 +40,6 @@ class ApplicationOperatingCentresTest extends MockeryTestCase
         $sm->setService('Table', $this->tableBuilder);
 
         $fsm = m::mock(FormServiceManager::class)->makePartial();
-        $fsm->shouldReceive('getServiceLocator')
-            ->andReturn($sm);
 
         $this->form = m::mock(Form::class);
 

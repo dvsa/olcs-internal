@@ -2,9 +2,11 @@
 
 namespace OlcsTest\Listener\RouteParam;
 
+use Common\Exception\ResourceNotFoundException;
 use Common\RefData;
 use Dvsa\Olcs\Transfer\Query\Bus\BusRegDecision;
 use Hamcrest\Type\IsString;
+use Interop\Container\ContainerInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\BusRegAction;
@@ -13,13 +15,7 @@ use Mockery as m;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page\AbstractPage;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
-/**
- * Class BusRegActionTest
- *
- * @package OlcsTest\Listener\RouteParam
- */
 class BusRegActionTest extends MockeryTestCase
 {
     /** @var  BusRegAction */
@@ -125,21 +121,20 @@ class BusRegActionTest extends MockeryTestCase
         $this->sut->onBusRegAction($event);
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
         $mockViewHelperManager = m::mock('Laminas\View\HelperPluginManager');
         $mockSidebar = m::mock();
         $mockTransferAnnotationBuilder = m::mock();
         $mockQueryService = m::mock();
 
-        /** @var ServiceLocatorInterface|m\Mock $mockSl */
-        $mockSl = m::mock(ServiceLocatorInterface::class);
+        $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($mockSidebar);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->andReturn($mockTransferAnnotationBuilder);
         $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
 
-        $service = $this->sut->createService($mockSl);
+        $service = $this->sut->__invoke($mockSl, BusRegAction::class);
 
         $this->assertSame($this->sut, $service);
         $this->assertSame($mockViewHelperManager, $this->sut->getViewHelperManager());
@@ -149,7 +144,7 @@ class BusRegActionTest extends MockeryTestCase
 
     public function testOnBusRegActionNotFound()
     {
-        $this->expectException(\Common\Exception\ResourceNotFoundException::class);
+        $this->expectException(ResourceNotFoundException::class);
 
         $id = 69;
 

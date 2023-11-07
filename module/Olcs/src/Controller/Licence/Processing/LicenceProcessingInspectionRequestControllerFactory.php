@@ -9,8 +9,7 @@ use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Service\Data\OperatingCentresForInspectionRequest;
 
 class LicenceProcessingInspectionRequestControllerFactory implements FactoryInterface
@@ -45,15 +44,6 @@ class LicenceProcessingInspectionRequestControllerFactory implements FactoryInte
             $setUpOcListboxService,
             $annotationBuilderService,
             $queryService
-        );
-    }
-    public function createService(ServiceLocatorInterface $serviceLocator): LicenceProcessingInspectionRequestController
-    {
-        $container = method_exists($serviceLocator, 'getServiceLocator') ? $serviceLocator->getServiceLocator() : $serviceLocator;
-
-        return $this->__invoke(
-            $container,
-            LicenceProcessingInspectionRequestController::class
         );
     }
 }

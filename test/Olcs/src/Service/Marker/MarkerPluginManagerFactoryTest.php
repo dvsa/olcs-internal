@@ -2,42 +2,37 @@
 
 namespace OlcsTest\Service\Marker;
 
+use Interop\Container\ContainerInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
+use Olcs\Service\Marker\MarkerPluginManager;
+use Olcs\Service\Marker\MarkerPluginManagerFactory;
 
-/**
- * MarkerPluginManagerFactoryTest
- *
- * @author Mat Evans <mat.evans@valtech.co.uk>
- */
 class MarkerPluginManagerFactoryTest extends TestCase
 {
-    /**
-     * @var \Olcs\Service\Marker\MarkerPluginManager
-     */
     protected $sut;
 
     public function setUp(): void
     {
-        $this->sut = new \Olcs\Service\Marker\MarkerPluginManagerFactory();
+        $this->sut = new MarkerPluginManagerFactory();
         parent::setUp();
     }
 
-    public function testCreateServiceEmptyConfig()
+    public function testInvokeEmptyConfig()
     {
-        $mockSl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
+        $mockSl = m::mock(ContainerInterface::class);
 
         $mockSl->shouldReceive('get')->with('Config')->once()->andReturn(['marker_plugins' => []]);
 
-        $this->assertInstanceOf(\Olcs\Service\Marker\MarkerPluginManager::class, $this->sut->createService($mockSl));
+        $this->assertInstanceOf(MarkerPluginManager::class, $this->sut->__invoke($mockSl, MarkerPluginManager::class));
     }
 
-    public function testCreateServiceWithConfig()
+    public function testInvokeWithConfig()
     {
-        $mockSl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
+        $mockSl = m::mock(ContainerInterface::class);
 
         $mockSl->shouldReceive('get')->with('Config')->once()->andReturn(['marker_plugins' => ['XXX']]);
 
-        $this->assertInstanceOf(\Olcs\Service\Marker\MarkerPluginManager::class, $this->sut->createService($mockSl));
+        $this->assertInstanceOf(MarkerPluginManager::class, $this->sut->__invoke($mockSl, MarkerPluginManager::class));
     }
 }

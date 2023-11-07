@@ -38,8 +38,6 @@ class VariationFinancialEvidenceTest extends MockeryTestCase
         $sm->setService('Helper\Url', $this->urlHelper);
         $sm->setService('Helper\Translation', $this->translator);
 
-        $this->fsm->shouldReceive('getServiceLocator')->andReturn($sm);
-
         $this->sut = new VariationFinancialEvidence($this->formHelper, m::mock(AuthorizationService::class), $this->translator, $this->urlHelper);
     }
 

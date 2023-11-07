@@ -2,16 +2,14 @@
 
 namespace OlcsTest\Listener\RouteParam;
 
+use Interop\Container\ContainerInterface;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\CaseMarker;
 use Mockery as m;
 use Olcs\Listener\RouteParams;
+use Olcs\Service\Marker\MarkerService;
 
-/**
- * Class CaseMarkerTest
- * @package OlcsTest\Listener\RouteParam
- */
 class CaseMarkerTest extends TestCase
 {
     public function setUp(): void
@@ -57,7 +55,7 @@ class CaseMarkerTest extends TestCase
 
     public function testOnCase()
     {
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $this->sut->setMarkerService($mockMarkerService);
 
         $case = [
@@ -79,7 +77,7 @@ class CaseMarkerTest extends TestCase
 
     public function testOnCaseQueryError()
     {
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $this->sut->setMarkerService($mockMarkerService);
 
         $this->mockQuery(['id' => 128,], false);
@@ -92,20 +90,20 @@ class CaseMarkerTest extends TestCase
         $this->sut->onCase($event);
     }
 
-    public function testCreateService()
+    public function testInvoke()
     {
-        $mockSl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockSl = m::mock(ContainerInterface::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $mockQueryService = m::mock();
         $mockAnnotationBuilderService = m::mock();
 
-        $mockSl->shouldReceive('get')->with(\Olcs\Service\Marker\MarkerService::class)->once()
+        $mockSl->shouldReceive('get')->with(MarkerService::class)->once()
             ->andReturn($mockMarkerService);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->once()
             ->andReturn($mockAnnotationBuilderService);
         $mockSl->shouldReceive('get')->with('QueryService')->once()->andReturn($mockQueryService);
 
-        $obj = $this->sut->createService($mockSl);
+        $obj = $this->sut->__invoke($mockSl, CaseMarker::class);
 
         $this->assertSame($mockAnnotationBuilderService, $obj->getAnnotationBuilderService());
         $this->assertSame($mockMarkerService, $obj->getMarkerService());

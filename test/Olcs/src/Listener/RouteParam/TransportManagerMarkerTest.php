@@ -3,19 +3,15 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Dvsa\Olcs\Transfer\Query\AbstractQuery;
+use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\TransportManagerMarker;
 use Olcs\Listener\RouteParams;
-use OlcsTest\Bootstrap;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Olcs\Service\Marker\MarkerService;
 
-/**
- * Transport Manager Markers Service Test
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- */
 class TransportManagerMarkerTest extends MockeryTestCase
 {
     /** @var  TransportManagerMarker */
@@ -25,7 +21,7 @@ class TransportManagerMarkerTest extends MockeryTestCase
     /** @var  m\MockInterface */
     private $mockAnnotationBuilderService;
 
-    /** @var m\MockInterface|\Olcs\Service\Marker\MarkerService  */
+    /** @var m\MockInterface|MarkerService  */
     private $mockMarkerService;
 
     public function setUp(): void
@@ -38,8 +34,8 @@ class TransportManagerMarkerTest extends MockeryTestCase
         $this->sut->setAnnotationBuilderService($this->mockAnnotationBuilderService);
         $this->sut->setQueryService($this->mockQueryService);
 
-        /** @var \Olcs\Service\Marker\MarkerService $mockMarkerService */
-        $this->mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        /** @var MarkerService $mockMarkerService */
+        $this->mockMarkerService = m::mock(MarkerService::class);
         $this->sut->setMarkerService($this->mockMarkerService);
     }
 
@@ -50,8 +46,8 @@ class TransportManagerMarkerTest extends MockeryTestCase
      */
     public function testAttach()
     {
-        /** @var \Laminas\EventManager\EventManagerInterface $mockEventManager */
-        $mockEventManager = m::mock(\Laminas\EventManager\EventManagerInterface::class)
+        /** @var EventManagerInterface $mockEventManager */
+        $mockEventManager = m::mock(EventManagerInterface::class)
             ->shouldReceive('attach')
             ->with(RouteParams::EVENT_PARAM . 'transportManager', [$this->sut, 'onTransportManagerMarker'], 1)
             ->once()
@@ -71,31 +67,30 @@ class TransportManagerMarkerTest extends MockeryTestCase
      *
      * @group transportManagerMarker
      */
-    public function testCreateService()
+    public function testInvoke()
     {
-        /** @var m\MockInterface|ServiceLocatorInterface $mockSl */
-        $mockSl = m::mock(ServiceLocatorInterface::class);
+        $mockSl = m::mock(ContainerInterface::class);
 
-        $mockMarkerService = m::mock(\Olcs\Service\Marker\MarkerService::class);
+        $mockMarkerService = m::mock(MarkerService::class);
         $mockQueryService = m::mock();
         $mockAnnotationBuilderService = m::mock();
         $mockApplicationService = m::mock();
 
-        $mockSl->shouldReceive('get')->with(\Olcs\Service\Marker\MarkerService::class)->once()
+        $mockSl->shouldReceive('get')->with(MarkerService::class)->once()
             ->andReturn($mockMarkerService);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->once()
             ->andReturn($mockAnnotationBuilderService);
         $mockSl->shouldReceive('get')->with('QueryService')->once()->andReturn($mockQueryService);
         $mockSl->shouldReceive('get')->with('Application')->once()->andReturn($mockApplicationService);
 
-        $obj = $this->sut->createService($mockSl);
+        $obj = $this->sut->__invoke($mockSl, TransportManagerMarker::class);
 
         $this->assertSame($mockAnnotationBuilderService, $obj->getAnnotationBuilderService());
         $this->assertSame($mockMarkerService, $obj->getMarkerService());
         $this->assertSame($mockQueryService, $obj->getQueryService());
         $this->assertSame($mockApplicationService, $obj->getApplicationService());
 
-        $this->assertInstanceOf('Olcs\Listener\RouteParam\TransportManagerMarker', $obj);
+        $this->assertInstanceOf(TransportManagerMarker::class, $obj);
     }
 
     protected function mockQuery($expectedDtoParams, $result = false, $extra = null)

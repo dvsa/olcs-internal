@@ -2,7 +2,6 @@
 
 namespace Olcs\Listener\RouteParam;
 
-use Dvsa\Olcs\Transfer\Command\Publication\Bus;
 use Interop\Container\ContainerInterface;
 use Common\Service\Cqrs\Query\QueryService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
@@ -13,8 +12,7 @@ use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\RefData;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Common\Exception\ResourceNotFoundException;
@@ -103,18 +101,6 @@ class BusRegAction implements ListenerAggregateInterface, FactoryInterface
     {
         $this->sidebarNavigationService = $sidebarNavigationService;
         return $this;
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator the service locator
-     *
-     * @return mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator) : BusRegAction
-    {
-        return $this->__invoke($serviceLocator, BusRegAction::class);
     }
 
     /**

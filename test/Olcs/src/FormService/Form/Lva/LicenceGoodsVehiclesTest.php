@@ -28,8 +28,6 @@ class LicenceGoodsVehiclesTest extends MockeryTestCase
     {
         $this->sm = Bootstrap::getServiceManager();
         $this->formHelper = m::mock('\Common\Service\Helper\FormHelperService');
-        $this->formHelper->shouldReceive('getServiceLocator')
-            ->andReturn($this->sm);
         $this->formService = m::mock('\Common\FormService\FormServiceManager')->makePartial();
 
         $this->sut = new LicenceGoodsVehicles($this->formHelper, m::mock(AuthorizationService::class), $this->formService);
