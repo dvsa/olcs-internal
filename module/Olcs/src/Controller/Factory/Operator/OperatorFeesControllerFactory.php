@@ -18,7 +18,7 @@ use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Operator\OperatorController;
 use Olcs\Controller\Operator\OperatorFeesController;
 use Olcs\Service\Data\Licence;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 class OperatorFeesControllerFactory implements FactoryInterface
 {

@@ -8,7 +8,7 @@ use Olcs\FormService\Form\Lva\Licence;
 use OlcsTest\Bootstrap;
 use Laminas\Form\Fieldset;
 use Laminas\Form\Form;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 /**
  * Licence Test

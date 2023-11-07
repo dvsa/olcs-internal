@@ -10,7 +10,7 @@ use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 class PaymentProcessingFeesControllerFactory implements FactoryInterface
 {

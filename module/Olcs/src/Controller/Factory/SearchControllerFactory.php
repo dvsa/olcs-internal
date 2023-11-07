@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\SearchController;
-use ZfcRbac\Service\RoleService;
+use LmcRbacMvc\Service\RoleService;
 
 class SearchControllerFactory implements FactoryInterface
 {

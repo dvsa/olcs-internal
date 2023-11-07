@@ -12,8 +12,8 @@ use Laminas\View\Helper\Placeholder;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use ZfcRbac\Exception\UnauthorizedException;
-use ZfcRbac\Service\RoleService;
+use LmcRbacMvc\Exception\UnauthorizedException;
+use LmcRbacMvc\Service\RoleService;
 
 /**
  * Main search controller

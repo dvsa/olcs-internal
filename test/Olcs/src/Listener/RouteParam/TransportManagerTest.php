@@ -372,7 +372,7 @@ class TransportManagerTest extends MockeryTestCase
         $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($sidebarNav);
         $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->andReturn($mockAnnotationBuilder);
         $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
-        $mockSl->shouldReceive('get')->with('ZfcRbac\Service\AuthorizationService')->andReturn($mockAuthService);
+        $mockSl->shouldReceive('get')->with('LmcRbacMvc\Service\AuthorizationService')->andReturn($mockAuthService);
 
         $sut = new TransportManager();
         $service = $sut->__invoke($mockSl, TransportManager::class);

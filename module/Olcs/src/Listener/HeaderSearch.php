@@ -15,7 +15,7 @@ use Laminas\Form\FormElementManager;
 use Laminas\Mvc\MvcEvent;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\Session\Container;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 /**
  * Class HeaderSearch
