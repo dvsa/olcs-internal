@@ -20,7 +20,7 @@ use Laminas\Mvc\Controller\Plugin\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\Layout;
 use Laminas\Mvc\Controller\Plugin\Url;
 use Laminas\Mvc\InjectApplicationEventInterface;
-use Laminas\Mvc\Router\Http\RouteMatch;
+use Laminas\Router\Http\RouteMatch;
 use Laminas\View\Model\ViewModel;
 use Olcs\Form\Model\Form\Auth\Login;
 use Olcs\Form\Model\Form\Auth\LoginForm;

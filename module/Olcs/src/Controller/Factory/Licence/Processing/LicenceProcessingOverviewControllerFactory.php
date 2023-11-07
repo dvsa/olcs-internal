@@ -9,7 +9,7 @@ use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
-use Laminas\Mvc\Router\Http\TreeRouteStack;
+use Laminas\Router\Http\TreeRouteStack;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController;

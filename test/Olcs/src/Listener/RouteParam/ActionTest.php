@@ -29,7 +29,7 @@ class ActionTest extends TestCase
         $event = new RouteParam();
         $event->setValue($action);
 
-        $mockRouter = m::mock('Laminas\Mvc\Router\RouteStackInterface');
+        $mockRouter = m::mock('Laminas\Router\RouteStackInterface');
         $mockRouter->shouldReceive('assemble')
             ->with(['action' => $action])
             ->andReturn('http://anything/');

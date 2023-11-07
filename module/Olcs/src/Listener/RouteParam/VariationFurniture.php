@@ -34,7 +34,7 @@ class VariationFurniture implements ListenerAggregateInterface, FactoryInterface
     }
 
     /**
-     * @return \Laminas\Mvc\Router\RouteStackInterface
+     * @return \Laminas\Router\RouteStackInterface
      */
     public function getRouter()
     {

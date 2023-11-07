@@ -42,7 +42,7 @@ class ApplicationFurniture implements
     }
 
     /**
-     * @return \Laminas\Mvc\Router\RouteStackInterface
+     * @return \Laminas\Router\RouteStackInterface
      */
     public function getRouter()
     {

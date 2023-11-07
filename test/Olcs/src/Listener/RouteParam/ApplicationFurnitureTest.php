@@ -13,7 +13,7 @@ use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\ApplicationFurniture;
 use Mockery as m;
 use Laminas\EventManager\EventManagerInterface;
-use Laminas\Mvc\Router\RouteStackInterface;
+use Laminas\Router\RouteStackInterface;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 
