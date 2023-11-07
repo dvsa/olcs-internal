@@ -56,7 +56,7 @@ class ApplicationOperatingCentresTest extends MockeryTestCase
             ->with('Lva\OperatingCentres')
             ->andReturn($this->form);
 
-        $this->sut = new ApplicationOperatingCentres($this->mockFormHelper, m::mock(\ZfcRbac\Service\AuthorizationService::class), $this->tableBuilder, $fsm);
+        $this->sut = new ApplicationOperatingCentres($this->mockFormHelper, m::mock(\LmcRbacMvc\Service\AuthorizationService::class), $this->tableBuilder, $fsm);
     }
 
     public function testGetForm()

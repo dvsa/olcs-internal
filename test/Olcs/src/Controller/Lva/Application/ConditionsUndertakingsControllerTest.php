@@ -18,7 +18,7 @@ use Olcs\Mvc\Controller\Plugin\ScriptFactory;
 use OlcsTest\Bootstrap;
 use Mockery as m;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 /**
  * Class ConditionsUndertakingsControllerTest

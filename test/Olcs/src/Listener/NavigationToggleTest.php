@@ -14,7 +14,7 @@ use Laminas\Navigation\Page\AbstractPage;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Listener\NavigationToggle;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 class NavigationToggleTest extends TestCase
 {

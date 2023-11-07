@@ -15,7 +15,7 @@ use Olcs\FormService\Form\Lva\GoodsVehicles\EditVehicle;
 use Olcs\FormService\Form\Lva\GoodsVehicles\EditVehicleLicence;
 use Olcs\FormService\Form\Lva\OperatingCentre\LvaOperatingCentre;
 use Olcs\FormService\Form\Lva\OperatingCentres\ApplicationOperatingCentres;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 class AbstractLvaFormFactory implements AbstractFactoryInterface
 {

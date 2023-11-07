@@ -13,7 +13,7 @@ use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 class NavigationToggle implements ListenerAggregateInterface, FactoryInterface
 {

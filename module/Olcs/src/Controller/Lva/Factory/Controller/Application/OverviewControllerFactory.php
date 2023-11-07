@@ -11,7 +11,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Lva\Application\OverviewController;
 use Olcs\Service\Helper\ApplicationOverviewHelperService;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 class OverviewControllerFactory implements FactoryInterface
 {

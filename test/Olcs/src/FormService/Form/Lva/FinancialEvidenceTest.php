@@ -38,7 +38,7 @@ class FinancialEvidenceTest extends MockeryTestCase
         $sm->setService('Helper\Url', $this->urlHelper);
         $sm->setService('Helper\Translation', $this->translator);
 
-        $this->sut = new FinancialEvidence($this->formHelper, m::mock(\ZfcRbac\Service\AuthorizationService::class), $this->translator, $this->urlHelper);
+        $this->sut = new FinancialEvidence($this->formHelper, m::mock(\LmcRbacMvc\Service\AuthorizationService::class), $this->translator, $this->urlHelper);
     }
 
     public function testGetForm()

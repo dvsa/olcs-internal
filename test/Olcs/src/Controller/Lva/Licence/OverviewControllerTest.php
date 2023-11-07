@@ -20,7 +20,7 @@ use Mockery as m;
 use Olcs\Controller\Lva\Licence\OverviewController;
 use Olcs\Service\Helper\LicenceOverviewHelperService;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 /**
  * Internal Licencing Overview Controller Test

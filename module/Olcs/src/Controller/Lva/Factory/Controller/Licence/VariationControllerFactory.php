@@ -10,7 +10,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Lva\Licence\VariationController;
 use Olcs\Service\Processing\CreateVariationProcessingService;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 class VariationControllerFactory implements FactoryInterface
 {

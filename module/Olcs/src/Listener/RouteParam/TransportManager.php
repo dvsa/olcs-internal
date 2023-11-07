@@ -35,12 +35,12 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
     protected $sidebarNavigation;
 
     /**
-     * @var \ZfcRbac\Service\AuthorizationService
+     * @var \LmcRbacMvc\Service\AuthorizationService
      */
     protected $authService;
 
     /**
-     * @return \ZfcRbac\Service\AuthorizationService
+     * @return \LmcRbacMvc\Service\AuthorizationService
      */
     public function getAuthService()
     {
@@ -92,7 +92,7 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
     /**
      * Set auth service
      *
-     * @param \ZfcRbac\Service\AuthorizationService $authorisationService
+     * @param \LmcRbacMvc\Service\AuthorizationService $authorisationService
      */
     public function setAuthService($authService)
     {
@@ -240,7 +240,7 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
         $this->setQueryService($container->get('QueryService'));
         $this->setViewHelperManager($container->get('ViewHelperManager'));
         $this->setSidebarNavigation($container->get('right-sidebar'));
-        $this->setAuthService($container->get('ZfcRbac\Service\AuthorizationService'));
+        $this->setAuthService($container->get('LmcRbacMvc\Service\AuthorizationService'));
         return $this;
     }
 }

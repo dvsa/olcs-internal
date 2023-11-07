@@ -9,7 +9,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Lva\Licence\OverviewController;
 use Olcs\Service\Helper\LicenceOverviewHelperService;
-use ZfcRbac\Service\AuthorizationService;
+use LmcRbacMvc\Service\AuthorizationService;
 
 class OverviewControllerFactory implements FactoryInterface
 {

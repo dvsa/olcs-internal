@@ -15,7 +15,7 @@ use Olcs\Form\Model\Form;
 use Olcs\Listener\HeaderSearch;
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Helper\Placeholder;
-use ZfcRbac\Identity\IdentityProviderInterface;
+use LmcRbacMvc\Identity\IdentityProviderInterface;
 
 class HeaderSearchTest extends TestCase
 {
