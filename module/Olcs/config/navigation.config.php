@@ -902,10 +902,11 @@ $nav = [
                             ],
                         ],
                         [
-                            'id' => 'messaging_messages',
+                            'id' => 'licence_messages',
                             'label' => 'Messages',
-                            'route' => 'messages/GET',
+                            'route' => 'licence/messages',
                             'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
                         ]
                     ]
                 ],
