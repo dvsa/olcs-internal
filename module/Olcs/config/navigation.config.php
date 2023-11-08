@@ -901,6 +901,13 @@ $nav = [
                                 ]
                             ],
                         ],
+                        [
+                            'id' => 'messaging_messages',
+                            'label' => 'Messages',
+                            'route' => 'messages/GET',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ]
                     ]
                 ],
                 [
