@@ -739,6 +739,16 @@ $routes = [
                 ],
                 'may_terminate' => true,
             ],
+            'messages' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => 'messages[/]',
+                    'defaults' => [
+                        'action' => 'messages',
+                    ]
+                ],
+                'may_terminate' => true,
+            ],
             'opposition' => [
                 'type' => 'segment',
                 'options' => [
