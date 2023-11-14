@@ -5,6 +5,7 @@ $config = array(
         'Dvsa\LaminasConfigCloudParameters',
         'Laminas\Log',
         'Olcs\Logging',
+        'Laminas\Router',
         'Laminas\Cache\Module',
         'Laminas\Cache\Storage\Adapter\Redis',
         'Laminas\I18n',
