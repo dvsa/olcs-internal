@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Address;
+use Common\Service\Table\Formatter\ConditionsUndertakingsType;
+
 return array(
     'variables' => array(
         'title' => 'Conditions & Undertakings'
@@ -11,12 +14,12 @@ return array(
         ),
         array(
             'title' => 'lva-conditions-undertakings-table-type',
-            'formatter' => 'ConditionsUndertakingsType',
+            'formatter' => ConditionsUndertakingsType::class,
         ),
         array(
             'title' => 'Added via',
-            'formatter' => function ($data, $column, $sl) {
-                return $sl->get('translator')->translate($data['addedVia']['description']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['addedVia']['description']);
             },
         ),
         array(
@@ -33,18 +36,18 @@ return array(
         ),
         array(
             'title' => 'Attached to',
-            'formatter' => function ($data, $column, $sm) {
-                return $sm->get('translator')->translate($data['attachedTo']['description']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['attachedTo']['description']);
             },
         ),
         array(
             'title' => 'OC address',
             'width' => '300px',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
 
                 if (isset($data['operatingCentre']['address'])) {
 
-                    $column['formatter'] = 'Address';
+                    $column['formatter'] = Address::class;
 
                     return $this->callFormatter($column, $data['operatingCentre']['address']);
                 }

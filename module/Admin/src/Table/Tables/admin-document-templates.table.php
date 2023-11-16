@@ -1,5 +1,6 @@
 <?php
 
+use Common\Service\Table\Formatter\DocumentDescription;
 use Common\Util\Escape;
 
 return [
@@ -17,16 +18,16 @@ return [
         'crud' => [
             'actions' => [
                 'add' => [
-                    'class' => 'action--primary',
+                    'class' => 'govuk-button',
                     'requireRows' => false
                 ],
                 'edit' => [
                     'requireRows' => false,
-                    'class' => 'action--secondary js-require--one'
+                    'class' => 'govuk-button govuk-button--secondary js-require--one'
                 ],
                 'delete' => [
                     'requireRows' => false,
-                    'class' => 'action--secondary js-require--one'
+                    'class' => 'govuk-button govuk-button--warning js-require--one'
                 ]
             ]
         ],
@@ -37,7 +38,7 @@ return [
             'name' => 'description',
             'sort' => 'description',
             'formatter' => function ($row) {
-                $column['formatter'] = 'DocumentDescription';
+                $column['formatter'] = DocumentDescription::class;
                 return $this->callFormatter(
                     $column,
                     $row

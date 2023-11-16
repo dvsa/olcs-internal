@@ -1,4 +1,7 @@
 <?php
+
+use Common\Service\Table\Formatter\Address;
+
 return array(
     'variables' => array(
         'id' => 'tm-details',
@@ -12,8 +15,8 @@ return array(
         'crud' => array(
             'formName' => 'tm-details',
             'actions' => array(
-                'refresh-table' => array('label' => 'Refresh table', 'class' => 'action--secondary', 'requireRows' => false),
-                'delete-row' => array('label' => 'Delete row', 'class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'refresh-table' => array('label' => 'Refresh table', 'class' => 'govuk-button govuk-button--secondary', 'requireRows' => false),
+                'delete-row' => array('label' => 'Delete row', 'class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             ),
             'action_field_name' => 'formAction'
         ),
@@ -50,7 +53,7 @@ return array(
         array(
             'title' => 'Address',
             'width' => '350px',
-            'formatter' => 'Address',
+            'formatter' => Address::class,
             'name' => 'address'
         ),
         array(

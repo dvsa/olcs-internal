@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Hearing',
@@ -9,7 +11,7 @@ return array(
         'crud' => array(
             'formName' => 'conviction',
             'actions' => array(
-                'addHearing' => array('class' => 'action--primary', 'value' => 'Add Hearing'),
+                'addHearing' => array('class' => 'govuk-button', 'value' => 'Add Hearing'),
                 'editHearing' => array('requireRows' => true, 'value' => 'Edit Hearing')
             )
         ),
@@ -34,7 +36,7 @@ return array(
 
                 $url = $this->generateUrl(['action' => 'edit', 'id' => $data['id']], 'case_pi', true);
 
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a class="govuk-link" href="' . $url . '">' . date(\DATE_FORMAT, strtotime($data['hearingDate'])) . '</a>';
             },
             'name' => 'id'

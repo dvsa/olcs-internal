@@ -1,5 +1,10 @@
 <?php
 
+use Common\Service\Table\Formatter\DocumentDescription;
+use Common\Service\Table\Formatter\DocumentSubcategory;
+use Common\Service\Table\Formatter\FileExtension;
+use Common\Service\Table\Formatter\SlaTargetDate;
+
 return array(
     'variables' => array(
         'title' => 'Docs & attachments'
@@ -7,11 +12,11 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'upload' => array('class' => 'action--primary'),
+                'upload' => array('class' => 'govuk-button'),
                 'New letter' => array(),
-                'delete' => array('class' => 'action--secondary js-require--multiple', 'requireRows' => true),
-                'split' => array('class' => 'action--secondary', 'requireRows' => true),
-                'relink' => array('class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'delete' => array('class' => 'govuk-button govuk-button--warning js-require--multiple', 'requireRows' => true),
+                'split' => array('class' => 'govuk-button govuk-button--secondary', 'requireRows' => true),
+                'relink' => array('class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             )
         ),
         'paginate' => array(
@@ -25,7 +30,7 @@ return array(
             'title' => 'Description',
             'name' => 'description',
             'sort' => 'description',
-            'formatter' => 'DocumentDescription',
+            'formatter' => DocumentDescription::class,
         ),
         array(
             'title' => 'Category',
@@ -36,22 +41,22 @@ return array(
             'title' => 'Subcategory',
             'name' => 'documentSubCategoryName',
             'sort' => 'documentSubCategoryName',
-            'formatter' => 'DocumentSubcategory'
+            'formatter' => DocumentSubcategory::class
         ),
         array(
             'title' => 'Format',
-            'formatter' => 'FileExtension'
+            'formatter' => FileExtension::class
         ),
         array(
             'title' => 'Date',
             'name' => 'issuedDate',
-            'formatter' => 'DateTime',
+            'formatter' => \Common\Service\Table\Formatter\DateTime::class,
             'sort' => 'issuedDate',
         ),
         array(
             'title' => 'SLA target date',
             'name' => 'slaTargetDate',
-            'formatter' => 'SlaTargetDate'
+            'formatter' => SlaTargetDate::class
         ),
         array(
             'width' => 'checkbox',

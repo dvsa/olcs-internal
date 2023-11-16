@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'Prohibitions',
@@ -9,9 +11,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary', 'label' => 'Add prohibition'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button', 'label' => 'Add prohibition'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -30,7 +32,7 @@ return array(
         array(
             'title' => 'Prohibition date',
             'formatter' => function ($data, $column) {
-                    $column['formatter'] = 'Date';
+                    $column['formatter'] = Date::class;
                     return '<a class="govuk-link" href="' . $this->generateUrl(
                         array('prohibition' => $data['id']),
                         'case_prohibition_defect',
@@ -41,7 +43,7 @@ return array(
         ),
         array(
             'title' => 'Cleared date',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'clearedDate',
         ),
         array(

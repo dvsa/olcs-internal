@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'Not Pi',
@@ -8,9 +10,9 @@ return array(
         'crud' => array(
             'formName' => 'NonPi',
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -30,7 +32,7 @@ return array(
                     ['action' => 'edit', 'id' => $data['id']],
                     'case_non_pi', true
                 );
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a class="govuk-link" href="' . $url . '">' . date(\DATETIMESEC_FORMAT, strtotime($data['hearingDate'])) . '</a>';
             },
             'name' => 'id'

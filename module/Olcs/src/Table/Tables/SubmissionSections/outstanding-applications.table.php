@@ -7,14 +7,13 @@ return array(
             'route' => 'submission_update_table',
             'params' => ['section' => 'outstanding-applications']
         ],
-        'title' => 'Outstanding applications'
     ),
     'settings' => array(
         'crud' => array(
             'formName' => 'outstanding-applications',
             'actions' => array(
-                'refresh-table' => array('label' => 'Refresh table', 'class' => 'action--secondary', 'requireRows' => false),
-                'delete-row' => array('label' => 'Delete row', 'class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'refresh-table' => array('label' => 'Refresh table', 'class' => 'govuk-button govuk-button--secondary', 'requireRows' => false),
+                'delete-row' => array('label' => 'Delete row', 'class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             ),
             'action_field_name' => 'formAction'
         ),

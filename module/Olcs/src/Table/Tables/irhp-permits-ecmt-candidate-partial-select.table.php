@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\ConstrainedCountriesList;
+use Common\Service\Table\Formatter\StackValue;
+
 return [
     'variables' => [
         'title' => 'Permits',
@@ -10,7 +13,7 @@ return [
     'settings' => [
         'crud' => [
             'actions' => [
-                'save' => ['requireRows' => true, 'class' => 'action--secondary js-require--multiple']
+                'save' => ['requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--multiple']
             ]
         ],
     ],
@@ -24,11 +27,11 @@ return [
             'title' => 'Minimum emission standard',
             'name' => 'emissionsCategory',
             'stack' => 'irhpPermitRange->emissionsCategory->description',
-            'formatter' => 'StackValue',
+            'formatter' => StackValue::class,
         ],
         [
             'title' => 'Not valid for travel to',
-            'formatter' => 'ConstrainedCountriesList'
+            'formatter' => ConstrainedCountriesList::class
         ],
         [
             'title' => 'Deselect unwanted permits',

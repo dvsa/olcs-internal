@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Impounding',
@@ -8,14 +10,14 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
                 'generate' => array(
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one',
+                    'class' => 'govuk-button govuk-button--secondary js-require--one',
                     'label' => 'Generate Letter'
                 ),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -34,7 +36,7 @@ return array(
         array(
             'title' => 'Application received',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a href="' . $this->generateUrl(
                     array('action' => 'edit', 'impounding' => $data['id']),
                     'case_details_impounding',
@@ -45,8 +47,8 @@ return array(
         ),
         array(
             'title' => 'Type',
-            'formatter' => function ($data, $column, $sm) {
-                return $sm->get('translator')->translate($data['impoundingType']['id']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['impoundingType']['id']);
             }
         ),
         array(
@@ -57,14 +59,14 @@ return array(
         ),
         array(
             'title' => 'Outcome',
-            'formatter' => function ($data, $column, $sm) {
-                return (isset($data['outcome']['id']) ? $sm->get('translator')->translate($data['outcome']['id']) : '');
+            'formatter' => function ($data, $column) {
+                return (isset($data['outcome']['id']) ? $this->translator->translate($data['outcome']['id']) : '');
             }
         ),
         array(
             'title' => 'Outcome sent',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return $this->callFormatter($column, $data);
             },
             'name' => 'outcomeSentDate'

@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => ' open cases associated with this licence'
@@ -25,9 +27,9 @@ return array(
         ),
         array(
             'title' => 'Case type',
-            'formatter' => function ($row, $column, $sm) {
+            'formatter' => function ($row, $column) {
                 if (isset($row['caseType']['description'])) {
-                    return $sm->get('translator')->translate($row['caseType']['description']);
+                    return $this->translator->translate($row['caseType']['description']);
                 } else {
                     return 'Not set';
                 }
@@ -36,14 +38,14 @@ return array(
         ),
         array(
             'title' => 'Created',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'createdOn',
             'sort' => 'createdOn'
         ),
 
         array(
             'title' => 'Description',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
             'maxlength' => 250,
             'append' => '...',
             'name' => 'description'

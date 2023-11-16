@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 $variationNo = 1;
 return array(
     'variables' => array(
@@ -8,7 +10,7 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'delete' => array('requireRows' => true),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one'),
             ),
         ),
         'paginate' => array(
@@ -42,31 +44,31 @@ return array(
         ),
         array(
             'title' => 'Application type',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
                 if ($data['isTxcApp'] == 'Y') {
                     if ($data['ebsrRefresh'] == 'Y') {
-                        return $sm->get('translator')->translate('EBSR Data Refresh');
+                        return $this->translator->translate('EBSR Data Refresh');
                     } else {
-                        return $sm->get('translator')->translate('EBSR');
+                        return $this->translator->translate('EBSR');
                     }
                 } else {
-                    return $sm->get('translator')->translate('Manual');
+                    return $this->translator->translate('Manual');
                 }
             }
         ),
         array(
             'title' => 'Date received',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'receivedDate'
         ),
         array(
             'title' => 'Date effective',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'effectiveDate'
         ),
         array(
             'title' => 'End date',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'endDate'
         ),
         array(

@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'transport-manager.competences.table.qualification',
@@ -10,7 +12,7 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
+                'add' => array('class' => 'govuk-button'),
             )
         )
     ),
@@ -39,7 +41,7 @@ return array(
         array(
             'title' => 'Date',
             'name' => 'issuedDate',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'sort' => 'issuedDate',
         ),
         array(

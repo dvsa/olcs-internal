@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\RefData;
+
 return array(
     'variables' => array(
         'title' => 'Serious Infringements',
@@ -8,9 +10,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one'),
             )
         ),
         'paginate' => array(
@@ -34,7 +36,7 @@ return array(
         ),
         array(
             'title' => 'Category',
-            'formatter' => 'RefData',
+            'formatter' => RefData::class,
             'name' => 'siCategoryType'
         ),
         array(

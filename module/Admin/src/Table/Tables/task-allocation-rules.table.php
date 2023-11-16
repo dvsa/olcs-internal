@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\TaskAllocationCriteria;
+use Common\Service\Table\Formatter\TaskAllocationUser;
+
 return array(
     'variables' => array(
         'titleSingular' => 'allocation rule',
@@ -8,9 +11,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('class' => 'action--secondary js-require--one'),
-                'delete' => array('class' => 'action--secondary js-require--multiple')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('class' => 'govuk-button govuk-button--warning js-require--multiple')
             )
         ),
         // This has to exist so that the title gets prepended with the document count
@@ -31,7 +34,7 @@ return array(
         ),
         array(
             'title' => 'Criteria',
-            'formatter' => 'TaskAllocationRule\Criteria',
+            'formatter' => TaskAllocationCriteria::class,
         ),
         array(
             'title' => 'Traffic Area',
@@ -51,7 +54,7 @@ return array(
         array(
             'title' => 'User',
             'name' => 'user->contactDetails->person',
-            'formatter' => 'TaskAllocationRule\User',
+            'formatter' => TaskAllocationUser::class,
         ),
         array(
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

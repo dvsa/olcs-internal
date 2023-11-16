@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Address;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Partner organisation',
@@ -8,9 +10,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary', 'requireRows' => false),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button', 'requireRows' => false),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -29,7 +31,7 @@ return array(
         ),
         array(
             'title' => 'Address',
-            'formatter' => 'Address',
+            'formatter' => Address::class,
             'name' => 'address',
             'addressFields' => 'FULL',
         ),

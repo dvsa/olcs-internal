@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Name;
+use Common\Service\Table\Formatter\NoteUrl;
+
 return array(
     'variables' => array(
         'title' => 'Notes',
@@ -8,9 +11,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--multiple'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--multiple')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--multiple'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--multiple')
             )
         ),
         'paginate' => array(
@@ -24,20 +27,20 @@ return array(
     'columns' => array(
         array(
             'title' => 'Created',
-            'formatter' => 'NoteUrl',
+            'formatter' => NoteUrl::class,
         ),
         array(
             'title' => 'Author',
             'formatter' => function ($data, $column) {
 
-                $column['formatter'] = 'Name';
+                $column['formatter'] = Name::class;
 
                 return $this->callFormatter($column, $data['createdBy']['contactDetails']['person']);
             }
         ),
         array(
             'title' => 'Note',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
             'name' => 'comment',
         ),
         array(

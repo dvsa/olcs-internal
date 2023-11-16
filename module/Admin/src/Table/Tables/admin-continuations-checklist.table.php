@@ -1,5 +1,9 @@
 <?php
 
+use Common\Service\Table\Formatter\LicenceTypeShort;
+use Common\Service\Table\Formatter\StackValue;
+use Common\Service\Table\Formatter\StackValueReplacer;
+
 return array(
     'variables' => array(
         'title' => 'Continuations',
@@ -10,12 +14,12 @@ return array(
             'actions' => array(
                 'generate-letters' => array(
                     'label' => 'Generate letters',
-                    'class' => 'action--primary js-require--multiple',
+                    'class' => 'govuk-button js-require--multiple',
                     'requireRows' => true
                 ),
                 'export' => array(
                     'label' => 'Export',
-                    'class' => 'action--secondary js-disable-crud js-require--multiple',
+                    'class' => 'govuk-button govuk-button--secondary js-disable-crud js-require--multiple',
                     'requireRows' => true
                 ),
             )
@@ -25,12 +29,12 @@ return array(
         array(
             'title' => 'Operator name',
             'stack' => ['licence', 'organisation', 'name'],
-            'formatter' => 'StackValue'
+            'formatter' => StackValue::class
         ),
         array(
             'title' => 'Licence',
             'stringFormat' => '<a class="govuk-link" href="[LINK]">{licence->licNo}</a> ({licence->status->description})',
-            'formatter' => 'StackValueReplacer',
+            'formatter' => StackValueReplacer::class,
             'type' => 'Link',
             'route' => 'lva-licence',
             'params' => [
@@ -39,7 +43,7 @@ return array(
         ),
         array(
             'title' => 'Licence type',
-            'formatter' => 'LicenceTypeShort'
+            'formatter' => LicenceTypeShort::class
         ),
         array(
             'title' => 'Method',

@@ -1,5 +1,6 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
 use Common\Util\Escape;
 
 return [
@@ -18,7 +19,7 @@ return [
             'actions' => [
                 'edit' => [
                     'requireRows' => false,
-                    'class' => 'action--secondary js-require--one'
+                    'class' => 'govuk-button govuk-button--secondary js-require--one'
                 ],
             ]
         ],
@@ -48,7 +49,7 @@ return [
             'name' => 'effectiveFrom',
             'sort' => 'effectiveFrom',
             'formatter' => function ($row, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return empty($row['effectiveFrom']) ? 'N/A' : $this->callFormatter($column, $row);
             }
         ],

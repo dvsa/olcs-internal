@@ -3,21 +3,21 @@
 namespace Admin\Controller;
 
 use Admin\Form\Model\Form\TaskAllocationRule as FormClass;
-
+use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Create as CreateDto;
-use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\DeleteList as DeleteDto;
-
+use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\Get as ItemDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\GetList as ListDto;
-use Olcs\Data\Mapper\TaskAllocationRule as Mapper;
+use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
+use Olcs\Data\Mapper\TaskAllocationRule as Mapper;
+use Olcs\Service\Data\UserListInternal;
 
-use Common\RefData;
-
-/**
- * TaskAllocationRulesController
- */
 class TaskAllocationRulesController extends AbstractInternalController
 {
     /**
@@ -89,6 +89,21 @@ class TaskAllocationRulesController extends AbstractInternalController
         ],
     ];
 
+    protected TableFactory $tableFactory;
+    protected UserListInternal $userListInternal;
+
+    public function __construct(
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelper,
+        FlashMessengerHelperService $flashMessengerHelperService,
+        Navigation $navigation,
+        TableFactory $tableFactory,
+        UserListInternal $userListInternal
+    ) {
+        $this->tableFactory = $tableFactory;
+        $this->userListInternal = $userListInternal;
+        parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
+    }
     /**
      * Index Action
      *
@@ -113,7 +128,7 @@ class TaskAllocationRulesController extends AbstractInternalController
         $form = parent::getForm($name);
 
         if ($name === 'Admin\Form\Model\Form\TaskAllocationRule') {
-            $this->getServiceLocator()->get('Helper\Form')->populateFormTable(
+            $this->formHelperService->populateFormTable(
                 $form->get('details')->get('taskAlphaSplit'),
                 $this->getAlphaSplitTable()
             );
@@ -122,11 +137,6 @@ class TaskAllocationRulesController extends AbstractInternalController
         return $form;
     }
 
-    /**
-     * Get the Task alpha split table
-     *
-     * @return \Common\Service\Table\TableBuilder
-     */
     protected function getAlphaSplitTable()
     {
         $tableData = [];
@@ -137,7 +147,7 @@ class TaskAllocationRulesController extends AbstractInternalController
             $response = $this->handleQuery(\Dvsa\Olcs\Transfer\Query\TaskAlphaSplit\GetList::create($data));
 
             if ($response->isServerError() || $response->isClientError()) {
-                $this->getServiceLocator()->get('Helper\FlashMessenger')->addErrorMessage('unknown-error');
+                $this->flashMessengerHelperService->addErrorMessage('unknown-error');
             }
 
             if ($response->isOk()) {
@@ -145,7 +155,7 @@ class TaskAllocationRulesController extends AbstractInternalController
             }
         }
 
-        return $this->getServiceLocator()->get('Table')->prepareTable('task-alpha-split', $tableData);
+        return $this->tableFactory->prepareTable('task-alpha-split', $tableData);
     }
 
     /**
@@ -160,12 +170,12 @@ class TaskAllocationRulesController extends AbstractInternalController
     {
         // Setup the initial list of users in the dropdown dependant on the team
         if (isset($formData['details']['team']['id'])) {
-            $this->getServiceLocator()->get(\Olcs\Service\Data\UserListInternal::class)
+            $this->userListInternal
                 ->setTeamId($formData['details']['team']['id']);
         }
 
         /* @var $formHelper \Common\Service\Helper\FormHelperService */
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelperService;
 
         // if there are alpha splits in the table then disable changing team and user
         $taskAlphaSplitCount = count($form->get('details')->get('taskAlphaSplit')->get('table')->getTable()->getRows());
@@ -191,7 +201,7 @@ class TaskAllocationRulesController extends AbstractInternalController
 
         // Remove the task alpha split table
         /* @var $formHelper \Common\Service\Helper\FormHelperService */
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelperService;
         $formHelper->remove($form, 'details->taskAlphaSplit');
 
         // isMlh is only required if operator type is goods
@@ -285,7 +295,7 @@ class TaskAllocationRulesController extends AbstractInternalController
     protected function alterFormForEditAlphasplit($form)
     {
         // Remove "Save and add another" button
-        $formHelper = $this->getServiceLocator()->get('Helper\Form');
+        $formHelper = $this->formHelperService;
         $formHelper->remove($form, 'form-actions->addAnother');
 
         $this->setUpUserList();
@@ -302,7 +312,7 @@ class TaskAllocationRulesController extends AbstractInternalController
     {
         $teamId = $this->params()->fromRoute('team');
         if ((int)$teamId) {
-            $this->getServiceLocator()->get(\Olcs\Service\Data\UserListInternal::class)->setTeamId($teamId);
+            $this->userListInternal->setTeamId($teamId);
         }
     }
 

@@ -1,5 +1,9 @@
 <?php
 
+use Common\Service\Table\Formatter\DocumentDescription;
+use Common\Service\Table\Formatter\DocumentSubcategory;
+use Common\Service\Table\Formatter\FileExtension;
+
 return [
     'variables' => [
         'title' => 'Docs & attachments'
@@ -7,15 +11,15 @@ return [
     'settings' => [
         'crud' => [
             'actions' => [
-                'upload' => ['class' => 'action--primary'],
+                'upload' => ['class' => 'govuk-button'],
                 'New letter' => [],
-                'split' => ['class' => 'action--secondary', 'requireRows' => true],
+                'split' => ['class' => 'govuk-button govuk-button--secondary', 'requireRows' => true],
                 'relink' => [
-                    'class' => 'action--secondary js-require--multiple',
+                    'class' => 'govuk-button govuk-button--secondary js-require--multiple',
                     'requireRows' => true,
                 ],
                 'delete' => [
-                    'class' => 'action--delete action--secondary js-require--multiple',
+                    'class' => 'govuk-button govuk-button--warning js-require--multiple',
                     'requireRows' => true,
                 ],
             ],
@@ -31,7 +35,7 @@ return [
             'title' => 'Description',
             'name' => 'description',
             'sort' => 'description',
-            'formatter' => 'DocumentDescription',
+            'formatter' => DocumentDescription::class,
         ],
         [
             'title' => 'Category',
@@ -42,16 +46,16 @@ return [
             'title' => 'Subcategory',
             'name' => 'documentSubCategoryName',
             'sort' => 'documentSubCategoryName',
-            'formatter' => 'DocumentSubcategory'
+            'formatter' => DocumentSubcategory::class
         ],
         [
             'title' => 'Format',
-            'formatter' => 'FileExtension'
+            'formatter' => FileExtension::class
         ],
         [
             'title' => 'Date',
             'name' => 'issuedDate',
-            'formatter' => 'DateTime',
+            'formatter' => \Common\Service\Table\Formatter\DateTime::class,
             'sort' => 'issuedDate',
         ],
         [

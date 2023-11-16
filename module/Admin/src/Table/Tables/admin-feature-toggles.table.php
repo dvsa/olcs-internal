@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\FeatureToggleEditLink;
+use Common\Service\Table\Formatter\RefDataStatus;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Feature toggle',
@@ -8,9 +11,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary', 'requireRows' => false),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button', 'requireRows' => false),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -26,7 +29,7 @@ return array(
         array(
             'title' => 'Name',
             'name' => 'friendlyName',
-            'formatter' => 'FeatureToggleEditLink'
+            'formatter' => FeatureToggleEditLink::class
         ),
         array(
             'title' => 'Handler (or config key)',
@@ -35,7 +38,7 @@ return array(
         array(
             'title' => 'Status',
             'name' => 'status',
-            'formatter' => 'RefDataStatus'
+            'formatter' => RefDataStatus::class
         ),
         array(
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

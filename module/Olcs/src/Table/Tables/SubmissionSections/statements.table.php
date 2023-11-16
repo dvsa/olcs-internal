@@ -1,4 +1,7 @@
 <?php
+
+use Common\Service\Table\Formatter\Name;
+
 return array(
     'variables' => array(
         'id' => 'statements',
@@ -12,8 +15,8 @@ return array(
         'crud' => array(
             'formName' => 'statements',
             'actions' => array(
-                'refresh-table' => array('label' => 'Refresh table', 'class' => 'action--secondary', 'requireRows' => false),
-                'delete-row' => array('label' => 'Delete row', 'class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'refresh-table' => array('label' => 'Refresh table', 'class' => 'govuk-button govuk-button--secondary', 'requireRows' => false),
+                'delete-row' => array('label' => 'Delete row', 'class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             ),
             'action_field_name' => 'formAction'
         ),
@@ -30,7 +33,7 @@ return array(
         array(
             'title' => 'Requested by',
             'name' => 'requestedBy',
-            'formatter' => 'Name'
+            'formatter' => Name::class
         ),
         array(
             'title' => 'Statement type',
@@ -44,7 +47,7 @@ return array(
         ),
         array(
             'title' => 'Requestor body',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
             'name' => 'requestorsBody'
         ),
         array(

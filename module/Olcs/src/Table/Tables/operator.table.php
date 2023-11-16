@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'Operators',
@@ -14,8 +16,8 @@ return array(
         ),
         'crud' => array(
             'actions' => array(
-                'createOperator' => array('class' => 'action--primary', 'value' => 'Create operator'),
-                'createTransportManager' => array('class' => 'action--secondary', 'value' => 'Create transport manager')
+                'createOperator' => array('class' => 'govuk-button', 'value' => 'Create operator'),
+                'createTransportManager' => array('class' => 'govuk-button govuk-button--secondary', 'value' => 'Create transport manager')
             )
         ),
     ),
@@ -55,7 +57,7 @@ return array(
         array(
             'title' => 'Last act CN/Date',
             'name' => 'last_updated_on',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'sort' => 'lastActionDate'
         ),
         array(
@@ -95,21 +97,19 @@ return array(
         ),
         array(
             'title' => 'Info',
-            'formatter' => 'Date',
-            'formatter' => function ($data, $column, $sm) {
-                $translator = $sm->get('translator');
+            'formatter' => function ($data, $column) {
                 $string = '<span class="tooltip">';
                 $string .= !empty($data['startDate']) ?
-                        ucfirst($translator->translate('start')) . ': ' .
+                        ucfirst($this->translator->translate('start')) . ': ' .
                         $data['startDate'] . '<br />' : '';
                 $string .= !empty($data['reviewDate']) ?
-                        ucfirst($translator->translate('review')) . ': ' .
+                        ucfirst($this->translator->translate('review')) . ': ' .
                         $data['reviewDate'] . '<br />' : '';
                 $string .= !empty($data['endDate']) ?
-                        ucfirst($translator->translate('end')) . ': ' .
+                        ucfirst($this->translator->translate('end')) . ': ' .
                         $data['endDate'] . '<br />' : '';
                 $string .= !empty($data['fabsReference']) ?
-                        ucfirst($translator->translate('fabs-reference')) . ': ' .
+                        ucfirst($this->translator->translate('fabs-reference')) . ': ' .
                         $data['fabsReference'] . '<br />' : '';
                 $string .= '</span>';
 

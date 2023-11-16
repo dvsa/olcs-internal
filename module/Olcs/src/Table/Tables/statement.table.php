@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'Statements',
@@ -9,14 +11,14 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary', 'label' => 'Add statement'),
-                'edit' => array('class' => 'action--secondary js-require--one', 'requireRows' => true),
+                'add' => array('class' => 'govuk-button', 'label' => 'Add statement'),
+                'edit' => array('class' => 'govuk-button govuk-button--secondary js-require--one', 'requireRows' => true),
                 'generate' => array(
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one',
+                    'class' => 'govuk-button govuk-button--secondary js-require--one',
                     'label' => 'Generate Letter'
                 ),
-                'delete' => array('class' => 'action--secondary js-require--one', 'requireRows' => true)
+                'delete' => array('class' => 'govuk-button govuk-button--warning js-require--one', 'requireRows' => true)
             )
         )
     ),
@@ -29,7 +31,7 @@ return array(
         array(
             'title' => 'Date requested',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::Class;
                 return '<a href="' . $this->generateUrl(
                     array('action' => 'edit', 'statement' => $data['id']),
                     'case_statement',
@@ -40,21 +42,21 @@ return array(
         ),
         array(
             'title' => 'Requested by',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
                 return $data['requestorsContactDetails']['person']['forename'] . ' ' .
                     $data['requestorsContactDetails']['person']['familyName'];
             }
         ),
         array(
             'title' => 'Statement type',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
 
                 return $data['statementType']['description'];
             },
         ),
         array(
             'title' => 'Date stopped',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'stoppedDate'
         ),
         array(
@@ -63,11 +65,11 @@ return array(
         ),
         array(
             'title' => 'Date issued',
-            'formatter' => function ($data, $column, $sl) {
-                $column['formatter'] = 'Date';
+            'formatter' => function ($data, $column) {
+                $column['formatter'] = Date::class;
                 return (!empty($data['issuedDate']) ?
                     $this->callFormatter($column, $data) :
-                    $sl->get('translator')->translate('Not issued')
+                    $this->translator->translate('Not issued')
                 );
             },
             'name' => 'issuedDate'

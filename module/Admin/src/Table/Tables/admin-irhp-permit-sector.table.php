@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\IrhpPermitSectorName;
+use Common\Service\Table\Formatter\IrhpPermitSectorQuota;
+
 return [
     'variables' => [
         'title' => 'Permit Sectors',
@@ -9,11 +12,11 @@ return [
         'crud' => [
             'actions' => [
                 'save' => [
-                    'class' => 'action--primary',
+                    'class' => 'govuk-button',
                     'requireRows' => false
                 ],
                 'cancel' => [
-                    'class' => 'action--secondary',
+                    'class' => 'govuk-button govuk-button--secondary',
                     'requireRows' => false
                 ]
             ]
@@ -23,13 +26,13 @@ return [
         [
             'title' => 'Sector Name',
             'name' => 'sectorId',
-            'formatter' => 'IrhpPermitSectorName'
+            'formatter' => IrhpPermitSectorName::class
         ],
         [
             'title' => 'Quantity of permits',
             'isNumeric' => true,
             'name' => 'quotaNumber',
-            'formatter' => 'IrhpPermitSectorQuota'
+            'formatter' => IrhpPermitSectorQuota::class
         ],
     ]
 ];

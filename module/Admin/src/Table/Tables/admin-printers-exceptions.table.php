@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\PrinterDocumentCategory;
+use Common\Service\Table\Formatter\PrinterException;
+
 return array(
     'variables' => array(
         'title' => ' Printers exceptions',
@@ -11,18 +14,18 @@ return array(
             'formName' => 'printerExceptions',
             'actions' => array(
                 'addRule' => array(
-                    'class' => 'action--primary', 
+                    'class' => 'govuk-button', 
                     'requireRows' => false, 
                     'label' => 'add'
                 ),
                 'editRule' => array(
                     'requireRows' => true, 
-                    'class' => 'action--secondary js-require--one', 
+                    'class' => 'govuk-button govuk-button--secondary js-require--one', 
                     'label' => 'edit'
                 ),
                 'deleteRule' => array(
                     'requireRows' => true, 
-                    'class' => 'action--secondary js-require--one', 
+                    'class' => 'govuk-button govuk-button--warning js-require--one',
                     'label' => 'delete'
                 )
             )
@@ -35,12 +38,12 @@ return array(
         array(
             'title' => 'Exception',
             'name' => 'exception',
-            'formatter' => 'PrinterException'
+            'formatter' => PrinterException::class
         ),
         array(
             'title' => 'Document categories',
             'name' => 'documentCategories',
-            'formatter' => 'PrinterDocumentCategory'
+            'formatter' => PrinterDocumentCategory::class
         ),
         array(
             'title' => 'Designated printer',

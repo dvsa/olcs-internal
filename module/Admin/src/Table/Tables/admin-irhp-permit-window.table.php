@@ -9,16 +9,16 @@ return [
         'crud' => [
             'actions' => [
                 'add' => [
-                    'class' => 'action--primary',
+                    'class' => 'govuk-button',
                     'requireRows' => false
                 ],
                 'edit' => [
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one'
+                    'class' => 'govuk-button govuk-button--secondary js-require--one'
                 ],
                 'delete' => [
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one'
+                    'class' => 'govuk-button govuk-button--warning js-require--one'
                 ]
             ]
         ],
@@ -35,12 +35,12 @@ return [
         [
             'title' => 'Window Start Date',
             'name' => 'startDate',
-            'formatter' => 'DateTime'
+            'formatter' => \Common\Service\Table\Formatter\DateTime::class
         ],
         [
             'title' => 'Window End Date',
             'name' => 'endDate',
-            'formatter' => 'DateTime'
+            'formatter' => \Common\Service\Table\Formatter\DateTime::class
         ],
         [
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

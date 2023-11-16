@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+use Common\Service\Table\Formatter\RefData;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Opposition',
@@ -9,14 +12,14 @@ return array(
         'crud' => array(
             'formName' => 'opposition',
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
                 'generate' => array(
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one',
+                    'class' => 'govuk-button govuk-button--secondary js-require--one',
                     'label' => 'Generate Letter'
                 ),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
     ),
@@ -30,7 +33,7 @@ return array(
             'title' => 'Date received',
             'name' => 'raisedDate',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a href="' . $this->generateUrl(
                     array('action' => 'edit', 'opposition' => $data['id']),
                     'case_opposition',
@@ -41,7 +44,7 @@ return array(
         ),
         array(
             'title' => 'Opposition type',
-            'formatter' => 'RefData',
+            'formatter' => RefData::class,
             'name' => 'oppositionType'
         ),
 
@@ -66,7 +69,7 @@ return array(
         array(
             'title' => 'Valid',
             'name' => 'isValid',
-            'formatter' => 'RefData',
+            'formatter' => RefData::class,
             'sort' => 'isValid'
         ),
         array(

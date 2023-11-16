@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Variation Test
- *
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 namespace OlcsTest\FormService\Form\Lva;
 
 use Mockery as m;
@@ -12,6 +7,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\FormService\Form\Lva\Variation;
 use Laminas\Form\Fieldset;
 use Laminas\Form\Form;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Variation Test
@@ -28,8 +24,7 @@ class VariationTest extends MockeryTestCase
     {
         $this->formHelper = m::mock('\Common\Service\Helper\FormHelperService');
 
-        $this->sut = new Variation();
-        $this->sut->setFormHelper($this->formHelper);
+        $this->sut = new Variation($this->formHelper, m::mock(AuthorizationService::class));
     }
 
     public function testAlterForm()
@@ -42,7 +37,7 @@ class VariationTest extends MockeryTestCase
 
         $mockSave = m::mock();
         $mockSave->shouldReceive('setLabel')->once()->with('internal.save.button');
-        $mockSave->shouldReceive('setAttribute')->once()->with('class', 'action--primary large');
+        $mockSave->shouldReceive('setAttribute')->once()->with('class', 'govuk-button');
 
         $formActions->shouldReceive('has')->with('save')->andReturn(true);
         $formActions->shouldReceive('get')->with('save')->andReturn($mockSave);

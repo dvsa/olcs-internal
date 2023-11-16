@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\IrhpPermitJurisdictionPermitNumber;
+use Common\Service\Table\Formatter\IrhpPermitJurisdictionTrafficArea;
+
 return [
     'variables' => [
         'title' => 'Jurisdictions',
@@ -9,11 +12,11 @@ return [
         'crud' => [
             'actions' => [
                 'save' => [
-                    'class' => 'action--primary',
+                    'class' => 'govuk-button',
                     'requireRows' => false
                 ],
                 'cancel' => [
-                    'class' => 'action--secondary',
+                    'class' => 'govuk-button govuk-button--secondary',
                     'requireRows' => false
                 ]
             ]
@@ -23,13 +26,13 @@ return [
         [
             'title' => 'Devolved administrations',
             'name' => 'trafficArea',
-            'formatter' => 'IrhpPermitJurisdictionTrafficArea'
+            'formatter' => IrhpPermitJurisdictionTrafficArea::class
         ],
         [
             'title' => 'Quantity of permits',
             'isNumeric' => true,
             'name' => 'permitNumber',
-            'formatter' => 'IrhpPermitJurisdictionPermitNumber'
+            'formatter' => IrhpPermitJurisdictionPermitNumber::class
         ],
     ]
 ];

@@ -1,5 +1,9 @@
 <?php
 
+use Common\Service\Table\Formatter\DataRetentionAssignedTo;
+use Common\Service\Table\Formatter\DataRetentionRecordLink;
+use Common\Service\Table\Formatter\Date;
+
 return [
     'variables' => [
         'title' => 'Data Retention Records',
@@ -12,22 +16,22 @@ return [
                 'assign' => [
                     'label' => 'Assign',
                     'requireRows' => true,
-                    'class' => 'action--primary js-require--multiple'
+                    'class' => 'govuk-button js-require--multiple'
                 ],
                 'delay' => [
                     'label' => 'Delay',
                     'requireRows' => true,
-                    'class' => 'action--primary js-require--multiple'
+                    'class' => 'govuk-button js-require--multiple'
                 ],
                 'review' => [
                     'label' => 'Mark for Review',
                     'requireRows' => true,
-                    'class' => 'action--primary js-require--multiple'
+                    'class' => 'govuk-button js-require--multiple'
                 ],
                 'delete' => [
                     'label' => 'Mark as Delete',
                     'requireRows' => true,
-                    'class' => 'action--delete js-require--multiple'
+                    'class' => 'govuk-button govuk-button--warning js-require--multiple'
                 ],
             ]
         ],
@@ -41,24 +45,24 @@ return [
     'columns' => [
         [
             'title' => 'Description',
-            'formatter' => 'DataRetentionRecordLink',
+            'formatter' => DataRetentionRecordLink::class,
             'sort' => 'licNo',
         ],
         [
             'title' => 'Date added',
             'name' => 'createdOn',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'sort' => 'createdOn',
         ],
         [
             'title' => 'Next review date',
             'name' => 'nextReviewDate',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'sort' => 'nextReviewDate'
         ],
         [
             'title' => 'Assigned to',
-            'formatter' => 'DataRetentionAssignedTo',
+            'formatter' => DataRetentionAssignedTo::class,
             'sort' => 'p.forename'
         ],
         [

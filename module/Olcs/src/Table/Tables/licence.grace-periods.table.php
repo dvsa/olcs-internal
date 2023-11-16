@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'licence.grace-periods.table.title',
@@ -8,9 +10,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--multiple')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--multiple')
             ),
             'formName' => 'grace-periods'
         ),
@@ -20,7 +22,7 @@ return array(
             'title' => 'licence.grace-periods.table.startDate',
             'name' => 'startDate',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a href="' .
                     $this->generateUrl(
                         array(
@@ -36,7 +38,7 @@ return array(
         array(
             'title' => 'licence.grace-periods.table.endDate',
             'name' => 'endDate',
-            'formatter' => 'Date'
+            'formatter' => Date::class
         ),
         array(
             'title' => 'licence.grace-periods.table.description',

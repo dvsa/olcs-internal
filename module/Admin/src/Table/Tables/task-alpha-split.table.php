@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Name;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Alpha split',
@@ -9,14 +11,14 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'addAlphasplit' => array('class' => 'action--primary', 'label' => 'add'),
+                'addAlphasplit' => array('class' => 'govuk-button', 'label' => 'add'),
                 'editAlphasplit' => array(
-                    'class' => 'action--secondary js-require--one',
+                    'class' => 'govuk-button govuk-button--secondary js-require--one',
                     'label' => 'edit',
                     'requireRows' => true
                 ),
                 'deleteAlphasplit' => array(
-                    'class' => 'action--secondary js-require--multiple',
+                    'class' => 'govuk-button govuk-button--warning js-require--multiple',
                     'label' => 'delete',
                     'requireRows' => true
                 )
@@ -31,7 +33,7 @@ return array(
         array(
             'title' => 'User',
             'name' => 'user->contactDetails->person',
-            'formatter' => 'Name',
+            'formatter' => Name::class,
         ),
         array(
             'title' => 'Assign operator tasks starting with these letters',

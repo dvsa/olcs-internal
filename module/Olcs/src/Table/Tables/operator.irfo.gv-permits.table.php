@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'GV Permit',
@@ -8,7 +10,7 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
+                'add' => array('class' => 'govuk-button'),
             )
         ),
         'paginate' => array(
@@ -32,7 +34,7 @@ return array(
         ),
         array(
             'title' => 'In force date',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'inForceDate'
         ),
         array(

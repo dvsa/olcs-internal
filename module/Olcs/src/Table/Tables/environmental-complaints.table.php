@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Address;
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'Environmental complaints',
@@ -12,14 +15,14 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
                 'generate' => array(
                     'requireRows' => true,
-                    'class' => 'action--secondary js-require--one',
+                    'class' => 'govuk-button govuk-button--secondary js-require--one',
                     'label' => 'Generate Letter'
                 ),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
     ),
@@ -32,7 +35,7 @@ return array(
         array(
             'title' => 'Date received',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return '<a href="' . $this->generateUrl(
                     array('action' => 'edit', 'complaint' => $data['id']),
                     'case_environmental_complaint',
@@ -52,7 +55,7 @@ return array(
             'title' => 'OC Address',
             'width' => '350px',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Address';
+                $column['formatter'] = Address::class;
                 $addressList = '';
                 if (!empty($data['operatingCentres'])) {
                     foreach ($data['operatingCentres'] as $operatingCentre) {

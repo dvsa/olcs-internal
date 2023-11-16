@@ -1,5 +1,9 @@
 <?php
 
+use Common\Service\Table\Formatter\CommunityLicenceIssueNo;
+use Common\Service\Table\Formatter\CommunityLicenceStatus;
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Community Licence',
@@ -15,9 +19,9 @@ return array(
         ),
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--secondary', 'value' => 'Add'),
-                'office-licence-add' => array('class' => 'action--secondary', 'value' => 'Add office licence'),
-                'restore' => array('class' => 'action--secondary', 'value' => 'Restore')
+                'add' => array('class' => 'govuk-button govuk-button--secondary', 'value' => 'Add'),
+                'office-licence-add' => array('class' => 'govuk-button govuk-button--secondary', 'value' => 'Add office licence'),
+                'restore' => array('class' => 'govuk-button govuk-button--secondary', 'value' => 'Restore')
             )
         ),
         'row-disabled-callback' => function ($row) {
@@ -41,7 +45,7 @@ return array(
         ),
         array(
             'title' => 'Date Issued',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'sort' => 'specifiedDate',
             'name' => 'specifiedDate',
         ),
@@ -49,12 +53,12 @@ return array(
             'title' => 'Issue number',
             'sort' => 'issueNo',
             'name' => 'issueNo',
-            'formatter' => 'CommunityLicenceIssueNo',
+            'formatter' => CommunityLicenceIssueNo::class,
         ),
         array(
             'title' => 'Status',
             'name' => 'status',
-            'formatter' => 'CommunityLicenceStatus'
+            'formatter' => CommunityLicenceStatus::class
         ),
         array(
             'type' => 'Checkbox',

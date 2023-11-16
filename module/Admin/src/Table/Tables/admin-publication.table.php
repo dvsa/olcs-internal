@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+use Common\Service\Table\Formatter\PublicationNumber;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Publications',
@@ -8,8 +11,8 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'generate' => array('requireRows' => true, 'class' => 'action--primary js-require--one'),
-                'publish' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'generate' => array('requireRows' => true, 'class' => 'govuk-button js-require--one'),
+                'publish' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one')
             )
         ),
         'paginate' => array(
@@ -32,7 +35,7 @@ return array(
         array(
             'title' => 'Publication No.',
             'isNumeric' => true,
-            'formatter' => 'PublicationNumber',
+            'formatter' => PublicationNumber::class,
             'name' => 'publicationNo',
             'sort' => 'publicationNo',
         ),
@@ -50,7 +53,7 @@ return array(
             'title' => 'Publication date',
             'name' => 'pubDate',
             'sort' => 'pubDate',
-            'formatter' => 'Date'
+            'formatter' => Date::class
         ),
         array(
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

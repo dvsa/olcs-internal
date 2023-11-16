@@ -5,16 +5,22 @@
  *
  * @author Rob Caiger <rob@clocal.co.uk>
  */
+
 namespace Olcs\Controller\Lva\Licence;
 
 use Common\Controller\Lva\AbstractController;
 use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Dvsa\Olcs\Transfer\Command\Licence\Overview as OverviewCmd;
 use Dvsa\Olcs\Transfer\Command\Licence\PrintLicence;
 use Dvsa\Olcs\Transfer\Query\Licence\Overview as LicenceQry;
-use Dvsa\Olcs\Transfer\Command\Licence\Overview as OverviewCmd;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Olcs\Controller\Lva\Traits\LicenceControllerTrait;
-use Laminas\View\Model\ViewModel;
+use Olcs\Service\Helper\LicenceOverviewHelperService;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Internal Licence Overview Controller
@@ -26,7 +32,36 @@ class OverviewController extends AbstractController implements LicenceController
     use LicenceControllerTrait;
 
     protected $lva = 'licence';
-    protected $location = 'internal';
+    protected string $location = 'internal';
+
+    protected LicenceOverviewHelperService $licenceOverviewHelper;
+    protected FormHelperService $formHelper;
+    protected $navigation;
+    protected FlashMessengerHelperService $flashMessengerHelper;
+
+    /**
+     * @param NiTextTranslation $niTextTranslationUtil
+     * @param AuthorizationService $authService
+     * @param LicenceOverviewHelperService $licenceOverviewHelper
+     * @param FormHelperService $formHelper
+     * @param $navigation
+     * @param FlashMessengerHelperService $flashMessengerHelper
+     */
+    public function __construct(
+        NiTextTranslation $niTextTranslationUtil,
+        AuthorizationService $authService,
+        LicenceOverviewHelperService $licenceOverviewHelper,
+        FormHelperService $formHelper,
+        $navigation,
+        FlashMessengerHelperService $flashMessengerHelper
+    ) {
+        $this->licenceOverviewHelper = $licenceOverviewHelper;
+        $this->formHelper = $formHelper;
+        $this->navigation = $navigation;
+        $this->flashMessengerHelper = $flashMessengerHelper;
+
+        parent::__construct($niTextTranslationUtil, $authService);
+    }
 
     /**
      * Licence overview
@@ -87,7 +122,7 @@ class OverviewController extends AbstractController implements LicenceController
         // Render the view
         $content = new ViewModel(
             array_merge(
-                $this->getServiceLocator()->get('Helper\LicenceOverview')->getViewData($licence),
+                $this->licenceOverviewHelper->getViewData($licence),
                 [
                     'form' => $form,
                     'title' => 'Overview'
@@ -120,7 +155,7 @@ class OverviewController extends AbstractController implements LicenceController
      */
     protected function getOverviewForm()
     {
-        return $this->getServiceLocator()->get('Helper\Form')
+        return $this->formHelper
             ->createForm('LicenceOverview');
     }
 
@@ -141,7 +176,7 @@ class OverviewController extends AbstractController implements LicenceController
         ];
         if (!in_array($licence['status']['id'], $validStatuses)) {
             // remove review date field if licence is not active
-            $this->getServiceLocator()->get('Helper\Form')->remove($form, 'details->reviewDate');
+            $this->formHelper->remove($form, 'details->reviewDate');
         }
 
         $form->get('details')->get('leadTcArea')->setValueOptions(
@@ -149,7 +184,7 @@ class OverviewController extends AbstractController implements LicenceController
         );
 
         if ($licence['trafficArea']['isWales'] !== true) {
-            $this->getServiceLocator()->get('Helper\Form')->remove($form, 'details->translateToWelsh');
+            $this->formHelper->remove($form, 'details->translateToWelsh');
         }
 
         return $form;

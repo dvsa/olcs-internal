@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Address;
+
 return array(
     'variables' => array(
         'title' => 'Conditions & undertakings',
@@ -9,9 +11,9 @@ return array(
         'crud' => array(
             'formName' => 'conditions',
             'actions' => array(
-                'add' => array('class' => 'action--primary', 'label' => 'Add condition or undertaking'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button', 'label' => 'Add condition or undertaking'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         )
     ),
@@ -35,14 +37,14 @@ return array(
         ),
         array(
             'title' => 'Type',
-            'formatter' => function ($data, $column, $sl) {
-                return $sl->get('translator')->translate($data['conditionType']['description']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['conditionType']['description']);
             },
         ),
         array(
             'title' => 'Added via',
-            'formatter' => function ($data, $column, $sl) {
-                return $sl->get('translator')->translate($data['addedVia']['description']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['addedVia']['description']);
             },
         ),
         array(
@@ -59,18 +61,18 @@ return array(
         ),
         array(
             'title' => 'Attached to',
-            'formatter' => function ($data, $column, $sm) {
-                return $sm->get('translator')->translate($data['attachedTo']['description']);
+            'formatter' => function ($data, $column) {
+                return $this->translator->translate($data['attachedTo']['description']);
             },
         ),
         array(
             'title' => 'OC address',
             'width' => '300px',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
 
                 if (isset($data['operatingCentre']['address'])) {
 
-                    $column['formatter'] = 'Address';
+                    $column['formatter'] = Address::class;
 
                     return $this->callFormatter($column, $data['operatingCentre']['address']);
                 }

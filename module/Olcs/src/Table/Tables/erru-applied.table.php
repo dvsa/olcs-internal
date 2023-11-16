@@ -1,5 +1,8 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+use Common\Service\Table\Formatter\YesNo;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Applied penalty',
@@ -8,9 +11,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         )
     ),
@@ -46,7 +49,7 @@ return array(
         array(
             'title' => 'Start date',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return $this->callFormatter($column, $data);
             },
             'name' => 'startDate'
@@ -54,14 +57,14 @@ return array(
         array(
             'title' => 'End date',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 return $this->callFormatter($column, $data);
             },
             'name' => 'endDate'
         ),
         array(
             'title' => 'Imposed',
-            'formatter' => 'YesNo',
+            'formatter' => YesNo::class,
             'name' => 'imposed'
         )
     )

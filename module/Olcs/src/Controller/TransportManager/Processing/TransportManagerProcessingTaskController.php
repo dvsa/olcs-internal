@@ -2,24 +2,49 @@
 
 namespace Olcs\Controller\TransportManager\Processing;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
+use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Traits;
+use Olcs\Service\Data\SubCategory;
 
-/**
- * Transport Manager Processing Task Controller
- *
- * @author Alex Peshkov <alex.peshkov@valtech.co.uk>
- * @author Dan Eggleston <dan@stolenegg.com>
- */
 class TransportManagerProcessingTaskController extends AbstractTransportManagerProcessingController
 {
     use Traits\TaskActionTrait {
         Traits\TaskActionTrait::getTaskForm as traitGetTaskForm;
     }
 
+    protected SubCategory $subCategoryDataService;
+
+    public function __construct(
+        ScriptFactory $scriptFactory,
+        FormHelperService $formHelper,
+        TableFactory $tableFactory,
+        HelperPluginManager $viewHelperManager,
+        FlashMessengerHelperService $flashMessengerHelper,
+        TranslationHelperService $translationHelper,
+        $navigation,
+        SubCategory $subCategoryDataService
+    ) {
+        parent::__construct(
+            $scriptFactory,
+            $formHelper,
+            $tableFactory,
+            $viewHelperManager,
+            $flashMessengerHelper,
+            $translationHelper,
+            $navigation
+        );
+        $this->subCategoryDataService = $subCategoryDataService;
+    }
+
     /**
      * Get task action type
      *
-     * @see \Olcs\Controller\Traits\TaskActionTrait
+     * @see    \Olcs\Controller\Traits\TaskActionTrait
      * @return string
      */
     protected function getTaskActionType()
@@ -30,7 +55,7 @@ class TransportManagerProcessingTaskController extends AbstractTransportManagerP
     /**
      * Get task action filters
      *
-     * @see \Olcs\Controller\Traits\TaskActionTrait
+     * @see    \Olcs\Controller\Traits\TaskActionTrait
      * @return array
      */
     protected function getTaskActionFilters()

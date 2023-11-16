@@ -1,5 +1,6 @@
 <?php
 
+use Common\Service\Table\Formatter\IssuedPermitLicencePermitReference;
 use Common\Util\Escape;
 
 return [
@@ -13,11 +14,11 @@ return [
                 'confirm' => [
                     'requireRows' => true,
                     'label' => 'Continue',
-                    'class' => 'action--primary js-require--multiple'
+                    'class' => 'govuk-button js-require--multiple'
                 ],
                 'cancel' => [
                     'requireRows' => false,
-                    'class' => 'action--secondary'
+                    'class' => 'govuk-button govuk-button--secondary'
                 ]
             ]
         ],
@@ -57,7 +58,7 @@ return [
                 return $this->callFormatter(
                     [
                         'name' => 'id',
-                        'formatter' => 'IssuedPermitLicencePermitReference',
+                        'formatter' => IssuedPermitLicencePermitReference::class,
                     ],
                     [
                         'id' => $relatedApplication['id'],

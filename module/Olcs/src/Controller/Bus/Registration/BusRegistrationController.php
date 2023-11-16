@@ -4,11 +4,11 @@ namespace Olcs\Controller\Bus\Registration;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Dvsa\Olcs\Transfer\Command as TransferCmd;
-use Olcs\View\Model\ViewModel;
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
-use Olcs\Controller\Interfaces\BusRegControllerInterface;
 use Laminas\Mvc\MvcEvent;
+use Olcs\Controller\Interfaces\BusRegControllerInterface;
+use Olcs\View\Model\ViewModel;
 
 /**
  * Bus Registration Controller
@@ -18,11 +18,20 @@ use Laminas\Mvc\MvcEvent;
  */
 class BusRegistrationController extends AbstractActionController implements BusRegControllerInterface
 {
-    /** @var  FlashMessengerHelperService */
-    private $hlpFlashMsgr;
+    protected FlashMessengerHelperService $flashMessengerHelperService;
 
-    /** @var  int */
+    /**
+     * @var int
+     */
     private $busRegId;
+
+    protected FlashMessengerHelperService $flashMessenger;
+
+    public function __construct(
+        FlashMessengerHelperService $flashMessenger
+    ) {
+        $this->flashMessengerHelperService = $flashMessenger;
+    }
 
     /**
      * On Dispatch
@@ -33,10 +42,7 @@ class BusRegistrationController extends AbstractActionController implements BusR
      */
     public function onDispatch(MvcEvent $e)
     {
-        $this->hlpFlashMsgr = $this->getServiceLocator()->get('Helper\FlashMessenger');
-
         $this->busRegId = $this->params()->fromRoute('busRegId');
-
         parent::onDispatch($e);
     }
 
@@ -51,7 +57,7 @@ class BusRegistrationController extends AbstractActionController implements BusR
     }
 
     /**
-     *Create Bus Reg
+     * Create Bus Reg
      *
      * @return ViewModel
      */
@@ -120,9 +126,9 @@ class BusRegistrationController extends AbstractActionController implements BusR
         $response = $this->handleCommand($command);
 
         if ($response->isOk()) {
-            $this->hlpFlashMsgr->addSuccessMessage('Created record');
+            $this->flashMessengerHelperService->addSuccessMessage('Created record');
         } else {
-            $this->hlpFlashMsgr->addUnknownError();
+            $this->flashMessengerHelperService->addUnknownError();
         }
 
         return $this->redirectToDetails($response->getResult()['id']['bus']);
@@ -142,9 +148,9 @@ class BusRegistrationController extends AbstractActionController implements BusR
         );
 
         if ($response->isOk()) {
-            $this->hlpFlashMsgr->addSuccessMessage('Bus registration letter created');
+            $this->flashMessengerHelperService->addSuccessMessage('Bus registration letter created');
         } else {
-            $this->hlpFlashMsgr->addErrorMessage('Bus registration letter not created');
+            $this->flashMessengerHelperService->addErrorMessage('Bus registration letter not created');
         }
 
         return $this->redirect()->toRouteAjax('licence/bus-docs', ['busRegId' => $this->busRegId], [], true);

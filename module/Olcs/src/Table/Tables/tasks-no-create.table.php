@@ -1,5 +1,11 @@
 <?php
 
+use Common\Service\Table\Formatter\TaskCheckbox;
+use Common\Service\Table\Formatter\TaskDate;
+use Common\Service\Table\Formatter\TaskDescription;
+use Common\Service\Table\Formatter\TaskIdentifier;
+use Common\Service\Table\Formatter\TaskOwner;
+
 return array(
     'variables' => array(
         'title' => 'Tasks',
@@ -8,9 +14,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'edit' => array('requireRows' => true, 'class' => 'action--primary js-require--one'),
-                're-assign task' => array('requireRows' => true, 'class' => 'action--secondary js-require--multiple'),
-                'close task' => array('requireRows' => true, 'class' => 'action--secondary js-require--multiple')
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button js-require--one'),
+                're-assign task' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--multiple'),
+                'close task' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--multiple')
             )
         ),
         'paginate' => array(
@@ -24,7 +30,7 @@ return array(
     'columns' => array(
         array(
             'title' => 'Link',
-            'formatter' => 'TaskIdentifier',
+            'formatter' => TaskIdentifier::class,
             'name' => 'link',
             'sort' => 'linkDisplay',
         ),
@@ -41,18 +47,18 @@ return array(
         ),
         array(
             'title' => 'Description',
-            'formatter' => 'TaskDescription',
+            'formatter' => TaskDescription::class,
             'sort' => 'description',
         ),
         array(
             'title' => 'Date',
             'name' => 'actionDate',
-            'formatter' => 'TaskDate',
+            'formatter' => TaskDate::class,
             'sort' => 'actionDate',
         ),
         array(
             'title' => 'Owner',
-            'formatter' => 'TaskOwner',
+            'formatter' => TaskOwner::class,
             'sort' => 'teamName,ownerName',
         ),
         array(
@@ -63,7 +69,7 @@ return array(
         array(
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common
             'width' => 'checkbox',
-            'formatter' => 'TaskCheckbox',
+            'formatter' => TaskCheckbox::class,
         )
     )
 );

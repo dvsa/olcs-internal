@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\RefData;
+
 return array(
     'variables' => array(
         'title' => 'transport-manager.otherlicences.table',
@@ -8,7 +10,7 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add-other-licence-licences' => array('label' => 'Add', 'class' => 'action--primary'),
+                'add-other-licence-licences' => array('label' => 'Add', 'class' => 'govuk-button'),
             ),
         ),
     ),
@@ -22,7 +24,7 @@ return array(
         array(
             'title' => 'transport-manager.otherlicences.table.role',
             'name' => 'role',
-            'formatter' => 'RefData'
+            'formatter' => RefData::class
         ),
         array(
             'title' => 'transport-manager.otherlicences.table.operating_centres',

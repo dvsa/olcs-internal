@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Publication',
@@ -8,8 +10,8 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -23,7 +25,7 @@ return array(
         array(
             'title' => 'Created',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Date';
+                $column['formatter'] = Date::class;
                 $lva = (isset($column['lva'])) ? $column['lva'] : 'licence';
                 return '<a href="' . $this->generateUrl(
                     array('action' => 'edit', 'id' => $data['id']),

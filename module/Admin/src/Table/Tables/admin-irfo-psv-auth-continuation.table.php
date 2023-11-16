@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'title' => 'IRFO PSV Authorisation',
@@ -10,12 +12,12 @@ return array(
             'actions' => array(
                 'renew' => array(
                     'label' => 'Set to renew', 
-                    'class' => 'action--primary js-require--multiple', 
+                    'class' => 'govuk-button js-require--multiple', 
                     'requireRows' => true
                 ),
                 'print' => array(
                     'label' => 'Print checklist', 
-                    'class' => 'action--secondary js-require--multiple', 
+                    'class' => 'govuk-button govuk-button--secondary js-require--multiple', 
                     'requireRows' => true
                 )
             )
@@ -62,12 +64,12 @@ return array(
         array(
             'title' => 'In force date',
             'name' => 'inForceDate',
-            'formatter' => 'Date'
+            'formatter' => Date::class
         ),
         array(
             'title' => 'Expiry date',
             'name' => 'expiryDate',
-            'formatter' => 'Date'
+            'formatter' => Date::class
         ),
         array(
             'title' => 'Status',

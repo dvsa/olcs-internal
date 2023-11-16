@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Address;
+
 return array(
     'variables' => array(
         'id' => 'environmental-complaints',
@@ -13,8 +15,8 @@ return array(
         'crud' => array(
             'formName' => 'environmental-complaints',
             'actions' => array(
-                'refresh-table' => array('label' => 'Refresh table', 'class' => 'action--secondary', 'requireRows' => false),
-                'delete-row' => array('label' => 'Delete row', 'class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'refresh-table' => array('label' => 'Refresh table', 'class' => 'govuk-button govuk-button--secondary', 'requireRows' => false),
+                'delete-row' => array('label' => 'Delete row', 'class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             ),
             'action_field_name' => 'formAction'
         ),
@@ -39,7 +41,7 @@ return array(
             'title' => 'OC Address',
             'width' => '350px',
             'formatter' => function ($data, $column) {
-                $column['formatter'] = 'Address';
+                $column['formatter'] = Address::class;
                 $addressList = '';
                 foreach ($data['ocAddress'] as $operatingCentre) {
                     $addressList .= $this->callFormatter($column, $operatingCentre['address']) . '<br/>';
@@ -52,15 +54,15 @@ return array(
         array(
             'title' => 'Description',
             'name' => 'description',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
             'append' => '...'
         ),
         array(
             'title' => 'Status',
-            'formatter' => function ($data, $column, $sm) {
-                $translateService =  $sm->get('translator');
+            'formatter' => function ($data, $column) {
+
                 return empty($data['closeDate']) ?
-                    $translateService->translate('Open') : $translateService->translate('Closed');
+                    $this->translator->translate('Open') : $this->translator->translate('Closed');
             }
         ),
         array(

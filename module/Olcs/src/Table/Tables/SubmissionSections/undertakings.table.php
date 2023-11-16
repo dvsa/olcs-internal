@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\AddressLines;
+
 return array(
     'variables' => array(
         'id' => 'undertakings',
@@ -13,8 +15,8 @@ return array(
         'crud' => array(
             'formName' => 'undertakings',
             'actions' => array(
-                'refresh-table' => array('label' => 'Refresh table', 'class' => 'action--secondary', 'requireRows' => false),
-                'delete-row' => array('label' => 'Delete row', 'class' => 'action--secondary js-require--multiple', 'requireRows' => true)
+                'refresh-table' => array('label' => 'Refresh table', 'class' => 'govuk-button govuk-button--secondary', 'requireRows' => false),
+                'delete-row' => array('label' => 'Delete row', 'class' => 'govuk-button govuk-button--secondary js-require--multiple', 'requireRows' => true)
             ),
             'action_field_name' => 'formAction'
         ),
@@ -32,8 +34,8 @@ return array(
         array(
             'title' => 'Added via',
             'width' => '8%',
-            'formatter' => function ($data, $column, $sl) {
-                $string = $sl->get('translator')->translate($data['addedVia']) . ' '
+            'formatter' => function ($data, $column) {
+                $string = $this->translator->translate($data['addedVia']) . ' '
                     .$data['parentId'];
                 return $string;
             }
@@ -55,22 +57,22 @@ return array(
         array(
             'title' => 'Attached to',
             'width' => '8%',
-            'formatter' => function ($data, $column, $sm) {
+            'formatter' => function ($data, $column) {
                 $attachedTo = $data['attachedTo'] == 'Operating Centre' ? 'OC' : $data['attachedTo'];
-                return $sm->get('translator')->translate($attachedTo);
+                return $this->translator->translate($attachedTo);
             }
         ),
         array(
             'title' => 'OC Address',
             'width' => '20%',
-            'formatter' => 'AddressLines',
+            'formatter' => AddressLines::class,
             'name' => 'OcAddress'
         ),
         array(
             'title' => 'Notes',
             'width' => '40%',
             'name' => 'notes',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
         ),
         array(
             'type' => 'Checkbox',

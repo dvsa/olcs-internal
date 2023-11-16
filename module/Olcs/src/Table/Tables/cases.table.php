@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\Formatter\Date;
+
 return array(
     'variables' => array(
         'titleSingular' => 'Case',
@@ -8,9 +10,9 @@ return array(
     'settings' => array(
         'crud' => array(
             'actions' => array(
-                'add' => array('class' => 'action--primary'),
-                'edit' => array('requireRows' => true, 'class' => 'action--secondary js-require--one'),
-                'delete' => array('requireRows' => true, 'class' => 'action--secondary js-require--one')
+                'add' => array('class' => 'govuk-button'),
+                'edit' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--secondary js-require--one'),
+                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one')
             )
         ),
         'paginate' => array(
@@ -36,9 +38,9 @@ return array(
         ),
         array(
             'title' => 'Case type',
-            'formatter' => function ($row, $column, $sm) {
+            'formatter' => function ($row, $column) {
                 if (isset($row['caseType']['description'])) {
-                    return $sm->get('translator')->translate($row['caseType']['description']);
+                    return $this->translator->translate($row['caseType']['description']);
                 } else {
                     return 'Not set';
                 }
@@ -47,19 +49,19 @@ return array(
         ),
         array(
             'title' => 'Created',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'createdOn',
             'sort' => 'createdOn'
         ),
         array(
             'title' => 'Closed',
-            'formatter' => 'Date',
+            'formatter' => Date::class,
             'name' => 'closedDate',
             'sort' => 'closedDate'
         ),
         array(
             'title' => 'Description',
-            'formatter' => 'Comment',
+            'formatter' => \Common\Service\Table\Formatter\Comment::class,
             'maxlength' => 250,
             'append' => '...',
             'name' => 'description'

@@ -6,13 +6,21 @@
  * @author Rob Caiger <rob@clocal.co.uk>
  * @author Dan Eggleston <dan@stolenegg.com>
  */
+
 namespace OlcsTest\Controller\Lva\Licence;
 
 use Common\RefData;
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
 use Dvsa\Olcs\Transfer\Command\Licence\Overview as OverviewCommand;
 use Dvsa\Olcs\Transfer\Query\Licence\Overview as OverviewQuery;
+use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
+use Laminas\Form\Form;
 use Mockery as m;
+use Olcs\Controller\Lva\Licence\OverviewController;
+use Olcs\Service\Helper\LicenceOverviewHelperService;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
+use ZfcRbac\Service\AuthorizationService;
 
 /**
  * Internal Licencing Overview Controller Test
@@ -26,7 +34,20 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
     {
         parent::setUp();
 
-        $this->mockController('\Olcs\Controller\Lva\Licence\OverviewController');
+        $this->mockNiTextTranslationUtil = m::mock(NiTextTranslation::class);
+        $this->mockAuthService = m::mock(AuthorizationService::class);
+        $this->mockLicenceOverviewHelper = m::mock(LicenceOverviewHelperService::class);
+        $this->mockFormHelper = m::mock(FormHelperService::class);
+        $this->mockNavigation = m::mock('Navigation');
+        $this->mockFlashMessenger = m::mock(FlashMessengerHelperService::class);
+        $this->mockController(OverviewController::class, [
+           $this->mockNiTextTranslationUtil,
+            $this->mockAuthService,
+            $this->mockLicenceOverviewHelper,
+            $this->mockFormHelper,
+            $this->mockNavigation,
+            $this->mockFlashMessenger
+        ]);
     }
 
     /**
@@ -43,13 +64,13 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->with('licence')
             ->andReturn($licenceId);
 
-        $form = $this->createMockForm('LicenceOverview');
+        $form = m::mock(Form::class);
 
         $this->expectQuery(OverviewQuery::class, ['id' => $licenceId], $overviewData);
 
         $viewData = ['foo' => 'bar'];
 
-        $this->mockService('Helper\LicenceOverview', 'getViewData')
+        $this->mockLicenceOverviewHelper->shouldReceive('getViewData')
             ->with($overviewData)
             ->once()
             ->andReturn($viewData);
@@ -73,11 +94,16 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->andReturnSelf();
 
         if ($shouldRemoveReviewDate) {
-            $this->getMockFormHelper()
+            $this->mockFormHelper
                 ->shouldReceive('remove')
                 ->once()
                 ->with($form, 'details->reviewDate');
         }
+
+        $this->mockFormHelper->shouldReceive('createForm')
+            ->once()
+            ->with('LicenceOverview')
+            ->andReturn($form);
 
         $this->mockRender();
 
@@ -175,7 +201,7 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->with('licence')
             ->andReturn($licenceId);
 
-        $form = $this->createMockForm('LicenceOverview');
+        $form = m::mock(Form::class);
 
         $overviewData = [
             'id' => $licenceId,
@@ -251,13 +277,18 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->once()
             ->andReturn(true);
 
-        $this->getMockFormHelper()
+        $this->mockFormHelper
             ->shouldReceive('remove')
             ->with($form, 'details->reviewDate')
             ->shouldReceive('remove')
             ->with($form, 'details->translateToWelsh');
 
         $this->mockTcAreaSelect($form);
+
+        $this->mockFormHelper->shouldReceive('createForm')
+            ->once()
+            ->with('LicenceOverview')
+            ->andReturn($form);
 
         $this->expectCommand(
             OverviewCommand::class,
@@ -287,7 +318,7 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->with('licence')
             ->andReturn($licenceId);
 
-        $form = $this->createMockForm('LicenceOverview');
+        $form = m::mock(Form::class);
 
         $overviewData = [
             'id' => $licenceId,
@@ -361,7 +392,7 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->once()
             ->andReturn(true);
 
-        $this->getMockFormHelper()
+        $this->mockFormHelper
             ->shouldReceive('remove')
             ->with($form, 'details->reviewDate')
             ->shouldReceive('remove')
@@ -382,10 +413,15 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
 
         $this->sut->shouldReceive('addErrorMessage')->once();
 
-        $this->mockService('Helper\LicenceOverview', 'getViewData')
+        $this->mockLicenceOverviewHelper->shouldReceive('getViewData')
             ->with($overviewData)
             ->once()
             ->andReturn([]);
+
+        $this->mockFormHelper->shouldReceive('createForm')
+            ->once()
+            ->with('LicenceOverview')
+            ->andReturn($form);
 
         $this->mockTcAreaSelect($form);
 
@@ -403,7 +439,7 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->with('licence')
             ->andReturn($licenceId);
 
-        $form = $this->createMockForm('LicenceOverview');
+        $form = m::mock(Form::class);
 
         $overviewData = [
             'id'           => 123,
@@ -448,10 +484,15 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->once()
             ->andReturn(false);
 
-        $this->mockService('Helper\LicenceOverview', 'getViewData')
+        $this->mockLicenceOverviewHelper->shouldReceive('getViewData')
             ->with($overviewData)
             ->once()
             ->andReturn([]);
+
+        $this->mockFormHelper->shouldReceive('createForm')
+            ->once()
+            ->with('LicenceOverview')
+            ->andReturn($form);
 
         $this->mockTcAreaSelect($form);
 
@@ -502,7 +543,8 @@ class OverviewControllerTest extends AbstractLvaControllerTestCase
             ->with('licence')
             ->andReturn($licenceId);
 
-        $this->createMockForm('LicenceOverview');
+        $this->mockFormHelper->shouldReceive('createForm')
+            ->with('LicenceOverview');
 
         $this->expectQuery(OverviewQuery::class, ['id' => $licenceId], $overviewData);
 
