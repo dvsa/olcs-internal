@@ -35,6 +35,7 @@ class VehiclesDeclarationsControllerFactory implements FactoryInterface
         $stringHelper = $container->get(StringHelperService::class);
         $restrictionHelper = $container->get(RestrictionHelperService::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
+        $navigation = $container->get('Navigation');
 
         return new VehiclesDeclarationsController(
             $niTextTranslationUtil,
