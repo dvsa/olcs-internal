@@ -2,6 +2,7 @@
 
 namespace Olcs\Listener\RouteParam;
 
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Cases\Cases as ItemDto;
@@ -11,6 +12,7 @@ use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Common\Exception\ResourceNotFoundException;
+use Psr\Container\ContainerInterface;
 
 class Cases implements ListenerAggregateInterface, FactoryInterface
 {
@@ -30,6 +32,13 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
     protected $annotationBuilder;
 
     protected $queryService;
+
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
+    {
+        $this->navigationService = $container->get('Navigation');
+        $this->annotationBuilder = $container->get(AnnotationBuilder::class);
+        return $this;
+    }
 
     public function getAnnotationBuilder()
     {

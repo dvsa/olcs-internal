@@ -2,7 +2,6 @@
 
 namespace Olcs\Listener\RouteParam;
 
-use Interop\Container\ContainerInterface;
 use Common\Exception\ResourceNotFoundException;
 use Common\RefData;
 use Common\Service\Cqrs\Command\CommandSenderAwareInterface;
@@ -18,6 +17,7 @@ use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Laminas\View\Model\ViewModel;
+use Psr\Container\ContainerInterface;
 
 class ApplicationFurniture implements
     ListenerAggregateInterface,
@@ -25,10 +25,10 @@ class ApplicationFurniture implements
     QuerySenderAwareInterface,
     CommandSenderAwareInterface
 {
-    use ListenerAggregateTrait,
-        ViewHelperManagerAwareTrait,
-        QuerySenderAwareTrait,
-        CommandSenderAwareTrait;
+    use ListenerAggregateTrait;
+    use ViewHelperManagerAwareTrait;
+    use QuerySenderAwareTrait;
+    use CommandSenderAwareTrait;
 
     private $router;
 
@@ -115,10 +115,10 @@ class ApplicationFurniture implements
     }
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $this->setViewHelperManager($serviceLocator->get('ViewHelperManager'));
-        $this->setQuerySender($serviceLocator->get('QuerySender'));
-        $this->setRouter($serviceLocator->get('Router'));
-        $this->setCommandSender($serviceLocator->get('CommandSender'));
+        $this->setViewHelperManager($container->get('ViewHelperManager'));
+        $this->setQuerySender($container->get('QuerySender'));
+        $this->setRouter($container->get('Router'));
+        $this->setCommandSender($container->get('CommandSender'));
         return $this;
     }
 }

@@ -745,7 +745,7 @@ return array(
             SubmissionsFurniture::class => SubmissionsFurniture::class,
             TransportManagerFurniture::class => TransportManagerFurniture::class,
             IrhpApplicationFurniture::class => IrhpApplicationFurniture::class,
-            'Olcs\Listener\RouteParam\Cases' => 'Olcs\Listener\RouteParam\Cases',
+            Olcs\Listener\RouteParam\Cases::class => Olcs\Listener\RouteParam\Cases::class,
             LicenceListener::class => LicenceListener::class,
             'Olcs\Listener\RouteParam\CaseMarker' => 'Olcs\Listener\RouteParam\CaseMarker',
             RouteParam\Organisation::class => RouteParam\Organisation::class,
