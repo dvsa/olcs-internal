@@ -3,6 +3,17 @@ $config = array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
         'Dvsa\LaminasConfigCloudParameters',
+        'Laminas\Log',
+        'Olcs\Logging',
+        'Laminas\Router',
+        'Laminas\Navigation',
+        'Laminas\Cache\Module',
+        'Laminas\Cache\Storage\Adapter\Redis',
+        'Laminas\I18n',
+        'Laminas\Mvc\Plugin\FlashMessenger',
+        'Laminas\Filter',
+        'Laminas\Validator',
+        'Laminas\Form',
         'Dvsa\Olcs\Auth',
         'Dvsa\Olcs\Utils',
         'Dvsa\Olcs\Transfer',
