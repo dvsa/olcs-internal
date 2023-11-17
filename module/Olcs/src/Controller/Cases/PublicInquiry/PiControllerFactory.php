@@ -23,7 +23,7 @@ class PiControllerFactory implements FactoryInterface
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         assert($navigation instanceof Navigation);
 
         $scriptService = $container->get(ScriptFactory::class);

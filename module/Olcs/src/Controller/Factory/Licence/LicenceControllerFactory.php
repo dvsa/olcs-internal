@@ -30,7 +30,7 @@ class LicenceControllerFactory implements FactoryInterface
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $oppositionHelper = $container->get(OppositionHelperService::class);
         $complaintsHelper = $container->get(ComplaintsHelperService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
 
         return new LicenceController(

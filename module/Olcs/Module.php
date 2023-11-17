@@ -10,6 +10,7 @@ namespace Olcs;
 
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
+use Laminas\Navigation\Service\DefaultNavigationFactory;
 use Laminas\View\Model\ViewModel;
 use Common\Exception\ResourceNotFoundException;
 use Olcs\Listener\HeaderSearch;
@@ -36,7 +37,7 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
-        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('ViewHelperManager');
         $placeholder = $viewHelperManager->get('placeholder');
 
         $placeholder->getContainer('pageTitle')->setSeparator(' / ');
@@ -73,8 +74,10 @@ class Module
             }
         );
 
-        $eventManager->attach($e->getApplication()->getServiceManager()->get(RouteParams::class));
-        $eventManager->attach($e->getApplication()->getServiceManager()->get(HeaderSearch::class));
+        $routeParams = $e->getApplication()->getServiceManager()->get(RouteParams::class);
+        $headerSearch = $e->getApplication()->getServiceManager()->get(HeaderSearch::class);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$routeParams, 'onDispatch']);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$headerSearch, 'onDispatch']);
 
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
@@ -94,7 +97,7 @@ class Module
                     if (is_a($controllerFQCN, $interface, true)) {
                         foreach ($listeners as $listener) {
                             $listenerInstance = $container->get($listener);
-                            $routeParamsListener->getEventManager()->attach($listenerInstance);
+                            $routeParamsListener->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
                         }
                     }
                 }

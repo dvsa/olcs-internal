@@ -24,7 +24,7 @@ class IrfoStockControlControllerFactory implements FactoryInterface
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         assert($navigation instanceof Navigation);
 
         $dateHelperService = $container->get(DateHelperService::class);

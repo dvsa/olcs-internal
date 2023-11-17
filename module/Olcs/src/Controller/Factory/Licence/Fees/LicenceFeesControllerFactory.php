@@ -38,7 +38,7 @@ class LicenceFeesControllerFactory implements FactoryInterface
         $identityProvider = $container->get(IdentityProviderInterface::class);
         $translationHelper = $container->get(TranslationHelperService::class);
         $dateHelper = $container->get(DateHelperService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
 
         return new LicenceFeesController(
             $scriptFactory,

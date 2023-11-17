@@ -33,7 +33,7 @@ class LicenceDocsControllerFactory implements FactoryInterface
         $oppositionHelper = $container->get(OppositionHelperService::class);
         $complaintsHelper = $container->get(ComplaintsHelperService::class);
         $translationHelper = $container->get(TranslationHelperService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
 
         return new LicenceDocsController(

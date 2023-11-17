@@ -26,7 +26,7 @@ class TransportManagerDetailsCompetenceControllerFactory implements FactoryInter
         $flashMessengerHelperService = $container->get(FlashMessengerHelperService::class);
         assert($flashMessengerHelperService instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         assert($navigation instanceof Navigation);
 
         $transferAnnotationBuilder = $container->get(TransferAnnotationBuilder::class);

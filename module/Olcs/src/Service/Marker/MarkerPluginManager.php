@@ -10,8 +10,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class MarkerPluginManager extends AbstractPluginManager
 {
-    use PluginManagerTrait;
-
     protected $instanceOf = MarkerInterface::class;
 
     public function __construct(\Laminas\ServiceManager\ConfigInterface $configuration = null)

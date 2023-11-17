@@ -29,7 +29,7 @@ class TransportManagerProcessingTaskControllerFactory implements FactoryInterfac
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $translationHelper = $container->get(TranslationHelperService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         $subCategoryDataService = $container->get(SubCategory::class);
 
         return new TransportManagerProcessingTaskController(

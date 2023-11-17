@@ -5,6 +5,8 @@ $config = array(
         'Dvsa\LaminasConfigCloudParameters',
         'Laminas\Log',
         'Olcs\Logging',
+        'Laminas\Router',
+        'Laminas\Navigation',
         'Laminas\Cache\Module',
         'Laminas\Cache\Storage\Adapter\Redis',
         'Laminas\I18n',
@@ -17,8 +19,8 @@ $config = array(
         'Dvsa\Olcs\Transfer',
         'LmcRbacMvc',
         // Common should be included before our applications modules, so we can override common behaviour
-        'Common',
         'Soflomo\Purifier',
+        'Common',
         'Olcs',
         'Admin',
         // Required for annotation parsing

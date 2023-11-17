@@ -7,7 +7,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @Form\Name("search")
  * @Form\Attributes({"method":"GET", "action": "/search"})
- * @Form\Hydrator("Laminas\Stdlib\Hydrator\ArraySerializable")
+ * @Form\Hydrator("Laminas\Hydrator\ArraySerializable")
  */
 class HeaderSearch
 {

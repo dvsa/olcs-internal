@@ -28,7 +28,7 @@ class LicenceGracePeriodsControllerFactory implements FactoryInterface
         $tableFactory = $container->get(TableFactory::class);
         $formHelper = $container->get(FormHelperService::class);
         $scriptFactory = $container->get(ScriptFactory::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
 
         return new LicenceGracePeriodsController(
             $niTextTranslationUtil,

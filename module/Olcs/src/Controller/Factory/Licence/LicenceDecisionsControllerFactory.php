@@ -26,7 +26,7 @@ class LicenceDecisionsControllerFactory implements FactoryInterface
         $tableFactory = $container->get(TableFactory::class);
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
 
         return new LicenceDecisionsController(
             $scriptFactory,

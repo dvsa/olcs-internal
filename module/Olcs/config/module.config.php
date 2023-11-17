@@ -584,6 +584,7 @@ return array(
             'script' => Script::class,
             'placeholder' => Placeholder::class,
             'table' => Table::class,
+
         )
     ),
     'view_manager' => array(
@@ -623,9 +624,12 @@ return array(
             'Olcs\View\Helper\SlaIndicator' => SlaIndicator::class,
             'showMarkers' => Olcs\View\Helper\MarkersFactory::class,
             'showVersion' => Olcs\View\Helper\Factory\VersionFactory::class,
+            \Common\View\Helper\EscapeHtml::class => \Common\View\Factory\Helper\EscapeHtmlFactory::class
+
         ],
         'aliases' => [
-            'slaIndicator' => 'Olcs\View\Helper\SlaIndicator'
+            'slaIndicator' => 'Olcs\View\Helper\SlaIndicator',
+            'escapeHtml' => \Common\View\Helper\EscapeHtml::class
         ]
     ),
     'form' => [
@@ -668,6 +672,7 @@ return array(
             Olcs\Service\Permits\Bilateral\MoroccoFieldsetPopulator::class =>
                 Olcs\Service\Permits\Bilateral\MoroccoFieldsetPopulator::class,
             \Olcs\Helper\ApplicationProcessingHelper::class => \Olcs\Helper\ApplicationProcessingHelper::class,
+            'Router' => Laminas\Router\Http\TreeRouteStack::class,
         ],
         'abstract_factories' => [
             StorageCacheAbstractServiceFactory::class,
@@ -715,6 +720,7 @@ return array(
             DataService\UserListInternalExcludingLimitedReadOnlyUsers::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserListInternalExcludingLimitedReadOnlyUsersSorted::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserWithName::class => CommonDataService\AbstractDataServiceFactory::class,
+            CommonDataService\Search\Search::class => CommonDataService\Search\SearchFactory::class,
             ProcessingService\CreateVariationProcessingService::class => ProcessingService\CreateVariationProcessingServiceFactory::class,
 
             HelperService\ApplicationOverviewHelperService::class => HelperService\ApplicationOverviewHelperServiceFactory::class,
@@ -766,6 +772,9 @@ return array(
                 WebDavJsonWebTokenGenerationServiceFactory::class,
 
             Auth\Adapter\InternalCommandAdapter::class => Auth\Adapter\InternalCommandAdapterFactory::class,
+            'RoutePluginManager' => Laminas\Router\RoutePluginManagerFactory::class,
+            'navigation' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
+            'Navigation' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
         )
     ),
     'form_elements' => [

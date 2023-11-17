@@ -23,7 +23,7 @@ class CompaniesHouseAlertControllerFactory implements FactoryInterface
         $flashMessengerHelperService = $container->get(FlashMessengerHelperService::class);
         assert($flashMessengerHelperService instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         assert($navigation instanceof Navigation);
 
         $viewHelperManager = $container->get('ViewHelperManager');

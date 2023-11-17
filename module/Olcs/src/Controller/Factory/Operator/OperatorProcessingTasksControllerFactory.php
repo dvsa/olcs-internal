@@ -37,7 +37,7 @@ class OperatorProcessingTasksControllerFactory implements FactoryInterface
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $licenceDataService = $container->get(Licence::class);
         $queryService = $container->get(QueryService::class);
-        $navigation = $container->get('navigation');
+        $navigation = $container->get('Navigation');
         $subCategoryDataService = $container->get(SubCategory::class);
 
         return new OperatorProcessingTasksController(
