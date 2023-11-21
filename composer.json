@@ -4,7 +4,7 @@
     "require": {
         "php": ">=7.4",
         "aws/aws-sdk-php": "^3.286",
-        "dvsa/laminas-config-cloud-parameters": "dev-add-support-for-parameter-casts",
+        "dvsa/laminas-config-cloud-parameters": "^0.2.0",
         "olcs/olcs-frontend-deps": "~4.206.0",
         "olcs/olcs-laminas": "~2.5.0"
     },

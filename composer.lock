@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "668b764d5a7437d8414c35d8fdc76dbe",
+    "content-hash": "51ea104d72143134486ef976014d75ef",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1189,16 +1189,16 @@
         },
         {
             "name": "dvsa/laminas-config-cloud-parameters",
-            "version": "dev-add-support-for-parameter-casts",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters.git",
-                "reference": "9743a03d1ad423d4ace317dbeceb6640361fa15f"
+                "reference": "073c97dd6fb426e31bec5a592e3119c3ffcb668d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/dvsa-laminas-config-cloud-parameters/zipball/9743a03d1ad423d4ace317dbeceb6640361fa15f",
-                "reference": "9743a03d1ad423d4ace317dbeceb6640361fa15f",
+                "url": "https://api.github.com/repos/dvsa/dvsa-laminas-config-cloud-parameters/zipball/073c97dd6fb426e31bec5a592e3119c3ffcb668d",
+                "reference": "073c97dd6fb426e31bec5a592e3119c3ffcb668d",
                 "shasum": ""
             },
             "require": {
@@ -1238,9 +1238,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/issues",
-                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/add-support-for-parameter-casts"
+                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/v0.2.0"
             },
-            "time": "2023-11-16T09:26:52+00:00"
+            "time": "2023-11-17T11:31:22+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -10321,9 +10321,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "dvsa/laminas-config-cloud-parameters": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
