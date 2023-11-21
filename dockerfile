@@ -16,7 +16,7 @@ RUN apk -U upgrade && apk add --no-cache \
     
 #RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx/conf.d/internal.conf /etc/nginx/nginx.conf
+COPY nginx/conf.d/frontend.conf /etc/nginx/nginx.conf
 
 COPY php-fpm/php-fpm.d/www.conf /usr/local/etc/php-fpm.d/www.conf
 
