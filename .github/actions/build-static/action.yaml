@@ -1,0 +1,51 @@
+
+name: Build olcs static asset
+description: Build olcs static asset
+
+
+runs:
+    using: 'composite'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ inputs.checkout-repo }}
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      # - name: Setup Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: ${{ inputs.python-version }}
+
+      - name: python alias
+        run: alias python=python3
+        shell: bash
+
+      - name: Install dependencies
+        run: |
+          npm install -g npm@${{ inputs.npm-version }}
+          npm install
+        shell: bash
+
+      - name: build static content
+        run: |
+          npm run build:container
+        shell: bash
+
+      - name: Build olcs static
+        run: |
+          mkdir -p static
+          mv public static
+        shell: bash
+
+      - name: upload staic artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: olcs-static-artifact
+          path: ./static
+          retention-days: 1

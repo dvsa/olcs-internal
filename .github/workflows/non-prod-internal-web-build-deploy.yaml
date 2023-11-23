@@ -61,8 +61,21 @@ jobs:
 
     steps:
 
+    - name: build olcs static container
+      uses: dvsa/olcs-internal/.github/actions/build-static@feature/AddWorkflows
+      with:
+          checkout-repo: 'dvsa/olcs-static'
+          npm-version: '6'
+          python-version: '2.7'
+          node-version: '14'
+
     - name: Checkout the repository to this runner
       uses: actions/checkout@v3
+
+    - uses: actions/download-artifact@v3
+      with:
+        name: olcs-static-artifact
+        path: static
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2

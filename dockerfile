@@ -25,7 +25,9 @@ COPY php-fpm/php-fpm.d/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN mkdir -p /opt/dvsa/olcs-internal /var/log/dvsa /tmp/Entity/Proxy && \
     touch /var/log/dvsa/internal.log
     
-ADD selfserve.tar.gz /opt/dvsa/olcs-internal
+ADD iuweb.tar.gz /opt/dvsa/olcs-internal
+
+COPY static /opt/dvsa/olcs-internal/public/static
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh

@@ -21,6 +21,6 @@ runs:
       run: |
         date > config/version
         git describe --all >> config/version
-        tar cvzf selfserve.tar.gz --exclude=config/autoload/local.php \
+        tar cvzf iuweb.tar.gz --exclude=config/autoload/local.php \
           --exclude=config/autoload/local.php.dist composer.lock init_autoloader.php config module public data/autoload data/cache vendor
       shell: bash
