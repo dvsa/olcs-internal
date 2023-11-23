@@ -962,11 +962,11 @@
         },
         {
             "name": "dvsa/laminas-config-cloud-parameters",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/dvsa/laminas-config-cloud-parameters/v0.1.0/dvsa-laminas-config-cloud-parameters-v0.1.0.zip",
-                "reference": "fd3c4430f4b9ce3e6779e88bc3f9117c4e1620a5",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/dvsa/laminas-config-cloud-parameters/v0.1.1/dvsa-laminas-config-cloud-parameters-v0.1.1.zip",
+                "reference": "1cec4e8cdf16bf61c848be45f758697977659c1e",
                 "shasum": ""
             },
             "require": {
@@ -1004,9 +1004,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/issues",
-                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/v0.1.0"
+                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/v0.1.1"
             },
-            "time": "2023-09-29T16:05:32+00:00"
+            "time": "2023-11-06T10:01:58+00:00"
         },
         {
             "name": "elendev/composer-push",
@@ -4197,12 +4197,12 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "4.206.501",
+            "version": "4.206.511",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-common/4.206.501/olcs-olcs-common-4.206.501.zip",
-                "reference": "88e1306fe733ab88d1528594fb05dd216480d018",
-                "shasum": "88e1306fe733ab88d1528594fb05dd216480d018"
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-common/4.206.511/olcs-olcs-common-4.206.511.zip",
+                "reference": "70c39b600b99d1d66507386a65520eb2f9b147a6",
+                "shasum": "70c39b600b99d1d66507386a65520eb2f9b147a6"
             },
             "require": {
                 "elendev/composer-push": "^1.0.3",
@@ -4215,6 +4215,7 @@
                 "olcs/olcs-logging": "~4.206.0",
                 "olcs/olcs-transfer": "~4.206.0",
                 "olcs/olcs-utils": "~4.206.0",
+                "phpstan/phpstan": "^0.12.100",
                 "soflomo/purifier": "^1.0",
                 "symfony/lock": "^5"
             },
@@ -4263,7 +4264,7 @@
                 ]
             },
             "description": "Common library for the OLCS Project",
-            "time": "2023-10-05T14:11:49+00:00"
+            "time": "2023-11-09T10:51:46+00:00"
         },
         {
             "name": "olcs/olcs-frontend-deps",
@@ -4471,12 +4472,12 @@
         },
         {
             "name": "olcs/olcs-utils",
-            "version": "4.206.19",
+            "version": "4.206.20",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-utils/4.206.19/olcs-olcs-utils-4.206.19.zip",
-                "reference": "c9f8d3cfcb2a0da45ada6588b6f15c6731601a13",
-                "shasum": "c9f8d3cfcb2a0da45ada6588b6f15c6731601a13"
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-utils/4.206.20/olcs-olcs-utils-4.206.20.zip",
+                "reference": "060150978ef906706af8e0b67786c1fdc7edfdf1",
+                "shasum": "060150978ef906706af8e0b67786c1fdc7edfdf1"
             },
             "require": {
                 "elendev/composer-push": "^1.0.3",
@@ -4523,7 +4524,7 @@
                 ]
             },
             "description": "OLCS Utils",
-            "time": "2023-07-10T08:47:38+00:00"
+            "time": "2023-10-18T11:32:29+00:00"
         },
         {
             "name": "psr/cache",
@@ -5099,11 +5100,11 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v5.4.29",
+            "version": "v5.4.31",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/dependency-injection/v5.4.29/symfony-dependency-injection-v5.4.29.zip",
-                "reference": "338638ed8c9d5c7fcb136a73f5c7043465ae2f05",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/dependency-injection/v5.4.31/symfony-dependency-injection-v5.4.31.zip",
+                "reference": "eb1bcafa54e00ed218e1b733b8b6ad1c9ff83d20",
                 "shasum": ""
             },
             "require": {
@@ -5162,7 +5163,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dependency-injection/tree/v5.4.29"
+                "source": "https://github.com/symfony/dependency-injection/tree/v5.4.31"
             },
             "funding": [
                 {
@@ -5178,7 +5179,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-20T06:23:43+00:00"
+            "time": "2023-10-31T07:58:33+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5358,11 +5359,11 @@
         },
         {
             "name": "symfony/lock",
-            "version": "v5.4.25",
+            "version": "v5.4.31",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/lock/v5.4.25/symfony-lock-v5.4.25.zip",
-                "reference": "ed4055b2e03c8893ce2d0042c8f0e0707be8e179",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/lock/v5.4.31/symfony-lock-v5.4.31.zip",
+                "reference": "23146b4eeeff63121066590e95a22ce223d19cf9",
                 "shasum": ""
             },
             "require": {
@@ -5375,7 +5376,7 @@
                 "doctrine/dbal": "<2.13"
             },
             "require-dev": {
-                "doctrine/dbal": "^2.13|^3.0",
+                "doctrine/dbal": "^2.13|^3|^4",
                 "predis/predis": "~1.0"
             },
             "type": "library",
@@ -5411,7 +5412,7 @@
                 "semaphore"
             ],
             "support": {
-                "source": "https://github.com/symfony/lock/tree/v5.4.25"
+                "source": "https://github.com/symfony/lock/tree/v5.4.31"
             },
             "funding": [
                 {
@@ -5427,7 +5428,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-22T08:06:06+00:00"
+            "time": "2023-11-06T17:37:45+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -6734,12 +6735,12 @@
         },
         {
             "name": "olcs/olcs-testhelpers",
-            "version": "4.206.21",
+            "version": "4.206.22",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-testhelpers/4.206.21/olcs-olcs-testhelpers-4.206.21.zip",
-                "reference": "2e895b49e718448ff4e0ca777d252860c9ba5c35",
-                "shasum": "2e895b49e718448ff4e0ca777d252860c9ba5c35"
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/OLCS/olcs/olcs-testhelpers/4.206.22/olcs-olcs-testhelpers-4.206.22.zip",
+                "reference": "ab4c0103cf90ca52c4340ea776f3349b98931c16",
+                "shasum": "ab4c0103cf90ca52c4340ea776f3349b98931c16"
             },
             "require": {
                 "elendev/composer-push": "^1.0.3",
@@ -6758,7 +6759,7 @@
                 }
             },
             "description": "OLCS Test helpers",
-            "time": "2023-02-28T10:27:19+00:00"
+            "time": "2023-10-18T11:28:11+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -8662,11 +8663,11 @@
         },
         {
             "name": "symfony/config",
-            "version": "v5.4.26",
+            "version": "v5.4.31",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/config/v5.4.26/symfony-config-v5.4.26.zip",
-                "reference": "8109892f27beed9252bd1f1c1880aeb4ad842650",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/symfony/config/v5.4.31/symfony-config-v5.4.31.zip",
+                "reference": "dd5ea39de228813aba0c23c3a4153da2a4cf3cd9",
                 "shasum": ""
             },
             "require": {
@@ -8715,7 +8716,7 @@
             "description": "Helps you find, load, combine, autofill and validate configuration values of any kind",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/config/tree/v5.4.26"
+                "source": "https://github.com/symfony/config/tree/v5.4.31"
             },
             "funding": [
                 {
@@ -8731,7 +8732,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-19T20:21:11+00:00"
+            "time": "2023-11-09T08:22:43+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -8943,5 +8944,5 @@
     "platform-overrides": {
         "php": "7.4.33"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
