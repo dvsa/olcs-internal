@@ -40,8 +40,9 @@ RUN chmod +x /start.sh
     #echo 'session.save_path = "tcp://redis-master"' >> /usr/local/etc/php/conf.d/50-docker-php-ext-redis.ini
 
 RUN rm -f /opt/dvsa/olcs-internal/config/autoload/local* && \
-    chown -R nginx:nginx /opt/dvsa /tmp/* /var/log/dvsa && \
-    chmod u=rwx,g=rwx,o=r -R /opt/dvsa /tmp/* /var/log/dvsa
+    mkdir /var/nginx && \
+    chown -R nginx:nginx /opt/dvsa /tmp/* /var/log/dvsa /var/nginx && \
+    chmod u=rwx,g=rwx,o=r -R /opt/dvsa /tmp/* /var/log/dvsa /var/nginx
 
 #USER www-data
 
