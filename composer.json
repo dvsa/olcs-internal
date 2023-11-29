@@ -25,6 +25,8 @@
             "CommonTest\\": "vendor/olcs/olcs-common/test/Common/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
         "secure-http": false,
