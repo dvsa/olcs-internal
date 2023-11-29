@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51ea104d72143134486ef976014d75ef",
+    "content-hash": "9cd9a1b76e2b8e06479b4db60ac5240e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4442,6 +4442,7 @@
                     "type": "community_bridge"
                 }
             ],
+            "abandoned": true,
             "time": "2022-07-29T13:28:29+00:00"
         },
         {
@@ -4754,16 +4755,16 @@
         },
         {
             "name": "olcs/olcs-frontend-deps",
-            "version": "4.206.3",
+            "version": "4.206.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-frontend-deps.git",
-                "reference": "f9c06704c92c18a0bc3da362db4d636b4cab5c42"
+                "reference": "3c68d9d7d2ecba145d3eb7bf657f4c48634f55a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-frontend-deps/zipball/f9c06704c92c18a0bc3da362db4d636b4cab5c42",
-                "reference": "f9c06704c92c18a0bc3da362db4d636b4cab5c42",
+                "url": "https://api.github.com/repos/dvsa/olcs-frontend-deps/zipball/3c68d9d7d2ecba145d3eb7bf657f4c48634f55a4",
+                "reference": "3c68d9d7d2ecba145d3eb7bf657f4c48634f55a4",
                 "shasum": ""
             },
             "require": {
@@ -4773,9 +4774,9 @@
                 "firebase/php-jwt": "^6.0",
                 "olcs/olcs-auth": "~4.206.0",
                 "olcs/olcs-common": "~4.206.0",
-                "olcs/olcs-logging": "~4.206.0",
+                "olcs/olcs-logging": "^5.0.0",
                 "olcs/olcs-transfer": "~4.206.0",
-                "olcs/olcs-utils": "~4.206.0",
+                "olcs/olcs-utils": "^5.0.0",
                 "php": ">=7.4",
                 "soflomo/purifier": "^1.0",
                 "symfony/filesystem": "^5",
@@ -4790,9 +4791,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "List of front end dependencies, shared between internal and selfserve nodes",
             "support": {
-                "source": "https://github.com/dvsa/olcs-frontend-deps/tree/4.206.3"
+                "source": "https://github.com/dvsa/olcs-frontend-deps/tree/4.206.4"
             },
-            "time": "2023-03-01T14:08:38+00:00"
+            "time": "2023-11-28T12:58:04+00:00"
         },
         {
             "name": "olcs/olcs-laminas",
@@ -4863,48 +4864,55 @@
         },
         {
             "name": "olcs/olcs-logging",
-            "version": "4.206.19",
+            "version": "5.0.0.alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-logging.git",
-                "reference": "e28754b3936322e5c347395f014099fe24f922b7"
+                "reference": "2312891aeb3e67cd17c4fce9dbafe0f0e7c2e099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-logging/zipball/e28754b3936322e5c347395f014099fe24f922b7",
-                "reference": "e28754b3936322e5c347395f014099fe24f922b7",
+                "url": "https://api.github.com/repos/dvsa/olcs-logging/zipball/2312891aeb3e67cd17c4fce9dbafe0f0e7c2e099",
+                "reference": "2312891aeb3e67cd17c4fce9dbafe0f0e7c2e099",
                 "shasum": ""
             },
             "require": {
-                "olcs/olcs-laminas": "~2.5.0 || ~3.0.0",
-                "php": ">=7.4",
-                "psr/log": "~1.0"
+                "laminas/laminas-console": "^2.7",
+                "laminas/laminas-eventmanager": "^2.6.4|^3.0",
+                "laminas/laminas-log": "^2.12",
+                "laminas/laminas-mvc": "^2.7.15|^3.3",
+                "laminas/laminas-session": "^2.8.7",
+                "laminas/laminas-stdlib": "^2.7.9|^3.0",
+                "php": "^7.4",
+                "psr/log": "^1.0"
             },
             "require-dev": {
-                "olcs/olcs-devtools": "~4.206.0"
+                "bamarni/composer-bin-plugin": "^1.8",
+                "johnkary/phpunit-speedtrap": "^4.0",
+                "mockery/mockery": "^1.6",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "extra": {
-                "nexus-push": {
-                    "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/olcs-logging",
-                    "ignore": [
-                        "test/",
-                        "sonar-project.properties"
-                    ]
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Olcs\\Logging\\": "src//"
+                    "Olcs\\Logging\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "description": "Logging Module for Olcs",
+            "license": [
+                "MIT"
+            ],
+            "description": "Logging Module for OLCS",
             "support": {
-                "issues": "https://github.com/dvsa/olcs-logging/issues",
-                "source": "https://github.com/dvsa/olcs-logging/tree/4.206.19"
+                "source": "https://github.com/dvsa/olcs-logging/tree/5.0.0.alpha1"
             },
-            "time": "2023-06-16T14:33:21+00:00"
+            "time": "2023-11-23T16:49:30+00:00"
         },
         {
             "name": "olcs/olcs-transfer",
@@ -4955,34 +4963,41 @@
         },
         {
             "name": "olcs/olcs-utils",
-            "version": "4.206.19",
+            "version": "5.0.0.alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-utils.git",
-                "reference": "339a65536b79efea06d4ef8adef67b7caf87d31d"
+                "reference": "82b2c2986397dfc8b5e615b48259747fb28ca1a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-utils/zipball/339a65536b79efea06d4ef8adef67b7caf87d31d",
-                "reference": "339a65536b79efea06d4ef8adef67b7caf87d31d",
+                "url": "https://api.github.com/repos/dvsa/olcs-utils/zipball/82b2c2986397dfc8b5e615b48259747fb28ca1a8",
+                "reference": "82b2c2986397dfc8b5e615b48259747fb28ca1a8",
                 "shasum": ""
             },
             "require": {
-                "olcs/olcs-laminas": "~2.5.0 || ~3.0.0",
-                "php": ">=7.4"
+                "container-interop/container-interop": "^1.2",
+                "laminas/laminas-eventmanager": "^2.6",
+                "laminas/laminas-http": "^2.8",
+                "laminas/laminas-i18n": "^2.14",
+                "laminas/laminas-mvc": "^2.7",
+                "laminas/laminas-servicemanager": "^2.7",
+                "laminas/laminas-view": "^2.11",
+                "php": "^7.4",
+                "psr/container": "^1.1|^2.0"
             },
             "require-dev": {
-                "olcs/olcs-devtools": "~4.206.0",
-                "olcs/olcs-logging": "~4.206.0"
+                "bamarni/composer-bin-plugin": "^1.8",
+                "johnkary/phpunit-speedtrap": "^4.0",
+                "mockery/mockery": "^1.6",
+                "olcs/olcs-logging": "^5.0.0",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "extra": {
-                "nexus-push": {
-                    "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/olcs-utils",
-                    "ignore": [
-                        "test/",
-                        "sonar-project.properties"
-                    ]
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true
                 }
             },
             "autoload": {
@@ -4993,10 +5008,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "OLCS Utils",
             "support": {
-                "issues": "https://github.com/dvsa/olcs-utils/issues",
-                "source": "https://github.com/dvsa/olcs-utils/tree/4.206.19"
+                "source": "https://github.com/dvsa/olcs-utils/tree/5.0.0.alpha1"
             },
-            "time": "2023-07-10T08:42:13+00:00"
+            "time": "2023-11-27T14:10:02+00:00"
         },
         {
             "name": "psr/cache",
@@ -10320,9 +10334,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.4"
@@ -10331,5 +10345,5 @@
     "platform-overrides": {
         "php": "7.4.33"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
