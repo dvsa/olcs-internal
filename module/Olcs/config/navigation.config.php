@@ -914,7 +914,6 @@ $nav = [
                                     'route' => 'licence/messages',
                                     'class' => 'govuk-link--no-visited-state',
                                     'use_route_match' => true,
-
                                 ],
                                 [
                                     'id' => 'conversation_list_new_conversation',
@@ -930,7 +929,14 @@ $nav = [
                                     'route' => 'licence/conversation/disable',
                                     'class' => 'govuk-link--no-visited-state',
                                      'use_route_match' => true,
-                                ]
+                                ],
+                                [
+                                    'id' => 'conversation_messages',
+                                    'label' => 'Messages',
+                                    'route' => 'licence/conversation',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
+                                ],
                             ],
                         ]
                     ]
@@ -1409,7 +1415,14 @@ $nav = [
                                 'route' => 'lva-application/conversation/disable',
                                 'class' => 'govuk-link--no-visited-state',
                                     'use_route_match' => true,
-                            ]
+                            ],
+                            [
+                                'id' => 'application_conversation_messages',
+                                'label' => 'Conversation',
+                                'route' => 'lva-application/conversation',
+                                'class' => 'govuk-link--no-visited-state',
+                                'use_route_match' => true,
+                            ],
                         ],
                                
                ]

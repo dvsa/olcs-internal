@@ -755,19 +755,18 @@ $routes = [
             'conversation' => [
                 'type' => 'segment',
                 'child_routes' => [
-                    'view' => [
+                    'index' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => ':conversation[/]',
                             'verb' => 'GET',
                             'defaults' => [
-                                    'controller' => Olcs\Controller\AbstractInternalController::class,
-                                    'action' => 'index'
-                                    ],
+                                'controller' => Olcs\Controller\Messages\ConversationMessagesController::class,
+                                'action' => 'index'
+                            ],
                         ],
                         'may_terminate' => true,
                     ],
-
                     'new' => [
                         'type' => 'segment',
                         'options' => [
@@ -2616,15 +2615,16 @@ $routes['lva-application']['child_routes'] = array_merge(
       'conversation' => [
             'type' => 'segment',
             'child_routes' => [
-                'view' => [
+                'index' => [
+                    // ...all linked by licence now?
                     'type' => 'segment',
                     'options' => [
                         'route' => ':conversation[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                                'controller' =>  Olcs\Controller\AbstractInternalController::class,
-                                'action' => 'index'
-                                ],
+                            'controller' =>  Olcs\Controller\AbstractInternalController::class,
+                            'action' => 'index'
+                        ],
                     ],
                     'may_terminate' => true,
                 ],
