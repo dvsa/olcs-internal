@@ -54,7 +54,7 @@ class LicenceConversationListController extends AbstractInternalController imple
     public function getRightView()
     {
         $view = new ViewModel();
-        $view->setTemplate('sections/messages/partials/right');
+        $view->setTemplate('sections/licence/partials/right');
 
         return $view;
     }
