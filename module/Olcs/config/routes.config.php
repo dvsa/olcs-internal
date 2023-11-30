@@ -2608,7 +2608,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => ':conversation[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' =>  Olcs\Controller\AbstractInternalController::class,
+                            'controller' =>  Olcs\Controller\ConversationMessagesController::class,
                             'action' => 'index'
                             ],
                     ],
