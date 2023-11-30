@@ -904,14 +904,14 @@ $nav = [
                         [
                             'id' => 'conversations',
                             'label' => 'Messages',
-                            'route' => 'licence/messages',
+                            'route' => 'licence/conversation',
                             'class' => 'govuk-link--no-visited-state',
                             'use_route_match' => true,
                             'pages' => [
                                 [
                                     'id' => 'conversations_list',
                                     'label' => 'Messages',
-                                    'route' => 'licence/messages',
+                                    'route' => 'licence/conversation',
                                     'class' => 'govuk-link--no-visited-state',
                                     'use_route_match' => true,
 
@@ -1383,14 +1383,14 @@ $nav = [
                [
                 'id' => 'application_conversations',
                 'label' => 'Messages',
-                'route' => 'lva-application/messages',
+                'route' => 'lva-application/conversation',
                         'class' => 'govuk-link--no-visited-state',
                         'use_route_match' => true,
                         'pages' => [
                             [
                                 'id' => 'application_conversations_list',
                                 'label' => 'Messages',
-                                'route' => 'lva-application/messages',
+                                'route' => 'lva-application/conversation',
                                 'class' => 'govuk-link--no-visited-state',
                                 'use_route_match' => true,
     

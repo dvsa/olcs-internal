@@ -739,21 +739,17 @@ $routes = [
                 ],
                 'may_terminate' => true,
             ],
-            'messages' => [
+            'conversation' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => 'messages[/]',
+                    'route' => 'conversation[/]',
                     'verb' => 'GET',
                     'defaults' => [
                         'controller' => Olcs\Controller\Messages\LicenceConversationListController::class,
                         'action' => 'index'
                     ],
-                    'may_terminate' => true,
                 ],
-
-            ],
-            'conversation' => [
-                'type' => 'segment',
+                'may_terminate' => true,
                 'child_routes' => [
                     'view' => [
                         'type' => 'segment',
@@ -793,13 +789,7 @@ $routes = [
                               'may_terminate' => true,
                     ],
                 ],
-                'options' => [
-                    'route' => 'conversation[/]',
-                    'verb' => 'GET',
-                ],
             ],
-
-
             'opposition' => [
                 'type' => 'segment',
                 'options' => [
@@ -2600,21 +2590,17 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'print-receipt' => $feePrintReceiptRoute,
             )
         ),
-        'messages' => [
+      'conversation' => [
             'type' => 'segment',
             'options' => [
-                'route' => 'messages[/]',
+                'route' => 'conversation',
                 'verb' => 'GET',
                 'defaults' => [
                     'controller' => Olcs\Controller\Messages\ApplicationConversationListController::class,
                     'action' => 'index'
                 ],
-                'may_terminate' => true,
             ],
-
-        ],
-      'conversation' => [
-            'type' => 'segment',
+            'may_terminate' => true,
             'child_routes' => [
                 'view' => [
                     'type' => 'segment',
@@ -2622,9 +2608,9 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => ':conversation[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                                'controller' =>  Olcs\Controller\AbstractInternalController::class,
-                                'action' => 'index'
-                                ],
+                            'controller' =>  Olcs\Controller\AbstractInternalController::class,
+                            'action' => 'index'
+                            ],
                     ],
                     'may_terminate' => true,
                 ],
@@ -2642,20 +2628,16 @@ $routes['lva-application']['child_routes'] = array_merge(
                 ],
                 'disable' => [
                     'type' => 'segment',
-                     'options' => [
-                            'route' => 'disable[/]',
-                             'verb' => 'GET',
-                              'defaults' => [
-                               'controller' => Olcs\Controller\Messages\LicenceDisableConversationListController::class,
-                               'action' => 'index'
-                               ]
-                          ],
-                          'may_terminate' => true,
+                    'options' => [
+                        'route' => 'disable[/]',
+                        'verb' => 'GET',
+                        'defaults' => [
+                            'controller' => Olcs\Controller\Messages\LicenceDisableConversationListController::class,
+                            'action' => 'index'
+                        ],
+                    ],
+                    'may_terminate' => true,
                 ],
-            ],
-            'options' => [
-                'route' => 'conversation[/]',
-                'verb' => 'GET',
             ],
         ],
         'interim' => array(
