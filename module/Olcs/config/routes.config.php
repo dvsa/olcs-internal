@@ -763,7 +763,6 @@ $routes = [
                         ],
                         'may_terminate' => true,
                     ],
-
                     'new' => [
                         'type' => 'segment',
                         'options' => [
@@ -2590,10 +2589,10 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'print-receipt' => $feePrintReceiptRoute,
             )
         ),
-      'conversation' => [
+      'application_conversation' => [
             'type' => 'segment',
             'options' => [
-                'route' => 'conversation',
+                'route' => 'conversation[/]',
                 'verb' => 'GET',
                 'defaults' => [
                     'controller' => Olcs\Controller\Messages\ApplicationConversationListController::class,
@@ -2602,19 +2601,7 @@ $routes['lva-application']['child_routes'] = array_merge(
             ],
             'may_terminate' => true,
             'child_routes' => [
-                'index' => [
-                    // ...all linked by licence now?
-                    'type' => 'segment',
-                    'options' => [
-                        'route' => ':conversation[/]',
-                        'verb' => 'GET',
-                        'defaults' => [
-                            'controller' =>  Olcs\Controller\AbstractInternalController::class,
-                            'action' => 'index'
-                        ],
-                    ],
-                    'may_terminate' => true,
-                ],
+                // ...all linked by licence now, no index required?
                 'new' => [
                     'type' => 'segment',
                     'options' => [
