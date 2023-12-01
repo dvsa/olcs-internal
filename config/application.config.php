@@ -18,13 +18,14 @@ $config = array(
         'Dvsa\Olcs\Utils',
         'Dvsa\Olcs\Transfer',
         'LmcRbacMvc',
+        'DoctrineModule',
         // Common should be included before our applications modules, so we can override common behaviour
         'Soflomo\Purifier',
         'Common',
         'Olcs',
         'Admin',
         // Required for annotation parsing
-        'DoctrineModule'
+
     ),
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => array(

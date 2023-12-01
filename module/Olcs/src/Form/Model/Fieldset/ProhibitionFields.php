@@ -15,7 +15,7 @@ class ProhibitionFields extends Base
      * @Form\Options({
      *     "label": "Prohibition date",
      *     "create_empty_option": true,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
@@ -57,7 +57,7 @@ class ProhibitionFields extends Base
      * @Form\Options({
      *     "label": "Date cleared",
      *     "create_empty_option": true,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})

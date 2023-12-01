@@ -52,7 +52,7 @@ class OppositionFields extends CaseBase
      * @Form\Options({
      *     "label": "Date received",
      *     "create_empty_option": true,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})

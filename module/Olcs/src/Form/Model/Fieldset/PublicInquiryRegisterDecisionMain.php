@@ -115,7 +115,7 @@ class PublicInquiryRegisterDecisionMain
      * @Form\Options({
      *     "label": "Date of decision",
      *     "create_empty_option": true,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")
@@ -131,7 +131,7 @@ class PublicInquiryRegisterDecisionMain
      * @Form\Options({
      *     "label": "Date of notification",
      *     "create_empty_option": true,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")

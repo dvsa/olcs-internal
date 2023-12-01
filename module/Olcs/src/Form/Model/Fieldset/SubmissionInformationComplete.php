@@ -15,7 +15,7 @@ class SubmissionInformationComplete extends Base
      * @Form\Options({
      *     "label": "Information completed date",
      *     "create_empty_option": false,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})

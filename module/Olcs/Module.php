@@ -32,7 +32,6 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
-
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -91,14 +90,11 @@ class Module
                 $container = $e->getApplication()->getServiceManager();
                 $config = $container->get('Config');
 
-                /** @var RouteParams $routeParamsListener */
-                $routeParamsListener = $container->get(RouteParams::class);
-
                 foreach ($config['route_param_listeners'] as $interface => $listeners) {
                     if (is_a($controllerFQCN, $interface, true)) {
                         foreach ($listeners as $listener) {
                             $listenerInstance = $container->get($listener);
-                            $routeParamsListener->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
+                            $routeParams->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
                         }
                     }
                 }

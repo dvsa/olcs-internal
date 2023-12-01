@@ -29,10 +29,10 @@ class LicenceFurniture implements
     QuerySenderAwareInterface,
     CommandSenderAwareInterface
 {
-    use ListenerAggregateTrait,
-        ViewHelperManagerAwareTrait,
-        QuerySenderAwareTrait,
-        CommandSenderAwareTrait;
+    use ListenerAggregateTrait;
+    use ViewHelperManagerAwareTrait;
+    use QuerySenderAwareTrait;
+    use CommandSenderAwareTrait;
 
     /**
      * {@inheritdoc}
@@ -84,11 +84,19 @@ class LicenceFurniture implements
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : LicenceFurniture
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceFurniture
     {
+        // Set dependencies
         $this->setViewHelperManager($container->get('ViewHelperManager'));
         $this->setQuerySender($container->get('QuerySender'));
         $this->setCommandSender($container->get('CommandSender'));
+
+        // Retrieve the application's event manager
+        $eventManager = $container->get('EventManager');
+
+        // Attach this listener to the event manager
+        $this->attach($eventManager);
+
         return $this;
     }
 }

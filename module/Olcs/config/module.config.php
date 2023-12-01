@@ -11,6 +11,7 @@ use Common\Data\Object\Search\PsvDisc;
 use Common\Data\Object\Search\Publication;
 use Common\Data\Object\Search\User;
 use Common\Data\Object\Search\Vehicle;
+use Common\Form\Elements\Validators\TableRequiredValidator;
 use Common\Service\Data as CommonDataService;
 use Laminas\Cache\Service\StorageCacheAbstractServiceFactory;
 use Olcs\Auth;
@@ -624,10 +625,12 @@ return array(
             'Olcs\View\Helper\SlaIndicator' => SlaIndicator::class,
             'showMarkers' => Olcs\View\Helper\MarkersFactory::class,
             'showVersion' => Olcs\View\Helper\Factory\VersionFactory::class,
-            \Common\View\Helper\EscapeHtml::class => \Common\View\Factory\Helper\EscapeHtmlFactory::class
-
+            \Common\View\Helper\EscapeHtml::class => \Common\View\Factory\Helper\EscapeHtmlFactory::class,
+            \Common\Form\View\Helper\FormElement::class => \Common\Form\View\Helper\FormElementFactory::class,
         ],
         'aliases' => [
+            'formElement' => \Common\Form\View\Helper\FormElement::class,
+            'formelement' => \Common\Form\View\Helper\FormElement::class,
             'slaIndicator' => 'Olcs\View\Helper\SlaIndicator',
             'escapeHtml' => \Common\View\Helper\EscapeHtml::class
         ]
@@ -665,10 +668,10 @@ return array(
             'Helper\ApplicationOverview' => HelperService\ApplicationOverviewHelperService::class,
             'Helper\LicenceOverview' => HelperService\LicenceOverviewHelperService::class,
             'Processing\CreateVariation' => ProcessingService\CreateVariationProcessingServiceFactory::class,
+            'LicenceListener' => LicenceListener::class
         ],
         'invokables' => [
             'ApplicationUtility' => 'Olcs\Service\Utility\ApplicationUtility',
-            \Olcs\Listener\RouteParams::class => \Olcs\Listener\RouteParams::class,
             Olcs\Service\Permits\Bilateral\MoroccoFieldsetPopulator::class =>
                 Olcs\Service\Permits\Bilateral\MoroccoFieldsetPopulator::class,
             \Olcs\Helper\ApplicationProcessingHelper::class => \Olcs\Helper\ApplicationProcessingHelper::class,
@@ -678,6 +681,7 @@ return array(
             StorageCacheAbstractServiceFactory::class,
         ],
         'factories' => array(
+            RouteParam\Licence::class => RouteParam\Licence::class,
             DataService\ActionToBeTaken::class => CommonDataService\RefDataFactory::class,
             DataService\ApplicationStatus::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\AssignedToList::class => CommonDataService\AbstractListDataServiceFactory::class,
@@ -775,6 +779,7 @@ return array(
             'RoutePluginManager' => Laminas\Router\RoutePluginManagerFactory::class,
             'navigation' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
             'Navigation' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
+            \Olcs\Listener\RouteParams::class => \Olcs\Listener\RouteParamsFactory::class,
         )
     ),
     'form_elements' => [

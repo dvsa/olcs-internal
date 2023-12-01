@@ -15,7 +15,7 @@ class PublicInquiryAgreedAndLegislationMain
      * @Form\Options({
      *     "label": "Agreed date",
      *     "create_empty_option": false,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
@@ -86,7 +86,7 @@ class PublicInquiryAgreedAndLegislationMain
      * @Form\Options({
      *     "label": "Date ECMS case first received by OTC",
      *     "create_empty_option": false,
-     *     "render_delimiters": "d m y",
+     *     "render_delimiters": true,
      *     "fieldsetClass": "pi_ecms_first_received_date"
      * })
      * @Form\Type("DateSelect")

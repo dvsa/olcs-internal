@@ -34,7 +34,7 @@ class SlaTargetDate extends Base
      * @Form\Options({
      *     "label": "Received/Agreed date",
      *     "create_empty_option": false,
-     *     "render_delimiters": "d m y"
+     *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
