@@ -7,20 +7,20 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Dvsa\Olcs\Transfer\Query\Messaging\GetConversationList;
+use Dvsa\Olcs\Transfer\Query\IrhpApplication\InternalApplicationsSummary;
 use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
-use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\RightViewProvider;
 use Olcs\Listener\RouteParam\Licence;
 
-class ConversationMessagesController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
+class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
 
     protected $navigationId = 'conversations';
-    protected $listVars = ['licence','application'];
+    protected $listVars = ['licence'];
     protected $listDto = GetConversationList::class;
-    protected $routeIdentifier = 'conversation/view';
-    protected $tableName = 'messages-list';
+    protected $routeIdentifier = 'messages';
+    protected $tableName = 'conversations-list'; 
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
         'default' => [
@@ -54,7 +54,7 @@ class ConversationMessagesController extends AbstractInternalController implemen
     public function getRightView()
     {
         $view = new ViewModel();
-        $view->setTemplate('sections/application/partials/right');
+        $view->setTemplate('sections/licence/partials/right');
 
         return $view;
     }

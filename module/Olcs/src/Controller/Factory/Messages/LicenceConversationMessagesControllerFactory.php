@@ -12,17 +12,17 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
-use Olcs\Controller\Messages\ApplicationConversationListController;
+use Olcs\Controller\Messages\LicenceConversationMessagesController;
 
-class ConversationMessagesControllerFactory implements FactoryInterface
+class LicenceConversationMessagesControllerFactory implements FactoryInterface
 {
     /**
      * @param  ContainerInterface $container
      * @param  $requestedName
      * @param  array|null         $options
-     * @return ApplicationConversationListController
+     * @return LicenceConversationMessagesController
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationConversationListController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceConversationMessagesController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
@@ -39,7 +39,7 @@ class ConversationMessagesControllerFactory implements FactoryInterface
         assert($navigation instanceof Navigation);
 
 
-        return new ApplicationConversationListController(
+        return new LicenceConversationMessagesController(
             $translationHelper,
             $formHelper,
             $flashMessenger,
@@ -52,10 +52,10 @@ class ConversationMessagesControllerFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return ApplicationConversationListController
+     * @return LicenceConversationMessagesController
      */
-    public function createService(ServiceLocatorInterface $serviceLocator): ApplicationConversationListController
+    public function createService(ServiceLocatorInterface $serviceLocator): LicenceConversationMessagesController
     {
-        return $this->__invoke($serviceLocator, ApplicationConversationListController::class);
+        return $this->__invoke($serviceLocator, LicenceConversationMessagesController::class);
     }
 }
