@@ -16,11 +16,11 @@ use Olcs\Listener\RouteParam\Licence;
 class ConversationMessagesController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
 {
 
-    protected $navigationId = 'application_conversations';
-    protected $listVars = ['licence'];
+    protected $navigationId = 'conversations';
+    protected $listVars = ['licence','application'];
     protected $listDto = GetConversationList::class;
-    protected $routeIdentifier = 'messages';
-    protected $tableName = 'conversations-list';
+    protected $routeIdentifier = 'conversation/view';
+    protected $tableName = 'messages-list';
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
         'default' => [

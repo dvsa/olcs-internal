@@ -1,6 +1,6 @@
 <?php
 
-use Common\Service\Table\Formatter\InternalLicenceConversationLink;
+use Common\Service\Table\Formatter\ConversationMessage;
 
 
 return [
@@ -19,7 +19,7 @@ return [
     'columns' => [
         [
             'name' => 'id',
-            'formatter' => InternalLicenceConversationLink::class
+            'formatter' => ConversationMessage::class
         ],
     ],
 ];
