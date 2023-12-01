@@ -757,7 +757,7 @@ $routes = [
                             'route' => ':conversation[/]',
                             'verb' => 'GET',
                             'defaults' => [
-                                    'controller' => Olcs\Controller\Messages\ConversationMessagesController::class,
+                                    'controller' => Olcs\Controller\AbstractInternalController::class,
                                     'action' => 'index'
                                     ],
                         ],
