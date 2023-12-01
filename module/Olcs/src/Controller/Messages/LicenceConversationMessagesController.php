@@ -20,7 +20,7 @@ class LicenceConversationMessagesController extends AbstractInternalController i
     protected $listVars = ['licence'];
     protected $listDto = GetConversationList::class;
     protected $routeIdentifier = 'messages';
-    protected $tableName = 'conversations-list'; 
+    protected $tableName = 'messages-list'; 
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
         'default' => [
