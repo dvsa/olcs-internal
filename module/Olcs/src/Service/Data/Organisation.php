@@ -37,7 +37,7 @@ class Organisation extends AbstractListDataService
         );
 
         $response = $this->handleQuery(
-            TransferQry\Category\GetList::create($params)
+            TransferQry\Organisation\Dashboard::class
         );
 
         if (!$response->isOk()) {
@@ -45,6 +45,7 @@ class Organisation extends AbstractListDataService
         }
 
         $result = $response->getResult();
+        dd($result);
 
        // $this->setData('categories', (isset($result['results']) ? $result['results'] : null));
 

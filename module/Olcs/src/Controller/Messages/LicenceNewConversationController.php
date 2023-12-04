@@ -16,10 +16,10 @@ class LicenceNewConversationController extends AbstractInternalController implem
     protected $routeIdentifier = 'conversation/new';
     protected $formClass = NewMessage::class;
 
-    // public function indexAction()
-    // {
-    //     return parent::indexAction();
-    // }
+    public function indexAction()
+    {
+        return parent::indexAction();
+    }
 
     public function addAction()
     {

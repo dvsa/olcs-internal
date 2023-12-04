@@ -22,17 +22,17 @@ class NewMessages
      */
     public $category = null;
 
-        /**
-     * @Form\Attributes({"id":"","placeholder":""})
-     * @Form\Options({
-     *     "label": "Application or licence ID",
-     *     "empty_option": "Please Select",
-     *     "disable_inarray_validator": false,
-     *     "service_name": "Olcs\Service\Data\Organisation"
-     * })
-     * @Form\Type("DynamicSelect")
-     */
-    public $appLicNo = null;
+    //     /**
+    //  * @Form\Attributes({"id":"","placeholder":""})
+    //  * @Form\Options({
+    //  *     "label": "Application or licence ID",
+    //  *     "empty_option": "Please Select",
+    //  *     "disable_inarray_validator": false,
+    //  *     "service_name": "Olcs\Service\Data\Organisation"
+    //  * })
+    //  * @Form\Type("DynamicSelect")
+    //  */
+    // public $appLicNo = null;
 
         /**
      * @Form\Attributes({"class":"extra-long","id":"",placeholder:"You can enter up to 1000 characters"})
