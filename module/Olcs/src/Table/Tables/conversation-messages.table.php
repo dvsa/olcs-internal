@@ -2,7 +2,6 @@
 
 use Common\Service\Table\Formatter\InternalConversationMessage;
 
-
 return [
     'variables' => [
         'id' => 'conversation-messages-table',

@@ -15,10 +15,14 @@ use Olcs\Listener\RouteParam\Licence;
 
 class ConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
-    protected $navigationId = 'application_conversations';
-    protected $listVars = ['licence','conversation','application'];
+    protected $navigationId = 'conversations';
+    protected $listVars = ['licence'];
+
+    // Can we get this based on config?
+    // config/backend-routes/messaging/messaging.php
     protected $listDto = GetConversationMessages::class;
-// protected $routeIdentifier = 'messaging';
+
+    // protected $routeIdentifier = 'messaging';
     protected $tableName = 'conversation-messages';
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [

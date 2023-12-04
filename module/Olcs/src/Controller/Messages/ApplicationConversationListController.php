@@ -19,7 +19,7 @@ class ApplicationConversationListController extends AbstractInternalController i
     protected $navigationId = 'application_conversations';
     protected $listVars = ['licence'];
     protected $listDto = GetConversationList::class;
-protected $routeIdentifier = 'giraffe'; // what does this do?
+    protected $routeIdentifier = 'messages';
     protected $tableName = 'conversations-list';
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
