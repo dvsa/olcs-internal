@@ -751,18 +751,19 @@ $routes = [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'index' => [
+                    'view' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => ':conversation[/]',
                             'verb' => 'GET',
                             'defaults' => [
-                                'controller' => Olcs\Controller\Messages\ConversationMessagesController::class,
-                                'action' => 'index'
-                            ],
+                                    'controller' => Olcs\Controller\AbstractInternalController::class,
+                                    'action' => 'index'
+                                    ],
                         ],
                         'may_terminate' => true,
                     ],
+
                     'new' => [
                         'type' => 'segment',
                         'options' => [
@@ -2589,10 +2590,10 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'print-receipt' => $feePrintReceiptRoute,
             )
         ),
-      'application_conversation' => [
+      'conversation' => [
             'type' => 'segment',
             'options' => [
-                'route' => 'conversation[/]',
+                'route' => 'conversation',
                 'verb' => 'GET',
                 'defaults' => [
                     'controller' => Olcs\Controller\Messages\ApplicationConversationListController::class,
@@ -2601,7 +2602,18 @@ $routes['lva-application']['child_routes'] = array_merge(
             ],
             'may_terminate' => true,
             'child_routes' => [
-                // ...all linked by licence now, no index required?
+                'view' => [
+                    'type' => 'segment',
+                    'options' => [
+                        'route' => ':conversation[/]',
+                        'verb' => 'GET',
+                        'defaults' => [
+                            'controller' =>  Olcs\Controller\ConversationMessagesController::class,
+                            'action' => 'index'
+                        ],
+                    ],
+                    'may_terminate' => true,
+                ],
                 'new' => [
                     'type' => 'segment',
                     'options' => [
