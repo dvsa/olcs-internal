@@ -1,6 +1,8 @@
 <?php
 
-$sectionConfig = new \Common\Service\Data\SectionConfig();
+use Common\Service\Data\SectionConfig;
+
+$sectionConfig = new SectionConfig();
 $sections = $sectionConfig->getAllReferences();
 $applicationDetailsPages = [];
 $licenceDetailsPages = [];
@@ -901,7 +903,39 @@ $nav = [
                                 ]
                             ],
                         ],
-                    ]
+                        [
+                            'id' => 'conversations',
+                            'label' => 'Messages',
+                            'route' => 'licence/conversation',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                            'pages' => [
+                                [
+                                    'id' => 'conversations_list',
+                                    'label' => 'Messages',
+                                    'route' => 'licence/conversation',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
+
+                                ],
+                                [
+                                    'id' => 'conversation_list_new_conversation',
+                                    'label' => 'New Conversation',
+                                    'route' => 'licence/conversation/new',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
+
+                                ],
+                                [
+                                    'id' => 'conversation_list_disable_messaging',
+                                    'label' => 'Disable Messaging',
+                                    'route' => 'licence/conversation/disable',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
+                                ]
+                            ],
+                        ],
+                    ],
                 ],
                 [
                     'id' => 'transport_manager',
@@ -1348,7 +1382,37 @@ $nav = [
                         ],
                     ],
                 ],
-            ]
+                [
+                    'id' => 'application_conversations',
+                    'label' => 'Messages',
+                    'route' => 'lva-application/conversation',
+                    'class' => 'govuk-link--no-visited-state',
+                    'use_route_match' => true,
+                    'pages' => [
+                        [
+                            'id' => 'application_conversations_list',
+                            'label' => 'Messages',
+                            'route' => 'lva-application/conversation',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ],
+                        [
+                            'id' => 'conversation_list_new_conversation',
+                            'label' => 'New Message',
+                            'route' => 'lva-application/conversation/new',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ],
+                        [
+                            'id' => 'conversation_list_disable_messaging',
+                            'label' => 'Disable Messaging',
+                            'route' => 'lva-application/conversation/disable',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ]
+                    ],
+                ],
+            ],
         ],
         'variation' => [
             'id' => 'variation',
