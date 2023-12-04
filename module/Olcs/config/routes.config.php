@@ -2621,7 +2621,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'verb' => 'GET',
                         'defaults' => [
                             'controller' => Olcs\Controller\Messages\LicenceNewConversationController::class,
-                            'action' => 'index'
+                            'action' => 'add'
                         ],
                     ],
                     'may_terminate' => true,

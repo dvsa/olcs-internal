@@ -6,6 +6,7 @@ use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\InternalApplicationsSummary;
+use Olcs\Form\Model\Form\NewMessage;
 
 class LicenceNewConversationController extends AbstractInternalController implements LeftViewProvider
 {
@@ -13,10 +14,16 @@ class LicenceNewConversationController extends AbstractInternalController implem
     protected $navigationId = 'conversation_list_new_conversation';
     protected $listVars = ['licence'];
     protected $routeIdentifier = 'conversation/new';
+    protected $formClass = NewMessage::class;
 
-    public function indexAction()
+    // public function indexAction()
+    // {
+    //     return parent::indexAction();
+    // }
+
+    public function addAction()
     {
-        return parent::indexAction();
+        return parent::addAction();
     }
 
     /**
