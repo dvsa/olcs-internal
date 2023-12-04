@@ -28,7 +28,7 @@ class NewMessages
      *     "label": "Application or licence ID",
      *     "empty_option": "Please Select",
      *     "disable_inarray_validator": false,
-     *     "service_name": "Olcs\Service\Data\AppLicNo"
+     *     "service_name": "Olcs\Service\Data\Organisation"
      * })
      * @Form\Type("DynamicSelect")
      */
