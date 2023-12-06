@@ -18,11 +18,11 @@ class ConversationMessagesController extends AbstractInternalController implemen
     protected $navigationId = 'conversations';
     protected $listVars = ['licence'];
 
-    // Can we get this based on config?
-    // config/backend-routes/messaging/messaging.php
+// Can we get this based on config?
+// config/backend-routes/messaging/messaging.php
     protected $listDto = GetConversationMessages::class;
 
-    // protected $routeIdentifier = 'messaging';
+protected $routeIdentifier = 'messaging';
     protected $tableName = 'conversation-messages';
     protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
@@ -57,7 +57,7 @@ class ConversationMessagesController extends AbstractInternalController implemen
     public function getRightView()
     {
         $view = new ViewModel();
-        $view->setTemplate('sections/messages/partials/right');
+        $view->setTemplate('sections/application/partials/right');
 
         return $view;
     }

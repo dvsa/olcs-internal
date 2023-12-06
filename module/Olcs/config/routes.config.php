@@ -751,7 +751,7 @@ $routes = [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'index' => [
+                    'view' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => ':conversation[/]',
