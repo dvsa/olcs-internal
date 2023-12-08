@@ -5,26 +5,28 @@ namespace Olcs\Controller\Messages;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use Dvsa\Olcs\Transfer\Query\IrhpApplication\InternalApplicationsSummary;
 use Olcs\Form\Model\Form\NewMessage;
+use Common\FeatureToggle;
+use Olcs\Form\Model\Form\Cases;
+use Common\Data\Mapper\DefaultMapper;
 
 class LicenceNewConversationController extends AbstractInternalController implements LeftViewProvider
 {
 
     protected $navigationId = 'conversation_list_new_conversation';
-    protected $listVars = ['licence'];
-    protected $routeIdentifier = 'conversation/new';
+    protected $listVars = ['organisation'];
+    // protected $itemDto = AnnualTestHistoryQuery::class;
+    // protected $updateCommand = UpdateAnnualTestHistoryCommand::class;
+    protected $mapperClass = DefaultMapper::class;
     protected $formClass = NewMessage::class;
-
-    public function indexAction()
-    {
-        return parent::indexAction();
-    }
-
-    public function addAction()
-    {
-        return parent::addAction();
-    }
+    protected $toggleConfig = [
+        'default' => [
+            FeatureToggle::MESSAGING
+        ],
+    ];
+    protected $inlineScripts = [
+        'addAction' => ['forms/message-categories']
+    ];
 
     /**
      * Get left view

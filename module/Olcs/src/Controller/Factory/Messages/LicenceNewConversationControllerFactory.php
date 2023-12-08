@@ -46,6 +46,7 @@ class LicenceNewConversationControllerFactory implements FactoryInterface
             $navigation
         );
     }
+    
 
     /**
      * Create service

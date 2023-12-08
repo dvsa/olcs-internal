@@ -10,32 +10,46 @@ use Laminas\Form\Annotation as Form;
  */
 class NewMessages
 {
-    /**
-     * @Form\Attributes({"id":"","placeholder":""})
+    
+     /**
+     * @Form\Attributes({"id":"category","placeholder":""})
      * @Form\Options({
-     *     "label": "Category",
-     *     "empty_option": "Please Select",
-     *     "disable_inarray_validator": false,
-     *     "service_name": "Olcs\Service\Data\Category"
+     *     "label": "tasks.data.category",
+     *     "service_name": "Olcs\Service\Data\Category",
+     *     "context": {"isMessagingCategory": "Y" },
+     *     "empty_option": "Please Select"
      * })
      * @Form\Type("DynamicSelect")
      */
     public $category = null;
 
-    //     /**
-    //  * @Form\Attributes({"id":"","placeholder":""})
-    //  * @Form\Options({
-    //  *     "label": "Application or licence ID",
-    //  *     "empty_option": "Please Select",
-    //  *     "disable_inarray_validator": false,
-    //  *     "service_name": "Olcs\Service\Data\Organisation"
-    //  * })
-    //  * @Form\Type("DynamicSelect")
-    //  */
-    // public $appLicNo = null;
+    /**
+     * @Form\Attributes({"id":"subCategory","placeholder":""})
+     * @Form\Options({
+     *     "label": "tasks.data.sub_category",
+     *     "service_name": "Olcs\Service\Data\SubCategory",
+     *     "context": {"isMessagingCategory": "Y" },
+     *     "empty_option": "Please Select"
+     *
+     * })
+     * @Form\Type("DynamicSelect")
+     */
+    public $subCategory = null;
+
+
+     /**
+     * @Form\Attributes({"id":"category","placeholder":""})
+     * @Form\Options({
+     *     "label": "Application or licence ID",
+     *     "empty_option": "Please Select",
+     *     "service_name": "Olcs\Service\Data\Organisation"
+     * })
+     * @Form\Type("DynamicSelect")
+     */
+    public $appLicNo = null;
 
         /**
-     * @Form\Attributes({"class":"extra-long","id":"",placeholder:"You can enter up to 1000 characters"})
+     * @Form\Attributes({"class":"extra-long","id":""})
      * @Form\Options({"label":"Message"})
      * @Form\Type("TextArea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})

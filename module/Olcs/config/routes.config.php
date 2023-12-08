@@ -771,7 +771,7 @@ $routes = [
                             'verb' => 'GET',
                             'defaults' => [
                                 'controller' => Olcs\Controller\Messages\LicenceNewConversationController::class,
-                                'action' => 'index|add'
+                                'action' => 'add'
                             ],
                         ],
                         'may_terminate' => true,
