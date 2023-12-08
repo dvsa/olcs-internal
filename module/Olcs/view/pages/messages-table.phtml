@@ -1,0 +1,16 @@
+<?php
+
+$noborder = "padding: 10px 20px 10px 0; border-bottom: 1px solid #b1b4b6; text-align: left; vertical-align: top; border-bottom: none !important;";
+
+if (!isset($table)) {
+    $table = $this->placeholder('table')->getValue();
+    $table = str_replace('<td class="govuk-table__cell', '<td style="' . $noborder . '" ', $table);
+}
+
+if (!empty($table)) {
+    if (!empty($readonly)) {
+        $table->setDisabled(true);
+    }
+
+    echo $table;
+}
