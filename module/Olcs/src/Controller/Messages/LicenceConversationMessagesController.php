@@ -4,10 +4,10 @@ namespace Olcs\Controller\Messages;
 
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
+use Dvsa\Olcs\Transfer\Query\Messaging\GetConversationMessages;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
-use Dvsa\Olcs\Transfer\Query\Messaging\GetConversationMessages;
 use Common\FeatureToggle;
 
 class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
