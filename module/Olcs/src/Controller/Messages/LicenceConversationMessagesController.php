@@ -7,6 +7,7 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
+use Dvsa\Olcs\Transfer\Query\Messaging\GetConversationMessages;
 use Common\FeatureToggle;
 
 class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
