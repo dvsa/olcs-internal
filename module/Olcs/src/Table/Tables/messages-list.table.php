@@ -4,6 +4,9 @@ use Common\Service\Table\Formatter\ConversationMessage;
 
 
 return [
+    'attributes' => [
+       "class" => "no-row-border"
+    ],
     'variables' => [
         'id' => 'messages-list-table',
         'title' => 'Message',
@@ -19,7 +22,7 @@ return [
     'columns' => [
         [
             'name' => 'id',
-            'formatter' => ConversationMessage::class
+            'formatter' => ConversationMessage::class,
         ],
     ],
 ];
