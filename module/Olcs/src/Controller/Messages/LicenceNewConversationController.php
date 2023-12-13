@@ -14,7 +14,7 @@ class LicenceNewConversationController extends AbstractInternalController implem
 {
 
     protected $navigationId = 'conversation_list_new_conversation';
-    protected $listVars = ['organisation'];
+    protected $listVars = ['licence','application'];
     // protected $itemDto = AnnualTestHistoryQuery::class;
     // protected $updateCommand = UpdateAnnualTestHistoryCommand::class;
     protected $mapperClass = DefaultMapper::class;
@@ -39,5 +39,18 @@ class LicenceNewConversationController extends AbstractInternalController implem
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;
+    }
+
+    public function alterFormForAdd($form){
+
+        $appLicNoSelect = $form->get('fields')->get('appLicNo');
+        $data = ["1"=>"LI8ewyhwe"];
+        $appLicNoSelect->setValueOptions($data);
+        
+        $response = $this->handleQuery(
+            TransferQry\Organisation\Dashboard::create($params)
+        );
+        
+        return $form;
     }
 }

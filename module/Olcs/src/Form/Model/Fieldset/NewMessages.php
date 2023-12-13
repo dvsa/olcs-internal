@@ -38,13 +38,12 @@ class NewMessages
 
 
      /**
-     * @Form\Attributes({"id":"category","placeholder":""})
+     * @Form\Attributes({"id":"appLicNo","placeholder":""})
      * @Form\Options({
      *     "label": "Application or licence ID",
      *     "empty_option": "Please Select",
-     *     "service_name": "Olcs\Service\Data\Organisation"
      * })
-     * @Form\Type("DynamicSelect")
+     * @Form\Type("Select")
      */
     public $appLicNo = null;
 
