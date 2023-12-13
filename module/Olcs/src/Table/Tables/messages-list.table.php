@@ -1,6 +1,6 @@
 <?php
 
-use Common\Service\Table\Formatter\ConversationMessage;
+use Common\Service\Table\Formatter\InternalConversationMessage;
 
 
 return [
@@ -22,7 +22,7 @@ return [
     'columns' => [
         [
             'name' => 'id',
-            'formatter' => ConversationMessage::class,
+            'formatter' => InternalConversationMessage::class,
         ],
     ],
 ];
