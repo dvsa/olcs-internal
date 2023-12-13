@@ -4,7 +4,7 @@ namespace Olcs\Controller\Messages;
 
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
-use Dvsa\Olcs\Transfer\Query\Messaging\GetConversationMessages;
+use Dvsa\Olcs\Transfer\Query\Messaging\Messages\ByConversation as GetConversationMessages;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
