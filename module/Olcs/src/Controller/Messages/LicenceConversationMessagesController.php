@@ -4,7 +4,7 @@ namespace Olcs\Controller\Messages;
 
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
-use Dvsa\Olcs\Transfer\Query\Messaging\Messages\ByConversation as GetConversationMessages;
+use Dvsa\Olcs\Transfer\Query\Messaging\Messages\ByConversation;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
@@ -14,7 +14,7 @@ class LicenceConversationMessagesController extends AbstractInternalController i
 {
     protected $navigationId = 'conversations';
     protected $listVars = ['licence','conversation'];
-    protected $listDto = GetConversationMessages::class;
+    protected $listDto = ByConversation::class;
     protected $tableName = 'messages-list';
     protected $routeIdentifier = 'messages';
     protected $tableViewTemplate = 'pages/table';
