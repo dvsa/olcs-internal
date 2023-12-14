@@ -47,9 +47,9 @@ class LicenceNewConversationController extends AbstractInternalController implem
         $data = ["1"=>"LI8ewyhwe"];
         $appLicNoSelect->setValueOptions($data);
         
-        $response = $this->handleQuery(
-            TransferQry\Organisation\Dashboard::create($params)
-        );
+        // $response = $this->handleQuery(
+        //     TransferQry\Organisation\Dashboard::create($params)
+        // );
         
         return $form;
     }
