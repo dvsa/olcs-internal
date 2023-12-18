@@ -5,7 +5,7 @@ use Common\Service\Table\Formatter\InternalConversationMessage;
 
 return [
     'attributes' => [
-       "class" => "no-row-border"
+       "class" => "no-row-border-separator"
     ],
     'variables' => [
         'id' => 'messages-list-table',
