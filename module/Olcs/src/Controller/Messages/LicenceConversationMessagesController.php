@@ -24,11 +24,6 @@ class LicenceConversationMessagesController extends AbstractInternalController i
         ],
     ];
 
-    public function indexAction()
-    {
-        return parent::indexAction();
-    }
-
     /**
      * Get left view
      *
