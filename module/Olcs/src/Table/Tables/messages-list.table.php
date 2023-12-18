@@ -9,7 +9,7 @@ return [
     ],
     'variables' => [
         'id' => 'messages-list-table',
-        'title' => 'Message',
+        'title' => 'Messages',
         'empty_message' => 'There are no message records linked to this conversation to display'
     ],
     'settings' => [
