@@ -263,6 +263,11 @@ class IndexController extends AbstractController implements LeftViewProvider
                 ->setIrhpPermitStock($value);
                 $results = ['' => 'Please select'] + $srv->fetchListOptions();
                 break;
+            case '':
+                $srv = $this->taskSubCategoryDataService
+                    ->setCategory($value);
+                $results = ['' => 'All'] + $srv->fetchListOptions();
+                break;
             default:
                 throw new \Exception('Invalid entity filter key: ' . $key);
         }

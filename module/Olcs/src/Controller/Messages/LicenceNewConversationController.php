@@ -9,21 +9,21 @@ use Olcs\Form\Model\Form\NewMessage;
 use Common\FeatureToggle;
 use Olcs\Form\Model\Form\Cases;
 use Common\Data\Mapper\DefaultMapper;
+use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganisation;
 
 class LicenceNewConversationController extends AbstractInternalController implements LeftViewProvider
 {
-
     protected $navigationId = 'conversation_list_new_conversation';
-    protected $listVars = ['licence','application'];
-    // protected $itemDto = AnnualTestHistoryQuery::class;
-    // protected $updateCommand = UpdateAnnualTestHistoryCommand::class;
+
     protected $mapperClass = DefaultMapper::class;
+
     protected $formClass = NewMessage::class;
     protected $toggleConfig = [
         'default' => [
             FeatureToggle::MESSAGING
         ],
     ];
+
     protected $inlineScripts = [
         'addAction' => ['forms/message-categories']
     ];
@@ -44,13 +44,34 @@ class LicenceNewConversationController extends AbstractInternalController implem
     public function alterFormForAdd($form){
 
         $appLicNoSelect = $form->get('fields')->get('appLicNo');
-        $data = ["1"=>"LI8ewyhwe"];
-        $appLicNoSelect->setValueOptions($data);
-        
-        // $response = $this->handleQuery(
-        //     TransferQry\Organisation\Dashboard::create($params)
-        // );
-        
+
+        /**
+         * var Common\Service\Cqrs\Response $data
+         */
+        $data = $this->handleQuery(
+            ByLicenceToOrganisation::create(['licence' => $this->params()->fromRoute('licence')])
+        );
+
+        $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);
+
+        $options = array();
+
+        if($applicationLicenceArray['results']['licences']){
+            $options['licence'] = [
+                'label' => 'Licences',
+                'options' => $applicationLicenceArray['results']['licences'],
+            ];
+        }
+
+        if($applicationLicenceArray['results']['applications']){
+            $options['application'] = [
+                'label' => 'Applications',
+                'options' => $applicationLicenceArray['results']['applications'],
+            ];
+        }
+
+        $appLicNoSelect->setValueOptions($options);
+
         return $form;
     }
 }

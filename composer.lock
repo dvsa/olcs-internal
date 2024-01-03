@@ -4445,11 +4445,11 @@
         },
         {
             "name": "olcs/olcs-utils",
-            "version": "5.0.0.alpha1",
+            "version": "5.0.0-alpha.2",
             "dist": {
                 "type": "zip",
-                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/olcs/olcs-utils/5.0.0.alpha1/olcs-olcs-utils-5.0.0.alpha1.zip",
-                "reference": "82b2c2986397dfc8b5e615b48259747fb28ca1a8",
+                "url": "https://nexus.olcs.dev-dvsacloud.uk/repository/Packagist-Proxy/olcs/olcs-utils/5.0.0-alpha.2/olcs-olcs-utils-5.0.0-alpha.2.zip",
+                "reference": "032a00a8e5dad25d771864acfe170ae9facbb626",
                 "shasum": ""
             },
             "require": {
@@ -4484,9 +4484,9 @@
             },
             "description": "OLCS Utils",
             "support": {
-                "source": "https://github.com/dvsa/olcs-utils/tree/5.0.0.alpha1"
+                "source": "https://github.com/dvsa/olcs-utils/tree/5.0.0-alpha.2"
             },
-            "time": "2023-11-27T14:10:02+00:00"
+            "time": "2023-12-19T15:10:07+00:00"
         },
         {
             "name": "psr/cache",
@@ -8907,5 +8907,5 @@
     "platform-overrides": {
         "php": "7.4.33"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
