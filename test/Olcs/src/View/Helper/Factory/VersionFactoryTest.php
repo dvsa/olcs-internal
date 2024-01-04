@@ -4,7 +4,7 @@ namespace OlcsTest\View\Helper;
 
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Olcs\View\Helper\Factory\VersionFactory;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 

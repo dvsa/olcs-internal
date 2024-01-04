@@ -1,5 +1,5 @@
 <?php
-namespace OlcsTest;
+namespace Dvsa\OlcsTest;
 
 use Common\Service\Translator\TranslationLoader;
 use Mockery as m;

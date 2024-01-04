@@ -8,7 +8,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\TransportManagerMarker;
 use Olcs\Listener\RouteParams;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**

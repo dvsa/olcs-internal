@@ -12,7 +12,7 @@
   </php>
   <testsuites>
     <testsuite name="OLCS Internal Application">
-      <directory>./</directory>
+      <directory>./test</directory>
     </testsuite>
   </testsuites>
   <logging/>

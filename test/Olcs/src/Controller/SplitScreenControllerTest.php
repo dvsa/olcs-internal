@@ -11,7 +11,7 @@ namespace OlcsTest\Controller;
 use Common\Service\Script\ScriptFactory;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Olcs\Controller\SplitScreenController;
 
 /**

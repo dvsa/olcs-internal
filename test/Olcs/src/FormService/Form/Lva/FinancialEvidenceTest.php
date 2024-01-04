@@ -8,7 +8,7 @@ use LmcRbacMvc\Service\AuthorizationService;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\FormService\Form\Lva\FinancialEvidence;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 
 /**
  * @covers Olcs\FormService\Form\Lva\FinancialEvidence

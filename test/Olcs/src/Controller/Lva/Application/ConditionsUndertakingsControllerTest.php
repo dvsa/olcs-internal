@@ -15,7 +15,7 @@ use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Laminas\Form\Form;
 use Olcs\Controller\Lva\Application\ConditionsUndertakingsController;
 use Olcs\Mvc\Controller\Plugin\ScriptFactory;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Mockery as m;
 use OlcsTest\Controller\Lva\AbstractLvaControllerTestCase;
 use ZfcRbac\Service\AuthorizationService;

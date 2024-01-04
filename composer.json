@@ -27,6 +27,13 @@
             "CommonTest\\": "vendor/olcs/olcs-common/test/Common/src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Dvsa\\OlcsTest\\": "./test",
+            "OlcsTest\\": "./test/Olcs/src",
+            "AdminTest\\": "./test/Admin/src"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {

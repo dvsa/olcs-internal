@@ -19,7 +19,7 @@ use Laminas\Mvc\Controller\Plugin\Params;
 use Laminas\Mvc\Router\RouteMatch;
 use Laminas\View\Model\ViewModel;
 use Olcs\Service\Data\SubCategory;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Laminas\Http\Response;
 use Laminas\Mvc\MvcEvent;
 use Mockery as m;

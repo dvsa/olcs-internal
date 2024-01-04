@@ -2,8 +2,8 @@
 
 namespace OlcsTest\Form\Model\Form;
 
-use Olcs\TestHelpers\FormTester\AbstractFormTest as BaseAbstract;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\FormTester\AbstractFormTest as BaseAbstract;
+use Dvsa\OlcsTest\Bootstrap;
 
 /**
  * Class AbstractFormTest

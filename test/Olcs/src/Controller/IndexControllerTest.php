@@ -22,7 +22,7 @@ use Olcs\Service\Data\SubCategoryDescription;
 use Olcs\Service\Data\TaskSubCategory;
 use Olcs\Service\Data\UserListInternal;
 use Olcs\Service\Data\UserListInternalExcludingLimitedReadOnlyUsers;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Laminas\View\Model\JsonModel;
 
 /**

@@ -6,7 +6,7 @@ use Common\Form\Form;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\FormService\Form\Lva\LicenceGoodsVehicles;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use ZfcRbac\Service\AuthorizationService;
 
 /**

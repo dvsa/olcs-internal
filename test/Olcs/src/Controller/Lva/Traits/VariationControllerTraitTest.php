@@ -13,7 +13,7 @@ use Common\Service\Helper\StringHelperService;
 use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use ZfcRbac\Service\AuthorizationService;
 
 /**

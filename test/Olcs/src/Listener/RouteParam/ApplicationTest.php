@@ -3,7 +3,7 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\RefData;
-use OlcsTest\Bootstrap;
+use Dvsa\OlcsTest\Bootstrap;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery as m;
 use Olcs\Event\RouteParam;
