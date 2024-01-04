@@ -166,5 +166,8 @@ abstract class AbstractFormTest extends TestCase
     /**
      * @return \Laminas\ServiceManager\ServiceManager
      */
-    abstract protected function getServiceManager();
+    protected function getServiceManager()
+    {
+        return AbstractFormValidationTestCase::getRealServiceManager();
+    }
 }

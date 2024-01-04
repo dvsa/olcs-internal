@@ -28,7 +28,10 @@
         "olcs/olcs-common": "^5.0.0",
         "olcs/olcs-logging": "^5.0.0",
         "olcs/olcs-transfer": "^5.0.0",
-        "olcs/olcs-utils": "^5.0.0"
+        "olcs/olcs-utils": "^5.0.0",
+        "soflomo/purifier": "^1.0",
+        "doctrine/doctrine-module": "^1",
+        "laminas/laminas-serializer": "^2.5"
     },
     "require-dev": {
         "johnkary/phpunit-speedtrap": "^4.0",

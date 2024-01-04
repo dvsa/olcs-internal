@@ -9,6 +9,7 @@ use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
 use Laminas\Mvc\Router\Http\TreeRouteStack;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController;
 use Laminas\Mvc\Controller\Plugin\FlashMessenger;
@@ -70,10 +71,7 @@ class LicenceProcessingOverviewControllerTest extends \PHPUnit\Framework\TestCas
             $this->mockRouter
         );
 
-        $serviceManager = Bootstrap::getServiceManager();
-
-        /** @var \Laminas\Mvc\Router\Http\TreeRouteStack $router */
-        $router = $serviceManager->get('HttpRouter');
+        $router = $this->createMock(TreeRouteStack::class);
         $routeMatch = new RouteMatch(
             [
                 'application' => 'internal',
@@ -90,7 +88,7 @@ class LicenceProcessingOverviewControllerTest extends \PHPUnit\Framework\TestCas
 
         $controller->setEvent($event);
         $controller->setPluginManager($pluginManager);
-        $controller->setServiceLocator($serviceManager);
+        $controller->setServiceLocator($this->createMock(ServiceLocatorInterface::class));
 
         return $controller;
     }

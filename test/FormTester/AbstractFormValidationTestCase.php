@@ -1,16 +1,20 @@
 <?php
+
 namespace Dvsa\OlcsTest\FormTester;
 
 use Common\Form\Element\DynamicMultiCheckbox;
 use Common\Form\Element\DynamicRadio;
 use Common\Form\Element\DynamicSelect;
+use Common\Service\Translator\TranslationLoader;
 use Common\Validator as CommonValidator;
 use Dvsa\Olcs\Transfer\Validators as TransferValidator;
-use Dvsa\OlcsTest\Bootstrap;
 use Laminas\Form\Element\DateSelect;
 use Laminas\Form\Element\DateTimeSelect;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\ElementInterface;
+use Laminas\I18n\Translator\LoaderPluginManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Laminas\Validator;
@@ -69,7 +73,9 @@ abstract class AbstractFormValidationTestCase extends TestCase
     protected function getServiceManager()
     {
         if ($this->serviceManager === null) {
-            $this->serviceManager = Bootstrap::getRealServiceManager();
+            $this->serviceManager = self::getRealServiceManager();
+
+            // inject a real string helper
 
             $this->serviceManager->setAllowOverride(true);
 
@@ -120,6 +126,30 @@ abstract class AbstractFormValidationTestCase extends TestCase
         }
 
         return $this->serviceManager;
+    }
+
+    public static function getRealServiceManager()
+    {
+        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        $serviceManager->setService('ApplicationConfig', include __DIR__ . '/../../config/application.config.php');
+        $serviceManager->get('ModuleManager')->loadModules();
+        $serviceManager->setAllowOverride(true);
+
+        $mockTranslationLoader = m::mock(TranslationLoader::class);
+        $mockTranslationLoader->shouldReceive('load')->andReturn(['default' => ['en_GB' => []]]);
+        $mockTranslationLoader->shouldReceive('loadReplacements')->andReturn([]);
+        $serviceManager->setService(TranslationLoader::class, $mockTranslationLoader);
+
+        $pluginManager = new LoaderPluginManager($serviceManager);
+        $pluginManager->setService(TranslationLoader::class, $mockTranslationLoader);
+        $serviceManager->setService('TranslatorPluginManager', $pluginManager);
+
+        // Mess up the backend, so any real rest calls will fail
+        $config = $serviceManager->get('Config');
+        $config['service_api_mapping']['endpoints']['backend'] = 'http://some-fake-backend/';
+        $serviceManager->setService('Config', $config);
+
+        return $serviceManager;
     }
 
     /**
@@ -590,22 +620,22 @@ abstract class AbstractFormValidationTestCase extends TestCase
         $this->assertFormElementValid($elementHierarchy, 'valid@email.com');
         $this->assertFormElementValid(
             $elementHierarchy,
-            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@'.
+            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@' .
             '123456789012345678901234567890123456789012345678901234567890.com'
         );
         // total length greater than 254
         $this->assertFormElementNotValid(
             $elementHierarchy,
-            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@'.
-            '123456789012345678901234567890123456789012345678901234567890.'.
-            '123456789012345678901234567890123456789012345678901234567890.'.
+            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@' .
+            '123456789012345678901234567890123456789012345678901234567890.' .
+            '123456789012345678901234567890123456789012345678901234567890.' .
             '123456789012345678901234567890123456789012345678901234567890.com',
             TransferValidator\EmailAddress::ERROR_INVALID
         );
         // domain parts max greate than 63 chars
         $this->assertFormElementNotValid(
             $elementHierarchy,
-            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890'.
+            '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' .
             '@1234567890123456789012345678901234567890123456789012345678901234.com',
             TransferValidator\EmailAddress::INVALID_FORMAT
         );
@@ -1187,10 +1217,11 @@ abstract class AbstractFormValidationTestCase extends TestCase
      */
     private function getElementMessages($elementHierarchy, $formErrorMessages)
     {
-        $elementOrFieldsetName = (is_array($elementHierarchy))?
+        $elementOrFieldsetName = (is_array($elementHierarchy)) ?
             current($elementHierarchy) : next($elementHierarchy);
 
-        if (isset($formErrorMessages[$elementOrFieldsetName]) &&
+        if (
+            isset($formErrorMessages[$elementOrFieldsetName]) &&
             is_array($formErrorMessages[$elementOrFieldsetName])
         ) {
             // are we at the end?
@@ -1256,7 +1287,7 @@ abstract class AbstractFormValidationTestCase extends TestCase
                 $elementList,
                 $this->getElementList(
                     $childFieldSet,
-                    $prefix . $childFieldSet->getName() .'.'
+                    $prefix . $childFieldSet->getName() . '.'
                 )
             );
         }
@@ -1269,7 +1300,7 @@ abstract class AbstractFormValidationTestCase extends TestCase
     protected function getElementByHierarchy($elementHierarchy): ElementInterface
     {
         $elementOrFieldSet = $this->sut;
-        foreach($elementHierarchy as $name) {
+        foreach ($elementHierarchy as $name) {
             $elementOrFieldSet = $elementOrFieldSet->get($name);
         }
         return $elementOrFieldSet;
