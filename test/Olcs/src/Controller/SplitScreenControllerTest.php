@@ -12,7 +12,6 @@ use Common\Service\Script\ScriptFactory;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Dvsa\OlcsTest\Bootstrap;
 use Olcs\Controller\SplitScreenController;
 
 /**

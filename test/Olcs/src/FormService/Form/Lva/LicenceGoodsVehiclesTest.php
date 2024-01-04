@@ -7,7 +7,6 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\FormService\Form\Lva\LicenceGoodsVehicles;
-use Dvsa\OlcsTest\Bootstrap;
 use ZfcRbac\Service\AuthorizationService;
 
 /**
