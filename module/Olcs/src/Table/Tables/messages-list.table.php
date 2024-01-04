@@ -2,10 +2,9 @@
 
 use Common\Service\Table\Formatter\InternalConversationMessage;
 
-
 return [
     'attributes' => [
-       "class" => "no-row-border-separator"
+       'class' => 'no-row-border-separator'
     ],
     'variables' => [
         'id' => 'messages-list-table',
