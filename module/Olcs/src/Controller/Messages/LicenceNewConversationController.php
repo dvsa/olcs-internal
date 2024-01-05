@@ -41,12 +41,12 @@ class LicenceNewConversationController extends AbstractInternalController implem
         return $view;
     }
 
-    public function alterFormForAdd($form){
-
+    public function alterFormForAdd($form)
+    {
         $appLicNoSelect = $form->get('fields')->get('appLicNo');
 
         /**
-         * var Common\Service\Cqrs\Response $data
+         * @var \Common\Service\Cqrs\Response $data
          */
         $data = $this->handleQuery(
             ByLicenceToOrganisation::create(['licence' => $this->params()->fromRoute('licence')])
@@ -54,7 +54,7 @@ class LicenceNewConversationController extends AbstractInternalController implem
 
         $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);
 
-        $options = array();
+        $options = [];
 
         if($applicationLicenceArray['results']['licences']){
             $options['licence'] = [
