@@ -17,7 +17,6 @@ class LicenceConversationMessagesController extends AbstractInternalController i
     protected $listDto = ByConversation::class;
     protected $tableName = 'messages-list';
     protected $routeIdentifier = 'messages';
-    protected $tableViewTemplate = 'pages/table';
     protected $toggleConfig = [
         'default' => [
             FeatureToggle::MESSAGING
