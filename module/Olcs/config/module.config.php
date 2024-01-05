@@ -858,7 +858,6 @@ return array(
         LicenceControllerInterface::class => [
             RouteParam\LicenceFurniture::class,
             RouteParam\Licence::class,
-            HeaderSearch::class
         ],
         OperatorControllerInterface::class => [
             RouteParam\Organisation::class,

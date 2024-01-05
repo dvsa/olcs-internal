@@ -21,9 +21,8 @@ use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
  */
 class Licence implements ListenerAggregateInterface, FactoryInterface
 {
-    use ListenerAggregateTrait,
-        ViewHelperManagerAwareTrait;
-
+    use ListenerAggregateTrait;
+    use ViewHelperManagerAwareTrait;
 
     private $annotationBuilderService;
     private $queryService;
@@ -290,16 +289,18 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
             return false;
         }
 
-        if (in_array(
-            $licence['status']['id'],
-            [
+        if (
+            in_array(
+                $licence['status']['id'],
+                [
                 RefData::LICENCE_STATUS_REVOKED,
                 RefData::LICENCE_STATUS_TERMINATED,
                 RefData::LICENCE_STATUS_SURRENDERED,
                 RefData::LICENCE_STATUS_CONTINUATION_NOT_SOUGHT,
                 RefData::LICENCE_STATUS_SURRENDER_UNDER_CONSIDERATION,
-            ]
-        )) {
+                ]
+            )
+        ) {
             $sidebarNav->findById('licence-quick-actions-create-variation')->setVisible(0);
             return false;
         }
@@ -536,7 +537,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Licence
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): Licence
     {
         $this->setViewHelperManager($container->get('ViewHelperManager'));
         $this->setLicenceService($container->get('DataServiceManager')->get('Common\Service\Data\Licence'));

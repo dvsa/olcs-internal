@@ -2035,7 +2035,7 @@ $routes['lva-licence']['child_routes'] = array_merge(
             'options' => array(
                 'route' => '',
                 'defaults' => array(
-                    'controller' => 'LvaLicence',
+                    'controller' => \Olcs\Controller\Lva\Licence\OverviewController::class,
                     'action' => 'index'
                 )
             )

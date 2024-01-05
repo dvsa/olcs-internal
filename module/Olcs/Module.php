@@ -32,6 +32,7 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
+
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -73,10 +74,11 @@ class Module
             }
         );
 
-        $routeParams = $e->getApplication()->getServiceManager()->get(RouteParams::class);
         $headerSearch = $e->getApplication()->getServiceManager()->get(HeaderSearch::class);
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$routeParams, 'onDispatch']);
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$headerSearch, 'onDispatch']);
+
+        $routeParams = $e->getApplication()->getServiceManager()->get(RouteParams::class);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, [$routeParams, 'onDispatch']);
 
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
@@ -90,11 +92,13 @@ class Module
                 $container = $e->getApplication()->getServiceManager();
                 $config = $container->get('Config');
 
+                /** @var RouteParams $routeParamsListener */
+                $routeParamsListener = $container->get(RouteParams::class);
                 foreach ($config['route_param_listeners'] as $interface => $listeners) {
                     if (is_a($controllerFQCN, $interface, true)) {
                         foreach ($listeners as $listener) {
                             $listenerInstance = $container->get($listener);
-                            $routeParams->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
+                            $routeParamsListener->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
                         }
                     }
                 }
