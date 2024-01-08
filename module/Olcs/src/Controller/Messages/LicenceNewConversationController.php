@@ -10,6 +10,8 @@ use Common\FeatureToggle;
 use Olcs\Form\Model\Form\Cases;
 use Common\Data\Mapper\DefaultMapper;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganisation;
+use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByApplicationToOrganisation;
+use Dvsa\Olcs\Transfer\Query\Application\Application as ApplicationQuery;
 
 class LicenceNewConversationController extends AbstractInternalController implements LeftViewProvider
 {
@@ -45,12 +47,21 @@ class LicenceNewConversationController extends AbstractInternalController implem
     {
         $appLicNoSelect = $form->get('fields')->get('appLicNo');
 
-        /**
-         * @var \Common\Service\Cqrs\Response $data
-         */
-        $data = $this->handleQuery(
-            ByLicenceToOrganisation::create(['licence' => $this->params()->fromRoute('licence')])
-        );
+        if ($this->params()->fromRoute('licence')){
+            $licence_id = $this->params()->fromRoute('licence');
+            $data = $this->handleQuery(
+                ByLicenceToOrganisation::create(['licence' => $licence_id])
+            );
+        } elseif ($this->params()->fromRoute('application')) {
+            $application_id = $this->params()->fromRoute('application');
+            $data = $this->handleQuery(
+                ByApplicationToOrganisation::create(['application' => $application_id])
+            );
+            $routeMatch = $this->getEvent()->getRouteMatch();
+            $routeMatch->setParam('', 'new_value');
+        } else {
+            throw new \RuntimeException('Error: licence or application required');
+        }
 
         $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);
 
@@ -73,5 +84,12 @@ class LicenceNewConversationController extends AbstractInternalController implem
         $appLicNoSelect->setValueOptions($options);
 
         return $form;
+    }
+
+    protected function preDispatch()
+    {
+        if ($this->params()->fromRoute('application')) {
+            $this->navigationId = 'application_conversations';
+        }
     }
 }
