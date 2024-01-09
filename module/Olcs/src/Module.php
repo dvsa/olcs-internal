@@ -8,10 +8,10 @@
 
 namespace Olcs;
 
+use Common\Exception\ResourceNotFoundException;
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
-use Common\Exception\ResourceNotFoundException;
 use Olcs\Listener\HeaderSearch;
 use Olcs\Listener\RouteParams;
 
@@ -22,6 +22,10 @@ use Olcs\Listener\RouteParams;
  */
 class Module
 {
+    public const DATE_FORMAT = 'd/m/Y';
+    public const DATETIME_FORMAT = 'd/m/Y H:i';
+    public const DATETIMESEC_FORMAT = 'd/m/Y H:i:s';
+
     /**
      * Event to Bootstrap the module
      *
