@@ -919,7 +919,7 @@ $nav = [
 
                                 ],
                                 [
-                                    'id' => 'conversation_list_new_conversation',
+                                    'id' => 'licence_new_conversation',
                                     'label' => 'New Conversation',
                                     'route' => 'licence/conversation/new',
                                     'class' => 'govuk-link--no-visited-state',
@@ -1397,7 +1397,7 @@ $nav = [
                             'use_route_match' => true,
                         ],
                         [
-                            'id' => 'conversation_list_new_conversation',
+                            'id' => 'application_new_conversation',
                             'label' => 'New Message',
                             'route' => 'lva-application/conversation/new',
                             'class' => 'govuk-link--no-visited-state',

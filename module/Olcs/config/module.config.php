@@ -299,6 +299,7 @@ return array(
             Olcs\Controller\Messages\LicenceConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceDisableConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceDisableConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceNewConversationController::class=> Olcs\Controller\Factory\Messages\LicenceNewConversationControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationNewConversationController::class=> Olcs\Controller\Factory\Messages\ApplicationNewConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class => OperatorControllerFactories\OperatorFeesControllerFactory::class,
             OperatorControllers\OperatorProcessingTasksController::class => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
             OperatorControllers\UnlicensedBusinessDetailsController::class => OperatorControllerFactories\UnlicensedBusinessDetailsControllerFactory::class,
