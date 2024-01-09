@@ -66,7 +66,7 @@ return array(
             'title' => 'Publication date',
             'formatter' => function ($data) {
                 $date = new DateTime($data['publication']['pubDate']);
-                return $date->format(Module::DATE_FORMAT);
+                return $date->format(Module::$dateFormat);
             }
         ),
         array(

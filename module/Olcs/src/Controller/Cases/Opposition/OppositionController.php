@@ -212,7 +212,7 @@ class OppositionController extends AbstractInternalController implements CaseCon
 
         if (!empty($caseWithOppositionDates['oorDate'])) {
             // set oor date
-            $oorString = (new \DateTime($caseWithOppositionDates['oorDate']))->format(Module::DATE_FORMAT);
+            $oorString = (new \DateTime($caseWithOppositionDates['oorDate']))->format(Module::$dateFormat);
 
             $form->get('fields')
                 ->get('outOfRepresentationDate')
@@ -221,7 +221,7 @@ class OppositionController extends AbstractInternalController implements CaseCon
 
         if (!empty($caseWithOppositionDates['oooDate'])) {
             // set ooo date
-            $oooString = (new \DateTime($caseWithOppositionDates['oooDate']))->format(Module::DATE_FORMAT);
+            $oooString = (new \DateTime($caseWithOppositionDates['oooDate']))->format(Module::$dateFormat);
 
             $form->get('fields')
                 ->get('outOfObjectionDate')

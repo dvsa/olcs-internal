@@ -320,7 +320,7 @@ class TaskController extends AbstractController
     {
         if (isset($data['lastModifiedOn']) && isset($data['lastModifiedByDetails'])) {
             $data['lastModifiedByDetails'] .=
-                ' (' . (new \DateTime($data['lastModifiedOn']))->format(Module::DATETIMESEC_FORMAT) . ')';
+                ' (' . (new \DateTime($data['lastModifiedOn']))->format(Module::$dateTimeSecFormat) . ')';
         }
         return $data;
     }

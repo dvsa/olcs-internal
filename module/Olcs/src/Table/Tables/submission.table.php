@@ -63,7 +63,7 @@ return array(
         array(
             'title' => 'Date created',
             'formatter' => function ($row) {
-                return date(Module::DATETIMESEC_FORMAT, strtotime($row['createdOn']));
+                return date(Module::$dateTimeSecFormat, strtotime($row['createdOn']));
             },
             'sort' => 'createdOn'
         ),

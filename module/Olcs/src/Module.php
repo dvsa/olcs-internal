@@ -22,9 +22,9 @@ use Olcs\Listener\RouteParams;
  */
 class Module
 {
-    public const DATE_FORMAT = 'd/m/Y';
-    public const DATETIME_FORMAT = 'd/m/Y H:i';
-    public const DATETIMESEC_FORMAT = 'd/m/Y H:i:s';
+    public static string $dateFormat = 'd/m/Y';
+    public static string $dateTimeFormat = 'd/m/Y H:i';
+    public static string $dateTimeSecFormat = 'd/m/Y H:i:s';
 
     /**
      * Event to Bootstrap the module
@@ -35,6 +35,11 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
+        $config = $e->getApplication()->getServiceManager()->get('Config');
+
+        self::$dateFormat = $config['date_settings']['date_format'] ?? self::$dateFormat;
+        self::$dateTimeFormat = $config['date_settings']['datetime_format'] ?? self::$dateTimeFormat;
+        self::$dateTimeSecFormat = $config['date_settings']['datetimesec_format'] ?? self::$dateTimeSecFormat;
 
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
@@ -113,6 +118,6 @@ class Module
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return include __DIR__ . '/../config/module.config.php';
     }
 }

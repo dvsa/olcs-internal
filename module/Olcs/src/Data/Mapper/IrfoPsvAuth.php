@@ -36,7 +36,7 @@ class IrfoPsvAuth implements MapperInterface
         if (!empty($formData['fields']['createdOn'])) {
             // format createOn date
             $createdOn = new \DateTime($formData['fields']['createdOn']);
-            $formData['fields']['createdOnHtml'] = $createdOn->format(Module::DATE_FORMAT);
+            $formData['fields']['createdOnHtml'] = $createdOn->format(Module::$dateFormat);
         }
 
         // default all copies fields to 0

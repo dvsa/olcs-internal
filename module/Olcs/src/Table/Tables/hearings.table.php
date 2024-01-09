@@ -38,7 +38,7 @@ return array(
                 $url = $this->generateUrl(['action' => 'edit', 'id' => $data['id']], 'case_pi', true);
 
                 $column['formatter'] = Date::class;
-                return '<a class="govuk-link" href="' . $url . '">' . date(Module::DATE_FORMAT, strtotime($data['hearingDate'])) . '</a>';
+                return '<a class="govuk-link" href="' . $url . '">' . date(Module::$dateFormat, strtotime($data['hearingDate'])) . '</a>';
             },
             'name' => 'id'
         ),

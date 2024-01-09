@@ -28,7 +28,7 @@
         if (!($date instanceof \DateTime)) {
             $date = new \DateTime($this->stay['requestDate']);
         }
-        echo $date->format(Module::DATE_FORMAT);
+        echo $date->format(Module::$dateFormat);
     }
     ?>
 </p>

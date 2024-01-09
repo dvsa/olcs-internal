@@ -73,7 +73,7 @@ class Pi implements MapperInterface
             foreach ($errors['messages'] as $key => $value) {
                 if ($key === 'DECISION_DATE_BEFORE_HEARING_DATE') {
                     /** @var DateTimeSelect $e */
-                    $hearingDate = DateTimeHelper::format($value, Module::DATE_FORMAT);
+                    $hearingDate = DateTimeHelper::format($value, Module::$dateFormat);
                     $form->get('fields')->get('decisionDate')->setMessages(
                         ['Decision date must be after or the same as the PI hearing date '. $hearingDate]
                     );

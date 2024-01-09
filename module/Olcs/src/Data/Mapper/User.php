@@ -47,7 +47,7 @@ class User implements MapperInterface
                 = !empty($data['lockedOn'])
                     ? sprintf(
                         'Yes on %s',
-                        (new \DateTime($data['lockedOn']))->format(Module::DATETIMESEC_FORMAT)
+                        (new \DateTime($data['lockedOn']))->format(Module::$dateTimeSecFormat)
                     )
                     : 'No';
 
@@ -55,7 +55,7 @@ class User implements MapperInterface
                 $formData['userLoginSecurity']['passwordLastReset'] = sprintf(
                     '%s on %s',
                     $data['latestPasswordResetEvent']['eventData'],
-                    DateTimeHelper::format($data['latestPasswordResetEvent']['eventDatetime'], Module::DATETIMESEC_FORMAT)
+                    DateTimeHelper::format($data['latestPasswordResetEvent']['eventDatetime'], Module::$dateTimeSecFormat)
                 );
             }
 
