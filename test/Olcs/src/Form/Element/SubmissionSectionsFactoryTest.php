@@ -7,7 +7,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\Form\Element\SubmissionSections;
 use Olcs\Form\Element\SubmissionSectionsFactory;
 use Mockery as m;
-use \Olcs\TestHelpers\ControllerPluginManagerHelper;
+use Dvsa\OlcsTest\Controller\ControllerPluginManagerHelper;
 
 class SubmissionSectionsFactoryTest extends MockeryTestCase
 {

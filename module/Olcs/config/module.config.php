@@ -56,7 +56,6 @@ use Olcs\Controller\Interfaces\TransportManagerControllerInterface;
 use Olcs\Controller\Interfaces\VariationControllerInterface;
 use Olcs\Controller\IrhpPermits as IrhpPermitsControllers;
 use Olcs\Controller\Licence as LicenceControllers;
-use Olcs\Controller\Licence\ContinuationController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestController;
 use Olcs\Controller\Licence\Processing\LicenceProcessingInspectionRequestControllerFactory;
 use Olcs\Controller\Licence\Processing\LicenceProcessingOverviewController;
@@ -71,7 +70,6 @@ use Olcs\Controller\Lva\Variation as LvaVariationControllers;
 use Olcs\Controller\Operator as OperatorControllers;
 use Olcs\Controller\Operator\HistoryController;
 use Olcs\Controller\Operator\OperatorBusinessDetailsController;
-use Olcs\Controller\Operator\Processing\ReadHistoryController;
 use Olcs\Controller\SearchController;
 use Olcs\Controller\Sla\CaseDocumentSlaTargetDateController;
 use Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController;
@@ -89,7 +87,6 @@ use Olcs\Form\Element\SubmissionSections;
 use Olcs\Form\Element\SubmissionSectionsFactory;
 use Olcs\FormService\Form\Lva\AbstractLvaFormFactory;
 use Olcs\Listener\HeaderSearch;
-use Olcs\Listener\NavigationToggle;
 use Olcs\Listener\RouteParam;
 use Olcs\Listener\RouteParam\Application as ApplicationListener;
 use Olcs\Listener\RouteParam\ApplicationFurniture;
@@ -299,6 +296,11 @@ return array(
             LvaVariationControllers\VehiclesPsvController::class => LvaVariationControllerFactories\VehiclesPsvControllerFactory::class,
             LvaVariationControllers\WithdrawController::class => LvaVariationControllerFactories\WithdrawControllerFactory::class,
             Olcs\Controller\IndexController::class => Olcs\Controller\Factory\IndexControllerFactory::class,
+            Olcs\Controller\Messages\LicenceConversationMessagesController::class => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationConversationListController::class => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
+            Olcs\Controller\Messages\LicenceConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
+            Olcs\Controller\Messages\LicenceDisableConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceDisableConversationListControllerFactory::class,
+            Olcs\Controller\Messages\LicenceNewConversationController::class=> Olcs\Controller\Factory\Messages\LicenceNewConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class => OperatorControllerFactories\OperatorFeesControllerFactory::class,
             OperatorControllers\OperatorProcessingTasksController::class => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
             OperatorControllers\UnlicensedBusinessDetailsController::class => OperatorControllerFactories\UnlicensedBusinessDetailsControllerFactory::class,
@@ -377,7 +379,7 @@ return array(
             Olcs\Controller\Licence\Processing\HistoryController::class => LicenceControllers\Processing\HistoryControllerFactory::class,
             Olcs\Controller\IrhpPermits\ChangeHistoryController::class => Olcs\Controller\IrhpPermits\ChangeHistoryControllerFactory::class,
             Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryController::class => Olcs\Controller\IrhpPermits\IrhpApplicationProcessingHistoryControllerFactory::class,
-            Olcs\Controller\Cases\Processing\HistoryController::class => Olcs\Controller\Cases\Processing\HistoryControllerFactory::Class,
+            Olcs\Controller\Cases\Processing\HistoryController::class => Olcs\Controller\Cases\Processing\HistoryControllerFactory::class,
             Olcs\Controller\Bus\Processing\HistoryController::class => Olcs\Controller\Bus\Processing\HistoryControllerFactory::class,
             Olcs\Controller\Application\Processing\HistoryController::class => Olcs\Controller\Application\Processing\HistoryControllerFactory::class,
             Olcs\Controller\Application\Processing\ReadHistoryController::class => Olcs\Controller\Application\Processing\ReadHistoryControllerFactory::class,
@@ -409,7 +411,7 @@ return array(
             Olcs\Controller\Operator\Processing\ReadHistoryController::class => Olcs\Controller\Operator\Processing\ReadHistoryControllerFactory::class,
             Olcs\Controller\Operator\OperatorIrfoDetailsController::class => Olcs\Controller\Operator\OperatorIrfoDetailsControllerFactory::class,
             Olcs\Controller\Operator\OperatorIrfoGvPermitsController::class => Olcs\Controller\Operator\OperatorIrfoGvPermitsControllerFactory::class,
-            Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController::Class => Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsControllerFactory::Class,
+            Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsController::class => Olcs\Controller\Operator\OperatorIrfoPsvAuthorisationsControllerFactory::class,
             Olcs\Controller\Operator\OperatorUsersController::class => Olcs\Controller\Operator\OperatorUsersControllerFactory::class,
             Olcs\Controller\Operator\UnlicensedOperatorVehiclesController::class => Olcs\Controller\Operator\UnlicensedOperatorVehiclesControllerFactory::class,
             Olcs\Controller\Sla\RevocationsSlaController::class => Olcs\Controller\Sla\RevocationsSlaControllerFactory::class,
@@ -754,7 +756,6 @@ return array(
             'Olcs\Listener\RouteParam\CaseMarker' => 'Olcs\Listener\RouteParam\CaseMarker',
             RouteParam\Organisation::class => RouteParam\Organisation::class,
             'Olcs\Navigation\RightHandNavigation' => 'Olcs\Navigation\RightHandNavigationFactory',
-            NavigationToggle::class => NavigationToggle::class,
             HeaderSearch::class => HeaderSearch::class,
             Olcs\Data\Mapper\BilateralApplicationValidationModifier::class =>
                 Olcs\Data\Mapper\BilateralApplicationValidationModifierFactory::class,

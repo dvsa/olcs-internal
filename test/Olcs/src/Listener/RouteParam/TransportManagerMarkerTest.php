@@ -11,6 +11,7 @@ use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\TransportManagerMarker;
 use Olcs\Listener\RouteParams;
 use Olcs\Service\Marker\MarkerService;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class TransportManagerMarkerTest extends MockeryTestCase
 {

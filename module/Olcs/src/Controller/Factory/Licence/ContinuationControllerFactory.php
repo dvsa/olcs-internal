@@ -9,6 +9,7 @@ use Common\Service\Table\TableFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\Validator\Translator\TranslatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Licence\ContinuationController;
 
@@ -27,7 +28,18 @@ class ContinuationControllerFactory implements FactoryInterface
         $tableFactory = $container->get(TableFactory::class);
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-        $translationHelper = $container->get(TranslatorInterface::class);
+        $translator = $container->get('Translator');
+
+        $validatorOptions = [
+            'inclusive' => true,
+            'translator' => $translator,
+            'message' => 'update-continuation.validation.total-auth-vehicles'
+        ];
+
+        /** @var LessThan $lessThanValidator */
+        $lessThanValidator = $container->get('ValidatorManager')->get(LessThan::class);
+        $lessThanValidator->setOptions($validatorOptions);
+
 
         return new ContinuationController(
             $scriptFactory,
@@ -35,7 +47,7 @@ class ContinuationControllerFactory implements FactoryInterface
             $tableFactory,
             $viewHelperManager,
             $flashMessengerHelper,
-            $translationHelper
+            $lessThanValidator
         );
     }
 }

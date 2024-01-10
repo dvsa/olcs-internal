@@ -9,24 +9,53 @@ use Common\Controller\Plugin\CurrentUser;
 use Common\Controller\Plugin\Redirect;
 use Common\Service\Helper\FormHelperService;
 use Dvsa\Olcs\Auth\Service\Auth\CookieService;
+use Interop\Container\ContainerInterface;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\Mvc\Controller\Plugin\Layout;
 use Laminas\Mvc\Controller\Plugin\Url;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\ServiceManager\ServiceManager;
+use Mockery as m;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\Auth\Adapter\InternalCommandAdapter;
 use Olcs\Controller\Auth\LoginController;
 use Olcs\Controller\Auth\LoginControllerFactory;
-use Olcs\TestHelpers\MockeryTestCase;
-use Olcs\TestHelpers\Service\MocksServicesTrait;
 
 class LoginControllerFactoryTest extends MockeryTestCase
 {
-    use MocksServicesTrait;
-
     /**
      * @var LoginControllerFactory
      */
     protected $sut;
+
+    /**
+     * @test
+     */
+    public function createService_IsCallable()
+    {
+        // Setup
+        $this->setUpSut();
+
+        // Assert
+        $this->assertIsCallable([$this->sut, 'createService']);
+    }
+
+    /**
+     * @test
+     * @depends createService_IsCallable
+     * @depends __invoke_IsCallable
+     */
+    public function createService_CallsInvoke()
+    {
+        // Setup
+        $this->sut = m::mock(LoginControllerFactory::class)->makePartial();
+
+        // Expectations
+        $this->sut->expects('__invoke')->once();
+
+        // Execute
+        $this->sut->createService($this->createMock(ServiceLocatorInterface::class));
+    }
 
     public function setUp(): void
     {
@@ -54,8 +83,22 @@ class LoginControllerFactoryTest extends MockeryTestCase
         // Setup
         $this->setUpSut();
 
+        $sm = $this->createMock(ContainerInterface::class);
+        $sm->method('get')->willReturnMap([
+            [InternalCommandAdapter::class, $this->createMock(InternalCommandAdapter::class)],
+            [AuthenticationServiceInterface::class, $this->createMock(AuthenticationServiceInterface::class)],
+            ['Auth\CookieService', $this->createMock(CookieService::class)],
+            [CurrentUser::class, $this->createMock(CurrentUser::class)],
+            [FlashMessenger::class, $this->createMock(FlashMessenger::class)],
+            [FormHelperService::class, $this->createMock(FormHelperService::class)],
+            [Layout::class, $this->createMock(Layout::class)],
+            [Redirect::class, $this->createMock(Redirect::class)],
+            [Url::class, $this->createMock(Url::class)],
+            ['ControllerPluginManager', $sm],
+        ]);
+
         // Execute
-        $result = $this->sut->__invoke($this->serviceManager(), null);
+        $result = $this->sut->__invoke($sm, null);
 
         // Assert
         $this->assertInstanceOf(Dispatcher::class, $result);
@@ -72,14 +115,14 @@ class LoginControllerFactoryTest extends MockeryTestCase
      */
     protected function setUpDefaultServices(ServiceManager $serviceManager)
     {
-        $serviceManager->setService(InternalCommandAdapter::class, $this->setUpMockService(InternalCommandAdapter::class));
-        $serviceManager->setService(AuthenticationServiceInterface::class, $this->setUpMockService(AuthenticationServiceInterface::class));
-        $serviceManager->setService('Auth\CookieService', $this->setUpMockService(CookieService::class));
-        $serviceManager->setService(CurrentUser::class, $this->setUpMockService(CurrentUser::class));
-        $serviceManager->setService(FlashMessenger::class, $this->setUpMockService(FlashMessenger::class));
-        $serviceManager->setService(FormHelperService::class, $this->setUpMockService(FormHelperService::class));
-        $serviceManager->setService(Layout::class, $this->setUpMockService(Layout::class));
-        $serviceManager->setService(Redirect::class, $this->setUpMockService(Redirect::class));
-        $serviceManager->setService(Url::class, $this->setUpMockService(Url::class));
+        $serviceManager->setService(InternalCommandAdapter::class, $this->createMock(InternalCommandAdapter::class));
+        $serviceManager->setService(AuthenticationServiceInterface::class, $this->createMock(AuthenticationServiceInterface::class));
+        $serviceManager->setService('Auth\CookieService', $this->createMock(CookieService::class));
+        $serviceManager->setService(CurrentUser::class, $this->createMock(CurrentUser::class));
+        $serviceManager->setService(FlashMessenger::class, $this->createMock(FlashMessenger::class));
+        $serviceManager->setService(FormHelperService::class, $this->createMock(FormHelperService::class));
+        $serviceManager->setService(Layout::class, $this->createMock(Layout::class));
+        $serviceManager->setService(Redirect::class, $this->createMock(Redirect::class));
+        $serviceManager->setService(Url::class, $this->createMock(Url::class));
     }
 }

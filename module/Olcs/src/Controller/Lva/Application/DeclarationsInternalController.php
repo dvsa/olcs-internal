@@ -11,6 +11,7 @@ use Dvsa\Olcs\Utils\Translation\NiTextTranslation;
 use Laminas\Form\Form;
 use Olcs\Controller\Lva\Traits\ApplicationControllerTrait;
 use LmcRbacMvc\Service\AuthorizationService;
+use Olcs\Module;
 
 /**
  * Internal Application Undertakings Controller
@@ -82,9 +83,9 @@ class DeclarationsInternalController extends \Olcs\Controller\Lva\AbstractDeclar
             $form->get('declarations')->get('verifySignatureText')->setValue(
                 sprintf(
                     'This application has been digitally signed on %s by %s with date of birth %s',
-                    (new \DateTime($signatureDetails['date']))->format(\DATE_FORMAT),
+                    (new \DateTime($signatureDetails['date']))->format(Module::$dateFormat),
                     $signatureDetails['name'],
-                    (new \DateTime($signatureDetails['dob']))->format(\DATE_FORMAT)
+                    (new \DateTime($signatureDetails['dob']))->format(Module::$dateFormat)
                 )
             );
 

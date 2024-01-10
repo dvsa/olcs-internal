@@ -3,10 +3,10 @@
 namespace OlcsTest\FormService\Form\Lva;
 
 use Common\Form\Form;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\FormService\Form\Lva\LicenceGoodsVehicles;
-use OlcsTest\Bootstrap;
 use LmcRbacMvc\Service\AuthorizationService;
 
 /**
@@ -26,8 +26,11 @@ class LicenceGoodsVehiclesTest extends MockeryTestCase
 
     public function setUp(): void
     {
-        $this->sm = Bootstrap::getServiceManager();
+        $this->sm = $this->createMock(ServiceLocatorInterface::class);
         $this->formHelper = m::mock('\Common\Service\Helper\FormHelperService');
+        $this->formHelper
+            ->shouldReceive('getServiceLocator')
+            ->andReturn($this->sm);
         $this->formService = m::mock('\Common\FormService\FormServiceManager')->makePartial();
 
         $this->sut = new LicenceGoodsVehicles($this->formHelper, m::mock(AuthorizationService::class), $this->formService);
@@ -44,7 +47,7 @@ class LicenceGoodsVehiclesTest extends MockeryTestCase
         $mockTableElement = m::mock('\Laminas\Form\Fieldset');
         $mockValidator = m::mock();
 
-        $this->sm->setService('oneRowInTablesRequired', $mockValidator);
+        $this->sm->method('get')->with('oneRowInTablesRequired')->willReturn($mockValidator);
 
         // Expectations
         $this->formHelper->shouldReceive('createForm')

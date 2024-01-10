@@ -2,17 +2,23 @@
 
 namespace Olcs\Listener\RouteParam;
 
-use Interop\Container\ContainerInterface;
 use Common\Exception\DataServiceException;
+use Common\FeatureToggle;
 use Common\RefData;
 use Common\Service\Data\Surrender;
-use Olcs\Event\RouteParam;
-use Olcs\Listener\RouteParams;
+use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
+use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled as IsEnabledQry;
+use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
+use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Olcs\Event\RouteParam;
+use Olcs\Listener\RouteParams;
+use Olcs\Service\Marker\MarkerService;
+use RuntimeException;
 
 /**
  * Class Licence
@@ -28,7 +34,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     private $queryService;
 
     /**
-     * @var \Olcs\Service\Marker\MarkerService
+     * @var MarkerService
      */
     protected $markerService;
 
@@ -44,24 +50,24 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     protected $surrenderService;
 
     /**
-     * @var \Laminas\Navigation\Navigation
+     * @var Navigation
      */
     protected $navigationService;
 
     /**
-     * @var \Laminas\Navigation\Navigation
+     * @var Navigation
      */
     protected $mainNavigationService;
 
     /**
-     * @return \Olcs\Service\Marker\MarkerService
+     * @return MarkerService
      */
     public function getMarkerService()
     {
         return $this->markerService;
     }
 
-    public function setMarkerService(\Olcs\Service\Marker\MarkerService $markerService)
+    public function setMarkerService(MarkerService $markerService)
     {
         $this->markerService = $markerService;
         return $this;
@@ -99,7 +105,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     }
 
     /**
-     * @param \Laminas\Navigation\Navigation $navigationService
+     * @param Navigation $navigationService
      *
      * @return $this
      */
@@ -110,7 +116,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     }
 
     /**
-     * @return \Laminas\Navigation\Navigation
+     * @return Navigation
      */
     public function getNavigationService()
     {
@@ -118,7 +124,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     }
 
     /**
-     * @param \Laminas\Navigation\Navigation $navigationService
+     * @param Navigation $navigationService
      *
      * @return $this
      */
@@ -129,7 +135,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     }
 
     /**
-     * @return \Laminas\Navigation\Navigation
+     * @return Navigation
      */
     public function getMainNavigationService()
     {
@@ -180,11 +186,14 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         $licenceCategoryId = $licence['goodsOrPsv']['id'] ?? null;
         $navigationService = $this->getMainNavigationService();
 
+        $this->handleMessagingTabVisibility($licence, $navigationService);
+
         if ($licenceCategoryId === RefData::LICENCE_CATEGORY_GOODS_VEHICLE) {
             $navigationService->findOneById('licence_bus')->setVisible(0);
         }
 
         if ($licenceCategoryId === RefData::LICENCE_CATEGORY_PSV) {
+            $navigationService->findOneById('licence_irhp_permits')->setVisible(false);
             $communityLicencesNav = $navigationService->findOneById('licence_community_licences');
             $communityLicencesNav->setLabel(
                 $communityLicencesNav->getLabel() . '.psv'
@@ -211,7 +220,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
      * @param int $licenceId
      *
      * @return array
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected function getLicenceMarkerData($licenceId)
     {
@@ -221,7 +230,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
         $response = $this->getQueryService()->send($query);
         if (!$response->isOk()) {
-            throw new \RuntimeException('Error getting licence markers');
+            throw new RuntimeException('Error getting licence markers');
         }
 
         return $response->getResult();
@@ -257,7 +266,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
      */
     protected function showHideButtons($licence)
     {
-        /** @var Laminas\Navigation\Navigation */
+        /** @var Navigation */
         $sidebarNav = $this->getNavigationService();
 
         // 'Quick actions' buttons
@@ -543,10 +552,23 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         $this->setLicenceService($container->get('DataServiceManager')->get('Common\Service\Data\Licence'));
         $this->setNavigationService($container->get('right-sidebar'));
         $this->setMainNavigationService($container->get('Navigation'));
-        $this->setMarkerService($container->get(\Olcs\Service\Marker\MarkerService::class));
+        $this->setMarkerService($container->get(MarkerService::class));
         $this->setAnnotationBuilderService($container->get('TransferAnnotationBuilder'));
         $this->setQueryService($container->get('QueryService'));
         $this->setSurrenderService($container->get('DataServiceManager')->get(Surrender::class));
         return $this;
+    }
+
+    private function handleMessagingTabVisibility($licence, $sidebarNav)
+    {
+        $query = $this->getAnnotationBuilderService()->createQuery(
+            IsEnabledQry::create(['ids' => [FeatureToggle::MESSAGING]])
+        );
+        $isEnabled = $this->getQueryService()->send($query)->getResult()['isEnabled'];
+
+        if (!$isEnabled) {
+            $sidebarNav->findById('conversations')->setVisible(0);
+            $sidebarNav->findById('application_conversations')->setVisible(0);
+        }
     }
 }
