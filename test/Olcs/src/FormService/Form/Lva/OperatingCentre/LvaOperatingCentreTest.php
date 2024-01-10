@@ -2,6 +2,7 @@
 
 namespace OlcsTest\FormService\Form\Lva\OperatingCentre;
 
+use Laminas\Form\ElementInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Laminas\Form\Fieldset;
@@ -38,11 +39,11 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->shouldReceive('get')
             ->with('address')
             ->andReturn(
-                m::mock()
+                m::mock(ElementInterface::class)
                     ->shouldReceive('get')
                     ->with('postcode')
                     ->andReturn(
-                        m::mock()
+                        m::mock(ElementInterface::class)
                             ->shouldReceive('setOption')
                             ->with('shouldEscapeMessages', false)
                             ->once()
@@ -55,11 +56,11 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->shouldReceive('get')
             ->with('advertisements')
             ->andReturn(
-                m::mock()
+                m::mock(ElementInterface::class)
                     ->shouldReceive('get')
                     ->with('radio')
                     ->andReturn(
-                        m::mock()
+                        m::mock(ElementInterface::class)
                         ->shouldReceive('getValueOptions')
                         ->andReturn(['foo' => 'bar', OperatingCentreMapper::VALUE_OPTION_AD_UPLOAD_LATER => 'cake'])
                         ->once()
@@ -77,11 +78,11 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->shouldReceive('get')
             ->with('data')
             ->andReturn(
-                m::mock()
+                m::mock(ElementInterface::class)
                     ->shouldReceive('get')
                     ->with('guidance')
                     ->andReturn(
-                        m::mock()
+                        m::mock(ElementInterface::class)
                             ->shouldReceive('setValue')
                             ->with('lva-operating-centre-newspaper-advert')
                             ->once()
@@ -91,7 +92,7 @@ class LvaOperatingCentreTest extends MockeryTestCase
                     ->shouldReceive('get')
                     ->with('permission')
                     ->andReturn(
-                        m::mock()
+                        m::mock(ElementInterface::class)
                             ->shouldReceive('setLabel')
                             ->with('')
                             ->once()
@@ -119,15 +120,15 @@ class LvaOperatingCentreTest extends MockeryTestCase
 
         $form->shouldReceive('getInputFilter')
             ->andReturn(
-                m::mock()
+                m::mock(ElementInterface::class)
                     ->shouldReceive('get')
                     ->with('address')
                     ->andReturn(
-                        m::mock()
+                        m::mock(ElementInterface::class)
                             ->shouldReceive('get')
                             ->with('postcode')
                             ->andReturn(
-                                m::mock()
+                                m::mock(ElementInterface::class)
                                     ->shouldReceive('setRequired')
                                     ->with(false)
                                     ->once()

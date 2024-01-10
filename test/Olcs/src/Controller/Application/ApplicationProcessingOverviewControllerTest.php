@@ -19,6 +19,7 @@ use Laminas\Router\RouteMatch;
 use Laminas\Mvc\MvcEvent;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Psr\Container\ContainerInterface;
 
 class ApplicationProcessingOverviewControllerTest extends MockeryTestCase
 {
@@ -74,11 +75,10 @@ class ApplicationProcessingOverviewControllerTest extends MockeryTestCase
         $event->setRouter($router);
         $event->setRouteMatch($routeMatch);
 
-        $pluginManager = new PluginManager();
+        $pluginManager = new PluginManager($this->createMock(ContainerInterface::class));
 
         $controller->setEvent($event);
         $controller->setPluginManager($pluginManager);
-        $controller->setServiceLocator($this->createMock(ServiceLocatorInterface::class));
 
         return $controller;
     }

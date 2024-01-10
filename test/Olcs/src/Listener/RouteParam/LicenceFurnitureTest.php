@@ -6,6 +6,7 @@ use Common\Exception\ResourceNotFoundException;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Laminas\View\HelperPluginManager;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
@@ -149,11 +150,14 @@ class LicenceFurnitureTest extends TestCase
         $mockViewHelperManager = m::mock(HelperPluginManager::class);
         $mockQuerySender = m::mock(QuerySender::class);
         $mockCommandSender = m::mock(CommandSender::class);
+        $mockEventManager = m::mock(EventManagerInterface::class);
+        $mockEventManager->shouldReceive('attach')->once();
 
         $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('QuerySender')->andReturn($mockQuerySender);
         $mockSl->shouldReceive('get')->with('CommandSender')->andReturn($mockCommandSender);
+        $mockSl->shouldReceive('get')->with('EventManager')->andReturn($mockEventManager);
 
         $sut = new LicenceFurniture();
         $service = $sut->__invoke($mockSl, LicenceFurniture::class);

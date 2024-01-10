@@ -31,40 +31,6 @@ class LoginControllerFactoryTest extends MockeryTestCase
     /**
      * @test
      */
-    public function createService_IsCallable()
-    {
-        // Setup
-        $this->setUpSut();
-
-        // Assert
-        $this->assertIsCallable([$this->sut, 'createService']);
-    }
-
-    /**
-     * @test
-     * @depends createService_IsCallable
-     * @depends __invoke_IsCallable
-     */
-    public function createService_CallsInvoke()
-    {
-        // Setup
-        $this->sut = m::mock(LoginControllerFactory::class)->makePartial();
-
-        // Expectations
-        $this->sut->expects('__invoke')->once();
-
-        // Execute
-        $this->sut->createService($this->createMock(ServiceLocatorInterface::class));
-    }
-
-    public function setUp(): void
-    {
-        $this->setUpServiceManager();
-    }
-
-    /**
-     * @test
-     */
     public function __invoke_IsCallable(): void
     {
         // Setup

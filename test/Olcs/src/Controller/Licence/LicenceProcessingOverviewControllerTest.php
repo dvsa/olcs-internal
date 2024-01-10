@@ -18,6 +18,7 @@ use Laminas\Router\RouteMatch;
 use Olcs\Service\Data\SubCategory;
 use Laminas\Mvc\MvcEvent;
 use Mockery as m;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class LicenceProcessingOverviewControllerTest
@@ -78,11 +79,10 @@ class LicenceProcessingOverviewControllerTest extends \PHPUnit\Framework\TestCas
         $event->setRouter($router);
         $event->setRouteMatch($routeMatch);
 
-        $pluginManager = new PluginManager();
+        $pluginManager = new PluginManager($this->createMock(ContainerInterface::class));
 
         $controller->setEvent($event);
         $controller->setPluginManager($pluginManager);
-        $controller->setServiceLocator($this->createMock(ServiceLocatorInterface::class));
 
         return $controller;
     }

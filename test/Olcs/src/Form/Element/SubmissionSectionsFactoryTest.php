@@ -18,7 +18,7 @@ class SubmissionSectionsFactoryTest extends MockeryTestCase
         $pluginManagerHelper = new ControllerPluginManagerHelper();
 
         $mockPluginManager = $pluginManagerHelper->getMockPluginManager(['params' => 'Params']);
-        $mockParamsPlugin = $mockPluginManager->get('params', '');
+        $mockParamsPlugin = $mockPluginManager->get('params');
         $mockParamsPlugin->shouldReceive('fromRoute')->with('case')
             ->andReturn($caseId);
 
@@ -48,7 +48,6 @@ class SubmissionSectionsFactoryTest extends MockeryTestCase
         $mockServiceLocator->shouldReceive('get')->with('params')
             ->andReturn($mockParamsPlugin);
 
-
         $mockHiddenElement = m::mock('Laminas\Form\Element\Hidden');
         $mockServiceLocator->shouldReceive('get')->with('Hidden')
             ->andReturn($mockHiddenElement);
@@ -68,6 +67,6 @@ class SubmissionSectionsFactoryTest extends MockeryTestCase
             ->andReturn($mockDynamicMultiCheckboxElement);
 
         $sut = new SubmissionSectionsFactory();
-        $sut->__invoke($mockFormElementManager, SubmissionSections::class);
+        $sut->__invoke($mockServiceLocator, SubmissionSections::class);
     }
 }

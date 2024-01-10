@@ -2,8 +2,8 @@
 
 namespace Olcs\Service\Marker;
 
-use Dvsa\Olcs\Utils\Traits\PluginManagerTrait;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Interop\Container\ContainerInterface;
 
 /**
  * Class MarkerPluginManager
@@ -12,17 +12,10 @@ class MarkerPluginManager extends AbstractPluginManager
 {
     protected $instanceOf = MarkerInterface::class;
 
-    public function __construct(\Laminas\ServiceManager\ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container)
     {
-        parent::__construct($configuration);
+        parent::__construct($container);
 
-        if ($configuration) {
-            $configuration->configureServiceManager($this);
-        }
-
-        $this->addInitializer(
-            new PartialHelperInitializer(),
-            false
-        );
+        $this->addInitializer(new PartialHelperInitializer());
     }
 }

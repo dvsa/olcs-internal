@@ -4,6 +4,7 @@ namespace OlcsTest\Listener\RouteParam;
 
 use Common\Exception\ResourceNotFoundException;
 use Interop\Container\ContainerInterface;
+use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\Cases;
@@ -138,22 +139,17 @@ class CasesTest extends MockeryTestCase
         $mockSidebar = m::mock();
         $mockTransferAnnotationBuilder = m::mock();
         $mockQueryService = m::mock();
+        $mockAnnotationBuilder = m::mock(AnnotationBuilder::class);
 
         $mockSl = m::mock(ContainerInterface::class);
-        $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mockNavigation);
-        $mockSl->shouldReceive('get')->with('right-sidebar')->andReturn($mockSidebar);
-        $mockSl->shouldReceive('get')->with('TransferAnnotationBuilder')->andReturn($mockTransferAnnotationBuilder);
-        $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
+        $mockSl->shouldReceive('get')->with(AnnotationBuilder::class)->andReturn($mockAnnotationBuilder);
 
         $service = $this->sut->__invoke($mockSl, Cases::class);
 
         $this->assertSame($this->sut, $service);
-        $this->assertSame($mockViewHelperManager, $this->sut->getViewHelperManager());
-        $this->assertSame($mockTransferAnnotationBuilder, $this->sut->getAnnotationBuilder());
-        $this->assertSame($mockQueryService, $this->sut->getQueryService());
         $this->assertSame($mockNavigation, $this->sut->getNavigationService());
-        $this->assertSame($mockSidebar, $this->sut->getSidebarNavigationService());
+        $this->assertSame($mockAnnotationBuilder, $this->sut->getAnnotationBuilder());
     }
 
     public function testOnCaseNotFound()

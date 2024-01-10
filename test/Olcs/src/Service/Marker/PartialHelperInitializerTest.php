@@ -32,20 +32,14 @@ class PartialHelperInitializerTest extends MockeryTestCase
             ->with('ViewHelperManager')
             ->andReturn($helperPluginManager);
 
+        $this->serviceLocator = $parentServiceLocator;
+
         $this->instance = m::mock(stdClass::class);
         $this->instance->shouldReceive('setPartialHelper')
             ->with($partial)
             ->once();
 
         $this->sut = new PartialHelperInitializer();
-    }
-
-    public function testInitialize()
-    {
-        $this->assertSame(
-            $this->instance,
-            $this->sut->initialize($this->instance, $this->serviceLocator)
-        );
     }
 
     public function testInvoke()
