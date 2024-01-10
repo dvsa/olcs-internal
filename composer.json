@@ -34,7 +34,7 @@
         "olcs/olcs-logging": "^5.0.0",
         "olcs/olcs-transfer": "^5.0.0",
         "olcs/olcs-utils": "^5.0.0",
-        "soflomo/purifier": "^1.0",
+        "saeven/zf3-purifier": "^1.1",
         "doctrine/doctrine-module": "^5",
         "laminas/laminas-serializer": "^2.5"
     },
