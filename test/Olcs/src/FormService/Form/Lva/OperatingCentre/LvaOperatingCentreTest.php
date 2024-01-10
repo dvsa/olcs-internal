@@ -3,6 +3,8 @@
 namespace OlcsTest\FormService\Form\Lva\OperatingCentre;
 
 use Laminas\Form\ElementInterface;
+use Laminas\InputFilter\BaseInputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Laminas\Form\Fieldset;
@@ -118,28 +120,36 @@ class LvaOperatingCentreTest extends MockeryTestCase
             ->once()
             ->getMock();
 
+        $addressInputFilter = m::mock(InputFilterInterface::class);
+
+        $addressInputFilter
+                ->shouldReceive('get')
+                ->with('postcode')
+                ->andReturn(
+                    m::mock(InputFilterInterface::class)
+                        ->shouldReceive('setRequired')
+                        ->with(false)
+                        ->once()
+                        ->getMock()
+                )
+                ->once();
+
+        $postcodeSearchInputFilter = $this->createMock(BaseInputFilter::class);
+        $postcodeSearchInputFilter->method('getInputs')->willReturn([]);
+
+        $addressInputFilter
+            ->shouldReceive('get')
+            ->with('searchPostcode')
+            ->andReturn($postcodeSearchInputFilter);
+
         $form->shouldReceive('getInputFilter')
             ->andReturn(
-                m::mock(ElementInterface::class)
+                m::mock(InputFilterInterface::class)
                     ->shouldReceive('get')
                     ->with('address')
-                    ->andReturn(
-                        m::mock(ElementInterface::class)
-                            ->shouldReceive('get')
-                            ->with('postcode')
-                            ->andReturn(
-                                m::mock(ElementInterface::class)
-                                    ->shouldReceive('setRequired')
-                                    ->with(false)
-                                    ->once()
-                                    ->getMock()
-                            )
-                            ->once()
-                            ->getMock()
-                    )
+                    ->andReturn($addressInputFilter)
                     ->getMock()
             )
-            ->once()
             ->getMock();
 
         $params = [
