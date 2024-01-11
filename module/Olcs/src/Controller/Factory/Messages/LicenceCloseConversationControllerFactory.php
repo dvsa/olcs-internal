@@ -19,15 +19,16 @@ use Olcs\Controller\Messages\LicenceNewConversationController;
 use Olcs\Controller\TaskController;
 use Olcs\Service\Data\SubCategory;
 use Olcs\Service\Data\UserListInternalExcludingLimitedReadOnlyUsers;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class LicenceCloseConversationControllerFactory implements FactoryInterface
 {
-    /**
-     * @param ContainerInterface $container
-     * @param string $requestedName
-     * @param array|null $options
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceCloseConversationController
+    public function __invoke(
+        ContainerInterface $container,
+        string             $requestedName,
+        ?array             $options = null
+    ): LicenceCloseConversationController
     {
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 

@@ -70,13 +70,16 @@ class LicenceConversationMessagesController extends AbstractInternalController i
     /**
      * @param TableBuilder $table
      * @param array $data
-     * @return TableBuilder
      */
-    protected function alterTable($table, $data)
+    protected function alterTable($table, $data): TableBuilder
     {
+        if (!$data['extra']['conversation']['isClosed']) {
+            return $table;
+        }
+
         $crud = $table->getSetting('crud');
-        //$crud['actions']['end and archive conversation']['class'] .= ' govuk-button--disabled';
-        //$crud['actions']['end and archive conversation']['disabled'] = 'disabled';
+        $crud['actions']['end and archive conversation']['class'] .= ' govuk-button--disabled';
+        $crud['actions']['end and archive conversation']['disabled'] = 'disabled';
         $table->setSetting('crud', $crud);
 
         return $table;
