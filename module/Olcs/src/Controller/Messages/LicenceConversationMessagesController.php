@@ -2,6 +2,11 @@
 
 namespace Olcs\Controller\Messages;
 
+use Common\Service\Helper\FlashMessengerHelperService;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Dvsa\Olcs\Transfer\Query\Messaging\Messages\ByConversation;
@@ -13,7 +18,7 @@ use Common\FeatureToggle;
 class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
     protected $navigationId = 'conversations';
-    protected $listVars = ['licence','conversation'];
+    protected $listVars = ['licence', 'conversation'];
     protected $listDto = ByConversation::class;
     protected $tableName = 'messages-list';
     protected $routeIdentifier = 'messages';
@@ -22,13 +27,45 @@ class LicenceConversationMessagesController extends AbstractInternalController i
             FeatureToggle::MESSAGING
         ],
     ];
+    protected ScriptFactory $scriptFactory;
+
+    public function __construct(
+        TranslationHelperService    $translationHelper,
+        FormHelperService           $formHelper,
+        FlashMessengerHelperService $flashMessenger,
+        Navigation                  $navigation,
+        ScriptFactory               $scriptFactory
+    )
+    {
+        parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
+
+        $this->scriptFactory = $scriptFactory;
+    }
 
     /**
-     * Get left view
-     *
-     * @return ViewModel
+     * @inheritDoc
      */
-    public function getLeftView()
+    public function indexAction()
+    {
+        $this->scriptFactory->loadFiles(['table-actions']);
+
+        if (!$this->getRequest()->isPost()) {
+            return parent::indexAction();
+        }
+
+        $action = strtolower($this->params()->fromPost('action'));
+        switch ($action) {
+            case 'end and archive conversation':
+                $params = [
+                    'licence' => $this->params()->fromRoute('licence'),
+                    'conversation' => $this->params()->fromRoute('conversation'),
+                    'action' => $this->params()->fromRoute('confirm'),
+                ];
+                return $this->redirect()->toRoute('licence/conversation/close', $params);
+        }
+    }
+
+    public function getLeftView(): ViewModel
     {
         $view = new ViewModel();
         $view->setTemplate('sections/messages/partials/left');
@@ -36,12 +73,7 @@ class LicenceConversationMessagesController extends AbstractInternalController i
         return $view;
     }
 
-    /**
-     * Get right view
-     *
-     * @return ViewModel
-     */
-    public function getRightView()
+    public function getRightView(): ViewModel
     {
         $view = new ViewModel();
         $view->setTemplate('sections/licence/partials/right');
