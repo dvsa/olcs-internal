@@ -779,7 +779,6 @@ $routes = [
                         'type' => 'segment',
                         'options' => [
                             'route' => ':conversation/close[/]',
-                            'verb' => 'GET',
                             'defaults' => [
                                 'controller' => Olcs\Controller\Messages\LicenceCloseConversationController::class,
                                 'action' => 'confirm'

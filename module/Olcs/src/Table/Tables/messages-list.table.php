@@ -14,7 +14,11 @@ return [
     'settings' => [
         'crud' => [
             'actions' => [
-                'end and archive conversation' => ['requireRows' => true, 'class' => 'govuk-button govuk-button--warning'],
+                'end and archive conversation' => [
+                    'requireRows' => true,
+                    'class' => 'govuk-button govuk-button--warning',
+                    'label' => 'End and Archive Conversation',
+                ],
             ],
         ],
         'paginate' => [

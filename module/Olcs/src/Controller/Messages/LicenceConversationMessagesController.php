@@ -6,6 +6,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableBuilder;
 use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
@@ -14,6 +15,7 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
+use Olcs\Mvc\Controller\Plugin\Table;
 
 class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
@@ -63,6 +65,21 @@ class LicenceConversationMessagesController extends AbstractInternalController i
                 ];
                 return $this->redirect()->toRoute('licence/conversation/close', $params);
         }
+    }
+
+    /**
+     * @param TableBuilder $table
+     * @param array $data
+     * @return TableBuilder
+     */
+    protected function alterTable($table, $data)
+    {
+        $crud = $table->getSetting('crud');
+        //$crud['actions']['end and archive conversation']['class'] .= ' govuk-button--disabled';
+        //$crud['actions']['end and archive conversation']['disabled'] = 'disabled';
+        $table->setSetting('crud', $crud);
+
+        return $table;
     }
 
     public function getLeftView(): ViewModel

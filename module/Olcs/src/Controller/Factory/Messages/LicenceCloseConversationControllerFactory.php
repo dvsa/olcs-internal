@@ -35,12 +35,14 @@ class LicenceCloseConversationControllerFactory implements FactoryInterface
         $formHelper = $container->get(FormHelperService::class);
         $tableFactory = $container->get(TableFactory::class);
         $viewHelperManager = $container->get(HelperPluginManager::class);
+        $flashMessengerHelperService = $container->get(FlashMessengerHelperService::class);
 
         return new LicenceCloseConversationController(
             $scriptFactory,
             $formHelper,
             $tableFactory,
             $viewHelperManager,
+            $flashMessengerHelperService,
         );
     }
 
