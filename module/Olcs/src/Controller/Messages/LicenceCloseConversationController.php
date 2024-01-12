@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-use Common\Controller\Interfaces\ToggleAwareInterface;
+use     Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -16,6 +16,7 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractController;
 use Olcs\Data\Mapper\Task;
+use Olcs\Form\Model\Form\CloseConversation;
 
 class LicenceCloseConversationController extends AbstractController implements ToggleAwareInterface
 {
@@ -42,7 +43,7 @@ class LicenceCloseConversationController extends AbstractController implements T
      */
     public function confirmAction()
     {
-        $form = $this->getForm('CloseConversation');
+        $form = $this->getForm(CloseConversation::class);
         $form->get('id')->setValue($this->params()->fromRoute('conversation'));
 
         if ($this->getRequest()->isPost()) {
