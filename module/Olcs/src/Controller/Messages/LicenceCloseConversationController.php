@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-use     Common\Controller\Interfaces\ToggleAwareInterface;
+use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
