@@ -12,8 +12,10 @@ use Laminas\Form\Annotation as Form;
 class CloseConversationText
 {
     /**
-     * @Form\Type("\Common\Form\Elements\Types\PlainText")
-     * @Form\Attributes({"value":"The conversation will be removed from the Inbox and a transcript will be archived in docs and attachments tab."})
+     * @Form\Type(\Common\Form\Elements\Types\PlainText::class)
+     * @Form\Attributes({
+     *     "value": "The conversation will be removed from the Inbox and a transcript will be archived in docs and attachments tab."
+     * })
      */
-    public $text = null;
+    public ?PlainText $text = null;
 }
