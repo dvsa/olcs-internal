@@ -30,7 +30,6 @@ class CloseConversation
 
     /**
      * @Form\Name("form-actions")
-     * @Form\Attributes({"class": "govuk-button-group"})
      * @Form\ComposedObject(\Olcs\Form\Model\Fieldset\CloseConversationActions::class)
      */
     public ?CloseConversationActions $formActions = null;

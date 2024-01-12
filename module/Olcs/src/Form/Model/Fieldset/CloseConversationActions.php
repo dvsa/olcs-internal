@@ -9,6 +9,7 @@ use Laminas\Form\Annotation as Form;
 /**
  * @codeCoverageIgnore No methods
  * @Form\Name("main")
+ * @Form\Attributes({"class": "govuk-button-group"})
  */
 class CloseConversationActions
 {
@@ -29,8 +30,8 @@ class CloseConversationActions
     /**
      * @Form\Attributes({
      *     "data-module": "govuk-button",
-     *     "type": "submit",
-     *     "class": "govuk-button govuk-button--secondary",
+     *     "type": "cancel",
+     *     "class": "govuk-link action-button-link",
      *     "id": "cancel"
      * })
      * @Form\Options({
