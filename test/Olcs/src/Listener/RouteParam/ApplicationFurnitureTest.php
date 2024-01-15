@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Dvsa\Olcs\Transfer\Query\Application\Application as ApplicationQry;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\ApplicationFurniture;
@@ -63,8 +64,10 @@ class ApplicationFurnitureTest extends TestCase
     {
         $this->expectException(ResourceNotFoundException::class);
 
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $response = m::mock();
         $response->shouldReceive('isOk')->andReturn(false);
@@ -78,8 +81,10 @@ class ApplicationFurnitureTest extends TestCase
 
     public function testOnApplicationFurnitureValid()
     {
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $status = [
             'id' => RefData::APPLICATION_STATUS_VALID
@@ -177,8 +182,10 @@ class ApplicationFurnitureTest extends TestCase
 
     public function testOnApplicationFurnitureIsVariationValid()
     {
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $status = [
             'id' => RefData::APPLICATION_STATUS_NOT_SUBMITTED
@@ -275,8 +282,10 @@ class ApplicationFurnitureTest extends TestCase
 
     public function testOnApplicationFurnitureNotSubmitted()
     {
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $status = [
             'id' => RefData::APPLICATION_STATUS_NOT_SUBMITTED
@@ -369,8 +378,10 @@ class ApplicationFurnitureTest extends TestCase
 
     public function testOnApplicationFurnitureNotSubmittedNoLicNo()
     {
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $status = [
             'id' => RefData::APPLICATION_STATUS_NOT_SUBMITTED

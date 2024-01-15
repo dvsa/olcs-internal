@@ -3,6 +3,7 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\BusRegMarker;
@@ -67,8 +68,10 @@ class BusRegMarkerTest extends TestCase
 
         $mockMarkerService->shouldReceive('addData')->with('busReg', $busReg);
 
-        $event = new RouteParam();
-        $event->setValue($busRegId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($busRegId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onBusRegMarker($event);
     }
@@ -79,8 +82,10 @@ class BusRegMarkerTest extends TestCase
 
         $this->setupBusRegMarker($busRegId, false);
 
-        $event = new RouteParam();
-        $event->setValue($busRegId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($busRegId);
+
+        $event = new Event(null, $routeParam);
 
         $this->expectException(\RuntimeException::class);
 

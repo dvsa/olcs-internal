@@ -4,6 +4,7 @@ namespace OlcsTest\Listener\RouteParam;
 
 use Common\RefData;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Olcs\Service\Marker\MarkerService;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery as m;
@@ -103,13 +104,15 @@ class ApplicationTest extends MockeryTestCase
 
         $quickViewActionsVisible = ($status !== RefData::APPLICATION_STATUS_VALID);
 
-        $event = new RouteParam();
-        $event->setValue($applicationId);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue($applicationId);
+        $routeParam->setTarget(
             m::mock()
-            ->shouldReceive('trigger')->once()->with('licence', 101)
-            ->getMock()
+                ->shouldReceive('trigger')->once()->with('licence', 101)
+                ->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $mockApplicationCaseNavigationService = m::mock('\StdClass');
         $mockApplicationCaseNavigationService->shouldReceive('setVisible')->times($expectedCallsNo)->with(false);
@@ -207,13 +210,13 @@ class ApplicationTest extends MockeryTestCase
 
         $quickViewActionsVisible = ($status !== RefData::APPLICATION_STATUS_VALID);
 
-        $event = new RouteParam();
-        $event->setValue($applicationId);
-        $event->setTarget(
-            m::mock()
-            ->shouldReceive('trigger')->once()->with('licence', 101)
-            ->getMock()
+        $routeParam = new RouteParam();
+        $routeParam->setValue($applicationId);
+        $routeParam->setTarget(
+            m::mock()->shouldReceive('trigger')->once()->with('licence', 101)->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $mockApplicationCaseNavigationService = m::mock('\StdClass');
         $mockApplicationCaseNavigationService->shouldReceive('setVisible')->times($expectedCallsNo)->with(false);
@@ -332,13 +335,15 @@ class ApplicationTest extends MockeryTestCase
 
         $quickViewActionsVisible = ($status !== RefData::APPLICATION_STATUS_VALID);
 
-        $event = new RouteParam();
-        $event->setValue($applicationId);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue($applicationId);
+        $routeParam->setTarget(
             m::mock()
-            ->shouldReceive('trigger')->once()->with('licence', 101)
-            ->getMock()
+                ->shouldReceive('trigger')->once()->with('licence', 101)
+                ->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $mockApplicationCaseNavigationService = m::mock('\StdClass');
         $mockApplicationCaseNavigationService->shouldReceive('setVisible')->times($expectedCallsNo)->with(false);
@@ -508,11 +513,13 @@ class ApplicationTest extends MockeryTestCase
         $mockSidebar->shouldReceive('findById')->andReturn($mockButton);
         $this->sut->setSidebarNavigationService($mockSidebar);
 
-        $event = new RouteParam();
-        $event->setValue(1066);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue(1066);
+        $routeParam->setTarget(
             m::mock()->shouldReceive('trigger')->once()->with('licence', 99)->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onApplication($event);
     }
@@ -566,11 +573,13 @@ class ApplicationTest extends MockeryTestCase
         $mockSidebar->shouldReceive('findById')->andReturn($mockButton);
         $this->sut->setSidebarNavigationService($mockSidebar);
 
-        $event = new RouteParam();
-        $event->setValue(1066);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue(1066);
+        $routeParam->setTarget(
             m::mock()->shouldReceive('trigger')->once()->with('licence', 99)->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onApplication($event);
     }
@@ -622,11 +631,13 @@ class ApplicationTest extends MockeryTestCase
         )->getMock();
         $this->sut->setSidebarNavigationService($mockSidebar);
 
-        $event = new RouteParam();
-        $event->setValue(1066);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue(1066);
+        $routeParam->setTarget(
             m::mock()->shouldReceive('trigger')->once()->with('licence', 99)->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onApplication($event);
     }
@@ -688,8 +699,10 @@ class ApplicationTest extends MockeryTestCase
 
         $applicationId = 69;
 
-        $event = new RouteParam();
-        $event->setValue($applicationId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($applicationId);
+
+        $event = new Event(null, $routeParam);
 
         $mockAnnotationBuilder = m::mock();
         $mockQueryService  = m::mock();

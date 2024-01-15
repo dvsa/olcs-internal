@@ -3,6 +3,7 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsResponsibilityController;
 use Olcs\Event\RouteParam;
@@ -67,9 +68,10 @@ class TransportManagerTest extends MockeryTestCase
 
         $sut = new TransportManager();
 
-        $event = new RouteParam();
-        $event->setValue($tmId);
-        $event->setContext($context);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($tmId);
+        $routeParam->setContext($context);
+        $event = new Event(null, $routeParam);
 
         $mockCheckRepute = m::mock(PageUri::class);
         $mockCheckRepute->shouldReceive('setVisible')->with(true)->andReturnSelf();
@@ -218,9 +220,11 @@ class TransportManagerTest extends MockeryTestCase
                     ->getMock()
             );
 
-        $event = new RouteParam();
-        $event->setValue($tmId);
-        $event->setContext($context);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($tmId);
+        $routeParam->setContext($context);
+        $event = new Event(null, $routeParam);
+
         $sut->onTransportManager($event);
     }
 
@@ -293,9 +297,11 @@ class TransportManagerTest extends MockeryTestCase
                     ->getMock()
             );
 
-        $event = new RouteParam();
-        $event->setValue($tmId);
-        $event->setContext($context);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($tmId);
+        $routeParam->setContext($context);
+        $event = new Event(null, $routeParam);
+
         $sut->onTransportManager($event);
     }
 

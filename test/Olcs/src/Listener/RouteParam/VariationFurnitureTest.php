@@ -7,6 +7,7 @@ use Common\RefData;
 use Common\Service\Cqrs\Query\QuerySender;
 use Dvsa\Olcs\Transfer\Query\Application\Application as VariationQry;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\VariationFurniture;
@@ -59,8 +60,10 @@ class VariationFurnitureTest extends TestCase
     {
         $this->expectException(ResourceNotFoundException::class);
 
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
+
+        $event = new Event(null, $routeParam);
 
         $response = m::mock();
         $response->shouldReceive('isOk')->andReturn(false);
@@ -74,9 +77,10 @@ class VariationFurnitureTest extends TestCase
 
     public function testOnVariationFurniture()
     {
-        $event = m::mock(RouteParam::class);
-        $event->shouldReceive('getValue')->andReturn(111);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(111);
 
+        $event = new Event(null, $routeParam);
         $status = [
             'id' => RefData::APPLICATION_STATUS_VALID
         ];

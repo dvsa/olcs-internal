@@ -6,6 +6,7 @@ use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Common\Service\Helper\UrlHelperService;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Laminas\View\HelperPluginManager;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
@@ -202,8 +203,10 @@ class IrhpApplicationFurnitureTest extends TestCase
 
         $this->sut->setViewHelperManager($mockViewHelperManager);
 
-        $event = new RouteParam();
-        $event->setValue($irhpApplicationId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($irhpApplicationId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpApplicationFurniture($event);
     }

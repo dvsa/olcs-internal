@@ -7,6 +7,7 @@ use Common\Service\Cqrs\Query\CachingQueryService as QueryService;
 use Dvsa\Olcs\Transfer\Query\QueryContainerInterface;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Laminas\View\HelperPluginManager;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -131,8 +132,10 @@ class OrganisationTest extends MockeryTestCase
         $this->expectException(ResourceNotFoundException::class);
 
         //  call
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onOrganisation($event);
     }
@@ -167,8 +170,10 @@ class OrganisationTest extends MockeryTestCase
             ->andReturn($mockMenuItem);
 
         //  call
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onOrganisation($event);
     }
@@ -203,8 +208,10 @@ class OrganisationTest extends MockeryTestCase
         $this->mockSideBar->shouldReceive('findById')->never();
 
         //  call
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onOrganisation($event);
     }

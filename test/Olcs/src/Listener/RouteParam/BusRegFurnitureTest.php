@@ -7,6 +7,7 @@ use Common\RefData;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\BusRegFurniture;
 use Olcs\Listener\RouteParams;
@@ -71,8 +72,10 @@ class BusRegFurnitureTest extends MockeryTestCase
             ],
         ];
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->setupMockBusReg($busReg);
 
@@ -180,8 +183,10 @@ class BusRegFurnitureTest extends MockeryTestCase
 
         $id = 69;
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $mockQuerySender = m::mock(QuerySender::class);
 

@@ -11,6 +11,7 @@ use Common\Exception\ResourceNotFoundException;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Admin\Listener\RouteParam\IrhpPermitAdminFurniture;
@@ -66,8 +67,11 @@ class IrhpPermitAdminFurnitureTest extends TestCase
     public function testOnIrhpPermitQueryError()
     {
         $this->onIrhpPermitAdminSetup(false);
-        $event = new RouteParam();
-        $event->setValue(32);
+
+        $routeParam = new RouteParam();
+        $routeParam->setValue(32);
+
+        $event = new Event(null, $routeParam);
 
         $this->expectException(ResourceNotFoundException::class);
 
@@ -100,8 +104,10 @@ class IrhpPermitAdminFurnitureTest extends TestCase
 
         $this->getViewHelperManager($subTitle);
 
-        $event = new RouteParam();
-        $event->setValue($stockId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($stockId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpPermitAdminFurniture($event);
     }
@@ -142,8 +148,10 @@ class IrhpPermitAdminFurnitureTest extends TestCase
         $this->getViewHelperManager($subTitle);
         $this->getMockNavigation();
 
-        $event = new RouteParam();
-        $event->setValue($stockId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($stockId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpPermitAdminFurniture($event);
     }
@@ -179,8 +187,10 @@ class IrhpPermitAdminFurnitureTest extends TestCase
         $this->getViewHelperManager($subTitle);
         $this->getMockNavigation();
 
-        $event = new RouteParam();
-        $event->setValue($stockId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($stockId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpPermitAdminFurniture($event);
     }
@@ -211,8 +221,10 @@ class IrhpPermitAdminFurnitureTest extends TestCase
 
         $this->getViewHelperManager($subTitle);
 
-        $event = new RouteParam();
-        $event->setValue($stockId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($stockId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpPermitAdminFurniture($event);
     }
@@ -246,8 +258,10 @@ class IrhpPermitAdminFurnitureTest extends TestCase
 
         $this->getViewHelperManager($subTitle);
 
-        $event = new RouteParam();
-        $event->setValue($stockId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($stockId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onIrhpPermitAdminFurniture($event);
     }

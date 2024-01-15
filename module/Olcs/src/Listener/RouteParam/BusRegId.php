@@ -92,10 +92,10 @@ class BusRegId implements ListenerAggregateInterface, FactoryInterface
             $this->getNavigationService()->findOneById('licence_bus_short')->setVisible(false);
         }
 
-        $context = $e->getContext();
+        $context = $routeParam->getContext();
         if (isset($busReg['licence']['id']) && !isset($context['licence'])) {
             // trigger the licence listener
-            $e->getTarget()->trigger('licence', $busReg['licence']['id']);
+            $routeParam->getTarget()->trigger('licence', $busReg['licence']['id']);
         }
     }
 
