@@ -2,11 +2,11 @@
 
 namespace Olcs\Controller\Messages;
 
+use Common\Form\Form;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
-use Common\Service\Table\TableBuilder;
 use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
@@ -15,14 +15,19 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
-use Olcs\Mvc\Controller\Plugin\Table;
+use Olcs\Form\Model\Form\LicenceMessageActions;
+use Olcs\Form\Model\Form\LicenceMessageReply;
+use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 
-class LicenceConversationMessagesController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
+class LicenceConversationMessagesController
+    extends AbstractInternalController
+    implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
     protected $navigationId = 'conversations';
     protected $listVars = ['licence', 'conversation'];
     protected $listDto = ByConversation::class;
     protected $tableName = 'messages-list';
+    protected $tableViewTemplate = 'pages/conversation/messages';
     protected $routeIdentifier = 'messages';
     protected $toggleConfig = [
         'default' => [
@@ -51,6 +56,31 @@ class LicenceConversationMessagesController extends AbstractInternalController i
     {
         $this->scriptFactory->loadFiles(['table-actions']);
 
+        $paramProvider = (new GenericList($this->listVars, $this->defaultTableSortField, $this->defaultTableOrderField))
+            ->setDefaultLimit($this->defaultTableLimit);
+        $paramProvider->setParams($this->plugin('params'));
+        $providedParameters = $this->modifyListQueryParameters($paramProvider->provideParameters());
+        $response = $this->handleQuery($this->listDto::create($providedParameters));
+
+        /** @var Form $replyForm */
+        $replyForm = $this->getForm(LicenceMessageReply::class);
+        $replyForm->get('id')->setValue($this->params()->fromRoute('conversation'));
+        $this->placeholder()->setPlaceholder('send-reply', $replyForm);
+
+        /** @var Form $actionsForm */
+        $actionsForm = $this->getForm(LicenceMessageActions::class);
+        $actionsForm->get('id')->setValue($this->params()->fromRoute('conversation'));
+
+        if ($response->getResult()['extra']['conversation']['isClosed']) {
+            $actionsForm->get('form-actions')->get('close')->setAttribute('disabled', 'disabled');
+            $actionsForm->get('form-actions')->get('close')->setAttribute(
+                'class',
+                'govuk-button govuk-button--warning govuk-button--disabled'
+            );
+        }
+
+        $this->placeholder()->setPlaceholder('message-actions', $actionsForm);
+
         if (!$this->getRequest()->isPost()) {
             return parent::indexAction();
         }
@@ -64,25 +94,23 @@ class LicenceConversationMessagesController extends AbstractInternalController i
                     'action' => $this->params()->fromRoute('confirm'),
                 ];
                 return $this->redirect()->toRoute('licence/conversation/close', $params);
+            case 'reply':
+                return $this->parseReply($replyForm);
         }
     }
 
-    /**
-     * @param TableBuilder $table
-     * @param array $data
-     */
-    protected function alterTable($table, $data): TableBuilder
+    protected function parseReply(Form $form): ViewModel
     {
-        if (!$data['extra']['conversation']['isClosed']) {
-            return $table;
+        $form->setData((array)$this->params()->fromPost());
+        $form->get('id')->setValue($this->params()->fromRoute('conversation'));
+
+        if (!$form->isValid()) {
+            return parent::indexAction();
         }
 
-        $crud = $table->getSetting('crud');
-        $crud['actions']['end and archive conversation']['class'] .= ' govuk-button--disabled';
-        $crud['actions']['end and archive conversation']['disabled'] = 'disabled';
-        $table->setSetting('crud', $crud);
+        //@TODO: Add reply via BE API
 
-        return $table;
+        return parent::indexAction();
     }
 
     public function getLeftView(): ViewModel
