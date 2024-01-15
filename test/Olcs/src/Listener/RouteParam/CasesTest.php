@@ -5,6 +5,7 @@ namespace OlcsTest\Listener\RouteParam;
 use Common\Exception\ResourceNotFoundException;
 use Interop\Container\ContainerInterface;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Laminas\EventManager\Event;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\Cases;
@@ -73,15 +74,17 @@ class CasesTest extends MockeryTestCase
             ]
         ];
 
-        $event = new RouteParam();
-        $event->setValue($id);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+        $routeParam->setTarget(
             m::mock()
-            ->shouldReceive('trigger')->once()->with('application', 100)
-            ->shouldReceive('trigger')->once()->with('licence', 101)
-            ->shouldReceive('trigger')->once()->with('transportManager', 102)
-            ->getMock()
+                ->shouldReceive('trigger')->once()->with('application', 100)
+                ->shouldReceive('trigger')->once()->with('licence', 101)
+                ->shouldReceive('trigger')->once()->with('transportManager', 102)
+                ->getMock()
         );
+
+        $event = new Event(null, $routeParam);
 
         $this->setupMockCase($id, $case);
 
@@ -144,6 +147,7 @@ class CasesTest extends MockeryTestCase
         $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mockNavigation);
         $mockSl->shouldReceive('get')->with(AnnotationBuilder::class)->andReturn($mockAnnotationBuilder);
+        $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
 
         $service = $this->sut->__invoke($mockSl, Cases::class);
 
@@ -158,8 +162,10 @@ class CasesTest extends MockeryTestCase
 
         $id = 69;
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(69);
+
+        $event = new Event(null, $routeParam);
 
         $mockAnnotationBuilder = m::mock();
         $mockQueryService  = m::mock();

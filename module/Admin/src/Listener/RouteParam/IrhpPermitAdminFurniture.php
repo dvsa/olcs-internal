@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Dvsa\Olcs\Transfer\Query\IrhpPermitStock\ById as ItemDto;
@@ -81,12 +82,11 @@ class IrhpPermitAdminFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onIrhpPermitAdminFurniture(RouteParam $e)
+    public function onIrhpPermitAdminFurniture(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
 
         $permitStock = $this->getIrhpPermitStock($id);
 

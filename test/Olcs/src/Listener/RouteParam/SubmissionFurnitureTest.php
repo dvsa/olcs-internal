@@ -6,6 +6,7 @@ use Common\Exception\ResourceNotFoundException;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\SubmissionsFurniture;
 use Olcs\Listener\RouteParams;
@@ -74,8 +75,10 @@ class SubmissionFurnitureTest extends MockeryTestCase
             ]
         ];
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->setupMockCase($id, $case);
 
@@ -148,8 +151,10 @@ class SubmissionFurnitureTest extends MockeryTestCase
         $this->expectException(ResourceNotFoundException::class);
         $id = 69;
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $mockQuerySender  = m::mock(QuerySender::class);
 

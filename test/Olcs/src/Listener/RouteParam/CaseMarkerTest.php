@@ -3,6 +3,7 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\CaseMarker;
@@ -69,8 +70,10 @@ class CaseMarkerTest extends TestCase
         $mockMarkerService->shouldReceive('addData')->with('cases', [$case])->once();
         $mockMarkerService->shouldReceive('addData')->with('configCase', ['hideLink' => true])->once();
 
-        $event = new RouteParam();
-        $event->setValue(128);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(128);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onCase($event);
     }
@@ -82,8 +85,10 @@ class CaseMarkerTest extends TestCase
 
         $this->mockQuery(['id' => 128,], false);
 
-        $event = new RouteParam();
-        $event->setValue(128);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(128);
+
+        $event = new Event(null, $routeParam);
 
         $this->expectException(\RuntimeException::class);
 

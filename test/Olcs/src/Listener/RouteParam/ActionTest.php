@@ -3,6 +3,7 @@
 namespace OlcsTest\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\Action;
@@ -26,8 +27,10 @@ class ActionTest extends TestCase
     {
         $action = 'add';
 
-        $event = new RouteParam();
-        $event->setValue($action);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($action);
+
+        $event = new Event(null, $routeParam);
 
         $mockRouter = m::mock('Laminas\Router\RouteStackInterface');
         $mockRouter->shouldReceive('assemble')

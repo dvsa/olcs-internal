@@ -5,6 +5,7 @@ namespace OlcsTest\Listener\RouteParam;
 use Common\Exception\ResourceNotFoundException;
 use Common\RefData;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\BusRegId;
@@ -78,15 +79,16 @@ class BusRegIdTest extends MockeryTestCase
             ],
         ];
 
-        $event = new RouteParam();
-        $event->setValue($id);
-        $event->setTarget(
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+        $routeParam->setTarget(
             m::mock()
             ->shouldReceive('trigger')
             ->once()
             ->with('licence', 101)
             ->getMock()
         );
+        $event = new Event(null, $routeParam);
 
         $this->setupMockBusReg($id, $busReg);
 
@@ -158,8 +160,10 @@ class BusRegIdTest extends MockeryTestCase
 
         $id = 69;
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $mockAnnotationBuilder = m::mock();
         $mockQueryService  = m::mock();

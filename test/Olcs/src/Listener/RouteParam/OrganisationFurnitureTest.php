@@ -5,6 +5,7 @@ namespace OlcsTest\Listener\RouteParam;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase as MockeryTestCase;
 use Olcs\Event\RouteParam;
 use Mockery as m;
@@ -55,8 +56,10 @@ class OrganisationFurnitureTest extends MockeryTestCase
         $mockQuerySender->shouldReceive('send')->once()->andReturn($mockResponse);
         $mockResponse->shouldReceive('isOk')->with()->once()->andReturn(false);
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->expectException(\Common\Exception\ResourceNotFoundException::class);
 
@@ -126,8 +129,11 @@ class OrganisationFurnitureTest extends MockeryTestCase
 
         $this->setupOrganisation($orgData);
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
+
 
         $this->sut->onOrganisation($event);
     }
@@ -206,8 +212,10 @@ class OrganisationFurnitureTest extends MockeryTestCase
 
         $this->setupOrganisation($orgData);
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onOrganisation($event);
     }

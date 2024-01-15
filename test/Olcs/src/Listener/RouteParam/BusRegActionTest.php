@@ -7,6 +7,7 @@ use Common\RefData;
 use Dvsa\Olcs\Transfer\Query\Bus\BusRegDecision;
 use Hamcrest\Type\IsString;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Olcs\Listener\RouteParam\BusRegAction;
@@ -113,8 +114,10 @@ class BusRegActionTest extends MockeryTestCase
             ->once()
             ->with(new IsString());
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $this->setupMockBusReg($id, $busReg);
 
@@ -148,8 +151,10 @@ class BusRegActionTest extends MockeryTestCase
 
         $id = 69;
 
-        $event = new RouteParam();
-        $event->setValue($id);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($id);
+
+        $event = new Event(null, $routeParam);
 
         $mockAnnotationBuilder = m::mock();
         $mockQueryService = m::mock();

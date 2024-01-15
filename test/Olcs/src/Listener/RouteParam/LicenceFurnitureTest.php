@@ -6,6 +6,7 @@ use Common\Exception\ResourceNotFoundException;
 use Common\Service\Cqrs\Command\CommandSender;
 use Common\Service\Cqrs\Query\QuerySender;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\Event;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\View\HelperPluginManager;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
@@ -60,8 +61,10 @@ class LicenceFurnitureTest extends TestCase
     public function testOnLicenceQueryError()
     {
         $this->onLicenceSetup(false);
-        $event = new RouteParam();
-        $event->setValue(32);
+        $routeParam = new RouteParam();
+        $routeParam->setValue(32);
+
+        $event = new Event(null, $routeParam);
 
         $this->expectException(ResourceNotFoundException::class);
 
@@ -139,8 +142,10 @@ class LicenceFurnitureTest extends TestCase
 
         $this->sut->setViewHelperManager($mockViewHelperManager);
 
-        $event = new RouteParam();
-        $event->setValue($licenceId);
+        $routeParam = new RouteParam();
+        $routeParam->setValue($licenceId);
+
+        $event = new Event(null, $routeParam);
 
         $this->sut->onLicenceFurniture($event);
     }
