@@ -44,11 +44,7 @@ class MarkerServiceTest extends TestCase
         $mockMarker1 = m::mock();
         $mockMarker2 = m::mock();
 
-        $mockMarkerPlugin->shouldReceive('getRegisteredServices')->with()->once()->andReturn(
-            [
-                'invokableClasses' => ['mockMarker1', 'mockMarker2']
-            ]
-        );
+        $mockMarkerPlugin->shouldReceive('getMarkers')->with()->once()->andReturn(['mockMarker1', 'mockMarker2']);
 
         $mockMarkerPlugin->shouldReceive('get')->with('mockMarker1')->once()->andReturn($mockMarker1);
         $mockMarkerPlugin->shouldReceive('get')->with('mockMarker2')->once()->andReturn($mockMarker2);
