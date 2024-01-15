@@ -10,6 +10,7 @@ use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Form\Model\Form\NewMessage;
+use RuntimeException;
 
 class AbstractNewConversationController extends AbstractInternalController implements LeftViewProvider
 {
@@ -46,19 +47,19 @@ class AbstractNewConversationController extends AbstractInternalController imple
         $appLicNoSelect = $form->get('fields')->get('appLicNo');
 
         if ($this->params()->fromRoute('licence')){
-            $licence_id = $this->params()->fromRoute('licence');
+            $licenceId = $this->params()->fromRoute('licence');
             $data = $this->handleQuery(
-                ByLicenceToOrganisation::create(['licence' => $licence_id])
+                ByLicenceToOrganisation::create(['licence' => $licenceId])
             );
         } elseif ($this->params()->fromRoute('application')) {
-            $application_id = $this->params()->fromRoute('application');
+            $applicationId = $this->params()->fromRoute('application');
             $data = $this->handleQuery(
-                ByApplicationToOrganisation::create(['application' => $application_id])
+                ByApplicationToOrganisation::create(['application' => $applicationId])
             );
             $routeMatch = $this->getEvent()->getRouteMatch();
             $routeMatch->setParam('', 'new_value');
         } else {
-            throw new \RuntimeException('Error: licence or application required');
+            throw new RuntimeException('Error: licence or application required');
         }
 
         $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);

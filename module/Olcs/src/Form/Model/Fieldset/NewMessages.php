@@ -10,7 +10,6 @@ use Laminas\Form\Annotation as Form;
  */
 class NewMessages
 {
-    
      /**
      * @Form\Attributes({"id":"category","placeholder":""})
      * @Form\Options({
