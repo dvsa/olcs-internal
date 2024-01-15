@@ -39,6 +39,7 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
         $this->navigationService = $container->get('Navigation');
         $this->annotationBuilder = $container->get(AnnotationBuilder::class);
         $this->queryService = $container->get('QueryService');
+        $this->viewHelperManager = $container->get('ViewHelperManager');
         return $this;
     }
 
@@ -116,7 +117,7 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
 
         $case = $this->getCase($routeParam->getValue());
 
-        $placeholder = $this->getViewHelperManager()->get('placeholder');
+        $placeholder = $this->viewHelperManager->get('placeholder');
         $placeholder->getContainer('case')->set($case);
 
         $latestNote = isset($case['latestNote']['comment']) ? $case['latestNote']['comment'] : '';
