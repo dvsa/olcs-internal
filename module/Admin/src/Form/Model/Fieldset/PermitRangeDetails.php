@@ -53,7 +53,7 @@ class PermitRangeDetails
      * })
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":7}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":7})
      * @Form\Required(false)
      */
     public $prefix = null;

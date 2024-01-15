@@ -30,14 +30,14 @@ class Offence extends Base
      * @Form\Options({"label":"First name"})
      * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
-     * @Form\Validator({"name": "ValidateIf", "options": {
+     * @Form\Validator("ValidateIf", options={
      *     "context_field": "defendantType",
      *     "context_values": {"def_t_op", ""},
      *     "context_truth": false,
      *     "validators": {
      *          {"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}}
      *     }}
-     * })
+     * )
      */
     public $personFirstname = null;
 
@@ -48,14 +48,14 @@ class Offence extends Base
      * @Form\Options({"label":"Last name"})
      * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
-     * @Form\Validator({"name": "ValidateIf", "options": {
+     * @Form\Validator("ValidateIf", options={
      *     "context_field": "defendantType",
      *     "context_values": {"def_t_op", ""},
      *     "context_truth": false,
      *     "validators": {
      *          {"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}}
      *     }}
-     * })
+     * )
      */
     public $personLastname = null;
 
@@ -68,9 +68,9 @@ class Offence extends Base
      *     "render_delimiters": false
      * })
      * @Form\Attributes({"required":false})
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
-     * @Form\Validator({"name": "ValidateIf", "options": {
+     * @Form\Validator("ValidateIf", options={
      *     "context_field": "defendantType",
      *     "context_values": {"def_t_op", ""},
      *     "context_truth": false,
@@ -79,7 +79,7 @@ class Offence extends Base
      *          {"name": "Date", "options":{"format":"Y-m-d"}},
      *          {"name": "\Common\Form\Elements\Validators\DateNotInFuture"}
      *     }}
-     * })
+     * )
      */
     public $birthDate = null;
 
@@ -113,14 +113,14 @@ class Offence extends Base
      * @Form\AllowEmpty(true)
      * @Form\Input("Common\InputFilter\ContinueIfEmptyInput")
      * @Form\Filter("Laminas\Filter\StringTrim")
-     * @Form\Validator({"name": "ValidateIf", "options": {
+     * @Form\Validator("ValidateIf", options={
      *     "context_field": "convictionCategory",
      *     "context_values": {""},
      *     "context_truth": true,
      *     "validators": {
      *          {"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}}
      *     }}
-     * })
+     * )
      */
     public $categoryText = null;
 
@@ -133,15 +133,14 @@ class Offence extends Base
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "Laminas\Filter\DateSelect", "options": {"null_on_empty": true}})
-     * @Form\Validator({"name": "NotEmpty", "options": {"array"}})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("Laminas\Filter\DateSelect", options={"null_on_empty": true})
+     * @Form\Validator("NotEmpty", options={"array"})
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
-     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
-     * @Form\Validator({
-     *      "name": "DateCompare",
-     *      "options": {"compare_to":"convictionDate", "compare_to_label":"Conviction date", "operator": "lte"}
-     * })
+     * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
+     * @Form\Validator("DateCompare",
+     *      options={"compare_to":"convictionDate", "compare_to_label":"Conviction date", "operator": "lte"}
+     * )
      */
     public $offenceDate = null;
 
@@ -153,10 +152,10 @@ class Offence extends Base
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
-     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $convictionDate = null;
 

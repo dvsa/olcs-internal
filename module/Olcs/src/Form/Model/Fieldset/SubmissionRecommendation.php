@@ -34,7 +34,7 @@ class SubmissionRecommendation extends Base
      *     "use_groups":true
      * })
      * @Form\Filter("Common\Filter\NullToArray")
-     * @Form\Validator({"name": "NotEmpty", "options": {"array"}})
+     * @Form\Validator("NotEmpty", options={"array"})
      * @Form\Validator({"name": "ValidateIfMultiple",
      *      "options":{
      *          "context_field": "actionTypes",

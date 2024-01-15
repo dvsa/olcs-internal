@@ -52,8 +52,8 @@ class Disqualify
      *     "create_empty_option": true,
      *     "render_delimiters": false,
      * })
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Type("DateSelect")
      * @Form\Required(true)

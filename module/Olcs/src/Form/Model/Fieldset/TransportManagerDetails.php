@@ -50,7 +50,7 @@ class TransportManagerDetails
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
      * @Form\Validator({"name": "\Laminas\Validator\NotEmpty"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $firstName = null;
 
@@ -60,7 +60,7 @@ class TransportManagerDetails
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
      * @Form\Validator({"name": "\Laminas\Validator\NotEmpty"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $lastName = null;
 
@@ -85,7 +85,7 @@ class TransportManagerDetails
      * @Form\Type("DateSelect")
      * @Form\Filter({"name":"DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Laminas\Validator\NotEmpty"})
      * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
      */

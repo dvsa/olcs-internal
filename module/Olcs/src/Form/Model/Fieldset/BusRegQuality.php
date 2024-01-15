@@ -48,12 +48,11 @@ class BusRegQuality extends BusRegDetails
      *
      * @Form\Filter("Laminas\Filter\StringTrim")
      *
-     * @Form\Validator({
-     *      "name": "Laminas\Validator\StringLength",
-     *      "options": {
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":4000
      *      }
-     * })
+     * )
      */
     public $qualityPartnershipDetails;
 
@@ -112,12 +111,11 @@ class BusRegQuality extends BusRegDetails
      *
      * @Form\Filter("Laminas\Filter\StringTrim")
      *
-     * @Form\Validator({
-     *      "name": "Laminas\Validator\StringLength",
-     *      "options": {
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":4000
      *      }
-     * })
+     * )
      */
     public $qualityContractDetails;
 }

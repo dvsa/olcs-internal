@@ -20,7 +20,7 @@ class PublicInquiryAgreedAndLegislationMain
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $agreedDate = null;
@@ -92,7 +92,7 @@ class PublicInquiryAgreedAndLegislationMain
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $ecmsFirstReceivedDate = null;
@@ -133,7 +133,7 @@ class PublicInquiryAgreedAndLegislationMain
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5,"max":4000})
      */
     public $comment = null;
 

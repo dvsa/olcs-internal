@@ -191,7 +191,7 @@ class PublicInquirySlaMain extends Base
      * @Form\Required(false)
      * @Form\Type("DateSelect")
      * @Form\Filter("DateSelectNullifier")
-     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
+     * @Form\Validator("Date", options={"format": "Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $writtenDecisionLetterDate = null;

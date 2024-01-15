@@ -31,8 +31,8 @@ class Recipient extends Base
      * @Form\Attributes({"id":"contactName","placeholder":"","class":"medium", "required":false})
      * @Form\Options({"label":"Contact Name"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":100}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":100})
      */
     public $contactName = null;
 
@@ -41,7 +41,7 @@ class Recipient extends Base
      * @Form\Attributes({"id":"email","placeholder":"","class":"medium", "required":false})
      * @Form\Options({"label":"Email"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator("Dvsa\Olcs\Transfer\Validators\EmailAddress")
      */
     public $emailAddress = null;

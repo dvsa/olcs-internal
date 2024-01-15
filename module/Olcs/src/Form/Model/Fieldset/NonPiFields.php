@@ -19,8 +19,8 @@ class NonPiFields extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $agreedByTcDate;
@@ -48,9 +48,9 @@ class NonPiFields extends CaseBase
      *     "pattern": "d MMMM y '</fieldset><fieldset><div class=""field""><label for=""hearingDate"">Meeting time</label>'HH:mm:ss'</div>'",
      *     "field": "hearingDate"
      * })
-     * @Form\Filter({"name": "DateTimeSelectNullifier"})
+     * @Form\Filter("DateTimeSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d H:i:s"}})
+     * @Form\Validator("Date", options={"format": "Y-m-d H:i:s"})
      */
     public $hearingDate;
 

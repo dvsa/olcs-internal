@@ -38,7 +38,7 @@ class FeePaymentDetails
      *     "service_name":"Olcs\Service\Data\PaymentType"
      * })
      * @Form\Type("DynamicSelect")
-     * @Form\Validator({"name": "Laminas\Validator\NotEmpty"})
+     * @Form\Validator("Laminas\Validator\NotEmpty")
      */
     public $paymentType = null;
 
@@ -49,8 +49,8 @@ class FeePaymentDetails
      *      "label_attributes": {"id": "label-received"}
      * })
      * @Form\Type("Text")
-     * @Form\Validator({"name": "ValidateIf",
-     *      "options":{
+     * @Form\Validator("ValidateIf",
+     *      options={
      *          "context_field": "paymentType",
      *          "context_values": {"fpm_card_offline"},
      *          "context_truth": false,
@@ -69,7 +69,7 @@ class FeePaymentDetails
      *              {"name": "\Common\Form\Elements\Validators\ReceivedAmount"}
      *          }
      *      }
-     * })
+     * )
      */
     public $received = null;
 
@@ -84,10 +84,10 @@ class FeePaymentDetails
      *      "label_attributes": {"id": "label-receiptDate"}
      * })
      * @Form\Attributes({"required":false})
-     * @Form\Filter({"name": "DateSelect", "options": {"null_on_empty": true}})
-     * @Form\Validator({"name": "NotEmpty", "options": {"array"}})
-     * @Form\Validator({"name": "ValidateIf",
-     *      "options":{
+     * @Form\Filter("DateSelect", options={"null_on_empty": true})
+     * @Form\Validator("NotEmpty", options={"array"})
+     * @Form\Validator("ValidateIf",
+     *      options={
      *          "context_field": "paymentType",
      *          "context_values": {"fpm_card_offline"},
      *          "context_truth": false,
@@ -99,7 +99,7 @@ class FeePaymentDetails
      *              {"name": "\Common\Form\Elements\Validators\DateNotInFuture"}
      *          }
      *      }
-     * })
+     * )
      */
     public $receiptDate = null;
 

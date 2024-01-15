@@ -40,8 +40,8 @@ class SiFields extends CaseBase
      * })
      * @Form\Required(true)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator("Common\Form\Elements\Validators\DateNotInFuture")
      */
@@ -54,8 +54,8 @@ class SiFields extends CaseBase
      * })
      * @Form\Required(true)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator("Common\Form\Elements\Validators\DateNotInFuture")
      */

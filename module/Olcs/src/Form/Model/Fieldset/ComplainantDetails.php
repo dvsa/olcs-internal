@@ -36,7 +36,7 @@ class ComplainantDetails
      * @Form\Attributes({"placeholder":"","class":"medium"})
      * @Form\Options({"label":"Complainant last name"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $familyName = null;

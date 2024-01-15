@@ -107,7 +107,7 @@ class IrfoPsvAuth extends OrganisationBase
      *     "min_year_delta": "-40",
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
@@ -124,7 +124,7 @@ class IrfoPsvAuth extends OrganisationBase
      *     "hint": "The calculated expiry date is <span id=calculatedExpiryDateText>dd/mm/yyyy</span>",
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      *
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
@@ -160,7 +160,7 @@ class IrfoPsvAuth extends OrganisationBase
      *     "min_year_delta": "-40",
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
@@ -258,7 +258,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Options({"label": "Chargeable copies required"})
      * @Form\Type("Text")
      * @Form\Validator("Digits")
-     * @Form\Validator({"name":"Between", "options":{"min":0, "max":500}})
+     * @Form\Validator("Between", options={"min":0, "max":500})
      */
     public $copiesRequired = null;
 
@@ -267,7 +267,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Options({"label": "Non-Chargeable copies required"})
      * @Form\Type("Text")
      * @Form\Validator("Digits")
-     * @Form\Validator({"name":"Between", "options":{"min":0, "max":500}})
+     * @Form\Validator("Between", options={"min":0, "max":500})
      */
     public $copiesRequiredNonChargeable = null;
 
@@ -276,7 +276,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Options({"label": "Total copies required"})
      * @Form\Type("Text")
      * @Form\Validator("Digits")
-     * @Form\Validator({"name":"Between", "options":{"min":0, "max":1000}})
+     * @Form\Validator("Between", options={"min":0, "max":1000})
      */
     public $copiesRequiredTotal = null;
 

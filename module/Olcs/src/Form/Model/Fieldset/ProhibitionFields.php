@@ -18,7 +18,7 @@ class ProhibitionFields extends Base
      *     "render_delimiters": true
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})

@@ -33,7 +33,7 @@ class TmCaseNoFurtherAction extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "DateSelect", "options": {"null_on_empty": true}})
+     * @Form\Filter("DateSelect", options={"null_on_empty": true})
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
@@ -48,8 +48,8 @@ class TmCaseNoFurtherAction extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "DateSelect", "options": {"null_on_empty": true}})
-     * @Form\Validator({"name": "NotEmpty", "options": {"array"}})
+     * @Form\Filter("DateSelect", options={"null_on_empty": true})
+     * @Form\Validator("NotEmpty", options={"array"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "decisionDate",

@@ -36,10 +36,10 @@ class Complaint extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": false
      * })
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
-     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
+     * @Form\Validator("Date", options={"format": "Y-m-d"})
+     * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
      * @Form\Type("DateSelect")
      */
     public $complaintDate = null;
@@ -125,10 +125,10 @@ class Complaint extends CaseBase
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
-     * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("\Common\Validator\Date")
+     * @Form\Validator("Date", options={"format": "Y-m-d"})
+     * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $closedDate = null;
 }

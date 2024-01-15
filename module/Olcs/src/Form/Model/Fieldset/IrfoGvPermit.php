@@ -45,7 +45,7 @@ class IrfoGvPermit extends OrganisationBase
      *     "min_year_delta": "-40",
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
@@ -62,7 +62,7 @@ class IrfoGvPermit extends OrganisationBase
      *     "hint": "The calculated expiry date is <span id=calculatedExpiryDateText>dd/mm/yyyy</span>",
      * })
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "expiryDate",

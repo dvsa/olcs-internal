@@ -46,8 +46,8 @@ class FeeRateDetails
      * @Form\Required(true)
      * @Form\Attributes({"required":true})
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
+     * @Form\Filter("DateSelectNullifier")
+     * @Form\Validator("Date", options={"format": "Y-m-d"})
      * @Form\Validator({
      *      "name": "Dvsa\Olcs\Transfer\Validators\DateInFuture",
      *      "options": {

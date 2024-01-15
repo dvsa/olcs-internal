@@ -58,12 +58,11 @@ class BusRegStop extends BusRegDetails
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter("Laminas\Filter\StringTrim")
-     * @Form\Validator({
-     *      "name":"Laminas\Validator\StringLength",
-     *      "options":{
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":255
      *      }
-     * })
+     * )
      */
     public $manoeuvreDetail = null;
 
@@ -99,12 +98,11 @@ class BusRegStop extends BusRegDetails
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter("Laminas\Filter\StringTrim")
-     * @Form\Validator({
-     *      "name":"Laminas\Validator\StringLength",
-     *      "options":{
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":255
      *      }
-     * })
+     * )
      */
     public $newStopDetail = null;
 
@@ -140,12 +138,11 @@ class BusRegStop extends BusRegDetails
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter("Laminas\Filter\StringTrim")
-     * @Form\Validator({
-     *      "name":"Laminas\Validator\StringLength",
-     *      "options":{
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":255
      *      }
-     * })
+     * )
      */
     public $notFixedStopDetail = null;
 
@@ -181,12 +178,11 @@ class BusRegStop extends BusRegDetails
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter("Laminas\Filter\StringTrim")
-     * @Form\Validator({
-     *      "name":"Laminas\Validator\StringLength",
-     *      "options":{
+     * @Form\Validator("Laminas\Validator\StringLength",
+     *      options={
      *          "max":255
      *      }
-     * })
+     * )
      */
     public $subsidyDetail = null;
 }

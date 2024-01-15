@@ -54,10 +54,10 @@ class OperatorMerge
      *     "short-label":"form.operator-merge.confirm",
      *  })
      * @Form\Type("OlcsCheckbox")
-     * @Form\Validator({"name":"Laminas\Validator\Identical","options": {
+     * @Form\Validator("Laminas\Validator\Identical", options={
      *  "token":"Y",
      *  "message":"form.operator-merge.confirm.validation"
-     * }})
+     * })
      */
     public $confirm = null;
 
