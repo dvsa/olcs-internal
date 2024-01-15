@@ -25,7 +25,7 @@ class InterimDetails
      * })
      *
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $interimReason = null;
 
@@ -42,7 +42,7 @@ class InterimDetails
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $interimStart = null;
 
@@ -59,7 +59,7 @@ class InterimDetails
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $interimEnd = null;
 
@@ -68,7 +68,7 @@ class InterimDetails
      * @Form\Attributes({"class":"short","id":"interimAuthHgvVehicles"})
      * @Form\Options({"label":"internal.interim.form.interim_auth_hgv_vehicles"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      */
     public $interimAuthHgvVehicles = null;
 
@@ -77,7 +77,7 @@ class InterimDetails
      * @Form\Attributes({"class":"short","id":"interimAuthLgvVehicles"})
      * @Form\Options({"label":"internal.interim.form.interim_auth_lgv_vehicles"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      */
     public $interimAuthLgvVehicles = null;
 
@@ -86,7 +86,7 @@ class InterimDetails
      * @Form\Attributes({"class":"short","id":"interimAuthTrailers"})
      * @Form\Options({"label":"internal.interim.form.interim_auth_trailers"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      */
     public $interimAuthTrailers = null;
 }

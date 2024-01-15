@@ -45,7 +45,7 @@ class ImpoundingFields
      *
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":1,"max":20}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":1,"max":20})
      */
     public $vrm = null;
 
@@ -117,7 +117,7 @@ class ImpoundingFields
      * @Form\Options({"label":"Other hearing location"})
      * @Form\Attributes({"class":"medium","id":"venueOther"})
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "impoundingType",
@@ -191,7 +191,7 @@ class ImpoundingFields
      * @Form\Required(false)
      * @Form\Type("TextArea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5,"max":4000})
      */
     public $notes = null;
 }

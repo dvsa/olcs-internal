@@ -26,7 +26,7 @@ class Stay extends CaseBase
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $requestDate = null;
 
@@ -40,7 +40,7 @@ class Stay extends CaseBase
      *     "render_delimiters": false
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "requestDate",
@@ -89,8 +89,8 @@ class Stay extends CaseBase
      * })
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5,"max":4000})
      */
     public $notes = null;
 

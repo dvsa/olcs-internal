@@ -47,7 +47,7 @@ class InspectionRequestDetails
      *     "use_groups": "false"
      * })
      * @Form\Type("DynamicSelect")
-     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     * @Form\Filter("Common\Filter\NullToArray")
      */
     public $operatingCentre = null;
 
@@ -56,7 +56,7 @@ class InspectionRequestDetails
      * @Form\Options({"label":"Inspector name"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $inspectorName = null;
 
@@ -84,7 +84,7 @@ class InspectionRequestDetails
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
-     * @Form\Validator({"name":"Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator("Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $requestDate = null;
 
@@ -167,7 +167,7 @@ class InspectionRequestDetails
      * @Form\Options({"label":"Vehicles"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $vehiclesExaminedNo = null;
 
@@ -176,7 +176,7 @@ class InspectionRequestDetails
      * @Form\Options({"label":"Trailers"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $trailersExaminedNo = null;
 
@@ -185,7 +185,7 @@ class InspectionRequestDetails
      * @Form\Options({"label":"Caseworker comments"})
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $requestorNotes = null;
 
@@ -194,7 +194,7 @@ class InspectionRequestDetails
      * @Form\Options({"label":"Examiner comments"})
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      */
     public $inspectorNotes = null;
 }

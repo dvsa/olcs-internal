@@ -37,7 +37,7 @@ class Details
      * @Form\Options({"label":"documents.data.description"})
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":255}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":255})
      */
     public $description = null;
 

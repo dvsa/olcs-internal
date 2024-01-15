@@ -33,7 +33,7 @@ class SubmissionRecommendation extends Base
      *     "disable_inarray_validator": false,
      *     "use_groups":true
      * })
-     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     * @Form\Filter("Common\Filter\NullToArray")
      * @Form\Validator({"name": "NotEmpty", "options": {"array"}})
      * @Form\Validator({"name": "ValidateIfMultiple",
      *      "options":{
@@ -59,7 +59,7 @@ class SubmissionRecommendation extends Base
      * @Form\Type("TextArea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
      * @Form\Filter({"name":"htmlpurifier"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5})
      */
     public $comment = null;
 

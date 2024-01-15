@@ -20,7 +20,7 @@ class ProhibitionFields extends Base
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $prohibitionDate = null;
@@ -62,7 +62,7 @@ class ProhibitionFields extends Base
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
@@ -92,8 +92,8 @@ class ProhibitionFields extends Base
      * @Form\Options({"label":"Location prohibition issued"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":255}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":255})
      */
     public $imposedAt = null;
 }

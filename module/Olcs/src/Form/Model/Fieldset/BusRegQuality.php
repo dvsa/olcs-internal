@@ -41,12 +41,12 @@ class BusRegQuality extends BusRegDetails
      *     }
      * })
      *
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      *
      * @Form\Type("Textarea")
      * @Form\Required(false)
      *
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      *
      * @Form\Validator({
      *      "name": "Laminas\Validator\StringLength",
@@ -110,7 +110,7 @@ class BusRegQuality extends BusRegDetails
      * @Form\Type("Textarea")
      * @Form\Required(false)
      *
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      *
      * @Form\Validator({
      *      "name": "Laminas\Validator\StringLength",

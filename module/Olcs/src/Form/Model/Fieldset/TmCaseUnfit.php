@@ -34,7 +34,7 @@ class TmCaseUnfit extends CaseBase
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $decisionDate = null;
 
@@ -83,7 +83,7 @@ class TmCaseUnfit extends CaseBase
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $unfitnessStartDate = null;
 
@@ -99,7 +99,7 @@ class TmCaseUnfit extends CaseBase
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({
      *      "name": "ValidateIf",
      *      "options": {
@@ -142,7 +142,7 @@ class TmCaseUnfit extends CaseBase
      *     "disable_inarray_validator": false,
      *     "category": "tm_case_rehab"
      * })
-     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     * @Form\Filter("Common\Filter\NullToArray")
      */
     public $rehabMeasures = [];
 

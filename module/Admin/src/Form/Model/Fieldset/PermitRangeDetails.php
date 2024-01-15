@@ -64,7 +64,7 @@ class PermitRangeDetails
      * @Form\Options({
      *      "label":"Permit Number Range From",
      * })
-     * @Form\Validator({"name":"Laminas\Validator\Digits"})
+     * @Form\Validator("Laminas\Validator\Digits")
      * @Form\Type("Laminas\Form\Element\Number")
      * @Transfer\Validator({
      *      "name": "Laminas\Validator\GreaterThan",
@@ -81,7 +81,7 @@ class PermitRangeDetails
      * @Form\Options({
      *      "label":"Permit Number Range To",
      * })
-     * @Form\Validator({"name":"Laminas\Validator\Digits"})
+     * @Form\Validator("Laminas\Validator\Digits")
      * @Form\Type("Laminas\Form\Element\Number")
      * @Transfer\Validator({
      *      "name": "Laminas\Validator\GreaterThan",

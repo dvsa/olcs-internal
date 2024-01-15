@@ -153,7 +153,7 @@ class PermitStockDetails
      * @Form\Options({
      *      "label": "Quota"
      * })
-     * @Form\Validator({"name":"Laminas\Validator\Digits"})
+     * @Form\Validator("Laminas\Validator\Digits")
      * @Form\Type("Laminas\Form\Element\Number")
      * @Transfer\Validator({
      *      "name":"Laminas\Validator\Between",

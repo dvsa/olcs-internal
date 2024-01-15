@@ -44,9 +44,9 @@ class PublicInquiryRegisterTmDecision extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": true
      * })
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $decisionDate = null;
@@ -69,7 +69,7 @@ class PublicInquiryRegisterTmDecision extends CaseBase
      * @Form\Type("Text")
      * @Form\Attributes({"id":"","placeholder":"","class":"small"})
      * @Form\Options({"label": "Number of witnesses"})
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      */
     public $witnesses = null;
 
@@ -82,9 +82,9 @@ class PublicInquiryRegisterTmDecision extends CaseBase
      *     "create_empty_option": true,
      *     "render_delimiters": true
      * })
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $notificationDate = null;
@@ -110,8 +110,8 @@ class PublicInquiryRegisterTmDecision extends CaseBase
      * @Form\Options({
      *     "label": "Details to be published"
      * })
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5,"max":4000})
      */
     public $decisionNotes = null;
 

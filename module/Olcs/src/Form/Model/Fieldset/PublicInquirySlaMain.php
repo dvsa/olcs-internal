@@ -22,9 +22,9 @@ class PublicInquirySlaMain extends Base
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $callUpLetterDate = null;
@@ -39,9 +39,9 @@ class PublicInquirySlaMain extends Base
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */
     public $briefToTcDate = null;
@@ -73,7 +73,7 @@ class PublicInquirySlaMain extends Base
      * @Form\AllowEmpty(true)
      * @Form\Input("\Common\InputFilter\ContinueIfEmptyInput")
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({
      *      "name": "ValidateIf",
      *      "options": {
@@ -103,7 +103,7 @@ class PublicInquirySlaMain extends Base
      * @Form\AllowEmpty(true)
      * @Form\Input("\Common\InputFilter\ContinueIfEmptyInput")
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({
      *      "name": "ValidateIf",
      *      "options": {
@@ -133,7 +133,7 @@ class PublicInquirySlaMain extends Base
      * @Form\AllowEmpty(true)
      * @Form\Input("\Common\InputFilter\ContinueIfEmptyInput")
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({
      *      "name": "ValidateIf",
      *      "options": {
@@ -163,7 +163,7 @@ class PublicInquirySlaMain extends Base
      * @Form\AllowEmpty(true)
      * @Form\Input("\Common\InputFilter\ContinueIfEmptyInput")
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({
      *      "name": "ValidateIf",
      *      "options": {
@@ -190,7 +190,7 @@ class PublicInquirySlaMain extends Base
      * })
      * @Form\Required(false)
      * @Form\Type("DateSelect")
-     * @Form\Filter({"name":"DateSelectNullifier"})
+     * @Form\Filter("DateSelectNullifier")
      * @Form\Validator({"name": "Date", "options": {"format": "Y-m-d"}})
      * @Form\Validator({"name": "\Common\Form\Elements\Validators\DateNotInFuture"})
      */

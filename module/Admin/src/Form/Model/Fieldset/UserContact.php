@@ -17,7 +17,7 @@ class UserContact
      * @Form\Options({"label":"Email address"})
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Dvsa\Olcs\Transfer\Validators\EmailAddress"})
+     * @Form\Validator("Dvsa\Olcs\Transfer\Validators\EmailAddress")
      * @Form\Validator({"name":"Common\Form\Elements\Validators\EmailConfirm","options":{"token":"emailConfirm"}})
      */
     public $emailAddress = null;

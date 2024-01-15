@@ -57,7 +57,7 @@ class BusRegStop extends BusRegDetails
      *
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator({
      *      "name":"Laminas\Validator\StringLength",
      *      "options":{
@@ -98,7 +98,7 @@ class BusRegStop extends BusRegDetails
      *
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator({
      *      "name":"Laminas\Validator\StringLength",
      *      "options":{
@@ -139,7 +139,7 @@ class BusRegStop extends BusRegDetails
      *
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator({
      *      "name":"Laminas\Validator\StringLength",
      *      "options":{
@@ -180,7 +180,7 @@ class BusRegStop extends BusRegDetails
      *
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator({
      *      "name":"Laminas\Validator\StringLength",
      *      "options":{

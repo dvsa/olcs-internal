@@ -105,7 +105,7 @@ class PublicInquiryAgreedAndLegislationMain
      *     "disable_inarray_validator": false
      * })
      * @Form\Type("DynamicSelect")
-     * @Form\Validator({"name":"Olcs\Validator\TypeOfPI"})
+     * @Form\Validator("Olcs\Validator\TypeOfPI")
      */
     public $piTypes = null;
 

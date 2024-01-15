@@ -54,7 +54,7 @@ class Disqualify
      * })
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      * @Form\Type("DateSelect")
      * @Form\Required(true)
      */
@@ -65,7 +65,7 @@ class Disqualify
      * @Form\Options({
      *     "label": "form.disqualify.period",
      * })
-     * @Form\Validator({"name":"Laminas\Validator\Digits"})
+     * @Form\Validator("Laminas\Validator\Digits")
      * @Form\Required(false)
      */
     public $period = null;
@@ -76,8 +76,8 @@ class Disqualify
      * @Form\Options({
      *     "label": "form.disqualify.notes",
      * })
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":4000}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":4000})
      * @Form\Required(false)
      */
     public $notes = null;

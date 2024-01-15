@@ -15,8 +15,8 @@ class SiFields extends CaseBase
      * @Form\Options({"label": "Notification Number"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":36}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":36})
      */
     public $notificationNumber = null;
 
@@ -42,8 +42,8 @@ class SiFields extends CaseBase
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
-     * @Form\Validator({"name":"Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
+     * @Form\Validator("Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $infringementDate;
 
@@ -56,8 +56,8 @@ class SiFields extends CaseBase
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
-     * @Form\Validator({"name":"Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
+     * @Form\Validator("Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $checkDate;
 
@@ -81,8 +81,8 @@ class SiFields extends CaseBase
      * @Form\Options({"label":"Reason"})
      * @Form\Required(false)
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":5000}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":5000})
      */
     public $reason = null;
 }

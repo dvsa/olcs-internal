@@ -114,7 +114,7 @@ class FeePaymentDetails
      *      "label_attributes": {"id": "label-payer"}
      * })
      * @Form\Attributes({"required":false})
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "paymentType",
@@ -138,7 +138,7 @@ class FeePaymentDetails
      *      "label_attributes": {"id": "label-slipNo"}
      * })
      * @Form\Required(true)
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      * @Form\Attributes({"required":false})
      * @Form\Type("Text")
      * @Form\Validator({"name": "ValidateIf",
@@ -173,7 +173,7 @@ class FeePaymentDetails
      * })
      * @Form\Attributes({"required":false})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "paymentType",
@@ -205,7 +205,7 @@ class FeePaymentDetails
      * @Form\Attributes({"required":false})
      * @Form\Type("DateSelect")
      * @Form\Filter({"name":"DateSelect", "options":{"null_on_empty":true}})
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"array"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"array"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "paymentType",
@@ -237,7 +237,7 @@ class FeePaymentDetails
      * @Form\Required(true)
      * @Form\Attributes({"required":false})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
      *          "context_field": "paymentType",

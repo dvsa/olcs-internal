@@ -38,7 +38,7 @@ class ApplicationOverviewDetails
      * @Form\Filter({"name": "\Common\Filter\DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator({"name": "Date", "options":{"format":"Y-m-d"}})
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      */
     public $receivedDate = null;
 
@@ -57,7 +57,7 @@ class ApplicationOverviewDetails
      * @Form\Filter({"name": "\Common\Filter\DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator({"name": "Date", "options":{"format":"Y-m-d"}})
-     * @Form\Validator({"name":"Laminas\Validator\NotEmpty","options":{"null"}})
+     * @Form\Validator("Laminas\Validator\NotEmpty", options={"null"})
      */
     public $targetCompletionDate = null;
 

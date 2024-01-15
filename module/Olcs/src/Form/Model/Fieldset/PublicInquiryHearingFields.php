@@ -106,7 +106,7 @@ class PublicInquiryHearingFields extends Base
      * @Form\Type("Text")
      * @Form\Attributes({"id":"","placeholder":"","class":"medium"})
      * @Form\Options({"label": "Number of witnesses"})
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      */
     public $witnesses;
 
@@ -181,7 +181,7 @@ class PublicInquiryHearingFields extends Base
      * @Form\Type("TextArea")
      * @Form\Attributes({"class":"extra-long","id":"cancelledReason", "required":false})
      * @Form\Options({"label":"Cancelled reason"})
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
+     * @Form\Filter("Laminas\Filter\StringTrim")
      * @Form\Validator({"name": "NotEmpty", "options":{"null"}})
      * @Form\Validator({"name": "ValidateIf",
      *      "options":{
@@ -262,7 +262,7 @@ class PublicInquiryHearingFields extends Base
      *     "use_groups": true,
      *     "empty_option": "Add definition option"
      * })
-     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     * @Form\Filter("Common\Filter\NullToArray")
      */
     public $definition = null;
 

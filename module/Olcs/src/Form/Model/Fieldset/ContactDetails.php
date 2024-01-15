@@ -49,7 +49,7 @@ class ContactDetails
      * @Form\Required(false)
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Dvsa\Olcs\Transfer\Validators\EmailAddress"})
+     * @Form\Validator("Dvsa\Olcs\Transfer\Validators\EmailAddress")
      */
     public $emailAddress = null;
 

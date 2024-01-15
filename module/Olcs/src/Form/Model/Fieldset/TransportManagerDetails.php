@@ -70,7 +70,7 @@ class TransportManagerDetails
      * @Form\Required(false)
      * @Form\Type("Text")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Dvsa\Olcs\Transfer\Validators\EmailAddress"})
+     * @Form\Validator("Dvsa\Olcs\Transfer\Validators\EmailAddress")
      */
     public $emailAddress = null;
 
@@ -87,7 +87,7 @@ class TransportManagerDetails
      * @Form\Validator({"name": "\Common\Validator\Date"})
      * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
      * @Form\Validator({"name": "\Laminas\Validator\NotEmpty"})
-     * @Form\Validator({"name":"\Common\Form\Elements\Validators\DateNotInFuture"})
+     * @Form\Validator("\Common\Form\Elements\Validators\DateNotInFuture")
      */
     public $birthDate = null;
 

@@ -16,7 +16,7 @@ class Publication extends Base
      * @Form\Options({"label":"Text 1"})
      * @Form\Type("Textarea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":4000}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":4000})
      */
     public $text1 = null;
 
@@ -26,7 +26,7 @@ class Publication extends Base
      * @Form\Options({"label":"Text 2"})
      * @Form\Type("Textarea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":4000}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":4000})
      */
     public $text2 = null;
 
@@ -36,7 +36,7 @@ class Publication extends Base
      * @Form\Options({"label":"Text 3"})
      * @Form\Type("Textarea")
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":4000}})
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":4000})
      */
     public $text3 = null;
 }

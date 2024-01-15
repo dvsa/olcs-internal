@@ -15,8 +15,8 @@ class Complaint extends CaseBase
      * @Form\Attributes({"id":"complainantForename","class":"medium","name":"complainantForename"})
      * @Form\Options({"label":"Complainant first name"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $complainantForename = null;
 
@@ -24,8 +24,8 @@ class Complaint extends CaseBase
      * @Form\Attributes({"id":"complainantFamilyName","class":"medium","name":"complainantFamilyName"})
      * @Form\Options({"label":"Complainant family name"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $complainantFamilyName = null;
 
@@ -78,8 +78,8 @@ class Complaint extends CaseBase
      * })
      * @Form\Type("TextArea")
      * @Form\Required(false)
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":4000}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":5,"max":4000})
      */
     public $description = null;
 
@@ -101,8 +101,8 @@ class Complaint extends CaseBase
      * @Form\Options({"label":"Driver first name"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $driverForename = null;
 
@@ -111,8 +111,8 @@ class Complaint extends CaseBase
      * @Form\Options({"label":"Driver family name"})
      * @Form\Required(false)
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":2,"max":35}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":2,"max":35})
      */
     public $driverFamilyName = null;
 

@@ -23,7 +23,7 @@ class Login
      * })
      * @Form\Filter({"name": "Laminas\Filter\StringTrim"})
      * @Form\Filter({"name": "Common\Filter\StripSpaces"})
-     * @Form\Validator({"name":"Dvsa\Olcs\Transfer\Validators\Username"})
+     * @Form\Validator("Dvsa\Olcs\Transfer\Validators\Username")
      * @Form\Type("Text")
      */
     public $username = null;

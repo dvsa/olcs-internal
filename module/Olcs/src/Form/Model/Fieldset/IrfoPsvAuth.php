@@ -109,7 +109,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $inForceDate;
 
@@ -162,7 +162,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Type("DateSelect")
      * @Form\Filter({"name": "DateSelectNullifier"})
      * @Form\Validator({"name": "\Common\Validator\Date"})
-     * @Form\Validator({"name":"Date","options":{"format":"Y-m-d"}})
+     * @Form\Validator("Date", options={"format":"Y-m-d"})
      */
     public $applicationSentDate;
 
@@ -170,8 +170,8 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"id":""})
      * @Form\Options({"label":"Service route from"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":1,"max":30}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":1,"max":30})
      */
     public $serviceRouteFrom = null;
 
@@ -179,8 +179,8 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"id":""})
      * @Form\Options({"label":"Service route to"})
      * @Form\Type("Text")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":1,"max":30}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"min":1,"max":30})
      */
     public $serviceRouteTo = null;
 
@@ -207,7 +207,7 @@ class IrfoPsvAuth extends OrganisationBase
      *     "use_groups": false
      * })
      * @Form\Type("DynamicSelect")
-     * @Form\Filter({"name":"Common\Filter\NullToArray"})
+     * @Form\Filter("Common\Filter\NullToArray")
      */
     public $countrys = null;
 
@@ -228,8 +228,8 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"class":"extra-long","id":"exemptionDetails", "required":false})
      * @Form\Options({"label":"Exemption reason"})
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"max":255}})
+     * @Form\Filter("Laminas\Filter\StringTrim")
+     * @Form\Validator("Laminas\Validator\StringLength", options={"max":255})
      */
     public $exemptionDetails;
 
@@ -257,7 +257,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"id":"","placeholder":"","class":"small"})
      * @Form\Options({"label": "Chargeable copies required"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      * @Form\Validator({"name":"Between", "options":{"min":0, "max":500}})
      */
     public $copiesRequired = null;
@@ -266,7 +266,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"id":"","placeholder":"","class":"small"})
      * @Form\Options({"label": "Non-Chargeable copies required"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      * @Form\Validator({"name":"Between", "options":{"min":0, "max":500}})
      */
     public $copiesRequiredNonChargeable = null;
@@ -275,7 +275,7 @@ class IrfoPsvAuth extends OrganisationBase
      * @Form\Attributes({"id":"","placeholder":"","class":"small","readonly":true})
      * @Form\Options({"label": "Total copies required"})
      * @Form\Type("Text")
-     * @Form\Validator({"name":"Digits"})
+     * @Form\Validator("Digits")
      * @Form\Validator({"name":"Between", "options":{"min":0, "max":1000}})
      */
     public $copiesRequiredTotal = null;
