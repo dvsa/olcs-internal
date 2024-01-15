@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -28,13 +29,12 @@ class Action implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onAction(RouteParam $e)
+    public function onAction(EventInterface $e)
     {
+        $routeParam = $e->getTarget();
+
         $placeholder = $this->getViewHelperManager()->get('placeholder');
-        $placeholder->getContainer('action')->set($e->getValue());
+        $placeholder->getContainer('action')->set($routeParam->getValue());
     }
 
     /**

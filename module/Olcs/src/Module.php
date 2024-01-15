@@ -107,7 +107,7 @@ class Module
                     if (is_a($controllerFQCN, $interface, true)) {
                         foreach ($listeners as $listener) {
                             $listenerInstance = $container->get($listener);
-                            $routeParamsListener->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, $listenerInstance);
+                            $listenerInstance->attach($routeParamsListener->getEventManager());
                         }
                     }
                 }

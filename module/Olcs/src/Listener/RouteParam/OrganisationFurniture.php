@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -40,12 +41,11 @@ class OrganisationFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onOrganisation(RouteParam $e)
+    public function onOrganisation(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
 
         $organisation = $this->getOrganisation($id);
         $placeholder = $this->getViewHelperManager()->get('placeholder');

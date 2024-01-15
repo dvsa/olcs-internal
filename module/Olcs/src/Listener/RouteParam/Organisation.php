@@ -6,6 +6,7 @@ use Common\Exception\ResourceNotFoundException;
 use Common\Service\Cqrs\Query\CachingQueryService as QueryService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -46,9 +47,11 @@ class Organisation implements ListenerAggregateInterface, FactoryInterface
     /**
      * @param RouteParam $e
      */
-    public function onOrganisation(RouteParam $e)
+    public function onOrganisation(EventInterface $e)
     {
-        $organisation = $this->getOrganisation($e->getValue());
+        $routeParam = $e->getTarget();
+
+        $organisation = $this->getOrganisation($routeParam->getValue());
 
         /** @var AbstractContainer $navigationPlugin */
         $navigationPlugin = $this->navigationPlugin->__invoke('navigation');

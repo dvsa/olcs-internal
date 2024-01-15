@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -45,12 +46,11 @@ class TransportManagerFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onTransportManager(RouteParam $e)
+    public function onTransportManager(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $data = $this->getTransportManager($id);
 
         $url = $this->getViewHelperManager()
