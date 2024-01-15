@@ -135,8 +135,8 @@ class SearchController extends AbstractController implements LeftViewProvider
         }
 
         /**
- * @var \Common\Controller\Plugin\ElasticSearch $elasticSearch
-*/
+         * @var \Common\Controller\Plugin\ElasticSearch $elasticSearch
+        */
         $elasticSearch = $this->ElasticSearch();
 
         $searchIndex = $elasticSearch->getSearchData()['index'];
