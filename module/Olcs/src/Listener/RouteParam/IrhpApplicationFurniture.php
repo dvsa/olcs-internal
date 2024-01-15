@@ -8,6 +8,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Dvsa\Olcs\Transfer\Query\IrhpApplication\ById as ItemDto;
@@ -138,12 +139,11 @@ class IrhpApplicationFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onIrhpApplicationFurniture(RouteParam $e)
+    public function onIrhpApplicationFurniture(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $irhpApplication = $this->getIrhpApplication($id);
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');

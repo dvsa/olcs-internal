@@ -7,6 +7,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareInterface;
 use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Bus\BusReg as ItemDto;
@@ -41,12 +42,11 @@ class BusRegFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onBusRegFurniture(RouteParam $e)
+    public function onBusRegFurniture(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $busReg = $this->getBusReg($id);
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');

@@ -2,7 +2,7 @@
 
 namespace Olcs\Service\Marker;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Mvc\Service\AbstractPluginManagerFactory;
 
 /**
@@ -16,6 +16,8 @@ class MarkerPluginManagerFactory extends AbstractPluginManagerFactory
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): MarkerPluginManager
     {
-        return new MarkerPluginManager($container);
+        $config = $container->get('Config');
+
+        return new MarkerPluginManager($container, $config[self::CONFIG_KEY]);
     }
 }

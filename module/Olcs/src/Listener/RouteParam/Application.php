@@ -4,6 +4,7 @@ namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
 use Common\RefData;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -135,15 +136,14 @@ class Application implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onApplication(RouteParam $e)
+    public function onApplication(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $application = $this->getApplication($id);
 
-        $e->getTarget()->trigger('licence', $application['licence']['id']);
+        $routeParam->getTarget()->trigger('licence', $application['licence']['id']);
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');
         $placeholder->getContainer('application')->set($application);

@@ -9,6 +9,7 @@ use Common\Service\Data\Surrender;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled as IsEnabledQry;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
@@ -154,12 +155,11 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onLicence(RouteParam $e)
+    public function onLicence(EventInterface $e)
     {
-        $licenceId = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $licenceId = $routeParam->getValue();
         $licence = $this->getLicenceMarkerData($licenceId);
 
         $this->getMarkerService()->addData('licence', $licence);

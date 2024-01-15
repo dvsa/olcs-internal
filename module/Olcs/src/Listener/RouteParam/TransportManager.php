@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsResponsibilityController;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
@@ -111,13 +112,12 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onTransportManager(RouteParam $e)
+    public function onTransportManager(EventInterface $e)
     {
-        $id = $e->getValue();
-        $context = $e->getContext();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
+        $context = $routeParam->getContext();
         $data = $this->getTransportManager($id);
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');

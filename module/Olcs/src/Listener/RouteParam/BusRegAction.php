@@ -5,6 +5,7 @@ namespace Olcs\Listener\RouteParam;
 use Interop\Container\ContainerInterface;
 use Common\Service\Cqrs\Query\QueryService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Bus\BusRegDecision as ItemDto;
@@ -118,13 +119,13 @@ class BusRegAction implements ListenerAggregateInterface, FactoryInterface
     /**
      * Modify buttons for bus registration page
      *
-     * @param RouteParam $e The RouteParam event
-     *
      * @return void
      */
-    public function onBusRegAction(RouteParam $e)
+    public function onBusRegAction(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $busReg = $this->getBusReg($id);
 
         $sidebarNav = $this->getSidebarNavigationService();

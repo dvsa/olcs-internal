@@ -9,6 +9,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Dvsa\Olcs\Transfer\Query\Application\Application as ApplicationQuery;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -61,12 +62,11 @@ class ApplicationFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onApplicationFurniture(RouteParam $e)
+    public function onApplicationFurniture(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
 
         // for performance reasons this query should be the same as used in other Application RouteListeners
         $response = $this->getQuerySender()->send(ApplicationQuery::create(['id' => $id]));

@@ -7,6 +7,7 @@ use Common\Service\Cqrs\Command\CommandSenderAwareInterface;
 use Common\Service\Cqrs\Command\CommandSenderAwareTrait;
 use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Cases\Cases as ItemDto;
@@ -42,12 +43,11 @@ class CasesFurniture implements
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onCase(RouteParam $e)
+    public function onCase(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
         $case = $this->getCase($id);
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');

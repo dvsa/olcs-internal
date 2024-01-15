@@ -59,8 +59,8 @@ class MarkerService implements FactoryInterface
         $markers = [];
 
         /* @var $marker MarkerInterface */
-        $markerServices = $this->getMarkerPluginManager()->getRegisteredServices();
-        foreach ($markerServices['invokableClasses'] as $markerName) {
+        $markerServices = $this->getMarkerPluginManager()->getMarkers();
+        foreach ($markerServices as $markerName) {
             $marker = $this->getMarkerPluginManager()->get($markerName);
 
             // set the data we have into the marker, it can then workout whether it can render or not

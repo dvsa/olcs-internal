@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -67,12 +68,11 @@ class CaseMarker implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onCase(RouteParam $e)
+    public function onCase(EventInterface $e)
     {
-        $case = $this->getCaseData($e->getValue());
+        $routeParam = $e->getTarget();
+
+        $case = $this->getCaseData($routeParam->getValue());
         $this->getMarkerService()->addData('organisation', $case['licence']['organisation']);
         $this->getMarkerService()->addData('cases', [$case]);
         $this->getMarkerService()->addData('configCase', ['hideLink' => true]);

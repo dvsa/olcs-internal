@@ -7,6 +7,7 @@ use Common\Service\Cqrs\Query\QuerySenderAwareInterface;
 use Common\Service\Cqrs\Query\QuerySenderAwareTrait;
 use Dvsa\Olcs\Transfer\Query\Application\Application as ApplicationQuery;
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -56,9 +57,11 @@ class VariationFurniture implements ListenerAggregateInterface, FactoryInterface
     /**
      * @param RouteParam $e
      */
-    public function onVariationFurniture(RouteParam $e)
+    public function onVariationFurniture(EventInterface $e)
     {
-        $id = $e->getValue();
+        $routeParam = $e->getTarget();
+
+        $id = $routeParam->getValue();
 
         $response = $this->getQuerySender()->send(ApplicationQuery::create(['id' => $id]));
 

@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
@@ -67,12 +68,11 @@ class BusRegMarker implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onBusRegMarker(RouteParam $e)
+    public function onBusRegMarker(EventInterface $e)
     {
-        $busReg = $this->getBusRegData($e->getValue());
+        $routeParam = $e->getTarget();
+
+        $busReg = $this->getBusRegData($routeParam->getValue());
         $this->getMarkerService()->addData('busReg', $busReg);
     }
 

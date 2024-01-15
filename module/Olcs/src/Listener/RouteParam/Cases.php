@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Cases\Cases as ItemDto;
@@ -37,6 +38,7 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
     {
         $this->navigationService = $container->get('Navigation');
         $this->annotationBuilder = $container->get(AnnotationBuilder::class);
+        $this->queryService = $container->get('QueryService');
         return $this;
     }
 
@@ -108,12 +110,11 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onCase(RouteParam $e)
+    public function onCase(EventInterface $e)
     {
-        $case = $this->getCase($e->getValue());
+        $routeParam = $e->getTarget();
+
+        $case = $this->getCase($routeParam->getValue());
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');
         $placeholder->getContainer('case')->set($case);
@@ -123,12 +124,12 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
 
         if (isset($case['licence']['id'])) {
             // Trigger the licence now - it won't trigger twice.
-            $e->getTarget()->trigger('licence', $case['licence']['id']);
+            $routeParam->getTarget()->trigger('licence', $case['licence']['id']);
         }
 
         if (isset($case['application']['id'])) {
             // Trigger the application now - it won't trigger twice.
-            $e->getTarget()->trigger('application', $case['application']['id']);
+            $routeParam->getTarget()->trigger('application', $case['application']['id']);
         }
 
         if (isset($case['transportManager']['id'])) {
@@ -143,7 +144,7 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
             $this->getNavigationService()->findOneById('case_processing_in_office_revocation')->setVisible(false);
 
             // Trigger the transportManager now - it won't trigger twice.
-            $e->getTarget()->trigger('transportManager', $case['transportManager']['id']);
+            $routeParam->getTarget()->trigger('transportManager', $case['transportManager']['id']);
         } else {
             $this->getNavigationService()->findOneById('case_processing_decisions')->setVisible(false);
         }

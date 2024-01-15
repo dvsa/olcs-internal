@@ -3,6 +3,7 @@
 namespace Olcs\Listener\RouteParam;
 
 use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventInterface;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use \Dvsa\Olcs\Transfer\Query\Bus\BusReg as ItemDto;
@@ -77,12 +78,11 @@ class BusRegId implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
-    /**
-     * @param RouteParam $e
-     */
-    public function onBusRegId(RouteParam $e)
+    public function onBusRegId(EventInterface $e)
     {
-        $busReg = $this->getBusReg($e->getValue());
+        $routeParam = $e->getTarget();
+
+        $busReg = $this->getBusReg($routeParam->getValue());
 
         $placeholder = $this->getViewHelperManager()->get('placeholder');
         $placeholder->getContainer('busReg')->set($busReg);
