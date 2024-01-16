@@ -148,6 +148,7 @@ class CasesTest extends MockeryTestCase
         $mockSl->shouldReceive('get')->with('Navigation')->andReturn($mockNavigation);
         $mockSl->shouldReceive('get')->with(AnnotationBuilder::class)->andReturn($mockAnnotationBuilder);
         $mockSl->shouldReceive('get')->with('QueryService')->andReturn($mockQueryService);
+        $mockSl->shouldReceive('get')->with('ViewHelperManager')->andReturn($mockViewHelperManager);
 
         $service = $this->sut->__invoke($mockSl, Cases::class);
 
