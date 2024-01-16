@@ -357,7 +357,7 @@ $nav = [
                             'label' => 'internal-crud-read-history',
                             'route' => 'processing_read_history',
                             'class' => 'govuk-link--no-visited-state',
-                            'action' => 'redirect',
+                            'action' => 'index',
                             'use_route_match' => true,
                         ],
                         [
