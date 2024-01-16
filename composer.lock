@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edec52cd03844524dcc8b833838e7205",
+    "content-hash": "368859e6eb18432815228f399f25cebd",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -415,39 +415,39 @@
         },
         {
             "name": "doctrine/doctrine-module",
-            "version": "5.0.1",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineModule.git",
-                "reference": "ca463a39c3c7119b532054c30be9228198abf59b"
+                "reference": "ad346200568aa095c58e2866eb1e2be0e3c3083f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/ca463a39c3c7119b532054c30be9228198abf59b",
-                "reference": "ca463a39c3c7119b532054c30be9228198abf59b",
+                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/ad346200568aa095c58e2866eb1e2be0e3c3083f",
+                "reference": "ad346200568aa095c58e2866eb1e2be0e3c3083f",
                 "shasum": ""
             },
             "require": {
-                "container-interop/container-interop": "^1.2.0",
-                "doctrine/annotations": "^1.13.2",
-                "doctrine/cache": "^1.12.1",
-                "doctrine/collections": "^1.6.8",
-                "doctrine/doctrine-laminas-hydrator": "^2.2.1 || ^3.0.0",
-                "doctrine/event-manager": "^1.1.1",
-                "doctrine/inflector": "^2.0.4",
-                "doctrine/persistence": "^2.2.3",
-                "laminas/laminas-authentication": "^2.9.0",
-                "laminas/laminas-cache": "^3.1.2",
-                "laminas/laminas-eventmanager": "^3.4.0",
-                "laminas/laminas-form": "^3.0.1",
-                "laminas/laminas-modulemanager": "^2.11.0",
-                "laminas/laminas-mvc": "^3.3.0",
-                "laminas/laminas-paginator": "^2.12.1",
-                "laminas/laminas-servicemanager": "^3.10.0",
-                "laminas/laminas-stdlib": "^3.6.4",
-                "laminas/laminas-validator": "^2.15.1",
-                "php": "^7.4 || ~8.0.0 || ~8.1.0",
-                "symfony/console": "^5.4.1 || ^6.0.1"
+                "doctrine/annotations": "^1.13.3",
+                "doctrine/cache": "^1.13.0",
+                "doctrine/collections": "^1.8.0",
+                "doctrine/doctrine-laminas-hydrator": "^3.2.0",
+                "doctrine/event-manager": "^1.2.0",
+                "doctrine/inflector": "^2.0.6",
+                "doctrine/persistence": "^2.5.5 || ^3.1.0",
+                "laminas/laminas-authentication": "^2.12.0",
+                "laminas/laminas-cache": "^3.6.0",
+                "laminas/laminas-eventmanager": "^3.5.0",
+                "laminas/laminas-form": "^3.4.1",
+                "laminas/laminas-modulemanager": "^2.12.0",
+                "laminas/laminas-mvc": "^3.3.5",
+                "laminas/laminas-paginator": "^2.13.0",
+                "laminas/laminas-servicemanager": "^3.17.0",
+                "laminas/laminas-stdlib": "^3.13.0",
+                "laminas/laminas-validator": "^2.25.0",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+                "psr/container": "^1.1.2",
+                "symfony/console": "^5.4.16 || ^6.2.1"
             },
             "conflict": {
                 "doctrine/orm": "2.12.0"
@@ -456,25 +456,24 @@
                 "laminas/laminas-cache-storage-implementation": "1.0.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9.0.0",
-                "doctrine/orm": "^2.10.5",
+                "doctrine/coding-standard": "^9.0.2",
+                "doctrine/mongodb-odm": "^2.4.2",
+                "doctrine/orm": "^2.13.4",
                 "jangregor/phpstan-prophecy": "^1.0.0",
                 "laminas/laminas-cache-storage-adapter-blackhole": "^2.0.0",
-                "laminas/laminas-cache-storage-adapter-memory": "^2.0.0",
-                "laminas/laminas-i18n": "^2.13.0",
-                "laminas/laminas-log": "^2.15.0",
-                "laminas/laminas-serializer": "^2.12.0",
-                "laminas/laminas-session": "^2.12.0",
-                "phpspec/prophecy-phpunit": "^2.0.1",
-                "phpstan/phpstan": "^1.2.0",
-                "phpstan/phpstan-phpunit": "^1.0.0",
-                "phpunit/phpunit": "^9.5.11",
-                "predis/predis": "^1.1.9",
-                "vimeo/psalm": "^4.16.1"
+                "laminas/laminas-cache-storage-adapter-memory": "^2.1.0",
+                "laminas/laminas-i18n": "^2.17.0",
+                "laminas/laminas-log": "^2.15.3",
+                "laminas/laminas-serializer": "^2.13.0",
+                "laminas/laminas-session": "^2.13.0",
+                "phpstan/phpstan": "^1.9.2",
+                "phpstan/phpstan-phpunit": "^1.3.0",
+                "phpunit/phpunit": "^9.5.27",
+                "predis/predis": "^1.1.10",
+                "vimeo/psalm": "^5.0"
             },
             "suggest": {
-                "doctrine/data-fixtures": "Data Fixtures if you want to generate test data or bootstrap data for your deployments",
-                "laminas/laminas-mvc-console": "^1.1.11 if you want to use the Laminas console libraries"
+                "doctrine/data-fixtures": "Data Fixtures if you want to generate test data or bootstrap data for your deployments"
             },
             "bin": [
                 "bin/doctrine-module"
@@ -530,7 +529,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineModule/issues",
-                "source": "https://github.com/doctrine/DoctrineModule/tree/5.0.1"
+                "source": "https://github.com/doctrine/DoctrineModule/tree/5.3.0"
             },
             "funding": [
                 {
@@ -546,7 +545,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-23T14:15:34+00:00"
+            "time": "2022-12-12T15:24:40+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -642,16 +641,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "f9301a5b2fb1216b2b08f02ba04dc45423db6bff"
+                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/f9301a5b2fb1216b2b08f02ba04dc45423db6bff",
-                "reference": "f9301a5b2fb1216b2b08f02ba04dc45423db6bff",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/2930cd5ef353871c821d5c43ed030d39ac8cfe65",
+                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65",
                 "shasum": ""
             },
             "require": {
@@ -713,7 +712,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.8"
+                "source": "https://github.com/doctrine/inflector/tree/2.0.9"
             },
             "funding": [
                 {
@@ -729,7 +728,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-16T13:40:37+00:00"
+            "time": "2024-01-15T18:05:13+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -913,16 +912,16 @@
         },
         {
             "name": "dvsa/laminas-config-cloud-parameters",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters.git",
-                "reference": "1cec4e8cdf16bf61c848be45f758697977659c1e"
+                "reference": "073c97dd6fb426e31bec5a592e3119c3ffcb668d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/dvsa-laminas-config-cloud-parameters/zipball/1cec4e8cdf16bf61c848be45f758697977659c1e",
-                "reference": "1cec4e8cdf16bf61c848be45f758697977659c1e",
+                "url": "https://api.github.com/repos/dvsa/dvsa-laminas-config-cloud-parameters/zipball/073c97dd6fb426e31bec5a592e3119c3ffcb668d",
+                "reference": "073c97dd6fb426e31bec5a592e3119c3ffcb668d",
                 "shasum": ""
             },
             "require": {
@@ -931,7 +930,8 @@
                 "laminas/laminas-config-aggregator": "^1.7",
                 "laminas/laminas-modulemanager": "^2.4|^3.0",
                 "php": "^7.4 || ^8.0",
-                "symfony/dependency-injection": "^5.4"
+                "symfony/dependency-injection": "^5.4",
+                "symfony/property-access": "^5.4|^6.3"
             },
             "require-dev": {
                 "aws/aws-sdk-php": "^3.281",
@@ -961,9 +961,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/issues",
-                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/v0.1.1"
+                "source": "https://github.com/dvsa/dvsa-laminas-config-cloud-parameters/tree/v0.2.0"
             },
-            "time": "2023-11-06T10:01:58+00:00"
+            "time": "2023-11-17T11:31:22+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -5603,6 +5603,178 @@
             "time": "2023-01-26T09:26:14+00:00"
         },
         {
+            "name": "symfony/property-access",
+            "version": "v5.4.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/property-access.git",
+                "reference": "0249e46f69e92049a488f39fcf531cb42c50caaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/0249e46f69e92049a488f39fcf531cb42c50caaa",
+                "reference": "0249e46f69e92049a488f39fcf531cb42c50caaa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1|^3",
+                "symfony/polyfill-php80": "^1.16",
+                "symfony/property-info": "^5.2|^6.0"
+            },
+            "require-dev": {
+                "symfony/cache": "^4.4|^5.0|^6.0"
+            },
+            "suggest": {
+                "psr/cache-implementation": "To cache access methods."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides functions to read and write from/to an object or array using a simple string notation",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property-path",
+                "reflection"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/property-access/tree/v5.4.26"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-07-13T15:20:41+00:00"
+        },
+        {
+            "name": "symfony/property-info",
+            "version": "v5.4.24",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/property-info.git",
+                "reference": "d43b85b00699b4484964c297575b5c6f9dc5f6e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/d43b85b00699b4484964c297575b5c6f9dc5f6e1",
+                "reference": "d43b85b00699b4484964c297575b5c6f9dc5f6e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1|^3",
+                "symfony/polyfill-php80": "^1.16",
+                "symfony/string": "^5.1|^6.0"
+            },
+            "conflict": {
+                "phpdocumentor/reflection-docblock": "<3.2.2",
+                "phpdocumentor/type-resolver": "<1.4.0",
+                "symfony/dependency-injection": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.10.4|^2",
+                "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
+                "phpstan/phpdoc-parser": "^1.0",
+                "symfony/cache": "^4.4|^5.0|^6.0",
+                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+                "symfony/serializer": "^4.4|^5.0|^6.0"
+            },
+            "suggest": {
+                "phpdocumentor/reflection-docblock": "To use the PHPDoc",
+                "psr/cache-implementation": "To cache results",
+                "symfony/doctrine-bridge": "To use Doctrine metadata",
+                "symfony/serializer": "To use Serializer metadata"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PropertyInfo\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin Dunglas",
+                    "email": "dunglas@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Extracts information about PHP class' properties using metadata of popular sources",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "doctrine",
+                "phpdoc",
+                "property",
+                "symfony",
+                "type",
+                "validator"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/property-info/tree/v5.4.24"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-05-15T20:11:03+00:00"
+        },
+        {
             "name": "symfony/service-contracts",
             "version": "v2.5.2",
             "source": {
@@ -8122,5 +8294,5 @@
     "platform-overrides": {
         "ext-redis": "4.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
