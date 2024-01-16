@@ -730,6 +730,8 @@ return array(
             CommonDataService\Search\Search::class => CommonDataService\Search\SearchFactory::class,
             ProcessingService\CreateVariationProcessingService::class => ProcessingService\CreateVariationProcessingServiceFactory::class,
 
+            DataService\AbstractPublicInquiryDataServices::class => DataService\AbstractPublicInquiryDataServicesFactory::class,
+
             HelperService\ApplicationOverviewHelperService::class => HelperService\ApplicationOverviewHelperServiceFactory::class,
             HelperService\LicenceOverviewHelperService::class => HelperService\LicenceOverviewHelperServiceFactory::class,
 
@@ -933,7 +935,6 @@ return array(
             DataService\UserListInternalExcludingLimitedReadOnlyUsersSorted::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserWithName::class => CommonDataService\AbstractDataServiceFactory::class,
             CommonDataService\Search\Search::class => CommonDataService\Search\SearchFactory::class,
-            DataService\AbstractPublicInquiryDataServices::class => DataService\AbstractPublicInquiryDataServicesFactory::class,
             DataService\ImpoundingLegislation::class => DataService\ImpoundingLegislationFactory::class,
             DataService\LicenceDecisionLegislation::class => DataService\LicenceDecisionLegislationFactory::class,
             DataService\PublicInquiryDecision::class => DataService\AbstractPublicInquiryDataFactory::class,
