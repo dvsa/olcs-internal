@@ -334,7 +334,6 @@ $nav = [
                             'label' => 'In-office revocation',
                             'route' => 'processing_in_office_revocation',
                             'class' => 'govuk-link--no-visited-state',
-                            'action' => 'index',
                             'use_route_match' => true,
                         ],
                         [
