@@ -56,8 +56,6 @@ class AbstractNewConversationController extends AbstractInternalController imple
             $data = $this->handleQuery(
                 ByApplicationToOrganisation::create(['application' => $applicationId])
             );
-            $routeMatch = $this->getEvent()->getRouteMatch();
-            $routeMatch->setParam('', 'new_value');
         } else {
             throw new RuntimeException('Error: licence or application required');
         }
