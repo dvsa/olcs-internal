@@ -28,12 +28,6 @@ class LicenceMessageReply
     public ?TextArea $reply = null;
 
     /**
-     * @Form\Options({"label":"Upload a file"})
-     * @Form\Type(\Laminas\Form\Element\File::class)
-     */
-    public ?File $file = null;
-
-    /**
      * @Form\Attributes({
      *     "type": "submit",
      *     "data-module": "govuk-button",

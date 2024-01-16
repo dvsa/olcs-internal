@@ -18,6 +18,7 @@ use Common\FeatureToggle;
 use Olcs\Form\Model\Form\LicenceMessageActions;
 use Olcs\Form\Model\Form\LicenceMessageReply;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
+use Dvsa\Olcs\Transfer\Command\Messaging\Message\Create;
 
 class LicenceConversationMessagesController
     extends AbstractInternalController
@@ -108,7 +109,14 @@ class LicenceConversationMessagesController
             return parent::indexAction();
         }
 
-        //@TODO: Add reply via BE API
+        $response = $this->handleCommand(Create::create([
+            'conversation' => $this->params()->fromRoute('conversation'),
+            'messageContent' => $form->get('form-actions')->get('reply')->getValue()
+        ]));
+
+        if (!$response->isOk()) {
+            $this->handleErrors($response->getResult());
+        }
 
         return parent::indexAction();
     }
