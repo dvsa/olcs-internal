@@ -63,12 +63,10 @@ class LicenceConversationMessagesController
         $providedParameters = $this->modifyListQueryParameters($paramProvider->provideParameters());
         $response = $this->handleQuery($this->listDto::create($providedParameters));
 
-        /** @var Form $replyForm */
         $replyForm = $this->getForm(LicenceMessageReply::class);
         $replyForm->get('id')->setValue($this->params()->fromRoute('conversation'));
         $this->placeholder()->setPlaceholder('send-reply', $replyForm);
 
-        /** @var Form $actionsForm */
         $actionsForm = $this->getForm(LicenceMessageActions::class);
         $actionsForm->get('id')->setValue($this->params()->fromRoute('conversation'));
 
