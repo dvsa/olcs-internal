@@ -18,7 +18,7 @@ use Common\FeatureToggle;
 use Olcs\Form\Model\Form\LicenceMessageActions;
 use Olcs\Form\Model\Form\LicenceMessageReply;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
-use Dvsa\Olcs\Transfer\Command\Messaging\Message\Create;
+use Dvsa\Olcs\Transfer\Command\Messaging\Message\Create as CreateMessageCommand;
 
 class LicenceConversationMessagesController
     extends AbstractInternalController
@@ -107,7 +107,7 @@ class LicenceConversationMessagesController
             return parent::indexAction();
         }
 
-        $response = $this->handleCommand(Create::create([
+        $response = $this->handleCommand(CreateMessageCommand::create([
             'conversation' => $this->params()->fromRoute('conversation'),
             'messageContent' => $form->get('form-actions')->get('reply')->getValue()
         ]));
