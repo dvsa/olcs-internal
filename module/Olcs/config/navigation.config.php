@@ -1397,7 +1397,7 @@ $nav = [
                         ],
                         [
                             'id' => 'application_new_conversation',
-                            'label' => 'New Message',
+                            'label' => 'New Conversation',
                             'route' => 'lva-application/conversation/new',
                             'class' => 'govuk-link--no-visited-state',
                             'use_route_match' => true,
