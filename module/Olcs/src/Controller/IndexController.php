@@ -183,8 +183,7 @@ class IndexController extends AbstractController implements LeftViewProvider
 
                 $results = [
                     '' => ((int)$value > 0 ? 'Unassigned' : 'Please select'),
-                ] +
-                $srv->fetchListOptions(null);
+                ] + $srv->fetchListOptions(null);
 
                 break;
             case 'users-internal-exclude-limited-read-only':
@@ -195,8 +194,8 @@ class IndexController extends AbstractController implements LeftViewProvider
                 $srv->setTeamId($value);
                 $results = [
                     '' => ((int)$value > 0 ? 'Unassigned' : 'Please select'),
-                ] +
-                $srv->fetchListOptions(null);
+                ] + $srv->fetchListOptions(null);
+
                 break;
             case 'users':
                 $results = $this->getListDataUser($value, 'All');
@@ -236,23 +235,24 @@ class IndexController extends AbstractController implements LeftViewProvider
                 break;
             case 'irhp-permit-print-country':
                 $srv = $this->irhpPermitPrintCountryDataService
-                ->setIrhpPermitType($value);
+                    ->setIrhpPermitType($value);
                 $results = ['' => 'Please select'] + $srv->fetchListOptions();
                 break;
             case 'irhp-permit-print-stock-by-country':
                 $srv = $this->irhpPermitPrintStockDataService
-                ->setIrhpPermitType(RefData::IRHP_BILATERAL_PERMIT_TYPE_ID)
-                ->setCountry($value);
+                    ->setIrhpPermitType(RefData::IRHP_BILATERAL_PERMIT_TYPE_ID)
+                    ->setCountry($value);
                 $results = ['' => 'Please select'] + $srv->fetchListOptions();
+
                 break;
             case 'irhp-permit-print-stock-by-type':
                 $srv = $this->irhpPermitPrintStockDataService
-                ->setIrhpPermitType($value);
+                    ->setIrhpPermitType($value);
                 $results = ['' => 'Please select'] + $srv->fetchListOptions();
                 break;
             case 'irhp-permit-print-range-type-by-stock':
                 $srv = $this->irhpPermitPrintRangeTypeDataService
-                ->setIrhpPermitStock($value);
+                    ->setIrhpPermitStock($value);
                 $results = ['' => 'Please select'] + $srv->fetchListOptions();
                 break;
             default:
