@@ -9,16 +9,16 @@ use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganis
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
-use Olcs\Form\Model\Form\NewMessage;
+use Olcs\Form\Model\Form\Conversation;
 use RuntimeException;
 
-class AbstractNewConversationController extends AbstractInternalController implements LeftViewProvider
+class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider
 {
     protected $navigationId = 'licence_new_conversation';
 
     protected $mapperClass = DefaultMapper::class;
 
-    protected $formClass = NewMessage::class;
+    protected $formClass = Conversation::class;
     protected $toggleConfig = [
         'default' => [
             FeatureToggle::MESSAGING

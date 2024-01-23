@@ -4,7 +4,7 @@ namespace Olcs\Controller\Messages;
 
 use Olcs\Controller\Interfaces\LeftViewProvider;
 
-class ApplicationNewConversationController extends AbstractNewConversationController implements LeftViewProvider
+class ApplicationCreateConversationController extends AbstractCreateConversationController implements LeftViewProvider
 {
     protected $navigationId = 'application_new_conversation';
 }

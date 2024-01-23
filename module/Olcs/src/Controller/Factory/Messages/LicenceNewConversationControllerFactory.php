@@ -7,7 +7,7 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Olcs\Controller\Messages\LicenceNewConversationController;
+use Olcs\Controller\Messages\LicenceCreateConversationController;
 
 class LicenceNewConversationControllerFactory implements FactoryInterface
 {
@@ -15,9 +15,9 @@ class LicenceNewConversationControllerFactory implements FactoryInterface
      * @param  ContainerInterface $container
      * @param  $requestedName
      * @param  array|null         $options
-     * @return LicenceNewConversationController
+     * @return LicenceCreateConversationController
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceNewConversationController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceCreateConversationController
     {
         $formHelper = $container->get(FormHelperService::class);
 
@@ -27,7 +27,7 @@ class LicenceNewConversationControllerFactory implements FactoryInterface
 
         $navigation = $container->get('navigation');
 
-        return new LicenceNewConversationController(
+        return new LicenceCreateConversationController(
             $translationHelper,
             $formHelper,
             $flashMessenger,

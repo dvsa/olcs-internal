@@ -8,7 +8,7 @@ use Laminas\Form\Annotation as Form;
  * @codeCoverageIgnore Auto-generated file with no methods
  * @Form\Name("main")
  */
-class NewMessages
+class Conversation
 {
      /**
      * @Form\Attributes({"id":"category","placeholder":""})
@@ -46,7 +46,7 @@ class NewMessages
      */
     public $appLicNo = null;
 
-        /**
+    /**
      * @Form\Attributes({"class":"extra-long","id":""})
      * @Form\Options({"label":"Message"})
      * @Form\Type("TextArea")

@@ -769,7 +769,7 @@ $routes = [
                             'route' => 'new[/]',
                             'verb' => 'GET',
                             'defaults' => [
-                                'controller' => Olcs\Controller\Messages\LicenceNewConversationController::class,
+                                'controller' => Olcs\Controller\Messages\LicenceCreateConversationController::class,
                                 'action' => 'add'
                             ],
                         ],
@@ -2630,7 +2630,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => 'new[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' => Olcs\Controller\Messages\ApplicationNewConversationController::class,
+                            'controller' => Olcs\Controller\Messages\ApplicationCreateConversationController::class,
                             'action' => 'add'
                         ],
                     ],
