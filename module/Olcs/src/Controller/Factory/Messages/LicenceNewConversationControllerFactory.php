@@ -8,6 +8,7 @@ use Common\Service\Helper\TranslationHelperService;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Messages\LicenceCreateConversationController;
+use Olcs\Service\Data\MessagingSubject;
 
 class LicenceNewConversationControllerFactory implements FactoryInterface
 {

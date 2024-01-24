@@ -10,31 +10,17 @@ use Laminas\Form\Annotation as Form;
  */
 class Conversation
 {
-     /**
-     * @Form\Attributes({"id":"category","placeholder":""})
-     * @Form\Options({
-     *     "label": "tasks.data.category",
-     *     "service_name": "Olcs\Service\Data\Category",
-     *     "context": {"isMessagingCategory": "Y" },
-     *     "empty_option": "Please Select"
-     * })
-     * @Form\Type("DynamicSelect")
-     */
-    public $category = null;
-
     /**
-     * @Form\Attributes({"id":"subCategory","placeholder":""})
+     * @Form\Attributes({"id":"subject","placeholder":""})
      * @Form\Options({
-     *     "label": "tasks.data.sub_category",
-     *     "service_name": "Olcs\Service\Data\SubCategory",
+     *     "label": "messaging.create-conversation.subject",
+     *     "service_name": "Olcs\Service\Data\MessagingSubject",
      *     "context": {"isMessagingCategory": "Y" },
      *     "empty_option": "Please Select"
-     *
      * })
      * @Form\Type("DynamicSelect")
      */
-    public $subCategory = null;
-
+    public $subject = null;
 
      /**
      * @Form\Attributes({"id":"appLicNo","placeholder":""})

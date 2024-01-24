@@ -27,16 +27,12 @@ class ApplicationNewConversationControllerFactory implements FactoryInterface
         $container = method_exists($container, 'getServiceLocator') ? $container->getServiceLocator() : $container;
 
         $formHelper = $container->get(FormHelperService::class);
-        assert($formHelper instanceof FormHelperService);
 
         $translationHelper = $container->get(TranslationHelperService::class);
-        assert($translationHelper instanceof TranslationHelperService);
 
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
-        assert($flashMessenger instanceof FlashMessengerHelperService);
 
         $navigation = $container->get('navigation');
-        assert($navigation instanceof Navigation);
 
         return new ApplicationCreateConversationController(
             $translationHelper,

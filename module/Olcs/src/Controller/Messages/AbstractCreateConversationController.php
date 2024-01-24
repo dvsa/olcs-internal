@@ -4,12 +4,18 @@ namespace Olcs\Controller\Messages;
 
 use Common\Data\Mapper\DefaultMapper;
 use Common\FeatureToggle;
+use Common\Service\Helper\FormHelperService;
+use Common\Service\Helper\TranslationHelperService;
+use Common\Service\Script\ScriptFactory;
+use Common\Service\Table\TableFactory;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByApplicationToOrganisation;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganisation;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Form\Model\Form\Conversation;
+use Olcs\Service\Data\DocumentSubCategory;
 use RuntimeException;
 
 class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider

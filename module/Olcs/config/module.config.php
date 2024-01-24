@@ -729,6 +729,7 @@ return array(
             DataService\UserListInternalExcludingLimitedReadOnlyUsers::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserListInternalExcludingLimitedReadOnlyUsersSorted::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserWithName::class => CommonDataService\AbstractDataServiceFactory::class,
+            DataService\MessagingSubject::class => CommonDataService\AbstractListDataServiceFactory::class,
             CommonDataService\Search\Search::class => CommonDataService\Search\SearchFactory::class,
             ProcessingService\CreateVariationProcessingService::class => ProcessingService\CreateVariationProcessingServiceFactory::class,
 
@@ -943,6 +944,7 @@ return array(
             DataService\PublicInquiryDefinition::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\PublicInquiryReason::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\SubmissionLegislation::class => DataService\AbstractPublicInquiryDataFactory::class,
+            DataService\MessagingSubject::class => CommonDataService\AbstractListDataServiceFactory::class,
         ]
     ],
     'form_service_manager' => [
