@@ -45,8 +45,8 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
     {
         $routeParam = $e->getTarget();
 
-        $conversation = $this->getConversation((int)$routeParam->getValue());
-        $isMessagingDisabled = $conversation['organisation']['isMessagingDisabled'];
+        $licence = $this->getLicence((int)$routeParam->getValue());
+        $isMessagingDisabled = $licence['organisation']['isMessagingDisabled'];
 
         /** @var AbstractContainer $navigationPlugin */
         $navigationPlugin = $this->navigationPlugin->__invoke('navigation');
@@ -58,7 +58,7 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
         }
     }
 
-    private function getConversation(int $id): array
+    private function getLicence(int $id): array
     {
         $query = $this->annotationBuilder->createQuery(LicenceQuery::create(['id' => $id]));
         $response = $this->queryService->send($query);
