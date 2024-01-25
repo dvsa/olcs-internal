@@ -15,7 +15,7 @@ class EnableConversationsPopupText
     /**
      * @Form\Type(\Common\Form\Elements\Types\PlainText::class)
      * @Form\Attributes({
-     *     "value": "Are you sure you want to enable messaging?"
+     *     "value": "Messaging will be enabled for this user."
      * })
      */
     public ?PlainText $text = null;

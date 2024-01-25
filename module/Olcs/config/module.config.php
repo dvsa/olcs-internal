@@ -748,21 +748,22 @@ return array(
             ApplicationFurniture::class => ApplicationFurniture::class,
             LicenceFurniture::class => LicenceFurniture::class,
             OrganisationFurniture::class => OrganisationFurniture::class,
-            VariationFurniture::class => VariationFurniture::class,
-            BusRegFurniture::class => BusRegFurniture::class,
-            CasesFurniture::class => CasesFurniture::class,
-            SubmissionsFurniture::class => SubmissionsFurniture::class,
-            TransportManagerFurniture::class => TransportManagerFurniture::class,
-            IrhpApplicationFurniture::class => IrhpApplicationFurniture::class,
-            Olcs\Listener\RouteParam\Cases::class => Olcs\Listener\RouteParam\Cases::class,
-            LicenceListener::class => LicenceListener::class,
-            'Olcs\Listener\RouteParam\CaseMarker' => 'Olcs\Listener\RouteParam\CaseMarker',
-            RouteParam\Organisation::class => RouteParam\Organisation::class,
-            'Olcs\Navigation\RightHandNavigation' => 'Olcs\Navigation\RightHandNavigationFactory',
-            HeaderSearch::class => HeaderSearch::class,
+            VariationFurniture::class                                      => VariationFurniture::class,
+            BusRegFurniture::class                                         => BusRegFurniture::class,
+            CasesFurniture::class                                          => CasesFurniture::class,
+            SubmissionsFurniture::class                                    => SubmissionsFurniture::class,
+            TransportManagerFurniture::class                               => TransportManagerFurniture::class,
+            IrhpApplicationFurniture::class                                => IrhpApplicationFurniture::class,
+            Olcs\Listener\RouteParam\Cases::class                          => Olcs\Listener\RouteParam\Cases::class,
+            LicenceListener::class                                         => LicenceListener::class,
+            'Olcs\Listener\RouteParam\CaseMarker'                          => 'Olcs\Listener\RouteParam\CaseMarker',
+            RouteParam\Organisation::class                                 => RouteParam\Organisation::class,
+            RouteParam\Conversation::class                                 => RouteParam\Conversation::class,
+            'Olcs\Navigation\RightHandNavigation'                          => 'Olcs\Navigation\RightHandNavigationFactory',
+            HeaderSearch::class                                            => HeaderSearch::class,
             Olcs\Data\Mapper\BilateralApplicationValidationModifier::class =>
                 Olcs\Data\Mapper\BilateralApplicationValidationModifierFactory::class,
-            Olcs\Data\Mapper\IrhpApplication::class =>
+            Olcs\Data\Mapper\IrhpApplication::class                        =>
                 Olcs\Data\Mapper\IrhpApplicationFactory::class,
 
             Olcs\Service\Permits\Bilateral\ApplicationFormPopulator::class =>
@@ -871,6 +872,9 @@ return array(
             RouteParam\IrhpApplicationFurniture::class,
             RouteParam\LicenceFurniture::class,
             RouteParam\Licence::class,
+        ],
+        \Olcs\Controller\Messages\LicenceConversationMessagesController::class => [
+            RouteParam\Conversation::class,
         ],
     ],
     'search' => [
