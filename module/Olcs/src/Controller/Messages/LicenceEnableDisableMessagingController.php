@@ -10,6 +10,7 @@ use Common\FeatureToggle;
 use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Disable as DisableCommand;
 use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Enable as EnableCommand;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence;
+use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Application\ApplicationController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
@@ -54,6 +55,7 @@ class LicenceEnableDisableMessagingController extends ApplicationController
         return $this->render($view, $title);
     }
 
+    /** @return ViewModel|Response */
     public function popupAction()
     {
         $queryResponse = $this->handleQuery(Licence::create(['id' => $this->params()->fromRoute('licence')]));

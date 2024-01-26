@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Olcs\Listener\RouteParam;
 
 use Common\Exception\ResourceNotFoundException;
-use Common\Service\Cqrs\Query\CachingQueryService;
 use Common\Service\Cqrs\Query\CachingQueryService as QueryService;
 use Dvsa\Olcs\Transfer\Query\Search\Licence as LicenceQuery;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
 use Interop\Container\ContainerInterface;
-use Laminas\EventManager\Event;
 use Laminas\EventManager\EventInterface;
 use Laminas\View\HelperPluginManager;
-use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParams;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\ListenerAggregateInterface;
@@ -52,9 +49,9 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
         $navigationPlugin = $this->navigationPlugin->__invoke('navigation');
 
         if ($isMessagingDisabled) {
-            $navigationPlugin->findById('conversation_list_disable_messaging')->setVisible(false);
+            $navigationPlugin->findBy('id', 'conversation_list_disable_messaging')->setVisible(false);
         } else {
-            $navigationPlugin->findById('conversation_list_enable_messaging')->setVisible(false);
+            $navigationPlugin->findBy('id', 'conversation_list_enable_messaging')->setVisible(false);
         }
     }
 
@@ -72,9 +69,40 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): Conversation
     {
-        $this->annotationBuilder = $container->get('TransferAnnotationBuilder');
-        $this->queryService = $container->get('QueryService');
-        $this->navigationPlugin = $container->get('ViewHelperManager')->get('Navigation');
+        $this->annotationBuilder = $container->get(AnnotationBuilder::class);
+        $this->queryService = $container->get(QueryService::class);
+        $this->navigationPlugin = $container->get(HelperPluginManager::class)->get(Navigation::class);
+
         return $this;
+    }
+
+    public function getAnnotationBuilder(): AnnotationBuilder
+    {
+        return $this->annotationBuilder;
+    }
+
+    public function getQueryService(): QueryService
+    {
+        return $this->queryService;
+    }
+
+    public function getNavigationPlugin(): Navigation
+    {
+        return $this->navigationPlugin;
+    }
+
+    public function setAnnotationBuilder(AnnotationBuilder $annotationBuilder): void
+    {
+        $this->annotationBuilder = $annotationBuilder;
+    }
+
+    public function setQueryService(QueryService $queryService): void
+    {
+        $this->queryService = $queryService;
+    }
+
+    public function setNavigationPlugin(Navigation $navigationPlugin): void
+    {
+        $this->navigationPlugin = $navigationPlugin;
     }
 }
