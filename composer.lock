@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ca1e63636fb20d7e05255d913548bbb",
+    "content-hash": "7f6462f1fe6665c8ee8450f7bd5f821b",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -1878,13 +1878,13 @@
             "version": "3.4.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JoshuaLicense/laminas-form.git",
-                "reference": "733ea7eda2689147a6b2f7ad86d00133eea1f421"
+                "url": "https://github.com/dvsa/laminas-form.git",
+                "reference": "246a46c1a926fd4d7ce227e251118106f73ea2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JoshuaLicense/laminas-form/zipball/733ea7eda2689147a6b2f7ad86d00133eea1f421",
-                "reference": "733ea7eda2689147a6b2f7ad86d00133eea1f421",
+                "url": "https://api.github.com/repos/dvsa/laminas-form/zipball/246a46c1a926fd4d7ce227e251118106f73ea2fe",
+                "reference": "246a46c1a926fd4d7ce227e251118106f73ea2fe",
                 "shasum": ""
             },
             "require": {
@@ -1989,7 +1989,7 @@
                 "docs": "https://docs.laminas.dev/laminas-form/",
                 "rss": "https://github.com/laminas/laminas-form/releases.atom"
             },
-            "time": "2024-01-26T11:35:31+00:00"
+            "time": "2024-01-26T11:54:40+00:00"
         },
         {
             "name": "laminas/laminas-http",
