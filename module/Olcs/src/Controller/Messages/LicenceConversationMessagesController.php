@@ -112,7 +112,9 @@ class LicenceConversationMessagesController
             'messageContent' => $form->get('form-actions')->get('reply')->getValue()
         ]));
 
-        if (!$response->isOk()) {
+        if ($response->isOk()) {
+            $form->get('form-actions')->get('reply')->setValue('');
+        } else {
             $this->handleErrors($response->getResult());
         }
 
