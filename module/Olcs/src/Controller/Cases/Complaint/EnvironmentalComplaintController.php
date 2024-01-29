@@ -137,8 +137,6 @@ class EnvironmentalComplaintController extends AbstractInternalController implem
      */
     public function generateAction()
     {
-        return $this->redirect()->toRoute('test', [], [], true);
-
         return $this->redirect()->toRoute(
             'case_licence_docs_attachments/entity/generate',
             [
