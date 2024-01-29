@@ -7,6 +7,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
+use Laminas\Http\Response;
 use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
@@ -98,7 +99,8 @@ class LicenceConversationMessagesController
         }
     }
 
-    protected function parseReply(Form $form): ViewModel
+    /** @return Response|ViewModel */
+    protected function parseReply(Form $form)
     {
         $form->setData((array)$this->params()->fromPost());
         $form->get('id')->setValue($this->params()->fromRoute('conversation'));
@@ -113,10 +115,11 @@ class LicenceConversationMessagesController
         ]));
 
         if ($response->isOk()) {
-            $form->get('form-actions')->get('reply')->setValue('');
-        } else {
-            $this->handleErrors($response->getResult());
+            $this->flashMessengerHelperService->addSuccessMessage('Reply submitted successfully');
+            return $this->redirect()->toRoute('licence/conversation/view', $this->params()->fromRoute());
         }
+
+        $this->handleErrors($response->getResult());
 
         return parent::indexAction();
     }
