@@ -115,6 +115,7 @@ class LicenceConversationMessagesController
         ]));
 
         if ($response->isOk()) {
+            $this->flashMessengerHelperService->addSuccessMessage('Reply submitted successfully');
             return $this->redirect()->toRoute('licence/conversation/view', $this->params()->fromRoute());
         }
 
