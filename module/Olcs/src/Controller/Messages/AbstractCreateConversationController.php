@@ -66,7 +66,6 @@ class AbstractCreateConversationController extends AbstractInternalController im
             throw new RuntimeException('Error: licence or application required');
         }
 
-        //dd($data->getHttpResponse()->getBody());
         $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);
 
         $this->prefixArrayKey($applicationLicenceArray['results']['licences'], 'L');
@@ -95,7 +94,6 @@ class AbstractCreateConversationController extends AbstractInternalController im
 
     public function addAction()
     {
-        //dd($this->getRequest()->getPost()->get('fields'));
         return parent::addAction();
     }
 
