@@ -20,17 +20,17 @@ class Conversation
      * })
      * @Form\Type("DynamicSelect")
      */
-    public $subject = null;
+    public $messageSubject = null;
 
      /**
-     * @Form\Attributes({"id":"appLicNo","placeholder":""})
+     * @Form\Attributes({"id":"appOrLicNo","placeholder":""})
      * @Form\Options({
      *     "label": "Application or licence ID",
      *     "empty_option": "Please Select",
      * })
      * @Form\Type("Select")
      */
-    public $appLicNo = null;
+    public $appOrLicNo = null;
 
     /**
      * @Form\Attributes({"class":"extra-long","id":""})
@@ -39,6 +39,18 @@ class Conversation
      * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
      * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":1000}})
      */
-    public $comment = null;
+    public $messageContent = null;
+
+    /**
+     * @Form\Type("Hidden")
+     * @Form\Options({"value": ""})
+     */
+    public $licence = null;
+
+    /**
+     * @Form\Type("Hidden")
+     * @Form\Options({"value": ""})
+     */
+    public $application = null;
 
 }

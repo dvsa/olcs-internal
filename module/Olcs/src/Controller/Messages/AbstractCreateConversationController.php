@@ -2,27 +2,27 @@
 
 namespace Olcs\Controller\Messages;
 
+use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\Data\Mapper\DefaultMapper;
 use Common\FeatureToggle;
-use Common\Service\Helper\FormHelperService;
-use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Script\ScriptFactory;
-use Common\Service\Table\TableFactory;
+use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Create;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByApplicationToOrganisation;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganisation;
-use Laminas\View\HelperPluginManager;
+use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
+use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Olcs\Form\Model\Form\Conversation;
-use Olcs\Service\Data\DocumentSubCategory;
 use RuntimeException;
 
-class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider
+class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
 {
     protected $navigationId = 'licence_new_conversation';
 
     protected $mapperClass = DefaultMapper::class;
+
+    protected $createCommand = Create::class;
 
     protected $formClass = Conversation::class;
     protected $toggleConfig = [
@@ -50,7 +50,7 @@ class AbstractCreateConversationController extends AbstractInternalController im
 
     public function alterFormForAdd($form)
     {
-        $appLicNoSelect = $form->get('fields')->get('appLicNo');
+        $appLicNoSelect = $form->get('fields')->get('appOrLicNo');
 
         if ($this->params()->fromRoute('licence')){
             $licenceId = $this->params()->fromRoute('licence');
@@ -66,7 +66,11 @@ class AbstractCreateConversationController extends AbstractInternalController im
             throw new RuntimeException('Error: licence or application required');
         }
 
+        //dd($data->getHttpResponse()->getBody());
         $applicationLicenceArray = json_decode($data->getHttpResponse()->getBody(), true);
+
+        $this->prefixArrayKey($applicationLicenceArray['results']['licences'], 'L');
+        $this->prefixArrayKey($applicationLicenceArray['results']['applications'], 'A');
 
         $options = [];
 
@@ -87,5 +91,48 @@ class AbstractCreateConversationController extends AbstractInternalController im
         $appLicNoSelect->setValueOptions($options);
 
         return $form;
+    }
+
+    public function addAction()
+    {
+        //dd($this->getRequest()->getPost()->get('fields'));
+        return parent::addAction();
+    }
+
+    public function onDispatch(MvcEvent $e)
+    {
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            $postFields = $postData->get('fields');
+            $appOrLicNo = $postFields['appOrLicNo'] ?? null;
+            if (!empty($appOrLicNo)) {
+                switch ( str_split($appOrLicNo, 1)[0] )
+                {
+                    case 'A':
+                        $postFields['application'] = substr_replace($appOrLicNo, '', 0, 1);
+                        $postFields['licence'] = '';
+                        break;
+                    case 'L':
+                        $postFields['licence'] = substr_replace($appOrLicNo, '', 0, 1);
+                        $postFields['application'] = '';
+                        break;
+                    default:
+                        throw new \Laminas\Validator\Exception\RuntimeException('Unexpected prefix in appOrLicNo');
+                }
+                $postData->set('fields', $postFields);
+                $this->getRequest()->setPost($postData);
+            }
+        }
+
+        return parent::onDispatch($e);
+    }
+
+    private function prefixArrayKey(array &$array, string $prefix): void
+    {
+        foreach ($array as $k => $v)
+        {
+            $array[$prefix . $k] = $v;
+            unset($array[$k]);
+        }
     }
 }

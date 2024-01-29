@@ -12,6 +12,7 @@ use Dvsa\Olcs\Transfer\Command\EnvironmentalComplaint\CreateEnvironmentalComplai
 use Dvsa\Olcs\Transfer\Command\EnvironmentalComplaint\DeleteEnvironmentalComplaint as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\EnvironmentalComplaint\UpdateEnvironmentalComplaint as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\EnvironmentalComplaint\EnvironmentalComplaint as ItemDto;
+use Laminas\Http\Response\;
 use Laminas\View\Model\ConsoleModel;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
@@ -132,10 +133,12 @@ class EnvironmentalComplaintController extends AbstractInternalController implem
     /**
      * Generate action.
      *
-     * @return \Laminas\Http\Response\
+     * @return
      */
     public function generateAction()
     {
+        return $this->redirect()->toRoute('test', [], [], true);
+
         return $this->redirect()->toRoute(
             'case_licence_docs_attachments/entity/generate',
             [
