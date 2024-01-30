@@ -15,7 +15,7 @@ class DisableConversationsPopupText
     /**
      * @Form\Type(\Common\Form\Elements\Types\PlainText::class)
      * @Form\Attributes({
-     *     "value": "Messaging will be disabled for thi user and all active conversations will be archived."
+     *     "value": "Messaging will be disabled for this operator."
      * })
      */
     public ?PlainText $text = null;
