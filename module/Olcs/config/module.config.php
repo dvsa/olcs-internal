@@ -67,6 +67,11 @@ use Olcs\Controller\Lva\Factory\Controller\Licence as LvaLicenceControllerFactor
 use Olcs\Controller\Lva\Factory\Controller\Variation as LvaVariationControllerFactories;
 use Olcs\Controller\Lva\Licence as LvaLicenceControllers;
 use Olcs\Controller\Lva\Variation as LvaVariationControllers;
+use Olcs\Controller\Messages\ApplicationConversationListController;
+use Olcs\Controller\Messages\LicenceConversationListController;
+use Olcs\Controller\Messages\LicenceConversationMessagesController;
+use Olcs\Controller\Messages\LicenceEnableDisableMessagingController;
+use Olcs\Controller\Messages\LicenceNewConversationController;
 use Olcs\Controller\Operator as OperatorControllers;
 use Olcs\Controller\Operator\HistoryController;
 use Olcs\Controller\Operator\OperatorBusinessDetailsController;
@@ -289,27 +294,27 @@ return array(
             LvaVariationControllers\SafetyController::class => LvaVariationControllerFactories\SafetyControllerFactory::class,
             LvaVariationControllers\SubmitController::class => LvaVariationControllerFactories\SubmitControllerFactory::class,
             LvaVariationControllers\TaxiPhvController::class => LvaVariationControllerFactories\TaxiPhvControllerFactory::class,
-            LvaVariationControllers\TransportManagersController::class => LvaVariationControllerFactories\TransportManagersControllerFactory::class,
-            LvaVariationControllers\TypeOfLicenceController::class => LvaVariationControllerFactories\TypeOfLicenceControllerFactory::class,
-            LvaVariationControllers\VehiclesController::class => LvaVariationControllerFactories\VehiclesControllerFactory::class,
-            LvaVariationControllers\VehiclesDeclarationsController::class => LvaVariationControllerFactories\VehiclesDeclarationsControllerFactory::class,
-            LvaVariationControllers\VehiclesPsvController::class => LvaVariationControllerFactories\VehiclesPsvControllerFactory::class,
-            LvaVariationControllers\WithdrawController::class => LvaVariationControllerFactories\WithdrawControllerFactory::class,
-            Olcs\Controller\IndexController::class => Olcs\Controller\Factory\IndexControllerFactory::class,
-            Olcs\Controller\Messages\LicenceConversationMessagesController::class => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
-            Olcs\Controller\Messages\ApplicationConversationListController::class => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
-            Olcs\Controller\Messages\LicenceConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
-            Olcs\Controller\Messages\LicenceDisableConversationListController::class=> Olcs\Controller\Factory\Messages\LicenceDisableConversationListControllerFactory::class,
-            Olcs\Controller\Messages\LicenceNewConversationController::class=> Olcs\Controller\Factory\Messages\LicenceNewConversationControllerFactory::class,
-            Olcs\Controller\Messages\LicenceCloseConversationController::class => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
-            OperatorControllers\OperatorFeesController::class => OperatorControllerFactories\OperatorFeesControllerFactory::class,
-            OperatorControllers\OperatorProcessingTasksController::class => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
-            OperatorControllers\UnlicensedBusinessDetailsController::class => OperatorControllerFactories\UnlicensedBusinessDetailsControllerFactory::class,
-            OperatorControllers\HistoryController::class => OperatorControllerFactories\HistoryControllerFactory::class,
-            OperatorControllers\Cases\UnlicensedCasesOperatorController::class => OperatorControllerFactories\Cases\UnlicensedCasesOperatorControllerFactory::class,
-            OperatorControllers\Docs\OperatorDocsController::class => OperatorControllerFactories\Docs\OperatorDocsControllerFactory::class,
-            OperatorControllers\OperatorController::class => OperatorControllerFactories\OperatorControllerFactory::class,
-            ApplicationControllers\ApplicationController::class => ApplicationControllerFactories\ApplicationControllerFactory::class,
+            LvaVariationControllers\TransportManagersController::class              => LvaVariationControllerFactories\TransportManagersControllerFactory::class,
+            LvaVariationControllers\TypeOfLicenceController::class                  => LvaVariationControllerFactories\TypeOfLicenceControllerFactory::class,
+            LvaVariationControllers\VehiclesController::class                       => LvaVariationControllerFactories\VehiclesControllerFactory::class,
+            LvaVariationControllers\VehiclesDeclarationsController::class           => LvaVariationControllerFactories\VehiclesDeclarationsControllerFactory::class,
+            LvaVariationControllers\VehiclesPsvController::class                    => LvaVariationControllerFactories\VehiclesPsvControllerFactory::class,
+            LvaVariationControllers\WithdrawController::class                       => LvaVariationControllerFactories\WithdrawControllerFactory::class,
+            Olcs\Controller\IndexController::class                                  => Olcs\Controller\Factory\IndexControllerFactory::class,
+            Olcs\Controller\Messages\LicenceConversationMessagesController::class   => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationConversationListController::class   => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
+            Olcs\Controller\Messages\LicenceConversationListController::class       => Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
+            Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\LicenceEnableDisableMessagingControllerFactory::class,
+            Olcs\Controller\Messages\LicenceNewConversationController::class        => Olcs\Controller\Factory\Messages\LicenceNewConversationControllerFactory::class,
+            Olcs\Controller\Messages\LicenceCloseConversationController::class      => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
+            OperatorControllers\OperatorFeesController::class                       => OperatorControllerFactories\OperatorFeesControllerFactory::class,
+            OperatorControllers\OperatorProcessingTasksController::class            => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
+            OperatorControllers\UnlicensedBusinessDetailsController::class          => OperatorControllerFactories\UnlicensedBusinessDetailsControllerFactory::class,
+            OperatorControllers\HistoryController::class                            => OperatorControllerFactories\HistoryControllerFactory::class,
+            OperatorControllers\Cases\UnlicensedCasesOperatorController::class      => OperatorControllerFactories\Cases\UnlicensedCasesOperatorControllerFactory::class,
+            OperatorControllers\Docs\OperatorDocsController::class                  => OperatorControllerFactories\Docs\OperatorDocsControllerFactory::class,
+            OperatorControllers\OperatorController::class                           => OperatorControllerFactories\OperatorControllerFactory::class,
+            ApplicationControllers\ApplicationController::class                     => ApplicationControllerFactories\ApplicationControllerFactory::class,
             ApplicationControllers\Docs\ApplicationDocsController::class => ApplicationControllerFactories\Docs\ApplicationDocsControllerFactory::class,
             ApplicationControllers\Fees\ApplicationFeesController::class => ApplicationControllerFactories\Fees\ApplicationFeesControllerFactory::class,
             ApplicationControllers\Processing\ApplicationProcessingOverviewController::class => ApplicationControllerFactories\Processing\ApplicationProcessingOverviewControllerFactory::class,
@@ -748,21 +753,22 @@ return array(
             ApplicationFurniture::class => ApplicationFurniture::class,
             LicenceFurniture::class => LicenceFurniture::class,
             OrganisationFurniture::class => OrganisationFurniture::class,
-            VariationFurniture::class => VariationFurniture::class,
-            BusRegFurniture::class => BusRegFurniture::class,
-            CasesFurniture::class => CasesFurniture::class,
-            SubmissionsFurniture::class => SubmissionsFurniture::class,
-            TransportManagerFurniture::class => TransportManagerFurniture::class,
-            IrhpApplicationFurniture::class => IrhpApplicationFurniture::class,
-            Olcs\Listener\RouteParam\Cases::class => Olcs\Listener\RouteParam\Cases::class,
-            LicenceListener::class => LicenceListener::class,
-            'Olcs\Listener\RouteParam\CaseMarker' => 'Olcs\Listener\RouteParam\CaseMarker',
-            RouteParam\Organisation::class => RouteParam\Organisation::class,
-            'Olcs\Navigation\RightHandNavigation' => 'Olcs\Navigation\RightHandNavigationFactory',
-            HeaderSearch::class => HeaderSearch::class,
+            VariationFurniture::class                                      => VariationFurniture::class,
+            BusRegFurniture::class                                         => BusRegFurniture::class,
+            CasesFurniture::class                                          => CasesFurniture::class,
+            SubmissionsFurniture::class                                    => SubmissionsFurniture::class,
+            TransportManagerFurniture::class                               => TransportManagerFurniture::class,
+            IrhpApplicationFurniture::class                                => IrhpApplicationFurniture::class,
+            Olcs\Listener\RouteParam\Cases::class                          => Olcs\Listener\RouteParam\Cases::class,
+            LicenceListener::class                                         => LicenceListener::class,
+            'Olcs\Listener\RouteParam\CaseMarker'                          => 'Olcs\Listener\RouteParam\CaseMarker',
+            RouteParam\Organisation::class                                 => RouteParam\Organisation::class,
+            RouteParam\Conversation::class                                 => RouteParam\Conversation::class,
+            'Olcs\Navigation\RightHandNavigation'                          => 'Olcs\Navigation\RightHandNavigationFactory',
+            HeaderSearch::class                                            => HeaderSearch::class,
             Olcs\Data\Mapper\BilateralApplicationValidationModifier::class =>
                 Olcs\Data\Mapper\BilateralApplicationValidationModifierFactory::class,
-            Olcs\Data\Mapper\IrhpApplication::class =>
+            Olcs\Data\Mapper\IrhpApplication::class                        =>
                 Olcs\Data\Mapper\IrhpApplicationFactory::class,
 
             Olcs\Service\Permits\Bilateral\ApplicationFormPopulator::class =>
@@ -871,6 +877,21 @@ return array(
             RouteParam\IrhpApplicationFurniture::class,
             RouteParam\LicenceFurniture::class,
             RouteParam\Licence::class,
+        ],
+        LicenceEnableDisableMessagingController::class => [
+            RouteParam\Conversation::class,
+        ],
+        ApplicationConversationListController::class => [
+            RouteParam\Conversation::class,
+        ],
+        LicenceConversationListController::class => [
+            RouteParam\Conversation::class,
+        ],
+        LicenceConversationMessagesController::class => [
+            RouteParam\Conversation::class,
+        ],
+        LicenceNewConversationController::class => [
+            RouteParam\Conversation::class,
         ],
     ],
     'search' => [
