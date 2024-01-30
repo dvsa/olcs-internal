@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dac98ac28473c8f8450915a99f6803e3",
+    "content-hash": "7f6462f1fe6665c8ee8450f7bd5f821b",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -4191,16 +4191,16 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "dev-fix-order-of-forms",
+            "version": "5.0.0-beta.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-common.git",
-                "reference": "532ae1970e032c7617f7026a4b52b8c2f6438125"
+                "reference": "f8d584e73ca7ead2a1cc767ffeba241e9fc8d65a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/532ae1970e032c7617f7026a4b52b8c2f6438125",
-                "reference": "532ae1970e032c7617f7026a4b52b8c2f6438125",
+                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/f8d584e73ca7ead2a1cc767ffeba241e9fc8d65a",
+                "reference": "f8d584e73ca7ead2a1cc767ffeba241e9fc8d65a",
                 "shasum": ""
             },
             "require": {
@@ -4258,9 +4258,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Common library for the OLCS Project",
             "support": {
-                "source": "https://github.com/dvsa/olcs-common/tree/fix-order-of-forms"
+                "source": "https://github.com/dvsa/olcs-common/tree/5.0.0-beta.5"
             },
-            "time": "2024-01-30T09:02:23+00:00"
+            "time": "2024-01-30T09:34:06+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -8132,9 +8132,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "olcs/olcs-common": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
