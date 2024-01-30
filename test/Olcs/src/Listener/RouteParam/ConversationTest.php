@@ -165,12 +165,12 @@ class ConversationTest extends TestCase
                ->andReturn($mockQueryService);
         $mockSl->shouldReceive('get')
                ->once()
-               ->with(HelperPluginManager::class)
+               ->with('ViewHelperManager')
                ->andReturn($mockHelperPluginManager);
 
         $mockHelperPluginManager->shouldReceive('get')
                                 ->once()
-                                ->with(Navigation::class)
+                                ->with('Navigation')
                                 ->andReturn($mockNavigation);
 
         $sut = new Conversation();
