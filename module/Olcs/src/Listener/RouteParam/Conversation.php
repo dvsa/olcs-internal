@@ -71,7 +71,7 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
     {
         $this->annotationBuilder = $container->get(AnnotationBuilder::class);
         $this->queryService = $container->get(QueryService::class);
-        $this->navigationPlugin = $container->get(HelperPluginManager::class)->get(Navigation::class);
+        $this->navigationPlugin = $container->get('ViewHelperManager')->get('Navigation');
 
         return $this;
     }
