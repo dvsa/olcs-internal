@@ -99,8 +99,8 @@ class OperatorController extends AbstractController implements OperatorControlle
     public function newApplicationAction()
     {
         /**
- * @var \Laminas\Http\Request $request
-*/
+        * @var \Laminas\Http\Request $request
+        */
         $request = $this->getRequest();
 
         if ($request->isPost()) {
@@ -112,8 +112,8 @@ class OperatorController extends AbstractController implements OperatorControlle
         $formHelper = $this->formHelper;
 
         /**
- * @var \Laminas\Form\FormInterface $form
-*/
+        * @var \Laminas\Form\FormInterface $form
+        */
         $form = $formHelper->createForm('NewApplication');
         $form->setData($data);
         $this->alterForm($form, $data);
@@ -159,8 +159,8 @@ class OperatorController extends AbstractController implements OperatorControlle
             $command = $this->transferAnnotationBuilder->createCommand($dto);
 
             /**
- * @var \Common\Service\Cqrs\Response $response
-*/
+            * @var \Common\Service\Cqrs\Response $response
+            */
             $response = $this->commandService->send($command);
 
             if ($response->isOk()) {
@@ -261,13 +261,13 @@ class OperatorController extends AbstractController implements OperatorControlle
      */
     public function mergeAction()
     {
+
         $organisationId = (int) $this->params()->fromRoute('organisation');
 
         $this->licenceDataService->setOrganisationId($organisationId);
-
         /**
- * @var \Laminas\Http\Request $request
-*/
+        * @var \Laminas\Http\Request $request
+        */
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = (array)$request->getPost();
@@ -280,14 +280,17 @@ class OperatorController extends AbstractController implements OperatorControlle
             $data = ['fromOperatorName' => $organisationData['name']];
         }
 
+
         $formHelper = $this->formHelper;
 
         /* @var $form \Common\Form\Form */
         $form = $formHelper->createForm('OperatorMerge');
         $form->setData($data);
 
+
         $formHelper->setFormActionFromRequest($form, $request);
         $form->get('toOperatorId')->setAttribute('data-lookup-url', $this->url()->fromRoute('operator-lookup'));
+
 
         if ($request->isPost() && $form->isValid()) {
             $formData = $form->getData();
@@ -313,6 +316,7 @@ class OperatorController extends AbstractController implements OperatorControlle
         }
 
         $this->scriptFactory->loadFile('operator-merge');
+
 
         $view = new ViewModel(['form' => $form]);
         $view->setTemplate('pages/form');
