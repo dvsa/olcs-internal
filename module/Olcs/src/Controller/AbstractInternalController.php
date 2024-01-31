@@ -344,7 +344,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
     }
 
     /**
-     * Add's an entity
+     * Adds an entity
      *
      * @return mixed|ViewModel
      */

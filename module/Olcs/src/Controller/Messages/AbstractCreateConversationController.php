@@ -35,6 +35,18 @@ class AbstractCreateConversationController extends AbstractInternalController im
         'addAction' => ['forms/message-categories']
     ];
 
+    protected $redirectConfig = [
+        'add' => [
+            'route' => 'licence/conversation/view',
+            'resultIdMap' => [
+                'conversation' => 'conversation'
+            ],
+            'params' => [ 'licence' => 7, 'conversation' => 1 ],
+            'options' => [],
+            'reUseParams' => true
+        ]
+    ];
+
     /**
      * Get left view
      *
