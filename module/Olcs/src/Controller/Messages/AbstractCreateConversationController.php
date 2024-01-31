@@ -25,6 +25,7 @@ class AbstractCreateConversationController extends AbstractInternalController im
     protected $createCommand = Create::class;
 
     protected $formClass = Conversation::class;
+
     protected $toggleConfig = [
         'default' => [
             FeatureToggle::MESSAGING
