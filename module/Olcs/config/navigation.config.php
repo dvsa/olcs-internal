@@ -931,6 +931,13 @@ $nav = [
                                     'route' => 'licence/conversation/disable',
                                     'class' => 'govuk-link--no-visited-state',
                                     'use_route_match' => true,
+                                ],
+                                [
+                                    'id' => 'conversation_list_enable_messaging',
+                                    'label' => 'Enable Messaging',
+                                    'route' => 'licence/conversation/enable',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
                                 ]
                             ],
                         ],
