@@ -40,9 +40,9 @@ class AbstractCreateConversationController extends AbstractInternalController im
         'add' => [
             'route' => 'licence/conversation/view',
             'resultIdMap' => [
-                'conversation' => 'conversation'
+                'conversation' => 'conversation',
             ],
-            'params' => [ 'licence' => 7, 'conversation' => 1 ],
+            'params' => [],
             'options' => [],
             'reUseParams' => true
         ]
