@@ -49,7 +49,6 @@ class Category extends AbstractListDataService
                 'isDocCategory' => (self::TYPE_IS_DOC === $this->catType ? 'Y' : null),
                 'isTaskCategory' => (self::TYPE_IS_TASK === $this->catType ? 'Y' : null),
                 'isOnlyWithItems' => ($this->isOnlyWithItems ? 'Y' : null),
-                'isMessagingCategory'  => (self::TYPE_IS_TASK === $this->catType ? 'Y' : null),
             ]
         );
 

@@ -104,11 +104,6 @@ class AbstractCreateConversationController extends AbstractInternalController im
         return $form;
     }
 
-    public function addAction()
-    {
-        return parent::addAction();
-    }
-
     public function onDispatch(MvcEvent $e)
     {
         if ($this->getRequest()->isPost()) {

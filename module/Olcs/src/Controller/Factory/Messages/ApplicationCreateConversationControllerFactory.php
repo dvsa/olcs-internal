@@ -14,7 +14,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Messages\ApplicationCreateConversationController;
 
-class ApplicationNewConversationControllerFactory implements FactoryInterface
+class ApplicationCreateConversationControllerFactory implements FactoryInterface
 {
     /**
      * @param  ContainerInterface $container
