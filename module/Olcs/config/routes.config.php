@@ -769,8 +769,8 @@ $routes = [
                             'route' => 'new[/]',
                             'verb' => 'GET',
                             'defaults' => [
-                                'controller' => Olcs\Controller\Messages\LicenceNewConversationController::class,
-                                'action' => 'index'
+                                'controller' => Olcs\Controller\Messages\LicenceCreateConversationController::class,
+                                'action' => 'add'
                             ],
                         ],
                         'may_terminate' => true,
@@ -2647,7 +2647,7 @@ $routes['lva-application']['child_routes'] = array_merge(
       'conversation' => [
             'type' => 'segment',
             'options' => [
-                'route' => 'conversation',
+                'route' => 'conversation[/]',
                 'verb' => 'GET',
                 'defaults' => [
                     'controller' => Olcs\Controller\Messages\ApplicationConversationListController::class,
@@ -2664,7 +2664,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'defaults' => [
                             'controller' =>  Olcs\Controller\Messages\LicenceConversationMessagesController::class,
                             'action' => 'index'
-                            ],
+                        ],
                     ],
                     'may_terminate' => true,
                 ],
@@ -2674,8 +2674,8 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => 'new[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' => Olcs\Controller\Messages\LicenceNewConversationController::class,
-                            'action' => 'index'
+                            'controller' => Olcs\Controller\Messages\ApplicationCreateConversationController::class,
+                            'action' => 'add'
                         ],
                     ],
                     'may_terminate' => true,

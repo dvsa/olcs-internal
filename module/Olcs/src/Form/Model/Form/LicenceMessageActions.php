@@ -22,6 +22,7 @@ class LicenceMessageActions
      * @Form\Type("Hidden")
      */
     public ?Hidden $id = null;
+
     /**
      * @Form\Attributes({"value": "end and archive conversation"})
      * @Form\Type("Hidden")

@@ -305,7 +305,8 @@ return array(
             Olcs\Controller\Messages\ApplicationConversationListController::class   => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationListController::class       => Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\LicenceEnableDisableMessagingControllerFactory::class,
-            Olcs\Controller\Messages\LicenceNewConversationController::class        => Olcs\Controller\Factory\Messages\LicenceNewConversationControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
+            Olcs\Controller\Messages\LicenceCreateConversationController::class     => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCloseConversationController::class      => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class                       => OperatorControllerFactories\OperatorFeesControllerFactory::class,
             OperatorControllers\OperatorProcessingTasksController::class            => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
@@ -711,6 +712,7 @@ return array(
             DataService\IrhpPermitPrintType::class => CommonDataService\AbstractDataServiceFactory::class,
             DataService\Licence::class => DataService\LicenceFactory::class,
             DataService\OperatingCentresForInspectionRequest::class => DataService\OperatingCentresForInspectionRequestFactory::class,
+            DataService\Organisation::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\PaymentType::class => CommonDataService\RefDataFactory::class,
             DataService\PresidingTc::class => CommonDataService\AbstractDataServiceFactory::class,
             DataService\Printer::class => CommonDataService\AbstractDataServiceFactory::class,
@@ -732,6 +734,7 @@ return array(
             DataService\UserListInternalExcludingLimitedReadOnlyUsers::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserListInternalExcludingLimitedReadOnlyUsersSorted::class => CommonDataService\AbstractListDataServiceFactory::class,
             DataService\UserWithName::class => CommonDataService\AbstractDataServiceFactory::class,
+            DataService\MessagingSubject::class => CommonDataService\AbstractListDataServiceFactory::class,
             CommonDataService\Search\Search::class => CommonDataService\Search\SearchFactory::class,
             ProcessingService\CreateVariationProcessingService::class => ProcessingService\CreateVariationProcessingServiceFactory::class,
 
@@ -962,6 +965,7 @@ return array(
             DataService\PublicInquiryDefinition::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\PublicInquiryReason::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\SubmissionLegislation::class => DataService\AbstractPublicInquiryDataFactory::class,
+            DataService\MessagingSubject::class => CommonDataService\AbstractListDataServiceFactory::class,
         ]
     ],
     'form_service_manager' => [
