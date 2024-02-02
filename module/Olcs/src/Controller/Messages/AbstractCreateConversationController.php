@@ -47,12 +47,7 @@ class AbstractCreateConversationController extends AbstractInternalController im
         ]
     ];
 
-    /**
-     * Get left view
-     *
-     * @return ViewModel
-     */
-    public function getLeftView()
+    public function getLeftView(): ViewModel
     {
         $view = new ViewModel();
         $view->setTemplate('sections/messages/partials/left');
