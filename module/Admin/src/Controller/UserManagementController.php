@@ -131,6 +131,17 @@ class UserManagementController extends AbstractInternalController implements Lef
      */
     public function indexAction()
     {
+        if ($this->getRequest()->isPost()) {
+            $action = $this->params()->fromPost('action');
+            $userId = $this->params()->fromPost('id');
+
+            $routeParams = ['action' => strtolower($action)];
+            if ($action == 'Edit' && $userId !== null) {
+                $routeParams['user'] = $userId;
+            }
+
+            return $this->redirect()->toRoute(null, $routeParams, ['code' => 303]);
+        }
         return $this->redirect()->toRoute('search', ['index' => 'user', 'action' => 'search'], ['code' => 303]);
     }
 
