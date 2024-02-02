@@ -68,10 +68,11 @@ use Olcs\Controller\Lva\Factory\Controller\Variation as LvaVariationControllerFa
 use Olcs\Controller\Lva\Licence as LvaLicenceControllers;
 use Olcs\Controller\Lva\Variation as LvaVariationControllers;
 use Olcs\Controller\Messages\ApplicationConversationListController;
+use Olcs\Controller\Messages\ApplicationCreateConversationController;
 use Olcs\Controller\Messages\LicenceConversationListController;
 use Olcs\Controller\Messages\LicenceConversationMessagesController;
+use Olcs\Controller\Messages\LicenceCreateConversationController;
 use Olcs\Controller\Messages\LicenceEnableDisableMessagingController;
-use Olcs\Controller\Messages\LicenceNewConversationController;
 use Olcs\Controller\Operator as OperatorControllers;
 use Olcs\Controller\Operator\HistoryController;
 use Olcs\Controller\Operator\OperatorBusinessDetailsController;
@@ -893,7 +894,10 @@ return array(
         LicenceConversationMessagesController::class => [
             RouteParam\Conversation::class,
         ],
-        LicenceNewConversationController::class => [
+        LicenceCreateConversationController::class => [
+            RouteParam\Conversation::class,
+        ],
+        ApplicationCreateConversationController::class => [
             RouteParam\Conversation::class,
         ],
     ],
