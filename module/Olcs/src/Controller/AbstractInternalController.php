@@ -766,6 +766,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
 
         if ($confirm instanceof ViewModel) {
             $this->placeholder()->setPlaceholder('pageTitle', $modalTitle);
+            $this->placeholder()->setPlaceholder('contentTitle', $modalTitle);
             return $this->viewBuilder()->buildView($confirm);
         }
 
@@ -970,7 +971,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
         parent::attachDefaultListeners();
 
         $listener = new CrudListener($this, $this->routeIdentifier, $this->crudConfig, $this->flashMessengerHelperService);
-        $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, [$listener, 'onDispatch']);
+        $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, [$listener, 'onDispatch'], 2);
 
         if (method_exists($this, 'setNavigationCurrentLocation')) {
             $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setNavigationCurrentLocation'), 6);

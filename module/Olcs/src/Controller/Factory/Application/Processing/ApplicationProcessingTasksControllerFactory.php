@@ -9,11 +9,11 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\Application\Processing\ApplicationProcessingTasksController;
 use Olcs\Service\Data\SubCategory;
+use Psr\Container\ContainerInterface;
 
 class ApplicationProcessingTasksControllerFactory implements FactoryInterface
 {
@@ -34,8 +34,8 @@ class ApplicationProcessingTasksControllerFactory implements FactoryInterface
         $complaintsHelper = $container->get(ComplaintsHelperService::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $router = $container->get('router');
-        $subCategoryDataService = $container->get(SubCategory::class);
-        $navigation = $container->get('Navigation');
+        $subCategoryDataService = $container->get(PluginManager::class)->get(SubCategory::class);
+        $navigation = $container->get('navigation');
 
         return new ApplicationProcessingTasksController(
             $scriptFactory,

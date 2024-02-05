@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Operator;
 
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
@@ -23,10 +24,10 @@ class OperatorLicencesApplicationsControllerFactory implements FactoryInterface
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('Navigation');
+        $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $operAppStatusService = $container->get(ApplicationStatus::class);
+        $operAppStatusService = $container->get(PluginManager::class)->get(ApplicationStatus::class);
         assert($operAppStatusService instanceof ApplicationStatus);
 
         return new OperatorLicencesApplicationsController(

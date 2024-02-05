@@ -2,17 +2,18 @@
 
 namespace Olcs\Controller\Factory\TransportManager;
 
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Controller\TransportManager\TransportManagerController;
 use Olcs\Controller\TransportManager\TransportManagerDocumentController;
 use Olcs\Service\Data\DocumentSubCategory;
+use Psr\Container\ContainerInterface;
 
 class TransportManagerDocumentControllerFactory implements FactoryInterface
 {
@@ -30,8 +31,8 @@ class TransportManagerDocumentControllerFactory implements FactoryInterface
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $translationHelper = $container->get(TranslationHelperService::class);
-        $navigation = $container->get('Navigation');
-        $docSubCategoryDataService = $container->get(DocumentSubCategory::class);
+        $navigation = $container->get('navigation');
+        $docSubCategoryDataService = $container->get(PluginManager::class)->get(DocumentSubCategory::class);
 
         return new TransportManagerDocumentController(
             $scriptFactory,

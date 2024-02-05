@@ -2,16 +2,17 @@
 
 namespace Admin\Controller;
 
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableFactory;
-use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 use Olcs\Service\Data\SubCategory;
 use Olcs\Service\Data\UserWithName;
+use Psr\Container\ContainerInterface;
 
 class TeamControllerFactory implements FactoryInterface
 {
@@ -26,7 +27,7 @@ class TeamControllerFactory implements FactoryInterface
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('Navigation');
+        $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
         $viewHelperManager = $container->get('ViewHelperManager');
@@ -35,10 +36,10 @@ class TeamControllerFactory implements FactoryInterface
         $tableFactory = $container->get(TableFactory::class);
         assert($tableFactory instanceof TableFactory);
 
-        $subCategory = $container->get(SubCategory::class);
+        $subCategory = $container->get(PluginManager::class)->get(SubCategory::class);
         assert($subCategory instanceof SubCategory);
 
-        $userWithNameService = $container->get(UserWithName::class);
+        $userWithNameService = $container->get(PluginManager::class)->get(UserWithName::class);
         assert($userWithNameService instanceof UserWithName);
 
         return new TeamController(

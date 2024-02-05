@@ -4,6 +4,7 @@ namespace Olcs\Controller\Factory\Operator;
 
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\DateHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -37,9 +38,9 @@ class OperatorBusinessDetailsControllerFactory implements FactoryInterface
         $transferAnnotationBuilder = $container->get(AnnotationBuilder::class);
         $commandService = $container->get(CommandService::class);
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
-        $licenceDataService = $container->get(Licence::class);
+        $licenceDataService = $container->get(PluginManager::class)->get(Licence::class);
         $queryService = $container->get(QueryService::class);
-        $navigation = $container->get('Navigation');
+        $navigation = $container->get('navigation');
         $translationHelper = $container->get(TranslationHelperService::class);
 
         return new OperatorBusinessDetailsController(

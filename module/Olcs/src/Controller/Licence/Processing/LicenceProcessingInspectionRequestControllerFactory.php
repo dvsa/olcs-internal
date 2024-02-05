@@ -3,6 +3,7 @@
 namespace Olcs\Controller\Licence\Processing;
 
 use Common\Service\Cqrs\Query\QueryService;
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
@@ -25,10 +26,10 @@ class LicenceProcessingInspectionRequestControllerFactory implements FactoryInte
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
         assert($flashMessenger instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('Navigation');
+        $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
-        $setUpOcListboxService = $container->get(OperatingCentresForInspectionRequest::class);
+        $setUpOcListboxService = $container->get(PluginManager::class)->get(OperatingCentresForInspectionRequest::class);
         assert($setUpOcListboxService instanceof OperatingCentresForInspectionRequest);
 
         $annotationBuilderService = $container->get(AnnotationBuilder::class);

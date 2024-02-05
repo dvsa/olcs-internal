@@ -54,7 +54,7 @@ class Organisation implements ListenerAggregateInterface, FactoryInterface
         $organisation = $this->getOrganisation($routeParam->getValue());
 
         /** @var AbstractContainer $navigationPlugin */
-        $navigationPlugin = $this->navigationPlugin->__invoke('navigation');
+        $navigationPlugin = $this->navigationPlugin;
 
         if ($organisation['isIrfo'] !== 'Y') {
             // hide IRFO navigation
@@ -122,7 +122,7 @@ class Organisation implements ListenerAggregateInterface, FactoryInterface
         $this->queryService = $container->get('QueryService');
         $this->sidebarNavigationService = $container->get('right-sidebar');
         $this->markerService = $container->get(\Olcs\Service\Marker\MarkerService::class);
-        $this->navigationPlugin = $container->get('ViewHelperManager')->get('Navigation');
+        $this->navigationPlugin = $container->get('navigation');
         return $this;
     }
 }

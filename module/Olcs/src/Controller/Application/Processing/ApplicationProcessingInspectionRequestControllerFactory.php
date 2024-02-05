@@ -3,14 +3,15 @@
 namespace Olcs\Controller\Application\Processing;
 
 use Common\Service\Cqrs\Query\CachingQueryService;
+use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder as TransferAnnotationBuilder;
-use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Service\Data\OperatingCentresForInspectionRequest;
+use Psr\Container\ContainerInterface;
 
 class ApplicationProcessingInspectionRequestControllerFactory implements FactoryInterface
 {
@@ -25,7 +26,7 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         assert($flashMessengerHelper instanceof FlashMessengerHelperService);
 
-        $navigation = $container->get('Navigation');
+        $navigation = $container->get('navigation');
         assert($navigation instanceof Navigation);
 
         $transferAnnotationBuilder = $container->get(TransferAnnotationBuilder::class);
@@ -34,7 +35,7 @@ class ApplicationProcessingInspectionRequestControllerFactory implements Factory
         $queryService = $container->get(CachingQueryService::class);
         assert($queryService instanceof CachingQueryService);
 
-        $operatingCentresForInspectionRequest = $container->get(OperatingCentresForInspectionRequest::class);
+        $operatingCentresForInspectionRequest = $container->get(PluginManager::class)->get(OperatingCentresForInspectionRequest::class);
 
         return new ApplicationProcessingInspectionRequestController(
             $translationHelper,
