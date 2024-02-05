@@ -14,6 +14,7 @@ use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Application\ApplicationController;
 use Olcs\Controller\Interfaces\LeftViewProvider;
+use Olcs\Controller\Interfaces\NavigationIdProvider;
 use Olcs\Data\Mapper\Task;
 use Olcs\Form\Model\Form\DisableConversations;
 use Olcs\Form\Model\Form\DisableConversationsPopup;
@@ -21,9 +22,9 @@ use Olcs\Form\Model\Form\EnableConversations;
 use Olcs\Form\Model\Form\EnableConversationsPopup;
 
 class LicenceEnableDisableMessagingController extends ApplicationController
-    implements LeftViewProvider, ToggleAwareInterface
+    implements LeftViewProvider, ToggleAwareInterface, NavigationIdProvider
 {
-    protected $navigationId = 'application_conversations';
+    protected $navigationId = 'licence';
     protected $toggleConfig = [
         'default' => [FeatureToggle::MESSAGING],
     ];
@@ -115,5 +116,10 @@ class LicenceEnableDisableMessagingController extends ApplicationController
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;
+    }
+
+    public function getNavigationId()
+    {
+        return $this->navigationId;
     }
 }
