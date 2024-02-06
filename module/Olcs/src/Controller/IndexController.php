@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller;
 
+use Common\FeatureToggle;
 use Common\RefData;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
@@ -10,6 +11,7 @@ use Common\Service\Table\TableFactory;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
+use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled as IsEnabledQry;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Traits\TaskSearchTrait;
 use Olcs\Service\Data\DocumentSubCategory;
@@ -137,6 +139,11 @@ class IndexController extends AbstractController implements LeftViewProvider
 
         $form = $this->getTaskForm($filters)
             ->remove('showTasks');
+
+        $messagingEnabled = $this->handleQuery(IsEnabledQry::create(['ids' => [FeatureToggle::MESSAGING]]))->getResult()['isEnabled'];
+        if (!$messagingEnabled) {
+            $form->remove('messaging');
+        }
 
         $left = new ViewModel(['form' => $form]);
         $left->setTemplate('sections/home/partials/left');
