@@ -11,7 +11,6 @@ use Common\Data\Object\Search\PsvDisc;
 use Common\Data\Object\Search\Publication;
 use Common\Data\Object\Search\User;
 use Common\Data\Object\Search\Vehicle;
-use Common\Form\Elements\Validators\TableRequiredValidator;
 use Common\Service\Data as CommonDataService;
 use Laminas\Cache\Service\StorageCacheAbstractServiceFactory;
 use Olcs\Auth;
@@ -42,6 +41,7 @@ use Olcs\Controller\Factory\Operator\OperatorBusinessDetailsControllerFactory;
 use Olcs\Controller\Factory\SearchControllerFactory;
 use Olcs\Controller\Factory\SplitScreenControllerFactory;
 use Olcs\Controller\Factory\TaskControllerFactory;
+use Olcs\Controller\Factory\TransportManager as TransportManagerControllerFactories;
 use Olcs\Controller\Factory\TransportManager\Details\TransportManagerDetailsPreviousHistoryControllerFactory;
 use Olcs\Controller\Factory\TransportManager\Processing\TransportManagerProcessingTaskControllerFactory;
 use Olcs\Controller\Factory\TransportManager\TransportManagerDocumentControllerFactory;
@@ -81,6 +81,7 @@ use Olcs\Controller\Sla\CaseDocumentSlaTargetDateController;
 use Olcs\Controller\Sla\LicenceDocumentSlaTargetDateController;
 use Olcs\Controller\TaskController;
 use Olcs\Controller\TransportManager as TmCntr;
+use Olcs\Controller\TransportManager as TransportManagerControllers;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailController;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsDetailControllerFactory;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsPreviousHistoryController;
@@ -124,8 +125,6 @@ use Olcs\Service\Processing as ProcessingService;
 use Olcs\View\Helper\SlaIndicator;
 use Olcs\View\Helper\SubmissionSectionMultipleTablesFactory;
 use Olcs\View\Helper\SubmissionSectionTableFactory;
-use Olcs\Controller\TransportManager as TransportManagerControllers;
-use Olcs\Controller\Factory\TransportManager as TransportManagerControllerFactories;
 
 return array(
     'router' => [
@@ -919,7 +918,6 @@ return array(
             DataService\PublicInquiryDefinition::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\PublicInquiryReason::class => DataService\AbstractPublicInquiryDataFactory::class,
             DataService\SubmissionLegislation::class => DataService\AbstractPublicInquiryDataFactory::class,
-            DataService\MessagingSubject::class => CommonDataService\AbstractListDataServiceFactory::class,
         ]
     ],
     'form_service_manager' => [
