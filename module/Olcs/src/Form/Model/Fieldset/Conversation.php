@@ -14,7 +14,7 @@ class Conversation
      * @Form\Attributes({"id":"subject","placeholder":""})
      * @Form\Options({
      *     "label": "messaging.create-conversation.subject",
-     *     "service_name": Common\Service\Data\MessagingSubject::class,
+     *     "service_name": "Olcs\Service\Data\MessagingSubject",
      *     "empty_option": "Please Select"
      * })
      * @Form\Type("DynamicSelect")
