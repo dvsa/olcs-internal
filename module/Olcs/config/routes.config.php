@@ -2644,7 +2644,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'print-receipt' => $feePrintReceiptRoute,
             )
         ),
-      'conversation' => [
+        'conversation' => [
             'type' => 'segment',
             'options' => [
                 'route' => 'conversation[/]',
@@ -2662,7 +2662,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => ':conversation[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' =>  Olcs\Controller\Messages\LicenceConversationMessagesController::class,
+                            'controller' =>  Olcs\Controller\Messages\ApplicationConversationMessagesController::class,
                             'action' => 'index'
                         ],
                     ],

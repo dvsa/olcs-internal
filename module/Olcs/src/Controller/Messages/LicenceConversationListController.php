@@ -26,7 +26,7 @@ class LicenceConversationListController extends AbstractInternalController imple
      */
     public function getLeftView()
     {
-        $view = new ViewModel();
+        $view = new ViewModel(['navigationId' => $this->navigationId]);
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;

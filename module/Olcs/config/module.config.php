@@ -69,6 +69,7 @@ use Olcs\Controller\Lva\Licence as LvaLicenceControllers;
 use Olcs\Controller\Lva\Variation as LvaVariationControllers;
 use Olcs\Controller\Messages\ApplicationConversationListController;
 use Olcs\Controller\Messages\ApplicationCreateConversationController;
+use Olcs\Controller\Messages\ApplicationConversationMessagesController;
 use Olcs\Controller\Messages\LicenceConversationListController;
 use Olcs\Controller\Messages\LicenceConversationMessagesController;
 use Olcs\Controller\Messages\LicenceCreateConversationController;
@@ -301,11 +302,12 @@ return array(
             LvaVariationControllers\VehiclesPsvController::class                    => LvaVariationControllerFactories\VehiclesPsvControllerFactory::class,
             LvaVariationControllers\WithdrawController::class                       => LvaVariationControllerFactories\WithdrawControllerFactory::class,
             Olcs\Controller\IndexController::class                                  => Olcs\Controller\Factory\IndexControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationConversationMessagesController::class => Olcs\Controller\Factory\Messages\ApplicationConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationMessagesController::class   => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\ApplicationConversationListController::class   => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationListController::class       => Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\LicenceEnableDisableMessagingControllerFactory::class,
-            Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\ApplicationCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCreateConversationController::class     => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCloseConversationController::class      => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class                       => OperatorControllerFactories\OperatorFeesControllerFactory::class,
@@ -843,6 +845,9 @@ return array(
             RouteParam\Conversation::class,
         ],
         LicenceConversationMessagesController::class => [
+            RouteParam\Conversation::class,
+        ],
+        ApplicationConversationMessagesController::class => [
             RouteParam\Conversation::class,
         ],
         LicenceCreateConversationController::class => [
