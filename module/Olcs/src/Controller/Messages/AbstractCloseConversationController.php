@@ -47,26 +47,26 @@ abstract class AbstractCloseConversationController extends AbstractController im
         $form = $this->getForm(CloseConversation::class);
         $form->get('id')->setValue($this->params()->fromRoute('conversation'));
 
-        if ($this->getRequest()->isPost()) {
-            $closeCommand = Close::create(['id' => $this->params()->fromRoute('conversation')]);
-            $response = $this->handleCommand($closeCommand);
+        if (!$this->getRequest()->isPost()) {
+            $view = new ViewModel(['form' => $form]);
+            $view->setTemplate('pages/form');
 
-            if ($response->isOk()) {
-                $this->flashMessengerHelperService->addSuccessMessage('conversation-closed-success');
-
-                return $this->getRedirect();
-            } else {
-                if ($response->isClientError()) {
-                    Task::mapFormErrors($response->getResult()['messages'], $form, $this->flashMessengerHelperService);
-                } else {
-                    $this->flashMessengerHelperService->addUnknownError();
-                }
-            }
+            return $this->renderView($view, 'End Conversation');
         }
 
-        $view = new ViewModel(['form' => $form]);
-        $view->setTemplate('pages/form');
+        $closeCommand = Close::create(['id' => $this->params()->fromRoute('conversation')]);
+        $response = $this->handleCommand($closeCommand);
 
-        return $this->renderView($view, 'End Conversation');
+        if ($response->isOk()) {
+            $this->flashMessengerHelperService->addSuccessMessage('conversation-closed-success');
+
+            return $this->getRedirect();
+        }
+
+        if ($response->isClientError()) {
+            Task::mapFormErrors($response->getResult()['messages'], $form, $this->flashMessengerHelperService);
+        } else {
+            $this->flashMessengerHelperService->addUnknownError();
+        }
     }
 }
