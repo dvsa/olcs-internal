@@ -13,6 +13,8 @@ use Common\Data\Object\Search\User;
 use Common\Data\Object\Search\Vehicle;
 use Common\Service\Data as CommonDataService;
 use Laminas\Cache\Service\StorageCacheAbstractServiceFactory;
+use Laminas\Http\Request;
+use Laminas\Router\RouteStackInterface;
 use Olcs\Auth;
 use Olcs\Controller\Application as ApplicationControllers;
 use Olcs\Controller\Application\ApplicationController;
@@ -682,7 +684,9 @@ return array(
             'Helper\ApplicationOverview' => HelperService\ApplicationOverviewHelperService::class,
             'Helper\LicenceOverview' => HelperService\LicenceOverviewHelperService::class,
             'Processing\CreateVariation' => ProcessingService\CreateVariationProcessingServiceFactory::class,
-            'LicenceListener' => LicenceListener::class
+            'LicenceListener' => LicenceListener::class,
+            RouteStackInterface::class => 'Router',
+            Request::class             => 'Request',
         ],
         'invokables' => [
             'ApplicationUtility' => 'Olcs\Service\Utility\ApplicationUtility',
