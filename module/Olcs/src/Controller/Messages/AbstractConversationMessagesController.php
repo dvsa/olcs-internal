@@ -12,6 +12,7 @@ use Laminas\Navigation\Navigation;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Dvsa\Olcs\Transfer\Query\Messaging\Messages\ByConversation;
+use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
@@ -24,7 +25,7 @@ use Dvsa\Olcs\Transfer\Command\Messaging\Message\Create as CreateMessageCommand;
 
 abstract class AbstractConversationMessagesController
     extends AbstractInternalController
-    implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface, NavigationIdProvider
+    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, NavigationIdProvider
 {
     protected $listDto = ByConversation::class;
     protected $topNavigationId = '';
@@ -94,7 +95,7 @@ abstract class AbstractConversationMessagesController
                     'conversation' => $this->params()->fromRoute('conversation'),
                     'action' => $this->params()->fromRoute('confirm'),
                 ];
-                $route = array_key_exists('application', $this->getEvent()->getRouteMatch()->getParams()) ? 'lva-application' : 'licence';
+                $route = $this->topNavigationId === 'application' ? 'lva-application' : 'licence';
                 return $this->redirect()->toRoute($route . '/conversation/close', $params);
             case 'reply':
                 return $this->parseReply($replyForm);
@@ -118,7 +119,7 @@ abstract class AbstractConversationMessagesController
 
         if ($response->isOk()) {
             $this->flashMessengerHelperService->addSuccessMessage('Reply submitted successfully');
-            $route = array_key_exists('application', $this->getEvent()->getRouteMatch()->getParams()) ? 'lva-application' : 'licence';
+            $route = $this->topNavigationId === 'application' ? 'lva-application' : 'licence';
             return $this->redirect()->toRoute($route . '/conversation/view', $this->params()->fromRoute());
         }
 

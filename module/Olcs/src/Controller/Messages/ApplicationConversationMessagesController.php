@@ -13,5 +13,5 @@ class ApplicationConversationMessagesController extends AbstractConversationMess
 
     protected $navigationId = 'application_conversations';
     protected $topNavigationId = 'application';
-    protected $listVars = ['lva_application', 'conversation'];
+    protected $listVars = ['lva-application', 'conversation'];
 }

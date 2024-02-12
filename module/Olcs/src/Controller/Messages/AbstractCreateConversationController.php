@@ -11,6 +11,7 @@ use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganis
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Olcs\Form\Model\Form\Conversation;
@@ -18,7 +19,7 @@ use RuntimeException;
 
 class AbstractCreateConversationController
     extends AbstractInternalController
-    implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
+    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
 {
     protected $mapperClass = DefaultMapper::class;
 
