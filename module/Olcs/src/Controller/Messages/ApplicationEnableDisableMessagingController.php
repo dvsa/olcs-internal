@@ -6,6 +6,7 @@ namespace Olcs\Controller\Messages;
 
 use Common\Exception\ResourceNotFoundException;
 use Dvsa\Olcs\Transfer\Query\Application\Application;
+use Exception;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 
@@ -36,7 +37,13 @@ class ApplicationEnableDisableMessagingController
     {
         $queryResponse = $this->handleQuery(Application::create(['id' => $this->params()->fromRoute('application')]));
         if (!$queryResponse->isOk()) {
-            throw new ResourceNotFoundException('Not found');
+            throw new Exception(
+                sprintf(
+                    'Unexpected error when querying application for organisation ID. Response: HTTP  %s :: %s',
+                    $queryResponse->getStatusCode(),
+                    $queryResponse->getBody(),
+                )
+            );
         }
         $queryResult = $queryResponse->getResult();
 

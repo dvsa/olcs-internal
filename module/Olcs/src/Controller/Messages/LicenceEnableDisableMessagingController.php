@@ -6,6 +6,7 @@ namespace Olcs\Controller\Messages;
 
 use Common\Exception\ResourceNotFoundException;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence;
+use Exception;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 
@@ -36,7 +37,13 @@ class LicenceEnableDisableMessagingController
     {
         $queryResponse = $this->handleQuery(Licence::create(['id' => $this->params()->fromRoute('licence')]));
         if (!$queryResponse->isOk()) {
-            throw new ResourceNotFoundException('Not found');
+            throw new Exception(
+                sprintf(
+                    'Unexpected error when querying licence for organisation ID. Response: HTTP  %s :: %s',
+                    $queryResponse->getStatusCode(),
+                    $queryResponse->getBody(),
+                )
+            );
         }
         $queryResult = $queryResponse->getResult();
 
