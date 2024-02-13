@@ -47,6 +47,7 @@ use Olcs\Controller\Factory\TransportManager as TransportManagerControllerFactor
 use Olcs\Controller\Factory\TransportManager\Details\TransportManagerDetailsPreviousHistoryControllerFactory;
 use Olcs\Controller\Factory\TransportManager\Processing\TransportManagerProcessingTaskControllerFactory;
 use Olcs\Controller\Factory\TransportManager\TransportManagerDocumentControllerFactory;
+use Olcs\Controller\Factory\Variation\VariationSchedule41ControllerFactory;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\BusRegControllerInterface;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
@@ -92,6 +93,7 @@ use Olcs\Controller\TransportManager\Details\TransportManagerDetailsPreviousHist
 use Olcs\Controller\TransportManager\Processing\TransportManagerProcessingTaskController;
 use Olcs\Controller\TransportManager\TransportManagerController;
 use Olcs\Controller\TransportManager\TransportManagerDocumentController;
+use Olcs\Controller\Variation\VariationSchedule41Controller;
 use Olcs\Form\Element\SearchDateRangeFieldsetFactory;
 use Olcs\Form\Element\SearchFilterFieldsetFactory;
 use Olcs\Form\Element\SubmissionSections;
@@ -442,6 +444,7 @@ return array(
             \Olcs\Controller\SplitScreenController::class => SplitScreenControllerFactory::class,
             TransportManagerDocumentController::class => TransportManagerDocumentControllerFactory::class,
             TransportManagerDetailsPreviousHistoryController::class => TransportManagerDetailsPreviousHistoryControllerFactory::class,
+            VariationSchedule41Controller::class => VariationSchedule41ControllerFactory::class,
         ],
         'aliases' => [
             'LvaApplication' => Olcs\Controller\Lva\Application\OverviewController::class,
@@ -577,12 +580,12 @@ return array(
             'LicenceReadHistoryController' => 'Olcs\Controller\Licence\Processing\ReadHistoryController',
             'TransportManagerHistoryController' => TmCntr\Processing\HistoryController::class,
             'TransportManagerReadHistoryController' => 'Olcs\Controller\TransportManager\Processing\ReadHistoryController',
-            'ApplicationHistoryController' => ApplicationControllers\Processing\HistoryController::class,//'Olcs\Controller\Application\Processing\HistoryController',
-            'ApplicationReadHistoryController' => ApplicationControllers\Processing\ReadHistoryController::class,//'Olcs\Controller\Application\Processing\ReadHistoryController',
-            'OperatorReadHistoryController' => OperatorControllers\Processing\ReadHistoryController::class,//'Olcs\Controller\Operator\Processing\ReadHistoryController',
+            'ApplicationHistoryController' => ApplicationControllers\Processing\HistoryController::class,
+            'ApplicationReadHistoryController' => ApplicationControllers\Processing\ReadHistoryController::class,
+            'OperatorReadHistoryController' => OperatorControllers\Processing\ReadHistoryController::class,
             'CaseDocumentSlaTargetDateController' => CaseDocumentSlaTargetDateController::class ,
             'LicenceDocumentSlaTargetDateController' => LicenceDocumentSlaTargetDateController::class,
-            'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController'
+            'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
         ]
     ),
     'controller_plugins' => array(
