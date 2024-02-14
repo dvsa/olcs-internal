@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Olcs\Controller\Messages;
 
 use Common\Exception\ResourceNotFoundException;
-use Dvsa\Olcs\Transfer\Query\Licence\Licence;
+use Dvsa\Olcs\Transfer\Query\Application\Application;
 use Exception;
 use Laminas\View\Model\ViewModel;
-use Olcs\Controller\Interfaces\LicenceControllerInterface;
+use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 
-class LicenceEnableDisableMessagingController
+class ApplicationEnableDisableMessagingController
     extends AbstractEnableDisableMessagingController
-    implements LicenceControllerInterface
+    implements ApplicationControllerInterface
 {
-    protected $navigationId = 'licence';
+    protected $navigationId = 'application';
 
     public function getLeftView(): ?ViewModel
     {
@@ -22,7 +22,7 @@ class LicenceEnableDisableMessagingController
             return null;
         }
 
-        $view = new ViewModel(['navigationId' => 'conversations']);
+        $view = new ViewModel(['navigationId' => 'application_conversations']);
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;
@@ -30,16 +30,16 @@ class LicenceEnableDisableMessagingController
 
     protected function getRoutePrefix(): string
     {
-        return 'licence';
+        return 'lva-application';
     }
 
     protected function getOrganisationId(): int
     {
-        $queryResponse = $this->handleQuery(Licence::create(['id' => $this->params()->fromRoute('licence')]));
+        $queryResponse = $this->handleQuery(Application::create(['id' => $this->params()->fromRoute('application')]));
         if (!$queryResponse->isOk()) {
             throw new Exception(
                 sprintf(
-                    'Unexpected error when querying licence for organisation ID. Response: HTTP  %s :: %s',
+                    'Unexpected error when querying application for organisation ID. Response: HTTP  %s :: %s',
                     $queryResponse->getStatusCode(),
                     $queryResponse->getBody(),
                 )
@@ -47,6 +47,6 @@ class LicenceEnableDisableMessagingController
         }
         $queryResult = $queryResponse->getResult();
 
-        return $queryResult['organisation']['id'];
+        return $queryResult['licence']['organisation']['id'];
     }
 }

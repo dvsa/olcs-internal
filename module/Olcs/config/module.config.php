@@ -13,6 +13,8 @@ use Common\Data\Object\Search\User;
 use Common\Data\Object\Search\Vehicle;
 use Common\Service\Data as CommonDataService;
 use Laminas\Cache\Service\StorageCacheAbstractServiceFactory;
+use Laminas\Http\Request;
+use Laminas\Router\RouteStackInterface;
 use Olcs\Auth;
 use Olcs\Controller\Application as ApplicationControllers;
 use Olcs\Controller\Application\ApplicationController;
@@ -70,6 +72,8 @@ use Olcs\Controller\Lva\Licence as LvaLicenceControllers;
 use Olcs\Controller\Lva\Variation as LvaVariationControllers;
 use Olcs\Controller\Messages\ApplicationConversationListController;
 use Olcs\Controller\Messages\ApplicationCreateConversationController;
+use Olcs\Controller\Messages\ApplicationConversationMessagesController;
+use Olcs\Controller\Messages\ApplicationEnableDisableMessagingController;
 use Olcs\Controller\Messages\LicenceConversationListController;
 use Olcs\Controller\Messages\LicenceConversationMessagesController;
 use Olcs\Controller\Messages\LicenceCreateConversationController;
@@ -303,12 +307,15 @@ return array(
             LvaVariationControllers\VehiclesPsvController::class                    => LvaVariationControllerFactories\VehiclesPsvControllerFactory::class,
             LvaVariationControllers\WithdrawController::class                       => LvaVariationControllerFactories\WithdrawControllerFactory::class,
             Olcs\Controller\IndexController::class                                  => Olcs\Controller\Factory\IndexControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationConversationMessagesController::class => Olcs\Controller\Factory\Messages\ApplicationConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationMessagesController::class   => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\ApplicationConversationListController::class   => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationListController::class       => Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\ApplicationEnableDisableMessagingControllerFactory::class,
             Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\LicenceEnableDisableMessagingControllerFactory::class,
-            Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\ApplicationCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCreateConversationController::class     => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
+            Olcs\Controller\Messages\ApplicationCloseConversationController::class  => Olcs\Controller\Factory\Messages\ApplicationCloseConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCloseConversationController::class      => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class                       => OperatorControllerFactories\OperatorFeesControllerFactory::class,
             OperatorControllers\OperatorProcessingTasksController::class            => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
@@ -680,7 +687,9 @@ return array(
             'Helper\ApplicationOverview' => HelperService\ApplicationOverviewHelperService::class,
             'Helper\LicenceOverview' => HelperService\LicenceOverviewHelperService::class,
             'Processing\CreateVariation' => ProcessingService\CreateVariationProcessingServiceFactory::class,
-            'LicenceListener' => LicenceListener::class
+            'LicenceListener' => LicenceListener::class,
+            RouteStackInterface::class => 'Router',
+            Request::class             => 'Request',
         ],
         'invokables' => [
             'ApplicationUtility' => 'Olcs\Service\Utility\ApplicationUtility',
@@ -836,6 +845,9 @@ return array(
             RouteParam\LicenceFurniture::class,
             RouteParam\Licence::class,
         ],
+        ApplicationEnableDisableMessagingController::class => [
+            RouteParam\Conversation::class,
+        ],
         LicenceEnableDisableMessagingController::class => [
             RouteParam\Conversation::class,
         ],
@@ -846,6 +858,9 @@ return array(
             RouteParam\Conversation::class,
         ],
         LicenceConversationMessagesController::class => [
+            RouteParam\Conversation::class,
+        ],
+        ApplicationConversationMessagesController::class => [
             RouteParam\Conversation::class,
         ],
         LicenceCreateConversationController::class => [

@@ -2644,7 +2644,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'print-receipt' => $feePrintReceiptRoute,
             )
         ),
-      'conversation' => [
+        'conversation' => [
             'type' => 'segment',
             'options' => [
                 'route' => 'conversation[/]',
@@ -2662,7 +2662,7 @@ $routes['lva-application']['child_routes'] = array_merge(
                         'route' => ':conversation[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' =>  Olcs\Controller\Messages\LicenceConversationMessagesController::class,
+                            'controller' =>  Olcs\Controller\Messages\ApplicationConversationMessagesController::class,
                             'action' => 'index'
                         ],
                     ],
@@ -2680,17 +2680,72 @@ $routes['lva-application']['child_routes'] = array_merge(
                     ],
                     'may_terminate' => true,
                 ],
+                'close' => [
+                    'type' => 'segment',
+                    'options' => [
+                        'route' => ':conversation/close[/]',
+                        'defaults' => [
+                            'controller' => Olcs\Controller\Messages\ApplicationCloseConversationController::class,
+                            'action' => 'confirm'
+                        ],
+                    ],
+                    'may_terminate' => true,
+                ],
                 'disable' => [
                     'type' => 'segment',
                     'options' => [
                         'route' => 'disable[/]',
                         'verb' => 'GET',
                         'defaults' => [
-                            'controller' => Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class,
-                            'action' => 'index'
-                        ],
+                            'controller' => Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class,
+                            'action' => 'index',
+                            'type' => 'disable',
+                        ]
                     ],
                     'may_terminate' => true,
+                    'child_routes' => [
+                        'popup' => [
+                            'type' => 'segment',
+                            'options' => [
+                                'route' => 'popup[/]',
+                                'verb' => 'POST',
+                                'defaults' => [
+                                    'controller' => Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class,
+                                    'action' => 'popup',
+                                    'type' => 'disable',
+                                ],
+                            ],
+                            'may_terminate' => true,
+                        ],
+                    ],
+                ],
+                'enable' => [
+                    'type' => 'segment',
+                    'options' => [
+                        'route' => 'enable[/]',
+                        'verb' => 'GET',
+                        'defaults' => [
+                            'controller' => Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class,
+                            'action' => 'index',
+                            'type' => 'enable',
+                        ]
+                    ],
+                    'may_terminate' => true,
+                    'child_routes' => [
+                        'popup' => [
+                            'type' => 'segment',
+                            'options' => [
+                                'route' => 'popup[/]',
+                                'verb' => 'POST',
+                                'defaults' => [
+                                    'controller' => Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class,
+                                    'action' => 'popup',
+                                    'type' => 'enable',
+                                ],
+                            ],
+                            'may_terminate' => true,
+                        ],
+                    ],
                 ],
             ],
         ],

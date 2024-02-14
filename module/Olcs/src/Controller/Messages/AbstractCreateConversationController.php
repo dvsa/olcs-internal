@@ -11,15 +11,16 @@ use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganis
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
+use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Olcs\Form\Model\Form\Conversation;
 use RuntimeException;
 
-class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider, LicenceControllerInterface, ToggleAwareInterface
+class AbstractCreateConversationController
+    extends AbstractInternalController
+    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
 {
-    protected $navigationId = 'licence_new_conversation';
-
     protected $mapperClass = DefaultMapper::class;
 
     protected $createCommand = Create::class;
@@ -36,20 +37,9 @@ class AbstractCreateConversationController extends AbstractInternalController im
         'addAction' => ['forms/message-categories']
     ];
 
-    protected $redirectConfig = [
-        'add' => [
-            'route' => 'licence/conversation/view',
-            'resultIdMap' => [
-                'conversation' => 'conversation',
-                'licence' => 'licence'
-            ],
-            'reUseParams' => true
-        ]
-    ];
-
     public function getLeftView(): ViewModel
     {
-        $view = new ViewModel();
+        $view = new ViewModel(['navigationId' => $this->navigationId]);
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;

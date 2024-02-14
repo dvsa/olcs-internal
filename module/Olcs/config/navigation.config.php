@@ -1410,9 +1410,16 @@ $nav = [
                             'use_route_match' => true,
                         ],
                         [
-                            'id' => 'conversation_list_disable_messaging',
+                            'id' => 'application_conversation_list_disable_messaging',
                             'label' => 'Disable Messaging',
                             'route' => 'lva-application/conversation/disable',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ],
+                        [
+                            'id' => 'application_conversation_list_enable_messaging',
+                            'label' => 'Enable Messaging',
+                            'route' => 'lva-application/conversation/enable',
                             'class' => 'govuk-link--no-visited-state',
                             'use_route_match' => true,
                         ]

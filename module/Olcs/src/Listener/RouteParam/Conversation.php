@@ -50,8 +50,10 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
 
         if ($isMessagingDisabled) {
             $navigationPlugin->findBy('id', 'conversation_list_disable_messaging')->setVisible(false);
+            $navigationPlugin->findBy('id', 'application_conversation_list_disable_messaging')->setVisible(false);
         } else {
             $navigationPlugin->findBy('id', 'conversation_list_enable_messaging')->setVisible(false);
+            $navigationPlugin->findBy('id', 'application_conversation_list_enable_messaging')->setVisible(false);
         }
     }
 

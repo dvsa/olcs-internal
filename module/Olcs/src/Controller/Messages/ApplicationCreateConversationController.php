@@ -1,10 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Olcs\Controller\Messages;
 
-use Olcs\Controller\Interfaces\LeftViewProvider;
-
-class ApplicationCreateConversationController extends AbstractCreateConversationController implements LeftViewProvider
+class ApplicationCreateConversationController extends AbstractCreateConversationController
 {
-    protected $navigationId = 'application_new_conversation';
+    protected $navigationId = 'application_conversations';
+
+    protected $redirectConfig = [
+        'add' => [
+            'route' => 'lva-application/conversation/view',
+            'resultIdMap' => [
+                'application' => 'application',
+                'conversation' => 'conversation',
+            ],
+            'reUseParams' => true
+        ]
+    ];
 }
