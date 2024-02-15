@@ -10,7 +10,9 @@ use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 
-class ApplicationConversationListController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
+class ApplicationConversationListController
+    extends AbstractInternalController
+    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface
 {
     protected $navigationId = 'application_conversations';
     protected $listVars = ['application'];

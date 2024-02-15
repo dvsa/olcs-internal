@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-class LicenceCreateConversationController extends AbstractCreateConversationController
+use Olcs\Controller\Interfaces\LicenceControllerInterface;
+
+class LicenceCreateConversationController
+    extends AbstractCreateConversationController
+    implements LicenceControllerInterface
 {
     protected $navigationId = 'conversations';
 
