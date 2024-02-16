@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c4085a8e23cc034697e0b3978b2984c",
+    "content-hash": "7f6462f1fe6665c8ee8450f7bd5f821b",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -4191,16 +4191,16 @@
         },
         {
             "name": "olcs/olcs-common",
-            "version": "dev-project/messaging",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-common.git",
-                "reference": "fb48f9b54dabffc992911e0b46e370d2e91a892b"
+                "reference": "73b1c0cf809b50138dd1f5b471905361f1cd868e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/fb48f9b54dabffc992911e0b46e370d2e91a892b",
-                "reference": "fb48f9b54dabffc992911e0b46e370d2e91a892b",
+                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/73b1c0cf809b50138dd1f5b471905361f1cd868e",
+                "reference": "73b1c0cf809b50138dd1f5b471905361f1cd868e",
                 "shasum": ""
             },
             "require": {
@@ -4223,7 +4223,7 @@
                 "laminas/laminas-validator": "^2.11",
                 "laminas/laminas-view": "^2.11",
                 "olcs/olcs-logging": "^5.0.0",
-                "olcs/olcs-transfer": "dev-project/messaging",
+                "olcs/olcs-transfer": "^5.0.0",
                 "olcs/olcs-utils": "^5.0",
                 "php": "^7.4"
             },
@@ -4258,9 +4258,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Common library for the OLCS Project",
             "support": {
-                "source": "https://github.com/dvsa/olcs-common/tree/project/messaging"
+                "source": "https://github.com/dvsa/olcs-common/tree/v5.1.1"
             },
-            "time": "2024-02-14T14:28:42+00:00"
+            "time": "2024-02-16T10:40:20+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -4316,16 +4316,16 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "dev-project/messaging",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-transfer.git",
-                "reference": "48253e03297ea382792f1ac5c7f84b9a5839c916"
+                "reference": "b1fe910e1dafbf495367d16fe1953cf1aa9f88b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-transfer/zipball/48253e03297ea382792f1ac5c7f84b9a5839c916",
-                "reference": "48253e03297ea382792f1ac5c7f84b9a5839c916",
+                "url": "https://api.github.com/repos/dvsa/olcs-transfer/zipball/b1fe910e1dafbf495367d16fe1953cf1aa9f88b6",
+                "reference": "b1fe910e1dafbf495367d16fe1953cf1aa9f88b6",
                 "shasum": ""
             },
             "require": {
@@ -4365,9 +4365,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "OLCS Transfer",
             "support": {
-                "source": "https://github.com/dvsa/olcs-transfer/tree/project/messaging"
+                "source": "https://github.com/dvsa/olcs-transfer/tree/v5.1.0"
             },
-            "time": "2024-02-09T14:53:43+00:00"
+            "time": "2024-02-16T10:21:39+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -8132,10 +8132,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "olcs/olcs-common": 20,
-        "olcs/olcs-transfer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -8145,5 +8142,5 @@
     "platform-overrides": {
         "ext-redis": "4.3"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
