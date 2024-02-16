@@ -35,8 +35,8 @@ class Conversation
      * @Form\Attributes({"class":"extra-long","id":""})
      * @Form\Options({"label":"Message"})
      * @Form\Type("TextArea")
-     * @Form\Filter({"name":"Laminas\Filter\StringTrim"})
-     * @Form\Validator({"name":"Laminas\Validator\StringLength","options":{"min":5,"max":1000}})
+     * @Form\Filter(\Laminas\Filter\StringTrim::class)
+     * @Form\Validator(\Laminas\Validator\StringLength::class, options={"min": 5, "max": 1000})
      */
     public $messageContent = null;
 
