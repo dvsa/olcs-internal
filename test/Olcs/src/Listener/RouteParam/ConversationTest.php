@@ -5,27 +5,21 @@ declare(strict_types=1);
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\Service\Cqrs\Query\CachingQueryService as QueryService;
-use Common\Service\Helper\UrlHelperService;
 use Dvsa\Olcs\Transfer\Query\QueryContainerInterface;
 use Dvsa\Olcs\Transfer\Query\Search\Licence;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
-use Interop\Container\ContainerInterface;
-use Laminas\EventManager\Event;
+use Psr\Container\ContainerInterface;
 use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Http\Response;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View\Helper\Navigation;
-use Laminas\View\HelperPluginManager;
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 use Olcs\Event\RouteParam;
 use Olcs\Listener\RouteParam\Conversation;
 use Mockery as m;
 use Olcs\Listener\RouteParams;
-use Common\RefData;
-use Laminas\View\Model\ViewModel;
-use Laminas\View\Helper\Url;
 
 class ConversationTest extends TestCase
 {

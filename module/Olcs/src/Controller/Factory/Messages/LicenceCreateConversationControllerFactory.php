@@ -5,18 +5,21 @@ namespace Olcs\Controller\Factory\Messages;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Messages\LicenceCreateConversationController;
-use Olcs\Service\Data\MessagingSubject;
+use Psr\Container\NotFoundExceptionInterface;
 
 class LicenceCreateConversationControllerFactory implements FactoryInterface
 {
     /**
-     * @param  ContainerInterface $container
-     * @param  $requestedName
-     * @param  array|null         $options
+     * @param ContainerInterface $container
+     * @param                    $requestedName
+     * @param array|null         $options
      * @return LicenceCreateConversationController
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): LicenceCreateConversationController
     {

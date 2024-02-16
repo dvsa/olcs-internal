@@ -5,7 +5,7 @@ namespace Olcs\Controller\Factory\Messages;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Messages\ApplicationConversationListController;
 
