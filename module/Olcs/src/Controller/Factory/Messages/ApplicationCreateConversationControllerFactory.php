@@ -5,13 +5,8 @@ namespace Olcs\Controller\Factory\Messages;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Common\Service\Script\ScriptFactory;
-use Common\Service\Table\TableFactory;
-use Laminas\Navigation\Navigation;
-use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\View\HelperPluginManager;
+use Psr\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Olcs\Controller\Messages\ApplicationCreateConversationController;
 
 class ApplicationCreateConversationControllerFactory implements FactoryInterface
@@ -40,17 +35,5 @@ class ApplicationCreateConversationControllerFactory implements FactoryInterface
             $flashMessenger,
             $navigation
         );
-    }
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return ApplicationCreateConversationController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator): ApplicationCreateConversationController
-    {
-        return $this->__invoke($serviceLocator, ApplicationCreateConversationController::class);
     }
 }
