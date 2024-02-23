@@ -82,7 +82,7 @@ return [
             'writers' => [
                 'full' => [
                     'options' => [
-                        'stream' => 'php://stdout'
+                        'stream' => (\Aws\Credentials\CredentialProvider::shouldUseEcs() ? 'php://stdout' : '/var/log/dvsa/olcs-iuweb/iuweb.log')
                     ],
                 ]
             ]
@@ -91,7 +91,7 @@ return [
             'writers' => [
                 'full' => [
                     'options' => [
-                        'stream' => 'php://stderr'
+                        'stream' => (\Aws\Credentials\CredentialProvider::shouldUseEcs() ? 'php://stderr' : '/var/log/dvsa/olcs-iuweb/iuweb.log')
                     ],
                 ]
             ]
@@ -135,22 +135,23 @@ return [
     ],
 
     'caches' => [
-        \Laminas\Cache\Storage\Adapter\Redis::class => [
-            'adapter' => [
-                'name' => 'redis',
-                'options' => [
-                    'server' => [
-                        'host' => '%redis_cache_fqdn%',
-                        'port' => 6379,
-                    ],
-                    'lib_options' => [
-                        \Redis::OPT_SERIALIZER => \Redis::SERIALIZER_IGBINARY
-                    ],
-                    'ttl' => 3600, //one hour, likely to be overridden based on use case
-                    'namespace' => 'zfcache',
+        'default-cache' => [
+            'adapter' => Laminas\Cache\Storage\Adapter\Redis::class,
+            'options' => [
+                'server' => [
+                    'host' => '%redis_cache_fqdn%',
+                    'port' => 6379,
                 ],
-                'plugins' => [
-                    'exception_handler' => [
+                'lib_options' => [
+                    \Redis::OPT_SERIALIZER => \Redis::SERIALIZER_IGBINARY
+                ],
+                'ttl' => 3600, //one hour, likely to be overridden based on use case
+                'namespace' => 'zfcache',
+            ],
+            'plugins' => [
+                [
+                    'name' => 'exception_handler',
+                    'options' => [
                         'throw_exceptions' => false,
                     ],
                 ],

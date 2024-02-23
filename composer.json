@@ -7,6 +7,7 @@
     }],
     "require": {
         "php": "^7.4",
+        "ext-redis": "*",
         "dvsa/laminas-config-cloud-parameters": "^0.2.0",
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-cache": "^3.0",
