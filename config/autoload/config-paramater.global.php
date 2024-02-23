@@ -14,7 +14,7 @@ $providers = [];
 if (!empty($environment)) {
     $providers = [
         SecretsManager::class => [
-            sprintf('DEVAPP%s-BASE-SM-APPLICATION-SELFSERVE', strtoupper($environment)),
+            sprintf('DEVAPP%s-BASE-SM-APPLICATION-INTERNAL', strtoupper($environment)),
         ],
         ParameterStore::class => [
             sprintf('/applicationparams/%s/', strtolower($environment)),
