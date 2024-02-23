@@ -1,7 +1,17 @@
 <?php
 
+$environment = getenv('ENVIRONMENT_NAME');
+
+// All this logic to do with environments should be part of parameter store instead.
+// But for now, it's not. So we have to do it here.
+$isProduction = strtoupper($environment) === 'APP';
+
 return [
-    // New Backend service
+    'version' => $isProduction ? null : [
+        'environment' => $environment,
+        'release' => (file_exists(__DIR__ . '/../version') ? file_get_contents(__DIR__ . '/../version') : ''),
+        'description' => '%domain%',
+    ],
     'api_router' => [
         'routes' => [
             'api' => [
