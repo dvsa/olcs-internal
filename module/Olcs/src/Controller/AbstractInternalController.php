@@ -7,6 +7,7 @@ use Common\Controller\Plugin\FeaturesEnabled as FeaturesEnabledPlugin;
 use Common\Controller\Plugin\Redirect;
 use Common\Data\Mapper\MapperInterface;
 use Common\Form\Form;
+use Common\RefData;
 use Common\Service\Cqrs\Exception\NotFoundException;
 use Common\Service\Cqrs\Response;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -14,6 +15,7 @@ use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
 use Common\Service\Table\TableBuilder;
 use Dvsa\Olcs\Transfer\Command\CommandInterface;
+use Dvsa\Olcs\Transfer\Query\Messaging\Messages\UnreadCountByLicenceAndRoles;
 use Dvsa\Olcs\Transfer\Query\QueryInterface;
 use Laminas\Http\Request;
 use Laminas\Http\Response as HttpResponse;
@@ -977,7 +979,35 @@ abstract class AbstractInternalController extends AbstractOlcsController
             $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setNavigationCurrentLocation'), 6);
         }
 
+//        if (method_exists($this, 'getUnreadConversationCountForLicence')) {
+//            $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'getUnreadConversationCountForLicence'));
+//        }
+
         $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'attachScripts'), -100);
+    }
+
+    final public function getUnreadConversationCountForLicence()
+    {
+        $response = $this->handleQuery(UnreadCountByLicenceAndRoles::create([
+            'licence' => 710,
+            'roles' => [
+                'system-admin', // TODO: Make CONST in RefData
+                RefData::ROLE_INTERNAL_ADMIN,
+                RefData::ROLE_INTERNAL_CASE_WORKER,
+                'internal-irhp-admin', // TODO: Make CONST in RefData
+                RefData::ROLE_INTERNAL_READ_ONLY,
+            ]
+        ]));
+
+        if ($response->isOk()) {
+            $count = $response->getResult()['count'];
+        } else {
+            $count = 'E';
+            Logger::err('Unable to get successful response from UnreadCountByLicenceAndRoles; defaulting to ER.');
+            // TODO: Expand on error; much detail as possible.
+        }
+
+        $this->navigation->findOneBy('id', 'conversations')->set('unreadLicenceConversationCount', $count);
     }
 
     /**

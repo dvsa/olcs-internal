@@ -8,6 +8,8 @@ use Common\RefData;
 use Common\Service\Data\Surrender;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled as IsEnabledQry;
+use Dvsa\Olcs\Transfer\Query\Messaging\Messages\UnreadCountByLicenceAndRoles;
+use Olcs\Logging\Log\Logger;
 use Psr\Container\ContainerInterface;
 use Laminas\EventManager\EventInterface;
 use Laminas\EventManager\EventManagerInterface;
@@ -155,12 +157,42 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
+    final public function getUnreadConversationCountForLicence(int $licence)
+    {
+        $query = $this->getAnnotationBuilderService()->createQuery(
+            UnreadCountByLicenceAndRoles::create([
+                'licence' => $licence,
+                'roles' => [
+                    'system-admin', // TODO: Make CONST in RefData
+                    RefData::ROLE_INTERNAL_ADMIN,
+                    RefData::ROLE_INTERNAL_CASE_WORKER,
+                    'internal-irhp-admin', // TODO: Make CONST in RefData
+                    RefData::ROLE_INTERNAL_READ_ONLY,
+                ]
+            ])
+        );
+
+        $response = $this->getQueryService()->send($query);
+
+        if ($response->isOk()) {
+            $count = $response->getResult()['count'];
+        } else {
+            $count = 'E';
+            Logger::err('Unable to get successful response from UnreadCountByLicenceAndRoles; defaulting to ER.');
+            // TODO: Expand on error; much detail as possible.
+        }
+
+        $this->mainNavigationService->findOneBy('id', 'conversations')->set('unreadLicenceConversationCount', $count);
+        $this->mainNavigationService->findOneBy('id', 'application_conversations')->set('unreadLicenceConversationCount', $count);
+    }
+
     public function onLicence(EventInterface $e)
     {
         $routeParam = $e->getTarget();
 
         $licenceId = $routeParam->getValue();
         $licence = $this->getLicenceMarkerData($licenceId);
+        $this->getUnreadConversationCountForLicence(710);
 
         $this->getMarkerService()->addData('licence', $licence);
         $this->getMarkerService()->addData('continuationDetail', $licence['continuationMarker']);
