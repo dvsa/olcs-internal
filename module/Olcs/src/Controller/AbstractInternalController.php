@@ -979,35 +979,7 @@ abstract class AbstractInternalController extends AbstractOlcsController
             $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setNavigationCurrentLocation'), 6);
         }
 
-//        if (method_exists($this, 'getUnreadConversationCountForLicence')) {
-//            $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'getUnreadConversationCountForLicence'));
-//        }
-
         $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'attachScripts'), -100);
-    }
-
-    final public function getUnreadConversationCountForLicence()
-    {
-        $response = $this->handleQuery(UnreadCountByLicenceAndRoles::create([
-            'licence' => 710,
-            'roles' => [
-                'system-admin', // TODO: Make CONST in RefData
-                RefData::ROLE_INTERNAL_ADMIN,
-                RefData::ROLE_INTERNAL_CASE_WORKER,
-                'internal-irhp-admin', // TODO: Make CONST in RefData
-                RefData::ROLE_INTERNAL_READ_ONLY,
-            ]
-        ]));
-
-        if ($response->isOk()) {
-            $count = $response->getResult()['count'];
-        } else {
-            $count = 'E';
-            Logger::err('Unable to get successful response from UnreadCountByLicenceAndRoles; defaulting to ER.');
-            // TODO: Expand on error; much detail as possible.
-        }
-
-        $this->navigation->findOneBy('id', 'conversations')->set('unreadLicenceConversationCount', $count);
     }
 
     /**
