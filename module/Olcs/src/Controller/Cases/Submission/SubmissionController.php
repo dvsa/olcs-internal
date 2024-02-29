@@ -3,6 +3,7 @@
 namespace Olcs\Controller\Cases\Submission;
 
 use Common\Controller\Traits\GenericUpload;
+use Common\Rbac\Traits\Permission;
 use Common\Service\Data\CategoryDataService;
 use Common\Service\Helper\FileUploadHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -19,11 +20,11 @@ use Dvsa\Olcs\Transfer\Command\Submission\StoreSubmissionSnapshot;
 use Dvsa\Olcs\Transfer\Command\Submission\UpdateSubmission as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\Submission\Submission as ItemDto;
 use Dvsa\Olcs\Transfer\Query\Submission\SubmissionList as ListDto;
-use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer as ViewRenderer;
+use LmcRbacMvc\Service\AuthorizationService;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\SubmissionControllerInterface;
 use Olcs\Data\Mapper\Submission as SubmissionMapper;
@@ -35,6 +36,7 @@ use Olcs\Service\Data\Submission;
 class SubmissionController extends AbstractInternalController implements SubmissionControllerInterface
 {
     use GenericUpload;
+    use Permission;
 
     /**
      * Holds the navigation ID,
@@ -200,12 +202,14 @@ class SubmissionController extends AbstractInternalController implements Submiss
         array $configHelper,
         ViewRenderer $viewRenderer,
         Submission $submissionDataService,
+        AuthorizationService $authService,
         FileUploadHelperService $uploadHelper
     ) {
         $this->urlHelper = $urlHelper;
         $this->configHelper = $configHelper;
         $this->viewRenderer = $viewRenderer;
         $this->submissionDataService = $submissionDataService;
+        $this->authService = $authService;
         $this->uploadHelper = $uploadHelper;
 
         parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
@@ -446,6 +450,7 @@ class SubmissionController extends AbstractInternalController implements Submiss
                 $this->placeholder()->setPlaceholder('submissionConfig', $submissionConfig['sections']);
                 $this->placeholder()->setPlaceholder('submission', $data);
                 $this->placeholder()->setPlaceholder('readonly', $readOnly);
+                $this->placeholder()->setPlaceholder('userReadOnly', $this->isInternalReadOnly());
             }
         }
     }
