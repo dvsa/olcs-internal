@@ -1,9 +1,9 @@
 <ul class="horizontal-navigation">
   <?php foreach ($this->container as $page): ?>
-    <?php if ($page->isVisible(TRUE) && $this->navigation()->accept($page, FALSE)): ?>
-      <li class="horizontal-navigation__item<?php if ($page->isActive(TRUE)) { ?> current<?php } ?>"
+    <?php if ($page->isVisible(true) && $this->navigation()->accept($page, false)): ?>
+      <li class="horizontal-navigation__item<?php if ($page->isActive(true)) { ?> current<?php } ?>"
           style="display: flex">
-        <?php if ($page->isActive(TRUE)): ?>
+        <?php if ($page->isActive(true)): ?>
           <span><?php echo $this->translate($page->getLabel()); ?></span>
         <?php else: ?>
           <?php echo $this->navigation()->menu()->htmlify($page) . PHP_EOL; ?>
@@ -11,11 +11,7 @@
         <?php if ($page->get('unreadLicenceConversationCount')): ?>
           <div
             class="notification-count"<?php if (!is_numeric($page->get('unreadLicenceConversationCount'))): ?> title="There was an error checking unread conversation count; you should manually check for any potentially missed messages."<?php endif; ?>>
-            <span class="notification-count__number">
-            <?php
-            echo $page->get('unreadLicenceConversationCount');
-            ?>
-            </span>
+            <span class="notification-count__number"><?php echo $page->get('unreadLicenceConversationCount'); ?></span>
           </div>
         <?php endif; ?>
       </li>
