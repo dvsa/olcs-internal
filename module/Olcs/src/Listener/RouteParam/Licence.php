@@ -158,6 +158,22 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         );
     }
 
+    /**
+     * Gets and applies the count to the 'Messages' navigation tab. This RouteParam is triggered from most other
+     * RouteParams (Application, Case, etc...).
+     *
+     * This has many checks and catches to prevent any errors from affecting the rest of internal as this code will
+     * be executed on most pages.
+     *
+     * As a result, errors will result in the counter dot appearing with a value of "E"; this is due to internal
+     * users may begin to rely on the visibility of the red counter dot appearing if there are new messages to be read
+     * and this ensures that they know that something is wrong, and that they should manually check.
+     *
+     * Any errors, although caught, displaying counter as "E" and moving on, will also result in a Logger::err().
+     *
+     * @param int $licence
+     * @return void
+     */
     final public function getUnreadConversationCountForLicence(int $licence)
     {
         $query = UnreadCountByLicenceAndRoles::create([
