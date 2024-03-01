@@ -2,6 +2,7 @@
 
 namespace Olcs\Controller\Cases\Submission;
 
+use Common\Rbac\Service\Permission;
 use Common\Service\Data\PluginManager;
 use Common\Service\Helper\FileUploadHelperService;
 use Common\Service\Helper\FlashMessengerHelperService;
@@ -11,7 +12,6 @@ use Common\Service\Helper\UrlHelperService;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\Renderer\PhpRenderer as ViewRenderer;
-use LmcRbacMvc\Service\AuthorizationService;
 use Olcs\Service\Data\Submission;
 use Psr\Container\ContainerInterface;
 
@@ -40,7 +40,7 @@ class SubmissionControllerFactory implements FactoryInterface
         assert($viewRenderer instanceof ViewRenderer);
 
         $submissionDataService = $container->get(PluginManager::class)->get(Submission::class);
-        $authService = $container->get(AuthorizationService::class);
+        $permissionService = $container->get(Permission::class);
         $uploadHelper = $container->get(FileUploadHelperService::class);
 
         return new SubmissionController(
@@ -52,7 +52,7 @@ class SubmissionControllerFactory implements FactoryInterface
             $configHelper,
             $viewRenderer,
             $submissionDataService,
-            $authService,
+            $permissionService,
             $uploadHelper
         );
     }
