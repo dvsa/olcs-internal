@@ -5,6 +5,7 @@ namespace Olcs\Listener\RouteParam;
 use Common\Exception\DataServiceException;
 use Common\FeatureToggle;
 use Common\RefData;
+use Common\Service\Cqrs\Response;
 use Common\Service\Data\Surrender;
 use Common\View\Helper\PluginManagerAwareTrait as ViewHelperManagerAwareTrait;
 use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled as IsEnabledQry;
@@ -159,27 +160,47 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
     final public function getUnreadConversationCountForLicence(int $licence)
     {
-        $query = $this->getAnnotationBuilderService()->createQuery(
-            UnreadCountByLicenceAndRoles::create([
-                'licence' => $licence,
-                'roles' => [
-                    'system-admin', // TODO: Make CONST in RefData
-                    RefData::ROLE_INTERNAL_ADMIN,
-                    RefData::ROLE_INTERNAL_CASE_WORKER,
-                    'internal-irhp-admin', // TODO: Make CONST in RefData
-                    RefData::ROLE_INTERNAL_READ_ONLY,
-                ]
-            ])
-        );
+        $query = UnreadCountByLicenceAndRoles::create([
+            'licence' => $licence,
+            'roles' => [
+                'system-admin', // TODO: Make CONST in RefData
+                RefData::ROLE_INTERNAL_ADMIN,
+                RefData::ROLE_INTERNAL_CASE_WORKER,
+                'internal-irhp-admin', // TODO: Make CONST in RefData
+                RefData::ROLE_INTERNAL_READ_ONLY,
+            ]
+        ]);
 
-        $response = $this->getQueryService()->send($query);
+        try {
+            /* @var Response $response */
+            $response = $this->getQueryService()->send($this->getAnnotationBuilderService()->createQuery($query));
 
-        if ($response->isOk()) {
+            if (!$response->isOk()) {
+                throw new \Exception(
+                    sprintf(
+                        'Received non-OK response: %s -- %s',
+                        $response->getStatusCode(),
+                        $response->getBody()
+                    )
+                );
+            }
             $count = $response->getResult()['count'];
-        } else {
+        } catch (\Exception $e) {
             $count = 'E';
-            Logger::err('Unable to get successful response from UnreadCountByLicenceAndRoles; defaulting to ER.');
-            // TODO: Expand on error; much detail as possible.
+            Logger::err(
+                'Unable to get getUnreadConversationCountForLicence as non-OK response from UnreadCountByLicenceAndRoles query; defaulting to E',
+                [
+                    'query' => [
+                        'class' => get_class($query),
+                        'data' => $query->getArrayCopy(),
+                    ],
+                    'exception' => [
+                        'class' => get_class($e),
+                        'message' => $e->getMessage(),
+                        'trace' => $e->getTraceAsString(),
+                    ],
+                ]
+            );
         }
 
         $this->mainNavigationService->findOneBy('id', 'conversations')->set('unreadLicenceConversationCount', $count);
@@ -192,7 +213,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
         $licenceId = $routeParam->getValue();
         $licence = $this->getLicenceMarkerData($licenceId);
-        $this->getUnreadConversationCountForLicence(710);
+        $this->getUnreadConversationCountForLicence($licenceId);
 
         $this->getMarkerService()->addData('licence', $licence);
         $this->getMarkerService()->addData('continuationDetail', $licence['continuationMarker']);
