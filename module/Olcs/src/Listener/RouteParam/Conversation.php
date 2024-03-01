@@ -110,6 +110,11 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
         return $this->navigationPlugin;
     }
 
+    public function getSideNavigationPlugin(): SideNavigation
+    {
+        return $this->sideNavigation;
+    }
+
     public function setAnnotationBuilder(AnnotationBuilder $annotationBuilder): void
     {
         $this->annotationBuilder = $annotationBuilder;
@@ -123,5 +128,10 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
     public function setNavigationPlugin(Navigation $navigationPlugin): void
     {
         $this->navigationPlugin = $navigationPlugin;
+    }
+
+    public function setSideNavigationPlugin(SideNavigation $navigationPlugin): void
+    {
+        $this->sideNavigation = $navigationPlugin;
     }
 }
