@@ -8,18 +8,13 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
-use Olcs\Controller\Messages\CaseCloseConversationController;
 use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
 
-class CaseCloseConversationControllerFactory implements FactoryInterface
+class CloseConversationControllerFactory implements FactoryInterface
 {
-    public function __invoke(
-        ContainerInterface $container,
-                           $requestedName,
-        ?array             $options = null
-    ): CaseCloseConversationController
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $scriptFactory = $container->get(ScriptFactory::class);
         $formHelper = $container->get(FormHelperService::class);
@@ -27,7 +22,7 @@ class CaseCloseConversationControllerFactory implements FactoryInterface
         $viewHelperManager = $container->get(HelperPluginManager::class);
         $flashMessengerHelperService = $container->get(FlashMessengerHelperService::class);
 
-        return new CaseCloseConversationController(
+        return new $requestedName(
             $scriptFactory,
             $formHelper,
             $tableFactory,

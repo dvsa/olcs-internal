@@ -19,15 +19,14 @@ use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
+use Olcs\Controller\Interfaces\MessagingControllerInterface;
 use Olcs\Controller\Interfaces\NavigationIdProvider;
 use Olcs\Form\Model\Form\LicenceMessageActions;
 use Olcs\Form\Model\Form\LicenceMessageReply;
 use Olcs\Mvc\Controller\ParameterProvider\GenericList;
 use Dvsa\Olcs\Transfer\Command\Messaging\Message\Create as CreateMessageCommand;
 
-abstract class AbstractConversationMessagesController
-    extends AbstractInternalController
-    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, NavigationIdProvider
+abstract class AbstractConversationMessagesController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, NavigationIdProvider, MessagingControllerInterface
 {
     protected $listDto = ByConversation::class;
     protected $topNavigationId = '';

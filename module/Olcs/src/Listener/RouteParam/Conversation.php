@@ -50,13 +50,15 @@ class Conversation implements ListenerAggregateInterface, FactoryInterface
         $navigationPlugin = $this->navigationPlugin->__invoke('navigation');
 
         if ($isMessagingDisabled) {
-            $navigationPlugin->findBy('id', 'conversation_list_disable_messaging')->setVisible(false);
-            $navigationPlugin->findBy('id', 'case_conversation_list_disable_messaging')->setVisible(false);
-            $navigationPlugin->findBy('id', 'application_conversation_list_disable_messaging')->setVisible(false);
+            array_map(
+                fn($page) => $page->setVisible(false),
+                $navigationPlugin->findBy('tag', 'conversation_list_disable_messaging', true),
+            );
         } else {
-            $navigationPlugin->findBy('id', 'conversation_list_enable_messaging')->setVisible(false);
-            $navigationPlugin->findBy('id', 'case_conversation_list_enable_messaging')->setVisible(false);
-            $navigationPlugin->findBy('id', 'application_conversation_list_enable_messaging')->setVisible(false);
+            array_map(
+                fn($page) => $page->setVisible(false),
+                $navigationPlugin->findBy('tag', 'conversation_list_enable_messaging', true),
+            );
             $this->showFileUploadButtons($licence);
         }
     }

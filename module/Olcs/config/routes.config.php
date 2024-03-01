@@ -1138,6 +1138,112 @@ $routes = [
                     ],
                 ],
             ],
+            'irhp-application-conversation' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => 'irhp-application/conversation[/]',
+                    'verb' => 'GET',
+                    'defaults' => [
+                        'controller' => Olcs\Controller\Messages\IrhpApplicationConversationListController::class,
+                        'action' => 'index',
+                        'type' => 'irhp-application',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => ':conversation[/]',
+                            'verb' => 'GET',
+                            'defaults' => [
+                                'controller' => Olcs\Controller\Messages\IrhpApplicationConversationMessagesController::class,
+                                'action' => 'index'
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    'new' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'new[/]',
+                            'verb' => 'GET',
+                            'defaults' => [
+                                'controller' => Olcs\Controller\Messages\IrhpApplicationCreateConversationController::class,
+                                'action' => 'add'
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    'close' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => ':conversation/close[/]',
+                            'defaults' => [
+                                'controller' => Olcs\Controller\Messages\IrhpApplicationCloseConversationController::class,
+                                'action' => 'confirm'
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    'disable' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'disable[/]',
+                            'verb' => 'GET',
+                            'defaults' => [
+                                'controller' => Olcs\Controller\Messages\IrhpApplicationEnableDisableMessagingController::class,
+                                'action' => 'index',
+                                'type' => 'disable',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'popup' => [
+                                'type' => 'segment',
+                                'options' => [
+                                    'route' => 'popup[/]',
+                                    'verb' => 'POST',
+                                    'defaults' => [
+                                        'controller' => Olcs\Controller\Messages\IrhpApplicationEnableDisableMessagingController::class,
+                                        'action' => 'popup',
+                                        'type' => 'disable',
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ],
+                    ],
+                    'enable' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => 'enable[/]',
+                            'verb' => 'GET',
+                            'defaults' => [
+                                'controller' => Olcs\Controller\Messages\IrhpApplicationEnableDisableMessagingController::class,
+                                'action' => 'index',
+                                'type' => 'enable',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'popup' => [
+                                'type' => 'segment',
+                                'options' => [
+                                    'route' => 'popup[/]',
+                                    'verb' => 'POST',
+                                    'defaults' => [
+                                        'controller' => Olcs\Controller\Messages\CaseEnableDisableMessagingController::class,
+                                        'action' => 'popup',
+                                        'type' => 'enable',
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'irhp-application-docs' => [
                 'type' => 'segment',
                 'options' => [

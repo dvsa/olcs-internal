@@ -10,12 +10,13 @@ use Dvsa\Olcs\Transfer\Query\Messaging\Conversations\ByLicence as ConversationsB
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Controller\Interfaces\CaseControllerInterface;
+use Olcs\Controller\Interfaces\IrhpApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\MessagingControllerInterface;
 
-class CaseConversationListController extends AbstractConversationListController implements CaseControllerInterface
+class IrhpApplicationConversationListController extends AbstractConversationListController implements IrhpApplicationControllerInterface
 {
-    protected $navigationId = 'case_conversations';
+    protected $navigationId = 'irhp_conversations';
     protected $listVars = ['licence'];
     protected $listDto = ConversationsByLicenceQuery::class;
 }

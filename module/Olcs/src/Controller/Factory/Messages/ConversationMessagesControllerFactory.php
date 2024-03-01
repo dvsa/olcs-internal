@@ -1,37 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Olcs\Controller\Factory\Messages;
 
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
-use Psr\Container\ContainerInterface;
+use Common\Service\Script\ScriptFactory;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Olcs\Controller\Messages\ApplicationConversationListController;
+use Olcs\Controller\Messages\AbstractConversationMessagesController;
+use Psr\Container\ContainerInterface;
 
-class ApplicationConversationListControllerFactory implements FactoryInterface
+class ConversationMessagesControllerFactory implements FactoryInterface
 {
-    /**
-     * @param  ContainerInterface $container
-     * @param  $requestedName
-     * @param  array|null         $options
-     * @return ApplicationConversationListController
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationConversationListController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $formHelper = $container->get(FormHelperService::class);
-
         $translationHelper = $container->get(TranslationHelperService::class);
-
         $flashMessenger = $container->get(FlashMessengerHelperService::class);
+        $scriptsFactory = $container->get(ScriptFactory::class);
 
         $navigation = $container->get('navigation');
 
-        return new ApplicationConversationListController(
+        return new $requestedName(
             $translationHelper,
             $formHelper,
             $flashMessenger,
-            $navigation
+            $navigation,
+            $scriptsFactory
         );
     }
 }
