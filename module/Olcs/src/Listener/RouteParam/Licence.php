@@ -174,7 +174,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
      * @param int $licence
      * @return void
      */
-    final public function getUnreadConversationCountForLicence(int $licence)
+    final public function fetchAndApplyUnreadConversationCountForLicenceToMessageTabs(int $licence): void
     {
         $query = UnreadCountByLicenceAndRoles::create([
             'licence' => $licence,
@@ -229,7 +229,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
         $licenceId = $routeParam->getValue();
         $licence = $this->getLicenceMarkerData($licenceId);
-        $this->getUnreadConversationCountForLicence($licenceId);
+        $this->fetchAndApplyUnreadConversationCountForLicenceToMessageTabs($licenceId);
 
         $this->getMarkerService()->addData('licence', $licence);
         $this->getMarkerService()->addData('continuationDetail', $licence['continuationMarker']);
