@@ -74,6 +74,10 @@ use Olcs\Controller\Messages\ApplicationConversationListController;
 use Olcs\Controller\Messages\ApplicationCreateConversationController;
 use Olcs\Controller\Messages\ApplicationConversationMessagesController;
 use Olcs\Controller\Messages\ApplicationEnableDisableMessagingController;
+use Olcs\Controller\Messages\CaseConversationListController;
+use Olcs\Controller\Messages\CaseConversationMessagesController;
+use Olcs\Controller\Messages\CaseCreateConversationController;
+use Olcs\Controller\Messages\CaseEnableDisableMessagingController;
 use Olcs\Controller\Messages\LicenceConversationListController;
 use Olcs\Controller\Messages\LicenceConversationMessagesController;
 use Olcs\Controller\Messages\LicenceCreateConversationController;
@@ -308,15 +312,20 @@ return array(
             LvaVariationControllers\WithdrawController::class                       => LvaVariationControllerFactories\WithdrawControllerFactory::class,
             Olcs\Controller\IndexController::class                                  => Olcs\Controller\Factory\IndexControllerFactory::class,
             Olcs\Controller\Messages\ApplicationConversationMessagesController::class => Olcs\Controller\Factory\Messages\ApplicationConversationMessagesControllerFactory::class,
+            Olcs\Controller\Messages\CaseConversationMessagesController::class   => Olcs\Controller\Factory\Messages\CaseConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationMessagesController::class   => Olcs\Controller\Factory\Messages\LicenceConversationMessagesControllerFactory::class,
             Olcs\Controller\Messages\ApplicationConversationListController::class   => Olcs\Controller\Factory\Messages\ApplicationConversationListControllerFactory::class,
+            Olcs\Controller\Messages\CaseConversationListController::class       => Olcs\Controller\Factory\Messages\CaseConversationListControllerFactory::class,
             Olcs\Controller\Messages\LicenceConversationListController::class       => Olcs\Controller\Factory\Messages\LicenceConversationListControllerFactory::class,
             Olcs\Controller\Messages\ApplicationEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\ApplicationEnableDisableMessagingControllerFactory::class,
+            Olcs\Controller\Messages\CaseEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\CaseEnableDisableMessagingControllerFactory::class,
             Olcs\Controller\Messages\EnableDisableFileUploadController::class => Olcs\Controller\Factory\Messages\EnableDisableFileUploadControllerFactory::class,
             Olcs\Controller\Messages\LicenceEnableDisableMessagingController::class => Olcs\Controller\Factory\Messages\LicenceEnableDisableMessagingControllerFactory::class,
             Olcs\Controller\Messages\ApplicationCreateConversationController::class => Olcs\Controller\Factory\Messages\ApplicationCreateConversationControllerFactory::class,
+            Olcs\Controller\Messages\CaseCreateConversationController::class     => Olcs\Controller\Factory\Messages\CaseCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCreateConversationController::class     => Olcs\Controller\Factory\Messages\LicenceCreateConversationControllerFactory::class,
             Olcs\Controller\Messages\ApplicationCloseConversationController::class  => Olcs\Controller\Factory\Messages\ApplicationCloseConversationControllerFactory::class,
+            Olcs\Controller\Messages\CaseCloseConversationController::class      => Olcs\Controller\Factory\Messages\CaseCloseConversationControllerFactory::class,
             Olcs\Controller\Messages\LicenceCloseConversationController::class      => Olcs\Controller\Factory\Messages\LicenceCloseConversationControllerFactory::class,
             OperatorControllers\OperatorFeesController::class                       => OperatorControllerFactories\OperatorFeesControllerFactory::class,
             OperatorControllers\OperatorProcessingTasksController::class            => OperatorControllerFactories\OperatorProcessingTasksControllerFactory::class,
@@ -849,10 +858,16 @@ return array(
         ApplicationEnableDisableMessagingController::class => [
             RouteParam\Conversation::class,
         ],
+        CaseEnableDisableMessagingController::class => [
+            RouteParam\Conversation::class,
+        ],
         LicenceEnableDisableMessagingController::class => [
             RouteParam\Conversation::class,
         ],
         ApplicationConversationListController::class => [
+            RouteParam\Conversation::class,
+        ],
+        CaseConversationListController::class => [
             RouteParam\Conversation::class,
         ],
         LicenceConversationListController::class => [
@@ -861,10 +876,16 @@ return array(
         LicenceConversationMessagesController::class => [
             RouteParam\Conversation::class,
         ],
+        CaseConversationMessagesController::class => [
+            RouteParam\Conversation::class,
+        ],
         ApplicationConversationMessagesController::class => [
             RouteParam\Conversation::class,
         ],
         LicenceCreateConversationController::class => [
+            RouteParam\Conversation::class,
+        ],
+        CaseCreateConversationController::class => [
             RouteParam\Conversation::class,
         ],
         ApplicationCreateConversationController::class => [

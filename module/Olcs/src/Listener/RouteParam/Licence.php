@@ -569,6 +569,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         if (!$isEnabled) {
             $sidebarNav->findById('conversations')->setVisible(0);
             $sidebarNav->findById('application_conversations')->setVisible(0);
+            $sidebarNav->findById('case_conversations')->setVisible(0);
         }
     }
 }

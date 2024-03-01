@@ -395,7 +395,46 @@ $nav = [
                             'use_route_match' => true,
                         ],
                     ]
-                ]
+                ],
+                [
+                    'id' => 'case_conversations',
+                    'label' => 'Messages',
+                    'route' => 'case_conversation',
+                    'class' => 'govuk-link--no-visited-state',
+                    'use_route_match' => true,
+                    'pages' => [
+                        [
+                            'id' => 'case_conversations_list',
+                            'label' => 'Messages',
+                            'route' => 'case_conversation',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+
+                        ],
+                        [
+                            'id' => 'case_new_conversation',
+                            'label' => 'New Conversation',
+                            'route' => 'case_conversation/new',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+
+                        ],
+                        [
+                            'id' => 'case_conversation_list_disable_messaging',
+                            'label' => 'Disable Messaging',
+                            'route' => 'case_conversation/disable',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ],
+                        [
+                            'id' => 'case_conversation_list_enable_messaging',
+                            'label' => 'Enable Messaging',
+                            'route' => 'case_conversation/enable',
+                            'class' => 'govuk-link--no-visited-state',
+                            'use_route_match' => true,
+                        ]
+                    ],
+                ],
             ],
         ],
         [

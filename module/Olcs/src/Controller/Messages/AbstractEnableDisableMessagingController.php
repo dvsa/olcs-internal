@@ -21,9 +21,7 @@ use Olcs\Form\Model\Form\DisableConversationsPopup;
 use Olcs\Form\Model\Form\EnableConversations;
 use Olcs\Form\Model\Form\EnableConversationsPopup;
 
-abstract class AbstractEnableDisableMessagingController
-    extends ApplicationController
-    implements LeftViewProvider, ToggleAwareInterface, NavigationIdProvider
+abstract class AbstractEnableDisableMessagingController extends ApplicationController implements LeftViewProvider, ToggleAwareInterface, NavigationIdProvider
 {
     protected $navigationId = 'conversations';
     protected $toggleConfig = [
@@ -41,7 +39,7 @@ abstract class AbstractEnableDisableMessagingController
 
         if ($this->getRequest()->isPost()) {
             return $this->redirect()->toRoute(
-                $this->getRoutePrefix() . '/conversation/' . $action . '/popup',
+                $this->getRoutePrefix() . '/' . $action . '/popup',
                 $this->params()->fromRoute(),
             );
         }
@@ -91,7 +89,7 @@ abstract class AbstractEnableDisableMessagingController
                 $this->flashMessengerHelper->addSuccessMessage($message);
 
                 return $this->redirect()->toRouteAjax(
-                    $this->getRoutePrefix() . '/conversation',
+                    $this->getRoutePrefix(),
                     $this->params()->fromRoute(),
                 );
             } elseif ($commandResponse->isClientError()) {

@@ -746,7 +746,8 @@ $routes = [
                     'verb' => 'GET',
                     'defaults' => [
                         'controller' => Olcs\Controller\Messages\LicenceConversationListController::class,
-                        'action' => 'index'
+                        'action' => 'index',
+                        'type' => 'licence',
                     ],
                 ],
                 'may_terminate' => true,
@@ -2684,7 +2685,8 @@ $routes['lva-application']['child_routes'] = array_merge(
                 'verb' => 'GET',
                 'defaults' => [
                     'controller' => Olcs\Controller\Messages\ApplicationConversationListController::class,
-                    'action' => 'index'
+                    'action' => 'index',
+                    'type' => 'application',
                 ],
             ],
             'may_terminate' => true,
