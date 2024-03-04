@@ -566,7 +566,7 @@ $routes = [
                     'defaults' => [
                         'controller' => Olcs\Controller\Messages\BusConversationListController::class,
                         'action' => 'index',
-                        'type' => 'case',
+                        'type' => 'busReg',
                     ],
                 ],
                 'may_terminate' => true,
