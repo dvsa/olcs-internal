@@ -6,11 +6,10 @@ use Common\Controller\Interfaces\ToggleAwareInterface;
 use Common\FeatureToggle;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
-use Olcs\Controller\Interfaces\ApplicationControllerInterface;
 use Olcs\Controller\Interfaces\LeftViewProvider;
 use Olcs\Controller\Interfaces\MessagingControllerInterface;
 
-abstract class AbstractConversationListController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, MessagingControllerInterface
+abstract class AbstractConversationListController extends AbstractInternalController implements LeftViewProvider, ToggleAwareInterface, MessagingControllerInterface
 {
     protected $tableName = 'conversations-list';
     protected $tableViewTemplate = 'pages/table';

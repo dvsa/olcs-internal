@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Olcs\Controller\Messages;
 
 use Common\Controller\Interfaces\ToggleAwareInterface;
-use Common\Exception\ResourceNotFoundException;
 use Common\FeatureToggle;
 use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Disable as DisableCommand;
 use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Enable as EnableCommand;
-use Dvsa\Olcs\Transfer\Query\Licence\Licence;
 use Laminas\Http\Response;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Application\ApplicationController;
