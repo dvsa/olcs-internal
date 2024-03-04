@@ -18,9 +18,7 @@ use Olcs\Controller\Interfaces\MessagingControllerInterface;
 use Olcs\Form\Model\Form\Conversation;
 use RuntimeException;
 
-class AbstractCreateConversationController
-    extends AbstractInternalController
-    implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, MessagingControllerInterface
+class AbstractCreateConversationController extends AbstractInternalController implements LeftViewProvider, ApplicationControllerInterface, ToggleAwareInterface, MessagingControllerInterface
 {
     protected $mapperClass = DefaultMapper::class;
 

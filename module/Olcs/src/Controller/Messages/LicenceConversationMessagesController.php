@@ -6,9 +6,7 @@ namespace Olcs\Controller\Messages;
 
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 
-class LicenceConversationMessagesController
-    extends AbstractConversationMessagesController
-    implements LicenceControllerInterface
+class LicenceConversationMessagesController extends AbstractConversationMessagesController implements LicenceControllerInterface
 {
     protected $navigationId = 'conversations';
     protected $topNavigationId = 'licence';
