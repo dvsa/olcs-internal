@@ -11,4 +11,9 @@ class LicenceConversationMessagesController extends AbstractConversationMessages
     protected $navigationId = 'conversations';
     protected $topNavigationId = 'licence';
     protected $listVars = ['licence', 'conversation'];
+
+    protected function getConversationViewRoute(): string
+    {
+        return 'licence/conversation/view';
+    }
 }

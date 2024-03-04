@@ -12,7 +12,7 @@ class BusCreateConversationController extends AbstractCreateConversationControll
 
     protected $redirectConfig = [
         'add' => [
-            'route' => 'bus_conversation/view',
+            'route' => 'licence/bus_conversation/view',
             'resultIdMap' => [
                 'bus' => 'bus',
                 'conversation' => 'conversation',

@@ -12,7 +12,7 @@ class IrhpApplicationCreateConversationController extends AbstractCreateConversa
 
     protected $redirectConfig = [
         'add' => [
-            'route' => 'irhp_conversations/view',
+            'route' => 'licence/irhp-application-conversation/view',
             'resultIdMap' => [
                 'conversation' => 'conversation',
                 'licence' => 'licence'

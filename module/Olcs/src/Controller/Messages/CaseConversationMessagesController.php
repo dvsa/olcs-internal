@@ -9,6 +9,11 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 class CaseConversationMessagesController extends AbstractConversationMessagesController implements CaseControllerInterface
 {
     protected $navigationId = 'case_conversations';
-    protected $topNavigationId = 'licence';
-    protected $listVars = ['licence', 'conversation'];
+    protected $topNavigationId = 'case';
+    protected $listVars = ['case', 'conversation'];
+
+    protected function getConversationViewRoute(): string
+    {
+        return 'case_conversation/view';
+    }
 }

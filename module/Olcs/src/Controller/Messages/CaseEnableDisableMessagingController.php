@@ -11,7 +11,7 @@ use Olcs\Controller\Interfaces\CaseControllerInterface;
 
 class CaseEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements CaseControllerInterface
 {
-    protected $navigationId = 'licence';
+    protected $navigationId = 'case';
 
     public function getLeftView(): ?ViewModel
     {

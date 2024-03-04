@@ -40,7 +40,7 @@ return [
     'case_conversation' => [
         'type' => 'segment',
         'options' => [
-            'route' => '/case/:case/licence/:licence/conversation[/]',
+            'route' => '/case/:case/conversation[/]',
             'verb' => 'GET',
             'defaults' => [
                 'controller' => Olcs\Controller\Messages\CaseConversationListController::class,

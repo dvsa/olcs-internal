@@ -8,6 +8,7 @@ use Common\FeatureToggle;
 use Dvsa\Olcs\Transfer\Command\Messaging\Conversation\Create;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByApplicationToOrganisation;
 use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByLicenceToOrganisation;
+use Dvsa\Olcs\Transfer\Query\Messaging\ApplicationLicenceList\ByCaseToOrganisation;
 use Laminas\Mvc\MvcEvent;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\AbstractInternalController;
@@ -55,6 +56,11 @@ class AbstractCreateConversationController extends AbstractInternalController im
             $applicationId = $this->params()->fromRoute('application');
             $data = $this->handleQuery(
                 ByApplicationToOrganisation::create(['application' => $applicationId])
+            );
+        } elseif ($this->params()->fromRoute('case')) {
+            $caseId = $this->params()->fromRoute('case');
+            $data = $this->handleQuery(
+                ByCaseToOrganisation::create(['case' => $caseId])
             );
         } else {
             throw new RuntimeException('Error: licence or application required');

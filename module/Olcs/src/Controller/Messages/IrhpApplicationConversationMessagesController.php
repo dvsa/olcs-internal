@@ -12,4 +12,9 @@ class IrhpApplicationConversationMessagesController extends AbstractConversation
     protected $navigationId = 'irhp_conversations';
     protected $topNavigationId = 'licence';
     protected $listVars = ['licence', 'conversation'];
+
+    protected function getConversationViewRoute(): string
+    {
+        return 'licence/irhp-application-conversation/view';
+    }
 }

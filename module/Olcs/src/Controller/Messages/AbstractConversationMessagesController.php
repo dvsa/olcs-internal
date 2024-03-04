@@ -52,6 +52,8 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
         $this->scriptFactory = $scriptFactory;
     }
 
+    abstract protected function getConversationViewRoute(): string;
+
     /**
      * @inheritDoc
      */
@@ -121,8 +123,7 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
 
         if ($response->isOk()) {
             $this->flashMessengerHelperService->addSuccessMessage('Reply submitted successfully');
-            $route = $this->topNavigationId === 'application' ? 'lva-application' : 'licence';
-            return $this->redirect()->toRoute($route . '/conversation/view', $this->params()->fromRoute());
+            return $this->redirect()->toRoute($this->getConversationViewRoute(), $this->params()->fromRoute());
         }
 
         $this->handleErrors($response->getResult());
