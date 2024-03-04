@@ -654,6 +654,47 @@ $nav = [
                                         ],
                                     ]
                                 ],
+                                [
+                                    'id' => 'bus_conversations',
+                                    'label' => 'Messages',
+                                    'route' => 'licence/bus_conversation',
+                                    'class' => 'govuk-link--no-visited-state',
+                                    'use_route_match' => true,
+                                    'pages' => [
+                                        [
+                                            'id' => 'bus_conversations_list',
+                                            'label' => 'Messages',
+                                            'route' => 'licence/bus_conversation',
+                                            'class' => 'govuk-link--no-visited-state',
+                                            'use_route_match' => true,
+
+                                        ],
+                                        [
+                                            'id' => 'bus_new_conversation',
+                                            'label' => 'New Conversation',
+                                            'route' => 'licence/bus_conversation/new',
+                                            'class' => 'govuk-link--no-visited-state',
+                                            'use_route_match' => true,
+
+                                        ],
+                                        [
+                                            'id' => 'bus_conversation_list_disable_messaging',
+                                            'label' => 'Disable Messaging',
+                                            'route' => 'licence/bus_conversation/disable',
+                                            'tag' => 'conversation_list_disable_messaging',
+                                            'class' => 'govuk-link--no-visited-state',
+                                            'use_route_match' => true,
+                                        ],
+                                        [
+                                            'id' => 'bus_conversation_list_enable_messaging',
+                                            'label' => 'Enable Messaging',
+                                            'route' => 'licence/bus_conversation/enable',
+                                            'tag' => 'conversation_list_enable_messaging',
+                                            'class' => 'govuk-link--no-visited-state',
+                                            'use_route_match' => true,
+                                        ]
+                                    ],
+                                ],
                             ]
                         ],
                         [
