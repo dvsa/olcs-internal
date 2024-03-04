@@ -953,10 +953,10 @@ class LicenceTest extends TestCase
                     $this->assertSame([
                         'licence' => $licenceId,
                         'roles' => [
-                            'system-admin', // TODO: Make CONST in RefData
+                            RefData::ROLE_SYSTEM_ADMIN,
                             RefData::ROLE_INTERNAL_ADMIN,
                             RefData::ROLE_INTERNAL_CASE_WORKER,
-                            'internal-irhp-admin', // TODO: Make CONST in RefData
+                            RefData::ROLE_INTERNAL_IRHP_ADMIN,
                             RefData::ROLE_INTERNAL_READ_ONLY,
                         ],
                     ], $dto->getArrayCopy());
