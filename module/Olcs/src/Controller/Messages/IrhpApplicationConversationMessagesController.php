@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-use Olcs\Controller\Interfaces\CaseControllerInterface;
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\IrhpApplicationControllerInterface;
 
 class IrhpApplicationConversationMessagesController extends AbstractConversationMessagesController implements IrhpApplicationControllerInterface
 {
     protected $navigationId = 'irhp_conversations';
-    protected $topNavigationId = 'licence';
+    protected $topNavigationId = 'licence_irhp_permits-application';
     protected $listVars = ['licence', 'conversation'];
 
     protected function getConversationViewRoute(): string

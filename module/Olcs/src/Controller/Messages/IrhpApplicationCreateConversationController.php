@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
+use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\IrhpApplicationControllerInterface;
 
 class IrhpApplicationCreateConversationController extends AbstractCreateConversationController implements IrhpApplicationControllerInterface
 {
-    protected $navigationId = 'irhp_conversations';
+    protected $navigationId = 'licence_irhp_permits-application';
 
     protected $redirectConfig = [
         'add' => [
@@ -20,4 +21,12 @@ class IrhpApplicationCreateConversationController extends AbstractCreateConversa
             'reUseParams' => true
         ]
     ];
+
+    public function getLeftView(): ViewModel
+    {
+        $view = new ViewModel(['navigationId' => 'irhp_conversations']);
+        $view->setTemplate('sections/messages/partials/left');
+
+        return $view;
+    }
 }

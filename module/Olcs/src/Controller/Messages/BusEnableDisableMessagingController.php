@@ -11,7 +11,7 @@ use Olcs\Controller\Interfaces\BusRegControllerInterface;
 
 class BusEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements BusRegControllerInterface
 {
-    protected $navigationId = 'licence';
+    protected $navigationId = 'licence_bus';
 
     public function getLeftView(): ?ViewModel
     {

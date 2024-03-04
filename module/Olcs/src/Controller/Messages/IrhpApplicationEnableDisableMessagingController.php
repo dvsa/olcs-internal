@@ -11,7 +11,7 @@ use Olcs\Controller\Interfaces\IrhpApplicationControllerInterface;
 
 class IrhpApplicationEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements IrhpApplicationControllerInterface
 {
-    protected $navigationId = 'licence';
+    protected $navigationId = 'licence_irhp_permits-application';
 
     public function getLeftView(): ?ViewModel
     {
