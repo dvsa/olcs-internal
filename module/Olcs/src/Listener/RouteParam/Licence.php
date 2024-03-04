@@ -174,10 +174,10 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
      * @param int $licence
      * @return void
      */
-    final public function fetchAndApplyUnreadConversationCountForLicenceToMessageTabs(int $licence): void
+    final public function fetchAndApplyUnreadConversationCountForLicenceToMessageTabs(int $licenceId, Navigation $navigationService): void
     {
         $query = UnreadCountByLicenceAndRoles::create([
-            'licence' => $licence,
+            'licence' => $licenceId,
             'roles' => [
                 'system-admin', // TODO: Make CONST in RefData
                 RefData::ROLE_INTERNAL_ADMIN,
@@ -219,8 +219,8 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
             );
         }
 
-        $this->mainNavigationService->findOneBy('id', 'conversations')->set('unreadLicenceConversationCount', $count);
-        $this->mainNavigationService->findOneBy('id', 'application_conversations')->set('unreadLicenceConversationCount', $count);
+        $navigationService->findById('conversations')->set('unreadLicenceConversationCount', $count);
+        $navigationService->findById('application_conversations')->set('unreadLicenceConversationCount', $count);
     }
 
     public function onLicence(EventInterface $e)
@@ -229,7 +229,6 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
         $licenceId = $routeParam->getValue();
         $licence = $this->getLicenceMarkerData($licenceId);
-        $this->fetchAndApplyUnreadConversationCountForLicenceToMessageTabs($licenceId);
 
         $this->getMarkerService()->addData('licence', $licence);
         $this->getMarkerService()->addData('continuationDetail', $licence['continuationMarker']);
@@ -255,7 +254,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         $licenceCategoryId = $licence['goodsOrPsv']['id'] ?? null;
         $navigationService = $this->getMainNavigationService();
 
-        $this->handleMessagingTabVisibility($licence, $navigationService);
+        $this->handleMessagingTabVisibility($licenceId, $navigationService);
 
         if ($licenceCategoryId === RefData::LICENCE_CATEGORY_GOODS_VEHICLE) {
             $navigationService->findOneById('licence_bus')->setVisible(0);
@@ -628,16 +627,21 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
         return $this;
     }
 
-    private function handleMessagingTabVisibility($licence, $sidebarNav)
+    private function handleMessagingTabVisibility(int $licenceId, Navigation $navigationService): void
+    {
+        if ($this->isMessagingFeatureToggleEnabled()) {
+            $this->fetchAndApplyUnreadConversationCountForLicenceToMessageTabs($licenceId, $navigationService);
+        } else {
+            $navigationService->findById('conversations')->setVisible(0);
+            $navigationService->findById('application_conversations')->setVisible(0);
+        }
+    }
+
+    private function isMessagingFeatureToggleEnabled(): bool
     {
         $query = $this->getAnnotationBuilderService()->createQuery(
             IsEnabledQry::create(['ids' => [FeatureToggle::MESSAGING]])
         );
-        $isEnabled = $this->getQueryService()->send($query)->getResult()['isEnabled'];
-
-        if (!$isEnabled) {
-            $sidebarNav->findById('conversations')->setVisible(0);
-            $sidebarNav->findById('application_conversations')->setVisible(0);
-        }
+        return (bool)$this->getQueryService()->send($query)->getResult()['isEnabled'];
     }
 }
