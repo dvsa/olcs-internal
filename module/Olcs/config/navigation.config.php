@@ -398,6 +398,8 @@ $nav = [
                 ],
                 [
                     'id' => 'case_conversations',
+                    'tag' => 'messaging-menu',
+                    'visible' => false,
                     'label' => 'Messages',
                     'route' => 'case_conversation',
                     'class' => 'govuk-link--no-visited-state',
@@ -656,6 +658,8 @@ $nav = [
                                 ],
                                 [
                                     'id' => 'bus_conversations',
+                                    'tag' => 'messaging-menu',
+                                    'visible' => false,
                                     'label' => 'Messages',
                                     'route' => 'licence/bus_conversation',
                                     'class' => 'govuk-link--no-visited-state',
@@ -865,6 +869,8 @@ $nav = [
                                         ],
                                         [
                                             'id' => 'irhp_conversations',
+                                            'tag' => 'messaging-menu',
+                                            'visible' => false,
                                             'label' => 'Messages',
                                             'route' => 'licence/irhp-application-conversation',
                                             'class' => 'govuk-link--no-visited-state',
@@ -1025,6 +1031,8 @@ $nav = [
                         ],
                         [
                             'id' => 'conversations',
+                            'tag' => 'messaging-menu',
+                            'visible' => false,
                             'label' => 'Messages',
                             'route' => 'licence/conversation',
                             'class' => 'govuk-link--no-visited-state',
@@ -1513,6 +1521,8 @@ $nav = [
                 ],
                 [
                     'id' => 'application_conversations',
+                    'tag' => 'messaging-menu',
+                    'visible' => false,
                     'label' => 'Messages',
                     'route' => 'lva-application/conversation',
                     'class' => 'govuk-link--no-visited-state',
