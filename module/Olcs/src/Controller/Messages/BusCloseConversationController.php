@@ -11,7 +11,7 @@ class BusCloseConversationController extends AbstractCloseConversationController
     protected function getRedirect(): Response
     {
         $params = [
-            'bus' => $this->params()->fromRoute('bus'),
+            'busRegId' => $this->params()->fromRoute('busRegId'),
             'licence' => $this->params()->fromRoute('licence'),
             'action'  => 'close',
 
