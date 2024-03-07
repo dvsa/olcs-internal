@@ -15,6 +15,6 @@ class IrhpApplicationCloseConversationController extends AbstractCloseConversati
             'action'  => 'close',
 
         ];
-        return $this->redirect()->toRouteAjax('licence/irhp_conversations', $params);
+        return $this->redirect()->toRouteAjax('licence/irhp-application-conversation', $params);
     }
 }
