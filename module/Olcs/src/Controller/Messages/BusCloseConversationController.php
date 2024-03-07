@@ -16,6 +16,6 @@ class BusCloseConversationController extends AbstractCloseConversationController
             'action'  => 'close',
 
         ];
-        return $this->redirect()->toRouteAjax('bus_conversation', $params);
+        return $this->redirect()->toRouteAjax('licence/bus_conversation', $params);
     }
 }
