@@ -12,14 +12,14 @@ use Common\Service\Helper\OppositionHelperService;
 use Common\Service\Helper\UrlHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
+use Olcs\Controller\Messages\EnableDisableFileUploadController;
 use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\HelperPluginManager;
-use Olcs\Controller\Messages\ApplicationEnableDisableMessagingController;
 
-class ApplicationEnableDisableMessagingControllerFactory implements FactoryInterface
+class EnableDisableFileUploadControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ApplicationEnableDisableMessagingController
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $scriptFactory = $container->get(ScriptFactory::class);
         $formHelper = $container->get(FormHelperService::class);
@@ -31,7 +31,7 @@ class ApplicationEnableDisableMessagingControllerFactory implements FactoryInter
         $flashMessengerHelper = $container->get(FlashMessengerHelperService::class);
         $urlHelper = $container->get(UrlHelperService::class);
 
-        return new ApplicationEnableDisableMessagingController(
+        return new EnableDisableFileUploadController(
             $scriptFactory,
             $formHelper,
             $tableFactory,

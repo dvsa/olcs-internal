@@ -5,7 +5,9 @@ namespace OlcsTest\Listener\RouteParam;
 use Common\Exception\DataServiceException;
 use Common\FeatureToggle;
 use Common\RefData;
+use Common\Service\Cqrs\Response;
 use Common\Service\Data\Surrender;
+use Laminas\Navigation\Page\Mvc;
 use Psr\Container\ContainerInterface;
 use Dvsa\Olcs\Transfer\Query\FeatureToggle\IsEnabled;
 use Laminas\EventManager\Event;
@@ -67,12 +69,16 @@ class LicenceTest extends TestCase
         $mockViewHelperManager = m::mock(HelperPluginManager::class);
         $this->sut->setViewHelperManager($mockViewHelperManager);
 
-        $mockAnnotationBuilder->shouldReceive('createQuery')->once()->andReturnUsing(
-            function ($dto) use ($licenceId) {
-                $this->assertInstanceOf(\Dvsa\Olcs\Transfer\Query\Licence\Licence::class, $dto);
-                $this->assertSame(['id' => $licenceId], $dto->getArrayCopy());
-                return 'QUERY';
-            }
+        $mockAnnotationBuilder
+            ->shouldReceive('createQuery')
+            ->with(m::type(\Dvsa\Olcs\Transfer\Query\Licence\Licence::class))
+            ->once()
+            ->andReturnUsing(
+                function ($dto) use ($licenceId) {
+                    $this->assertInstanceOf(\Dvsa\Olcs\Transfer\Query\Licence\Licence::class, $dto);
+                    $this->assertSame(['id' => $licenceId], $dto->getArrayCopy());
+                    return 'QUERY';
+                }
         );
 
         $mockQueryService->shouldReceive('send')->with('QUERY')->once()->andReturn($mockResult);
@@ -113,7 +119,7 @@ class LicenceTest extends TestCase
                     ->getMock()
             );
 
-            $mockAnnotationBuilder->shouldReceive('createQuery')->once()->andReturnUsing(
+            $mockAnnotationBuilder->shouldReceive('createQuery')->with(m::type(IsEnabled::class))->once()->andReturnUsing(
                 function ($dto) use ($licenceId) {
                     $this->assertInstanceOf(IsEnabled::class, $dto);
                     $this->assertSame(['ids' => [FeatureToggle::MESSAGING]], $dto->getArrayCopy());
@@ -121,8 +127,8 @@ class LicenceTest extends TestCase
                 }
             );
             $mockFtQueryResult = m::mock();
-            $mockFtQueryResult->expects('getResult')->once()->andReturn(['isEnabled' => true]);
-            $mockQueryService->shouldReceive('send')->with('FT_QUERY')->once()->andReturn($mockFtQueryResult);
+            $mockFtQueryResult->allows('getResult')->andReturn(['isEnabled' => false]);
+            $mockQueryService->shouldReceive('send')->with('FT_QUERY')->once()->andReturn($mockFtQueryResult)->byDefault();
         }
     }
 
@@ -175,7 +181,7 @@ class LicenceTest extends TestCase
         $this->mockHideButton($mockSidebar, 'licence-decisions-reset-to-valid');
         $this->sut->setNavigationService($mockSidebar);
 
-        $mainNav = m::mock();
+        $mainNav = m::mock(Navigation::class);
         $mainNav
             ->shouldReceive('findOneById')
             ->with('licence_bus')
@@ -302,6 +308,7 @@ class LicenceTest extends TestCase
         $this->mockHideButton($mockSidebar, 'licence-decisions-reset-to-valid');
         $this->sut->setNavigationService($mockSidebar);
         $this->mockMainNavigation($licence['goodsOrPsv']['id']);
+
         $routeParam = new RouteParam();
         $routeParam->setValue($licenceId);
 
@@ -350,8 +357,8 @@ class LicenceTest extends TestCase
         $this->mockHideButton($mockSidebar, 'licence-decisions-reset-to-valid');
         $this->sut->setNavigationService($mockSidebar);
 
-
         $this->mockMainNavigation($licence['goodsOrPsv']['id']);
+
 
         $routeParam = new RouteParam();
         $routeParam->setValue($licenceId);
@@ -864,6 +871,92 @@ class LicenceTest extends TestCase
             new DataServiceException('TEST')
         );
         $this->sut->setSurrenderService($mockSurrenderService);
+
+        $routeParam = new RouteParam();
+        $routeParam->setValue($licenceId);
+
+        $event = new Event(null, $routeParam);
+
+        $this->sut->onLicence($event);
+    }
+
+    public function testMessagingTabsVisibleWithCountOnToggleEnabled()
+    {
+        $licenceId = 4;
+        $licence = [
+            'id' => $licenceId,
+            'licNo' => 'L2347137',
+            'licenceType' => [
+                'id' => RefData::LICENCE_TYPE_STANDARD_NATIONAL
+            ],
+            'status' => [
+                'id' => RefData::LICENCE_STATUS_VALID
+            ],
+            'goodsOrPsv' => [
+                'id' => RefData::LICENCE_CATEGORY_PSV
+            ],
+            'vehicleType' => [
+                'id' => RefData::APP_VEHICLE_TYPE_HGV,
+            ],
+            'continuationMarker' => 'CONTINUATION_MARKER',
+            'organisation' => 'ORGANISATION',
+            'cases' => 'CASES',
+            'licenceStatusRules' => [],
+            'latestNote' => ['comment' => 'latest note', 'priority' => 'Y'],
+            'canHaveInspectionRequest' => true,
+        ];
+
+        $this->onLicenceSetup($licenceId, $licence);
+
+        $mockFtQueryResult = m::mock();
+        $mockFtQueryResult->expects('getResult')->once()->andReturn(['isEnabled' => true]);
+        $this->sut->getQueryService()->shouldReceive('send')->once('FT_QUERY')->once()->andReturn($mockFtQueryResult);
+
+        $this->sut->getAnnotationBuilderService()
+            ->shouldReceive('createQuery')
+            ->with(m::type(\Dvsa\Olcs\Transfer\Query\Messaging\Messages\UnreadCountByLicenceAndRoles::class))
+            ->once()
+            ->andReturnUsing(
+                function ($dto) use ($licenceId) {
+                    $this->assertSame([
+                        'licence' => $licenceId,
+                        'roles' => [
+                            RefData::ROLE_SYSTEM_ADMIN,
+                            RefData::ROLE_INTERNAL_ADMIN,
+                            RefData::ROLE_INTERNAL_CASE_WORKER,
+                            RefData::ROLE_INTERNAL_IRHP_ADMIN,
+                            RefData::ROLE_INTERNAL_READ_ONLY,
+                        ],
+                    ], $dto->getArrayCopy());
+                    return 'UNREAD_COUNT_QUERY';
+                }
+            );
+
+        $mockCountResult = m::mock(Response::class);
+        $mockCountResult->shouldReceive('isOk')->once()->andReturn(true);
+        $mockCountResult->shouldReceive('getResult')->once()->andReturn(['count' => $count = 1]);
+        $this->sut->getQueryService()->shouldReceive('send')->with('UNREAD_COUNT_QUERY')->once()->andReturn($mockCountResult);
+
+        $mockSidebar = m::mock();
+        $this->mockHideButton($mockSidebar, 'licence-decisions-undo-surrender');
+        $this->mockHideButton($mockSidebar, 'licence-decisions-undo-terminate');
+        $this->mockHideButton($mockSidebar, 'licence-decisions-reset-to-valid');
+        $this->sut->setNavigationService($mockSidebar);
+        $this->mockMainNavigation($licence['goodsOrPsv']['id']);
+
+        $mockPage = m::mock(Mvc::class);
+        $mockPage->shouldReceive('setVisible')
+                 ->once()
+                 ->with(true);
+        $mockPage->shouldReceive('set')
+                 ->once()
+                 ->with('unreadLicenceConversationCount', 1);
+
+        $this->sut->getMainNavigationService()
+                    ->shouldReceive('findBy')
+                    ->twice()
+                    ->with('tag', 'messaging-menu', true)
+                    ->andReturn([$mockPage]);
 
         $routeParam = new RouteParam();
         $routeParam->setValue($licenceId);

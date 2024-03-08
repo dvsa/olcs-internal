@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-use Common\Exception\ResourceNotFoundException;
-use Dvsa\Olcs\Transfer\Query\Application\Application;
+use Dvsa\Olcs\Transfer\Query\Cases\Cases;
+use Dvsa\Olcs\Transfer\Query\Licence\Licence;
 use Exception;
 use Laminas\View\Model\ViewModel;
-use Olcs\Controller\Interfaces\ApplicationControllerInterface;
+use Olcs\Controller\Interfaces\CaseControllerInterface;
 
-class ApplicationEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements ApplicationControllerInterface
+class CaseEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements CaseControllerInterface
 {
-    protected $navigationId = 'application';
+    protected $navigationId = 'case';
 
     public function getLeftView(): ?ViewModel
     {
@@ -20,7 +20,7 @@ class ApplicationEnableDisableMessagingController extends AbstractEnableDisableM
             return null;
         }
 
-        $view = new ViewModel(['navigationId' => 'application_conversations']);
+        $view = new ViewModel(['navigationId' => 'case_conversations']);
         $view->setTemplate('sections/messages/partials/left');
 
         return $view;
@@ -28,19 +28,19 @@ class ApplicationEnableDisableMessagingController extends AbstractEnableDisableM
 
     protected function getRoutePrefix(): string
     {
-        return 'lva-application/conversation';
+        return 'case_conversation';
     }
 
     protected function getOrganisationId(): int
     {
-        $queryResponse = $this->handleQuery(Application::create(['id' => $this->params()->fromRoute('application')]));
+        $queryResponse = $this->handleQuery(Cases::create(['id' => $this->params()->fromRoute('case')]));
         if (!$queryResponse->isOk()) {
             throw new Exception(
                 sprintf(
-                    'Unexpected error when querying application for organisation ID. Response: HTTP  %s :: %s',
+                    'Unexpected error when querying licence for organisation ID. Response: HTTP  %s :: %s',
                     $queryResponse->getStatusCode(),
                     $queryResponse->getBody(),
-                )
+                ),
             );
         }
         $queryResult = $queryResponse->getResult();

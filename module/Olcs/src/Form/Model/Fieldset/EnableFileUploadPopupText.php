@@ -8,14 +8,14 @@ use Common\Form\Elements\Types\PlainText;
 use Laminas\Form\Annotation as Form;
 
 /**
- * @Form\Name("main")
+ * @codeCoverageIgnore No methods
  */
-class CloseConversationText
+class EnableFileUploadPopupText
 {
     /**
-     * @Form\Type(PlainText::class)
+     * @Form\Type(\Common\Form\Elements\Types\PlainText::class)
      * @Form\Attributes({
-     *     "value": "The conversation will be removed from the Inbox and a transcript will be archived in docs and attachments tab."
+     *     "value": "Are you sure you want to enable file uploads?"
      * })
      */
     public ?PlainText $text = null;

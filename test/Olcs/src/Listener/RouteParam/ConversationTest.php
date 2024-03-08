@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OlcsTest\Listener\RouteParam;
 
 use Common\Service\Cqrs\Query\CachingQueryService as QueryService;
+use Dvsa\Olcs\Transfer\Query\QueryContainer;
 use Dvsa\Olcs\Transfer\Query\QueryContainerInterface;
 use Dvsa\Olcs\Transfer\Query\Search\Licence;
 use Dvsa\Olcs\Transfer\Util\Annotation\AnnotationBuilder;
@@ -88,7 +89,7 @@ class ConversationTest extends TestCase
                      ->andReturnTrue();
 
         $mockAbstractPage->shouldReceive('setVisible')
-                         ->times(4)
+                         ->twice()
                          ->with(false);
 
         $mockNavigation->shouldReceive('__invoke')
@@ -96,10 +97,23 @@ class ConversationTest extends TestCase
                        ->with('navigation')
                        ->andReturn($mockNavigationPlugin);
 
+        $mockPage = $this->createMock(AbstractPage::class);
+
+        $mockSideNavigation = m::mock(\Laminas\Navigation\Navigation::class);
+        $mockSideNavigation->shouldReceive('findBy')
+                           ->with('id', 'licence-disable-file-uploads')
+                           ->once()
+                           ->andReturn($mockPage);
+        $mockSideNavigation->shouldReceive('findBy')
+                           ->with('id', 'application-disable-file-uploads')
+                           ->once()
+                           ->andReturn($mockPage);
+
         $sut = new Conversation();
         $sut->setNavigationPlugin($mockNavigation);
         $sut->setQueryService($mockQueryService);
         $sut->setAnnotationBuilder($mockAnnotationBuilder);
+        $sut->setSideNavigationPlugin($mockSideNavigation);
 
         $e = m::mock(EventInterface::class);
         $e->shouldReceive('getTarget')
@@ -108,7 +122,8 @@ class ConversationTest extends TestCase
 
         $result = [
             'organisation' => [
-                'isMessagingDisabled' => false,
+                'isMessagingDisabled'          => false,
+                'isMessagingFileUploadEnabled' => true,
             ],
         ];
         $mockResponse->shouldReceive('getResult')
@@ -116,12 +131,8 @@ class ConversationTest extends TestCase
                      ->andReturn($result);
         $mockNavigationPlugin->shouldReceive('findBy')
                              ->once()
-                             ->with('id', 'conversation_list_enable_messaging')
-                             ->andReturn($mockAbstractPage);
-        $mockNavigationPlugin->shouldReceive('findBy')
-                             ->once()
-                             ->with('id', 'application_conversation_list_enable_messaging')
-                             ->andReturn($mockAbstractPage);
+                             ->with('tag', 'conversation_list_enable_messaging', true)
+                             ->andReturn([$mockAbstractPage]);
         $sut->onConversation($e);
 
         $result = [
@@ -134,12 +145,9 @@ class ConversationTest extends TestCase
                      ->andReturn($result);
         $mockNavigationPlugin->shouldReceive('findBy')
                              ->once()
-                             ->with('id', 'conversation_list_disable_messaging')
-                             ->andReturn($mockAbstractPage);
-        $mockNavigationPlugin->shouldReceive('findBy')
-                             ->once()
-                             ->with('id', 'application_conversation_list_disable_messaging')
-                             ->andReturn($mockAbstractPage);
+                             ->with('tag', 'conversation_list_disable_messaging', true)
+                             ->andReturn([$mockAbstractPage]);
+
         $sut->onConversation($e);
     }
 
@@ -156,6 +164,8 @@ class ConversationTest extends TestCase
         $mockNavigation = m::mock(Navigation::class)->makePartial();
         error_reporting($er);
 
+        $mockSideNavigation = m::mock(\Laminas\Navigation\Navigation::class);
+
         $mockSl = m::mock(ContainerInterface::class);
         $mockSl->shouldReceive('get')
                ->once()
@@ -169,6 +179,10 @@ class ConversationTest extends TestCase
                ->once()
                ->with('ViewHelperManager')
                ->andReturn($mockHelperPluginManager);
+        $mockSl->shouldReceive('get')
+               ->once()
+               ->with('right-sidebar')
+               ->andReturn($mockSideNavigation);
 
         $mockHelperPluginManager->shouldReceive('get')
                                 ->once()

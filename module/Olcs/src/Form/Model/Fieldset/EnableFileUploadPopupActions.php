@@ -9,22 +9,21 @@ use Laminas\Form\Annotation as Form;
 
 /**
  * @codeCoverageIgnore No methods
- * @Form\Name("main")
  * @Form\Attributes({"class": "govuk-button-group"})
  */
-class CloseConversationActions
+class EnableFileUploadPopupActions
 {
     /**
      * @Form\Attributes({
      *     "type": "submit",
      *     "data-module": "govuk-button",
-     *     "class": "govuk-button govuk-button--warning",
+     *     "class": "govuk-button govuk-button--success",
      *     "id": "close"
      * })
      * @Form\Options({
-     *     "label": "End and archive conversation"
+     *     "label": "Enable file upload"
      * })
-     * @Form\Type(ActionButton::class)
+     * @Form\Type(\Common\Form\Elements\InputFilters\ActionButton::class)
      */
     public ?ActionButton $close = null;
 
@@ -38,7 +37,7 @@ class CloseConversationActions
      * @Form\Options({
      *     "label": "Cancel"
      * })
-     * @Form\Type(ActionButton::class)
+     * @Form\Type(\Common\Form\Elements\InputFilters\ActionButton::class)
      */
     public ?ActionButton $cancel = null;
 }
