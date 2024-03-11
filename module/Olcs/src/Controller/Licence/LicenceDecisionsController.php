@@ -550,7 +550,7 @@ class LicenceDecisionsController extends AbstractController implements
         $command = $command::create(
             [
                 'id' => $data['licenceId'],
-                'decisions' => isset($data['decisions']) ? $data['decisions'] : []
+                'decisions' => $data['decisions'] ?? []
             ]
         );
 
@@ -586,9 +586,7 @@ class LicenceDecisionsController extends AbstractController implements
             return $form->setData(
                 $this->formatDataForFormUpdate(
                     array_map(
-                        function ($key) use ($status) {
-                            return $status[$key];
-                        },
+                        fn($key) => $status[$key],
                         $keys
                     )
                 )

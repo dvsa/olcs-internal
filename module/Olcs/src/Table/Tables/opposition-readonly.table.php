@@ -15,20 +15,16 @@ return [
         [
             'title' => 'Case No.',
             'isNumeric' => true,
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['case' => $row['case']['id'], 'tab' => 'overview'],
-                    'case_opposition',
-                    false
-                ) . '">' . $row['case']['id'] . '</a>';
-            }
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['case' => $row['case']['id'], 'tab' => 'overview'],
+                'case_opposition',
+                false
+            ) . '">' . $row['case']['id'] . '</a>'
         ],
         [
             'title' => 'Case status',
             'name' => 'description',
-            'formatter' => function ($row) {
-                return ($row['case']['closedDate']) ? 'Closed' : 'Open';
-            }
+            'formatter' => fn($row) => ($row['case']['closedDate']) ? 'Closed' : 'Open'
         ],
         [
             'title' => 'Date received',
@@ -60,9 +56,7 @@ return [
         [
             'title' => 'App No.',
             'isNumeric' => true,
-            'formatter' => function ($row) {
-                return $row['case']['application']['id'];
-            }
+            'formatter' => fn($row) => $row['case']['application']['id']
         ],
     ]
 ];

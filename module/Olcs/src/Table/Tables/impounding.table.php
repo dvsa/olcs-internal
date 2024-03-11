@@ -47,21 +47,15 @@ return [
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($data, $column) {
-                return $this->translator->translate($data['impoundingType']['id']);
-            }
+            'formatter' => fn($data, $column) => $this->translator->translate($data['impoundingType']['id'])
         ],
         [
             'title' => 'Presiding TC/DTC/HTRU/DHTRU',
-            'formatter' => function ($data) {
-                return (isset($data['presidingTc']['name']) ? $data['presidingTc']['name'] : '');
-            }
+            'formatter' => fn($data) => $data['presidingTc']['name'] ?? ''
         ],
         [
             'title' => 'Outcome',
-            'formatter' => function ($data, $column) {
-                return (isset($data['outcome']['id']) ? $this->translator->translate($data['outcome']['id']) : '');
-            }
+            'formatter' => fn($data, $column) => isset($data['outcome']['id']) ? $this->translator->translate($data['outcome']['id']) : ''
         ],
         [
             'title' => 'Outcome sent',

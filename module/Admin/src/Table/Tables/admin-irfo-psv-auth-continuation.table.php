@@ -34,31 +34,27 @@ return [
         [
             'title' => 'Auth Id',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return sprintf(
-                    '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
-                    $this->generateUrl(
-                        ['action' => 'edit', 'id' => $data['id'], 'organisation' => $data['organisation']['id']],
-                        'operator/irfo/psv-authorisations',
-                        false
-                    ),
-                    $data['id']
-                );
-            }
+            'formatter' => fn($data) => sprintf(
+                '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
+                $this->generateUrl(
+                    ['action' => 'edit', 'id' => $data['id'], 'organisation' => $data['organisation']['id']],
+                    'operator/irfo/psv-authorisations',
+                    false
+                ),
+                $data['id']
+            )
         ],
         [
             'title' => 'Operator',
-            'formatter' => function ($data) {
-                return sprintf(
-                    '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
-                    $this->generateUrl(
-                        ['action' => 'edit', 'organisation' => $data['organisation']['id']],
-                        'operator/irfo/details',
-                        false
-                    ),
-                    $data['organisation']['name']
-                );
-            }
+            'formatter' => fn($data) => sprintf(
+                '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
+                $this->generateUrl(
+                    ['action' => 'edit', 'organisation' => $data['organisation']['id']],
+                    'operator/irfo/details',
+                    false
+                ),
+                $data['organisation']['name']
+            )
         ],
         [
             'title' => 'In force date',
@@ -72,15 +68,11 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data) {
-                return $data['status']['description'];
-            }
+            'formatter' => fn($data) => $data['status']['description']
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($data) {
-                return $data['irfoPsvAuthType']['description'];
-            }
+            'formatter' => fn($data) => $data['irfoPsvAuthType']['description']
         ],
         [
             'type' => 'Checkbox',

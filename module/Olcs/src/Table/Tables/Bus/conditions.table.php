@@ -18,27 +18,19 @@ return [
         ],
         [
             'title' => 'Added via',
-            'formatter' => function ($data, $column) {
-                return $this->translator->translate($data['addedVia']['description']);
-            },
+            'formatter' => fn($data, $column) => $this->translator->translate($data['addedVia']['description']),
         ],
         [
             'title' => 'Fulfilled',
-            'formatter' => function ($data, $column) {
-                return $data['isFulfilled'] == 'Y' ? 'Yes' : 'No';
-            },
+            'formatter' => fn($data, $column) => $data['isFulfilled'] == 'Y' ? 'Yes' : 'No',
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data, $column) {
-                return $data['isDraft'] == 'Y' ? 'Draft' : 'Approved';
-            },
+            'formatter' => fn($data, $column) => $data['isDraft'] == 'Y' ? 'Draft' : 'Approved',
         ],
         [
             'title' => 'Attached to',
-            'formatter' => function ($data, $column) {
-                return $this->translator->translate($data['attachedTo']['description']);
-            },
+            'formatter' => fn($data, $column) => $this->translator->translate($data['attachedTo']['description']),
         ],
         [
             'title' => 'OC address',

@@ -17,16 +17,12 @@ return [
         [
             'title' => 'internal.interim.vehicles.table.vrm',
             'name' => 'vrm',
-            'formatter' => function ($data) {
-                return $data['vehicle']['vrm'];
-            },
+            'formatter' => fn($data) => $data['vehicle']['vrm'],
         ],
         [
             'title' => 'internal.interim.vehicles.table.weight',
             'name' => 'platedWeight',
-            'formatter' => function ($data) {
-                return $data['vehicle']['platedWeight'];
-            },
+            'formatter' => fn($data) => $data['vehicle']['platedWeight'],
         ],
         [
             'title' => 'internal.interim.vehicles.table.listed',

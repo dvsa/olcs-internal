@@ -46,10 +46,8 @@ return [
         ],
         [
             'title' => 'Complainant',
-            'formatter' => function ($data, $column) {
-                return $data['complainantContactDetails']['person']['forename'] . ' ' .
-                $data['complainantContactDetails']['person']['familyName'];
-            }
+            'formatter' => fn($data, $column) => $data['complainantContactDetails']['person']['forename'] . ' ' .
+            $data['complainantContactDetails']['person']['familyName']
         ],
         [
             'title' => 'OC Address',
@@ -73,9 +71,7 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data, $column) {
-                return $data['status']['description'];
-            }
+            'formatter' => fn($data, $column) => $data['status']['description']
         ]
     ]
 ];

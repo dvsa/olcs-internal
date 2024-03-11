@@ -39,27 +39,19 @@ return [
         [
             'title' => 'Publication No.',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return $data['publication']['publicationNo'];
-            }
+            'formatter' => fn($data) => $data['publication']['publicationNo']
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($data) {
-                return $data['publication']['pubType'];
-            }
+            'formatter' => fn($data) => $data['publication']['pubType']
         ],
         [
             'title' => 'Traffic area',
-            'formatter' => function ($data) {
-                return $data['publication']['trafficArea']['name'];
-            }
+            'formatter' => fn($data) => $data['publication']['trafficArea']['name']
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data) {
-                return $data['publication']['pubStatus']['description'];
-            }
+            'formatter' => fn($data) => $data['publication']['pubStatus']['description']
         ],
         [
             'title' => 'Publication date',
@@ -70,9 +62,7 @@ return [
         ],
         [
             'title' => 'Section',
-            'formatter' => function ($data) {
-                return $data['publicationSection']['description'];
-            }
+            'formatter' => fn($data) => $data['publicationSection']['description']
         ],
         [
             'title' => 'Text',

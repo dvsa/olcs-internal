@@ -13,15 +13,13 @@ return [
     'columns' => [
         [
             'title' => 'Description',
-            'formatter' => function ($row) {
-                return sprintf(
-                    '%s %s [%s] [%s]',
-                    $row['organisationName'],
-                    $row['licNo'],
-                    $row['entityName'],
-                    $row['entityPk']
-                );
-            },
+            'formatter' => fn($row) => sprintf(
+                '%s %s [%s] [%s]',
+                $row['organisationName'],
+                $row['licNo'],
+                $row['entityName'],
+                $row['entityPk']
+            ),
         ],
         [
             'title' => 'Deleted date',

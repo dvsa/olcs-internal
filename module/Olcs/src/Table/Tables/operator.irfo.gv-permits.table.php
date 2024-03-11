@@ -24,13 +24,11 @@ return [
         [
             'title' => 'Permit Id',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return '<a href="' . $this->generateUrl(
-                    ['action' => 'details', 'id' => $data['id']],
-                    'operator/irfo/gv-permits',
-                    true
-                ) . '" class="govuk-link js-modal-ajax">' . $data['id'] . '</a>';
-            }
+            'formatter' => fn($data) => '<a href="' . $this->generateUrl(
+                ['action' => 'details', 'id' => $data['id']],
+                'operator/irfo/gv-permits',
+                true
+            ) . '" class="govuk-link js-modal-ajax">' . $data['id'] . '</a>'
         ],
         [
             'title' => 'In force date',
@@ -39,15 +37,11 @@ return [
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($data, $column) {
-                return $data['irfoGvPermitType']['description'];
-            }
+            'formatter' => fn($data, $column) => $data['irfoGvPermitType']['description']
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data, $column) {
-                return $data['irfoPermitStatus']['description'];
-            }
+            'formatter' => fn($data, $column) => $data['irfoPermitStatus']['description']
         ]
     ]
 ];

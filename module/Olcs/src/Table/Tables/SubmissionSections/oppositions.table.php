@@ -29,32 +29,24 @@ return [
     'columns' => [
         [
             'title' => 'Opposition type',
-            'formatter' => function ($data) {
-                return $data['oppositionType'];
-            },
+            'formatter' => fn($data) => $data['oppositionType'],
         ],
         [
             'title' => 'Date received',
             'name' => 'dateReceived',
-            'formatter' => function ($data, $column) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['action' => 'edit', 'opposition' => $data['id']],
-                    'case_opposition',
-                    true
-                ) . '">' . $data['dateReceived'] . '</a>';
-            },
+            'formatter' => fn($data, $column) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['action' => 'edit', 'opposition' => $data['id']],
+                'case_opposition',
+                true
+            ) . '">' . $data['dateReceived'] . '</a>',
         ],
         [
             'title' => 'Contact name',
-            'formatter' => function ($data) {
-                return $data['contactName']['forename'] . ' ' . $data['contactName']['familyName'];
-            }
+            'formatter' => fn($data) => $data['contactName']['forename'] . ' ' . $data['contactName']['familyName']
         ],
         [
             'title' => 'Grounds',
-            'formatter' => function ($data) {
-                return implode(', ', $data['grounds']);
-            }
+            'formatter' => fn($data) => implode(', ', $data['grounds'])
         ],
         [
             'title' => 'Valid',

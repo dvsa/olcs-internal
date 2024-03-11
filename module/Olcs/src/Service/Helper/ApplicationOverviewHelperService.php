@@ -73,7 +73,7 @@ class ApplicationOverviewHelperService
             'changeOfEntity'            => (
                 (boolean)$application['isVariation'] ?
                 null :
-                $this->getChangeOfEntity($application, $licence)
+                $this->getChangeOfEntity($application)
             ),
 
             'receivesMailElectronically' => (

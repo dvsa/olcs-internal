@@ -25,9 +25,7 @@ return [
     'columns' => [
         [
             'title' => 'Name',
-            'formatter' => function ($data) {
-                return $data['title'] . ' ' . $data['forename'] . ' ' . $data['familyName'];
-            }
+            'formatter' => fn($data) => $data['title'] . ' ' . $data['forename'] . ' ' . $data['familyName']
         ],
         [
             'title' => 'DOB',
@@ -47,9 +45,7 @@ return [
         ],
         [
             'title' => 'Qualifications',
-            'formatter' => function ($data) {
-                return implode(', ', $data['qualifications']);
-            }
+            'formatter' => fn($data) => implode(', ', $data['qualifications'])
         ],
         [
             'title' => 'Type',

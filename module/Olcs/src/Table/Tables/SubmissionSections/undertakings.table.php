@@ -43,16 +43,12 @@ return [
         [
             'title' => 'Fulfilled',
             'width' => '8%',
-            'formatter' => function ($data, $column) {
-                return $data['isFulfilled'] == 'Y' ? 'Yes' : 'No';
-            },
+            'formatter' => fn($data, $column) => $data['isFulfilled'] == 'Y' ? 'Yes' : 'No',
         ],
         [
             'title' => 'Status',
             'width' => '8%',
-            'formatter' => function ($data, $column) {
-                return $data['isDraft'] == 'Y' ? 'Draft' : 'Approved';
-            },
+            'formatter' => fn($data, $column) => $data['isDraft'] == 'Y' ? 'Draft' : 'Approved',
         ],
         [
             'title' => 'Attached to',

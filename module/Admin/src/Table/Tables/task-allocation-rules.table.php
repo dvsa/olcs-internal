@@ -47,9 +47,7 @@ return [
         ],
         [
             'title' => 'Team',
-            'formatter' => function ($data) {
-                return $data['team']['name'];
-            }
+            'formatter' => fn($data) => $data['team']['name']
         ],
         [
             'title' => 'User',

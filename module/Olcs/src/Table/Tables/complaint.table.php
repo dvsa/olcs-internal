@@ -43,10 +43,8 @@ return [
         ],
         [
             'title' => 'Complainant name',
-            'formatter' => function ($data, $column) {
-                return $data['complainantContactDetails']['person']['forename'] . ' ' .
-                $data['complainantContactDetails']['person']['familyName'];
-            }
+            'formatter' => fn($data, $column) => $data['complainantContactDetails']['person']['forename'] . ' ' .
+            $data['complainantContactDetails']['person']['familyName']
         ],
         [
             'title' => 'Description',

@@ -62,9 +62,7 @@ return [
         ],
         [
             'title' => 'Method',
-            'formatter' => function ($data) {
-                return ($data['licence']['organisation']['allowEmail'] === 'Y' ? 'Email' : 'Post');
-            }
+            'formatter' => fn($data) => $data['licence']['organisation']['allowEmail'] === 'Y' ? 'Email' : 'Post'
         ],
         [
             'title' => 'Status',

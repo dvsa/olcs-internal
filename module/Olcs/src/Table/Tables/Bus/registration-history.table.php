@@ -23,13 +23,11 @@ return [
     'columns' => [
         [
             'title' => 'Reg No.',
-            'formatter' => function ($data) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['action' => 'index', 'busRegId' => $data['id']],
-                    'licence/bus-details/service',
-                    true
-                ) . '">' . $data['regNo'] . '</a>';
-            },
+            'formatter' => fn($data) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['action' => 'index', 'busRegId' => $data['id']],
+                'licence/bus-details/service',
+                true
+            ) . '">' . $data['regNo'] . '</a>',
         ],
         [
             'title' => 'Var No.',
@@ -38,9 +36,7 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data) {
-                return $data['status']['description'];
-            }
+            'formatter' => fn($data) => $data['status']['description']
         ],
         [
             'title' => 'Application type',

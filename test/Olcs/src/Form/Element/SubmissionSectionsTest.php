@@ -38,11 +38,11 @@ class SubmissionSectionsTest extends TestCase
         ];
         $sut = new SubmissionSections();
 
-        $mockSelect = m::mock('Laminas\Form\Element\Select');
+        $mockSelect = m::mock(\Laminas\Form\Element\Select::class);
         $mockSelect->shouldReceive('setValue')->with($data['submissionType']);
         $sut->setSubmissionType($mockSelect);
 
-        $mockMultiCheckbox = m::mock('Laminas\Form\Element\MultiCheckbox');
+        $mockMultiCheckbox = m::mock(\Laminas\Form\Element\MultiCheckbox::class);
         $mockMultiCheckbox->shouldReceive('setValue')->with(m::type('array'));
         $mockMultiCheckbox->shouldReceive('getValueOptions')->andReturn(['operating-centres' => 'Operating centres']);
         $mockMultiCheckbox->shouldReceive('setValueOptions');
@@ -66,18 +66,18 @@ class SubmissionSectionsTest extends TestCase
 
         $sut = new SubmissionSections();
 
-        $mockSelect = m::mock('Laminas\Form\Element\Select');
+        $mockSelect = m::mock(\Laminas\Form\Element\Select::class);
         $mockSelect->shouldReceive('setName')->with($name . '[submissionType]');
 
         $sut->setSubmissionType($mockSelect);
 
-        $mockTm = m::mock('Laminas\Form\Element\Hidden');
+        $mockTm = m::mock(\Laminas\Form\Element\Hidden::class);
         $mockTm->shouldReceive('setName')->with($name . '[transportManager]');
         $mockTm->shouldReceive('getValue')->andReturnNull();
 
         $sut->setTransportManager($mockTm);
 
-        $mockMultiCheckbox = m::mock('Laminas\Form\Element\MultiCheckbox');
+        $mockMultiCheckbox = m::mock(\Laminas\Form\Element\MultiCheckbox::class);
         $mockMultiCheckbox->shouldReceive(
             'getValueOptions'
         )->andReturn(
@@ -96,7 +96,7 @@ class SubmissionSectionsTest extends TestCase
 
         $sut->setSections($mockMultiCheckbox);
 
-        $mockSubmitButton = m::mock('Laminas\Form\Element\Button');
+        $mockSubmitButton = m::mock(\Laminas\Form\Element\Button::class);
         $mockSubmitButton->shouldReceive('setName')->with($name . '[submissionTypeSubmit]');
 
         $sut->setSubmissionTypeSubmit($mockSubmitButton);
@@ -121,18 +121,18 @@ class SubmissionSectionsTest extends TestCase
 
         $sut = new SubmissionSections();
 
-        $mockSelect = m::mock('Laminas\Form\Element\Select');
+        $mockSelect = m::mock(\Laminas\Form\Element\Select::class);
         $mockSelect->shouldReceive('setName')->with($name . '[submissionType]');
 
         $sut->setSubmissionType($mockSelect);
 
-        $mockTm = m::mock('Laminas\Form\Element\Hidden');
+        $mockTm = m::mock(\Laminas\Form\Element\Hidden::class);
         $mockTm->shouldReceive('setName')->with($name . '[transportManager]');
         $mockTm->shouldReceive('getValue')->andReturn($transportManagerId);
 
         $sut->setTransportManager($mockTm);
 
-        $mockMultiCheckbox = m::mock('Laminas\Form\Element\MultiCheckbox');
+        $mockMultiCheckbox = m::mock(\Laminas\Form\Element\MultiCheckbox::class);
         $mockMultiCheckbox->shouldReceive(
             'getValueOptions'
         )->andReturn(
@@ -150,7 +150,7 @@ class SubmissionSectionsTest extends TestCase
 
         $sut->setSections($mockMultiCheckbox);
 
-        $mockSubmitButton = m::mock('Laminas\Form\Element\Button');
+        $mockSubmitButton = m::mock(\Laminas\Form\Element\Button::class);
         $mockSubmitButton->shouldReceive('setName')->with($name . '[submissionTypeSubmit]');
 
         $sut->setSubmissionTypeSubmit($mockSubmitButton);

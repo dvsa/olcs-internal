@@ -74,7 +74,7 @@ class SubmissionSectionDetails extends AbstractHelper
 
     ];
 
-    const DEFAULT_HELPER = 'submissionsectionoverview';
+    public const DEFAULT_HELPER = 'submissionsectionoverview';
 
     /**
      * Default helper name

@@ -14,13 +14,11 @@ return [
         [
             'title' => 'Case No.',
             'isNumeric' => true,
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['case' => $row['case']['id'], 'tab' => 'overview'],
-                    'case_opposition',
-                    false
-                ) . '">' . $row['case']['id'] . '</a>';
-            }
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['case' => $row['case']['id'], 'tab' => 'overview'],
+                'case_opposition',
+                false
+            ) . '">' . $row['case']['id'] . '</a>'
         ],
         [
             'title' => 'Date received',
@@ -51,9 +49,7 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data, $column) {
-                return $data['status']['description'];
-            }
+            'formatter' => fn($data, $column) => $data['status']['description']
         ]
     ]
 ];

@@ -29,14 +29,12 @@ return [
         [
             'title' => 'Case Id',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return $this->callFormatter(
-                    [
-                        'formatter' => CaseLink::class,
-                    ],
-                    $data['pi']['case']
-                );
-            }
+            'formatter' => fn($data) => $this->callFormatter(
+                [
+                    'formatter' => CaseLink::class,
+                ],
+                $data['pi']['case']
+            )
         ],
         [
             'title' => 'Record',
@@ -48,21 +46,19 @@ return [
         ],
         [
             'title' => 'PI Date & Time',
-            'formatter' => function ($data) {
-                return $this->callFormatter(
-                    [
-                        'name' => 'hearingDate',
-                        'formatter' => \Common\Service\Table\Formatter\DateTime::class
-                    ],
-                    $data
-                ).
-                $this->callFormatter(
-                    [
-                        'formatter' => PiHearingStatus::class,
-                    ],
-                    $data
-                );
-            }
+            'formatter' => fn($data) => $this->callFormatter(
+                [
+                    'name' => 'hearingDate',
+                    'formatter' => \Common\Service\Table\Formatter\DateTime::class
+                ],
+                $data
+            ).
+            $this->callFormatter(
+                [
+                    'formatter' => PiHearingStatus::class,
+                ],
+                $data
+            )
         ],
         [
             'title' => 'Venue',

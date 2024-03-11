@@ -32,10 +32,8 @@ return [
         ],
         [
             'title' => 'Complainant',
-            'formatter' => function ($data, $column) {
-                return $data['complainantForename'] . ' ' .
-                $data['complainantFamilyName'];
-            }
+            'formatter' => fn($data, $column) => $data['complainantForename'] . ' ' .
+            $data['complainantFamilyName']
         ],
         [
             'title' => 'OC Address',
@@ -59,11 +57,8 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data, $column) {
-
-                return empty($data['closeDate']) ?
-                    $this->translator->translate('Open') : $this->translator->translate('Closed');
-            }
+            'formatter' => fn($data, $column) => empty($data['closeDate']) ?
+                $this->translator->translate('Open') : $this->translator->translate('Closed')
         ],
         [
             'type' => 'Checkbox',

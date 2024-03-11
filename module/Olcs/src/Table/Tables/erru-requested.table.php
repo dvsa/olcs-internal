@@ -11,9 +11,7 @@ return [
     'columns' => [
         [
             'title' => 'Penalty type',
-            'formatter' => function ($data) {
-                return $data['siPenaltyRequestedType']['id'] . ' - ' . $data['siPenaltyRequestedType']['description'];
-            },
+            'formatter' => fn($data) => $data['siPenaltyRequestedType']['id'] . ' - ' . $data['siPenaltyRequestedType']['description'],
         ],
         [
             'title' => 'Duration',

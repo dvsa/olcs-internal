@@ -19,18 +19,14 @@ return [
     'columns' => [
         [
             'title' => 'Licence/App No.',
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['application' => $row['id']],
-                    'lva-application'
-                ) . '">' . $row['licence']['licNo'] .'/'. $row['id'] . '</a>';
-            }
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['application' => $row['id']],
+                'lva-application'
+            ) . '">' . $row['licence']['licNo'] .'/'. $row['id'] . '</a>'
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($row) {
-                return $row['isVariation'] ? 'Variation' : 'New';
-            }
+            'formatter' => fn($row) => $row['isVariation'] ? 'Variation' : 'New'
         ],
         [
             'title' => 'Received',

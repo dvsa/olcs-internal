@@ -15,7 +15,7 @@ use Common\Service\Table\TableFactory;
 class SubmissionSectionTable extends AbstractHelper
 {
 
-    const DEFAULT_VIEW = 'sections/cases/pages/submission/table';
+    public const DEFAULT_VIEW = 'sections/cases/pages/submission/table';
 
     private $tableBuilder;
 
@@ -66,10 +66,8 @@ class SubmissionSectionTable extends AbstractHelper
     {
         $params = ['submissionVersion' => $submissionVersion];
 
-        $tableConfig = isset($this->tableMap[$submissionSection]) ?
-            $this->tableMap[$submissionSection] : 'SubmissionSections/' . $submissionSection;
-        $tableData = isset($data['data']['tables'][$submissionSection]) ?
-            $data['data']['tables'][$submissionSection] : [];
+        $tableConfig = $this->tableMap[$submissionSection] ?? 'SubmissionSections/' . $submissionSection;
+        $tableData = $data['data']['tables'][$submissionSection] ?? [];
 
         $tableBuilder = $this->getTableBuilder()->buildTable(
             $tableConfig,

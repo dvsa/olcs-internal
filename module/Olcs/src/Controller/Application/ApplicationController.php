@@ -81,7 +81,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
         $applicationId = $this->params()->fromRoute('application', null);
 
         $canHaveCases = $this->dataServiceManager
-            ->get('Common\Service\Data\Application')->canHaveCases($applicationId);
+            ->get(\Common\Service\Data\Application::class)->canHaveCases($applicationId);
 
         if (!$canHaveCases) {
             $this->flashMessengerHelper

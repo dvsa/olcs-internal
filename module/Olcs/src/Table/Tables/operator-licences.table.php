@@ -14,12 +14,10 @@ return [
     'columns' => [
         [
             'title' => 'Licence No.',
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['licence' => $row['id']],
-                    'licence'
-                ) . '">' . $row['licNo'] . '</a>';
-            }
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['licence' => $row['id']],
+                'licence'
+            ) . '">' . $row['licNo'] . '</a>'
         ],
         [
             'title' => 'Type',

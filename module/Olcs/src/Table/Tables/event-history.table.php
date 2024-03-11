@@ -45,9 +45,7 @@ return [
             'title' => 'App. Id',
             'isNumeric' => true,
             'name' => 'appId',
-            'formatter' => function ($row) {
-                return isset($row['application']['id']) ? $row['application']['id'] : null;
-            }
+            'formatter' => fn($row) => $row['application']['id'] ?? null
         ],
         [
             'title' => 'Date',

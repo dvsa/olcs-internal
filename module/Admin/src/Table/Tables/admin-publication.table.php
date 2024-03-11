@@ -28,9 +28,7 @@ return [
         [
             'title' => 'Traffic Area',
             'name' => 'trafficArea',
-            'formatter' => function ($row) {
-                return $row['trafficArea']['name'];
-            }
+            'formatter' => fn($row) => $row['trafficArea']['name']
         ],
         [
             'title' => 'Publication No.',
@@ -45,9 +43,7 @@ return [
         ],
         [
             'title' => 'Document status',
-            'formatter' => function ($data) {
-                return $data['pubStatus']['description'];
-            }
+            'formatter' => fn($data) => $data['pubStatus']['description']
         ],
         [
             'title' => 'Publication date',

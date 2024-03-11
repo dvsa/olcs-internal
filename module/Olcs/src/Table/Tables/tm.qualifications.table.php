@@ -48,9 +48,7 @@ return [
             'title' => 'Country',
             'name' => 'Country',
             'sort' => 'Country',
-            'formatter' => function ($row) {
-                return $row['countryCode']['countryDesc'];
-            },
+            'formatter' => fn($row) => $row['countryCode']['countryDesc'],
         ],
         [
             'title' => 'markup-table-th-remove', //this is a view partial from olcs-common

@@ -267,7 +267,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
                     'options' => [
                         'callback' => function ($data) {
                                 $sections = array_merge(
-                                    isset($data['sections']) ? $data['sections'] : [],
+                                    $data['sections'] ?? [],
                                     $this->getMandatorySections()
                                 );
                             return [
@@ -280,7 +280,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
             ],
             'validators' => [
                 [
-                    'name' => 'Olcs\Validator\SubmissionSection'
+                    'name' => \Olcs\Validator\SubmissionSection::class
                 ]
             ]
         ];

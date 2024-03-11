@@ -34,9 +34,7 @@ return [
         [
             'title' => 'selfserve-app-subSection-your-business-people-columnHasOtherNames',
             'name' => 'otherName',
-            'formatter' => function ($row) {
-                return ($row['otherName'] ? 'Yes' : 'No');
-            }
+            'formatter' => fn($row) => $row['otherName'] ? 'Yes' : 'No'
         ],
         [
             'title' => 'selfserve-app-subSection-your-business-people-columnDate',

@@ -35,9 +35,7 @@ return [
             'title' => 'Licence No.',
             'name' => 'licNo',
             'sort' => 'cha_o_ls.licNo',
-            'formatter' => function ($row) {
-                return $row['licence']['licNo'];
-            }
+            'formatter' => fn($row) => $row['licence']['licNo']
         ],
         [
             'title' => 'Licence Type.',
@@ -63,9 +61,7 @@ return [
                 return implode(
                     ', ',
                     array_map(
-                        function ($reason) {
-                            return $reason['reasonType']['description'];
-                        },
+                        fn($reason) => $reason['reasonType']['description'],
                         $row['reasons']
                     )
                 );

@@ -56,7 +56,7 @@ class ConfirmTest extends TestCase
     {
         $plugin = new Confirm();
         $this->configHelper = [];
-        $mockFormCustomLabels = m::mock('Laminas\Form\Form')
+        $mockFormCustomLabels = m::mock(\Laminas\Form\Form::class)
             ->shouldReceive('getAttribute')
             ->with('action')
             ->twice()
@@ -111,7 +111,7 @@ class ConfirmTest extends TestCase
             $result = $plugin->__invoke('some message', true, 'custom', $confirmLabel, $cancelLabel);
         }
 
-        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $result);
+        $this->assertInstanceOf(\Laminas\View\Model\ViewModel::class, $result);
     }
 
     public function dpTestInvokeGenerateForm(): array
@@ -129,7 +129,7 @@ class ConfirmTest extends TestCase
     {
         $plugin = new Confirm();
 
-        $mockForm = m::mock('Laminas\Form\Form');
+        $mockForm = m::mock(\Laminas\Form\Form::class);
         $mockForm->shouldReceive('setData')->withAnyArgs()->andReturn($mockForm);
         $mockForm->shouldReceive('isValid')->andReturn(true);
         $mockForm
@@ -149,7 +149,7 @@ class ConfirmTest extends TestCase
             ->andReturn([])
             ->getMock();
 
-        $mockRequest = m::mock('Laminas\Http\Request');
+        $mockRequest = m::mock(\Laminas\Http\Request::class);
         $mockRequest->shouldReceive('isPost')->andReturn(true);
 
         $this->sut->shouldReceive('getForm')->with('Confirm')->andReturn($mockForm);
@@ -170,7 +170,7 @@ class ConfirmTest extends TestCase
     {
         $plugin = new Confirm();
 
-        $mockForm = m::mock('Laminas\Form\Form');
+        $mockForm = m::mock(\Laminas\Form\Form::class);
         $mockForm->shouldReceive('setData')->withAnyArgs()->andReturn($mockForm);
         $mockForm->shouldReceive('isValid')->andReturn(false);
         $mockForm->shouldReceive('get')
@@ -201,7 +201,7 @@ class ConfirmTest extends TestCase
             ->andReturn([])
             ->getMock();
 
-        $mockRequest = m::mock('Laminas\Http\Request');
+        $mockRequest = m::mock(\Laminas\Http\Request::class);
         $mockRequest->shouldReceive('isPost')->andReturn(true);
 
         $this->sut->shouldReceive('getForm')->with('Confirm')->andReturn($mockForm);
@@ -211,6 +211,6 @@ class ConfirmTest extends TestCase
         $plugin->setController($this->sut);
         $result = $plugin->__invoke('some message');
 
-        $this->assertInstanceOf('\Laminas\View\Model\ViewModel', $result);
+        $this->assertInstanceOf(\Laminas\View\Model\ViewModel::class, $result);
     }
 }

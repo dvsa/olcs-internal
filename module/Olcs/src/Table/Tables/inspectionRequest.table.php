@@ -40,9 +40,7 @@ return [
         ],
         [
             'title' => 'Report type',
-            'formatter' => function ($row) {
-                return $row['reportType']['description'];
-            },
+            'formatter' => fn($row) => $row['reportType']['description'],
             'name' => 'reportType',
             'sort' => 'reportType'
         ],
@@ -61,17 +59,13 @@ return [
         [
             'title' => 'Application ID',
             'isNumeric' => true,
-            'formatter' => function ($row) {
-                return $row['application']['id'];
-            },
+            'formatter' => fn($row) => $row['application']['id'],
             'name' => 'applicationId',
             'sort' => 'applicationId'
         ],
         [
             'title' => 'Result status',
-            'formatter' => function ($row) {
-                return $row['resultType']['description'];
-            },
+            'formatter' => fn($row) => $row['resultType']['description'],
             'name' => 'resultType',
             'sort' => 'resultType'
         ],

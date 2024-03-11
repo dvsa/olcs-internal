@@ -10,7 +10,7 @@ use Laminas\Validator\AbstractValidator;
  */
 class SubmissionSection extends AbstractValidator
 {
-    const REQUIRED_SUBMISSIONTYPE   = 'submission_required';
+    public const REQUIRED_SUBMISSIONTYPE   = 'submission_required';
 
     /**
      * Validation failure message template definitions

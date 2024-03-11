@@ -25,14 +25,12 @@ return [
         [
             'title' => 'Operator Name',
             'sort' => 'o.name',
-            'formatter' => function ($data) {
-                return $this->callFormatter(
-                    [
-                        'formatter' => OrganisationLink::class,
-                    ],
-                    $data['licence']
-                );
-            }
+            'formatter' => fn($data) => $this->callFormatter(
+                [
+                    'formatter' => OrganisationLink::class,
+                ],
+                $data['licence']
+            )
         ],
         [
             'title' => 'Date Fee Invoiced',
@@ -53,9 +51,7 @@ return [
             'formatter' => function ($data) {
                 $refundTransaction = array_filter(
                     $data['feeTransactions'],
-                    function ($transaction) {
-                        return $transaction['amount'] < 0;
-                    }
+                    fn($transaction) => $transaction['amount'] < 0
                 );
                 $refundTransaction = array_shift($refundTransaction);
                 return $this->callFormatter(

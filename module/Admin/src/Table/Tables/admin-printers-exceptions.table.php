@@ -49,9 +49,7 @@ return [
             'title' => 'Designated printer',
             'name' => 'printerName',
             'sort' => 'printerName',
-            'formatter' => function ($row) {
-                return $row['printer']['printerName'];
-            },
+            'formatter' => fn($row) => $row['printer']['printerName'],
         ],
         [
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

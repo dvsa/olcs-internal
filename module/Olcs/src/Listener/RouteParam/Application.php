@@ -153,7 +153,7 @@ class Application implements ListenerAggregateInterface, FactoryInterface
 
         $this->getViewHelperManager()->get('placeholder')
             ->getContainer('note')
-            ->set(isset($application['latestNote']['comment']) ? $application['latestNote']['comment'] : '');
+            ->set($application['latestNote']['comment'] ?? '');
 
         $sidebarNav = $this->getSidebarNavigationService();
 

@@ -50,10 +50,8 @@ return [
 
         [
             'title' => 'Name',
-            'formatter' => function ($data, $column) {
-                return $data['opposer']['contactDetails']['person']['forename'] . ' ' .
-                $data['opposer']['contactDetails']['person']['familyName'];
-            }
+            'formatter' => fn($data, $column) => $data['opposer']['contactDetails']['person']['forename'] . ' ' .
+            $data['opposer']['contactDetails']['person']['familyName']
         ],
         [
             'title' => 'Grounds',

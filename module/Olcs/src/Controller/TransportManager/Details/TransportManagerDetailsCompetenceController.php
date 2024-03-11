@@ -223,9 +223,7 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
 
             // of readonly then remove hyperlink from column
             $column = $table->getColumn('qualificationType');
-            $column['formatter'] = function ($row) {
-                return $row['qualificationType']['description'];
-            };
+            $column['formatter'] = fn($row) => $row['qualificationType']['description'];
             $table->setColumn('qualificationType', $column);
         }
 

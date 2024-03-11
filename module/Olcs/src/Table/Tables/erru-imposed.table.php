@@ -21,9 +21,7 @@ return [
         ],
         [
             'title' => 'Penalty type',
-            'formatter' => function ($data) {
-                return $data['siPenaltyImposedType']['id'] . ' - ' . $data['siPenaltyImposedType']['description'];
-            },
+            'formatter' => fn($data) => $data['siPenaltyImposedType']['id'] . ' - ' . $data['siPenaltyImposedType']['description'],
         ],
         [
             'title' => 'Start date',
@@ -43,9 +41,7 @@ return [
         ],
         [
             'title' => 'Executed',
-            'formatter' => function ($data) {
-                return $data['executed']['description'];
-            },
+            'formatter' => fn($data) => $data['executed']['description'],
         ]
     ]
 ];

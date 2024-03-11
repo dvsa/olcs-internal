@@ -27,12 +27,10 @@ return [
         [
             'title' => 'Lic no/status',
             'sort' => 'licNo',
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['licence' => $row['licenceId']],
-                    'licence'
-                ) . '">' . $row['licNo'] . '</a><br/>' . $row['status'];
-            },
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['licence' => $row['licenceId']],
+                'licence'
+            ) . '">' . $row['licNo'] . '</a><br/>' . $row['status'],
         ],
         [
             'title' => 'App ID/status',
@@ -42,12 +40,10 @@ return [
         ],
         [
             'title' => 'Op/trading name',
-            'formatter' => function ($data) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['operator' => $data['organisation_id']],
-                    'operator/business-details'
-                ) . '">' . $data['name'] . '</a><br/>' . $data['status'];
-            },
+            'formatter' => fn($data) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['operator' => $data['organisation_id']],
+                'operator/business-details'
+            ) . '">' . $data['name'] . '</a><br/>' . $data['status'],
             'sort' => 'operatorName'
         ],
         [

@@ -21,9 +21,7 @@ return [
         [
             'title' => 'Traffic Area',
             'name' => 'trafficArea',
-            'formatter' => function ($row) {
-                return $row['trafficArea']['name'];
-            }
+            'formatter' => fn($row) => $row['trafficArea']['name']
         ],
         [
             'title' => 'Publication No.',

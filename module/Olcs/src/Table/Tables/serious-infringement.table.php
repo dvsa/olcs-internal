@@ -26,13 +26,11 @@ return [
         [
             'title' => 'Id',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return sprintf(
-                    '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
-                    $this->generateUrl(['action' => 'edit', 'id' => $data['id']], 'case_penalty'),
-                    $data['id']
-                );
-            }
+            'formatter' => fn($data) => sprintf(
+                '<a href="%s" class="govuk-link js-modal-ajax">%s</a>',
+                $this->generateUrl(['action' => 'edit', 'id' => $data['id']], 'case_penalty'),
+                $data['id']
+            )
         ],
         [
             'title' => 'Category',

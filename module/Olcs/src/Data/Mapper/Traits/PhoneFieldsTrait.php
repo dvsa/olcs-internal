@@ -35,7 +35,7 @@ trait PhoneFieldsTrait
         foreach ($phoneContacts as $phoneContact) {
             // map form type
             $type = $phoneContact['phoneContactType']['id'];
-            $phoneType = isset($typeMap[$type]) ? $typeMap[$type] : '';
+            $phoneType = $typeMap[$type] ?? '';
 
             if (!empty($phoneType)) {
                 $fields['phone_'.$phoneType] = $phoneContact['phoneNumber'];

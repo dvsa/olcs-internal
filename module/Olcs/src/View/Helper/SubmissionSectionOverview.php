@@ -13,7 +13,7 @@ use Laminas\Form\Exception;
  */
 class SubmissionSectionOverview extends AbstractHelper
 {
-    const DEFAULT_VIEW = 'sections/cases/pages/submission/details';
+    public const DEFAULT_VIEW = 'sections/cases/pages/submission/details';
 
     /**
      * Type map to views
@@ -58,9 +58,8 @@ class SubmissionSectionOverview extends AbstractHelper
      */
     public function render($submissionSection, $data, $readonly)
     {
-        $data['data']['overview'] = isset($data['data']['overview']) ? $data['data']['overview'] : [];
-        $viewTemplate = isset($this->typeViewMap[$submissionSection]) ?
-            $this->typeViewMap[$submissionSection] : self::DEFAULT_VIEW;
+        $data['data']['overview'] ??= [];
+        $viewTemplate = $this->typeViewMap[$submissionSection] ?? self::DEFAULT_VIEW;
 
         return $this->getView()->render($viewTemplate, ['data' => $data]);
     }

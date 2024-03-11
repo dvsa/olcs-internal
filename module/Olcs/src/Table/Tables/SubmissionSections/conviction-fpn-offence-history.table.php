@@ -41,9 +41,7 @@ return [
         ],
         [
             'title' => 'Name / defendant type',
-            'formatter' => function ($data) {
-                return $data['name'] . '<br />' . $data['defendantType'];
-            },
+            'formatter' => fn($data) => $data['name'] . '<br />' . $data['defendantType'],
             'name' => 'name'
         ],
         [

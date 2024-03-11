@@ -10,7 +10,7 @@ use Laminas\Validator\AbstractValidator;
  */
 class TypeOfPI extends AbstractValidator
 {
-    const TM_ONLY   = 'tmOnly';
+    public const TM_ONLY   = 'tmOnly';
 
     /**
      * Digits filter used for validation

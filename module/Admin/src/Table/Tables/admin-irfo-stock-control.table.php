@@ -77,9 +77,7 @@ return [
         ],
         [
             'title' => 'Status',
-            'formatter' => function ($data) {
-                return $data['status']['description'];
-            }
+            'formatter' => fn($data) => $data['status']['description']
         ],
         [
             'type' => 'Checkbox',

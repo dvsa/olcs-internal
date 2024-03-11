@@ -39,9 +39,7 @@ return [
             'title' => 'Content Key',
             'name' => 'translationKey',
             'sort' => 'translationKey',
-            'formatter' => function ($row) {
-                return Escape::html($row['translationKey']);
-            },
+            'formatter' => fn($row) => Escape::html($row['translationKey']),
         ],
         [
             'title' => 'Description',

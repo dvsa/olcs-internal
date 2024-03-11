@@ -30,9 +30,7 @@ return [
         ],
         [
             'title' => 'Venue',
-            'formatter' => function ($data) {
-                return (isset($data['venue']['name']) ? $data['venue']['name'] : $data['venueOther']);
-            }
+            'formatter' => fn($data) => $data['venue']['name'] ?? $data['venueOther']
         ],
         [
             'title' => 'Adjourned',

@@ -38,33 +38,25 @@ return [
         ],
         [
             'title' => 'Submission No.',
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['submission' => $row['id'], 'action' => 'details'],
-                    'submission',
-                    true
-                ) . '">' . $row['id'] . '</a>';
-            },
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['submission' => $row['id'], 'action' => 'details'],
+                'submission',
+                true
+            ) . '">' . $row['id'] . '</a>',
             'sort' => 'id'
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($row) {
-                return $row['submissionType']['description'];
-            },
+            'formatter' => fn($row) => $row['submissionType']['description'],
             'name' => 'submissionType',
         ],
         [
             'title' => 'Sub status',
-            'formatter' => function ($row) {
-                return !empty($row['closedDate']) ? 'Closed' : 'Open';
-            },
+            'formatter' => fn($row) => !empty($row['closedDate']) ? 'Closed' : 'Open',
         ],
         [
             'title' => 'Date created',
-            'formatter' => function ($row) {
-                return date(Module::$dateTimeSecFormat, strtotime($row['createdOn']));
-            },
+            'formatter' => fn($row) => date(Module::$dateTimeSecFormat, strtotime($row['createdOn'])),
             'sort' => 'createdOn'
         ],
         [

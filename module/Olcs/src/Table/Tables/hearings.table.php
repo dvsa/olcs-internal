@@ -52,9 +52,7 @@ return [
         ],
         [
             'title' => 'Presiding TC',
-            'formatter' => function ($data) {
-                return $data['presidingTc']['name'];
-            }
+            'formatter' => fn($data) => $data['presidingTc']['name']
         ],
     ]
 ];

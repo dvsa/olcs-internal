@@ -16,13 +16,11 @@ return [
         [
             'title' => 'Case No.',
             'isNumeric' => true,
-            'formatter' => function ($row) {
-                return '<a class="govuk-link" href="' . $this->generateUrl(
-                    ['case' => $row['id'], 'action' => 'details'],
-                    'case',
-                    true
-                ) . '">' . $row['id'] . '</a>';
-            },
+            'formatter' => fn($row) => '<a class="govuk-link" href="' . $this->generateUrl(
+                ['case' => $row['id'], 'action' => 'details'],
+                'case',
+                true
+            ) . '">' . $row['id'] . '</a>',
             'sort' => 'id'
         ],
         [

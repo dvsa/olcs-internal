@@ -27,9 +27,7 @@ return [
         ],
         [
             'title' => 'Complainant name',
-            'formatter' => function ($data) {
-                return $data['complainantForename'] . ' ' . $data['complainantFamilyName'];
-            },
+            'formatter' => fn($data) => $data['complainantForename'] . ' ' . $data['complainantFamilyName'],
         ],
         [
             'title' => 'Description',

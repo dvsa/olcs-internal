@@ -42,17 +42,12 @@ return [
         ],
         [
             'title' => 'Requested by',
-            'formatter' => function ($data, $column) {
-                return $data['requestorsContactDetails']['person']['forename'] . ' ' .
-                    $data['requestorsContactDetails']['person']['familyName'];
-            }
+            'formatter' => fn($data, $column) => $data['requestorsContactDetails']['person']['forename'] . ' ' .
+                $data['requestorsContactDetails']['person']['familyName']
         ],
         [
             'title' => 'Statement type',
-            'formatter' => function ($data, $column) {
-
-                return $data['statementType']['description'];
-            },
+            'formatter' => fn($data, $column) => $data['statementType']['description'],
         ],
         [
             'title' => 'Date stopped',

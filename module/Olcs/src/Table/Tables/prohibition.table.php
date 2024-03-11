@@ -69,9 +69,7 @@ return [
         ],
         [
             'title' => 'Type',
-            'formatter' => function ($data) {
-                return $data['prohibitionType']['description'];
-            }
+            'formatter' => fn($data) => $data['prohibitionType']['description']
         ]
     ]
 ];

@@ -27,24 +27,20 @@ return [
         [
             'title' => 'Penalty ID',
             'isNumeric' => true,
-            'formatter' => function ($data) {
-                return '<a href="' . $this->generateUrl(
-                    [
-                        'action' => 'edit',
-                        'id' => $data['id'],
-                        'si' => $data['seriousInfringement']['id']
-                    ],
-                    'case_penalty_applied',
-                    true
-                ) . '" class="govuk-link js-modal-ajax">' . $data['id'] . '</a>';
-            },
+            'formatter' => fn($data) => '<a href="' . $this->generateUrl(
+                [
+                    'action' => 'edit',
+                    'id' => $data['id'],
+                    'si' => $data['seriousInfringement']['id']
+                ],
+                'case_penalty_applied',
+                true
+            ) . '" class="govuk-link js-modal-ajax">' . $data['id'] . '</a>',
             'hideWhenDisabled' => true
         ],
         [
             'title' => 'Penalty type',
-            'formatter' => function ($data) {
-                return $data['siPenaltyType']['id'] . ' - ' . $data['siPenaltyType']['description'];
-            },
+            'formatter' => fn($data) => $data['siPenaltyType']['id'] . ' - ' . $data['siPenaltyType']['description'],
         ],
         [
             'title' => 'Start date',

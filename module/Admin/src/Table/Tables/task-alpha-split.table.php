@@ -37,9 +37,7 @@ return [
         ],
         [
             'title' => 'Assign operator tasks starting with these letters',
-            'formatter' => function ($data) {
-                return $data['letters'];
-            }
+            'formatter' => fn($data) => $data['letters']
         ],
         [
             'title' => 'markup-table-th-action', //this is a view partial from olcs-common

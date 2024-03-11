@@ -37,9 +37,7 @@ return [
         ],
         [
             'title' => 'Statement type',
-            'formatter' => function ($data) {
-                return $data['statementType'];
-            },
+            'formatter' => fn($data) => $data['statementType'],
         ],
         [
             'title' => 'Date stopped',

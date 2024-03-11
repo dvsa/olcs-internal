@@ -36,9 +36,7 @@ return [
         [
             'title' => 'Operator name',
             'name' => 'operatorName',
-            'formatter' => function ($row) {
-                return $row['application']['licence']['organisation']['name'];
-            },
+            'formatter' => fn($row) => $row['application']['licence']['organisation']['name'],
         ],
         [
             'title' => 'Hours per week',

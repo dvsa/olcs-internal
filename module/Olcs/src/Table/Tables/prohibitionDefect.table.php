@@ -28,17 +28,15 @@ return [
         ],
         [
             'title' => 'Defect type',
-            'formatter' => function ($data, $column) {
-                return '<a href="' . $this->generateUrl(
-                    [
-                        'action' => 'edit',
-                        'prohibition' => $data['prohibition']['id'],
-                        'id' => $data['id']
-                    ],
-                    'case_prohibition_defect',
-                    true
-                ) . '" class="govuk-link js-modal-ajax">' . $data['defectType'] . '</a>';
-            }
+            'formatter' => fn($data, $column) => '<a href="' . $this->generateUrl(
+                [
+                    'action' => 'edit',
+                    'prohibition' => $data['prohibition']['id'],
+                    'id' => $data['id']
+                ],
+                'case_prohibition_defect',
+                true
+            ) . '" class="govuk-link js-modal-ajax">' . $data['defectType'] . '</a>'
         ],
         [
             'title' => 'Notes',
