@@ -6,7 +6,7 @@ use Common\Service\Table\Formatter\InternalLicenceNumberLink;
 use Common\Service\Table\Formatter\OrganisationLink;
 use Common\Service\Table\Formatter\RefData;
 
-return array(
+return [
     'variables' => [
         'title' => 'Interim Refunds',
         'titleSingular' => 'Interim Refund',
@@ -74,4 +74,4 @@ return array(
             'formatter' => RefData::class
         ],
     ]
-);
+];

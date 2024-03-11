@@ -4,56 +4,56 @@ use Common\Service\Table\Formatter\Date;
 use Common\Service\Table\Formatter\LicenceTypeShort;
 use Common\Service\Table\Formatter\OrganisationLink;
 
-return array(
-    'variables' => array(
+return [
+    'variables' => [
         'title' => 'crud-companies-house-alert-title',
         'titleSingular' => 'crud-companies-house-alert-title-singular',
-    ),
-    'settings' => array(
-        'crud' => array(
-            'actions' => array(
-                'close' => array(
+    ],
+    'settings' => [
+        'crud' => [
+            'actions' => [
+                'close' => [
                     'class' => 'govuk-button js-require--multiple',
                     'requireRows' => false
-                ),
-            )
-        ),
-        'paginate' => array(
-            'limit' => array(
+                ],
+            ]
+        ],
+        'paginate' => [
+            'limit' => [
                 'default' => 10,
-                'options' => array(10, 25, 50)
-            )
-        )
-    ),
-    'columns' => array(
-        array(
+                'options' => [10, 25, 50]
+            ]
+        ]
+    ],
+    'columns' => [
+        [
             'title' => 'Company No.',
             'sort' => 'companyOrLlpNo',
             'name' => 'companyOrLlpNo',
-        ),
-        array(
+        ],
+        [
             'title' => 'Licence No.',
             'name' => 'licNo',
             'sort' => 'cha_o_ls.licNo',
             'formatter' => function ($row) {
                 return $row['licence']['licNo'];
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Licence Type.',
             'name' => 'description',
             'sort' => 'cha_o_lst.id',
             'formatter' => LicenceTypeShort::class
-        ),
-        array(
+        ],
+        [
             'title' => 'OLCS Company name.',
             'name' => 'organisation',
             'sort' => 'cha_o.name',
             'formatter' => OrganisationLink::class,
-        ),
+        ],
 
 
-        array(
+        [
             'title' => 'Reason(s)',
             'name' => 'reason',
             'formatter' => function ($row) {
@@ -70,17 +70,17 @@ return array(
                     )
                 );
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Detected',
             'name' => 'createdOn',
             'sort' => 'createdOn',
             'formatter' => Date::class,
-        ),
-        array(
+        ],
+        [
             'title' => 'Select',
             'width' => 'checkbox',
             'type' => 'Checkbox'
-        ),
-    )
-);
+        ],
+    ]
+];

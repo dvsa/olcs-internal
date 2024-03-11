@@ -125,28 +125,28 @@ use Olcs\View\Helper\SlaIndicator;
 use Olcs\View\Helper\SubmissionSectionMultipleTablesFactory;
 use Olcs\View\Helper\SubmissionSectionTableFactory;
 
-return array(
+return [
     'router' => [
         'routes' => include __DIR__ . '/routes.config.php'
     ],
-    'tables' => array(
-        'config' => array(
+    'tables' => [
+        'config' => [
             __DIR__ . '/../src/Table/Tables/'
-        )
-    ),
-    'controllers' => array(
-        'delegators' => array(
-            'LvaApplication/ConditionsUndertakings' => array(
+        ]
+    ],
+    'controllers' => [
+        'delegators' => [
+            'LvaApplication/ConditionsUndertakings' => [
                 'Common\Controller\Lva\Delegators\ApplicationConditionsUndertakingsDelegator'
-            ),
-            'LvaVariation/ConditionsUndertakings' => array(
+            ],
+            'LvaVariation/ConditionsUndertakings' => [
                 'Common\Controller\Lva\Delegators\VariationConditionsUndertakingsDelegator'
-            ),
-            'LvaLicence/ConditionsUndertakings' => array(
+            ],
+            'LvaLicence/ConditionsUndertakings' => [
                 'Common\Controller\Lva\Delegators\LicenceConditionsUndertakingsDelegator'
-            ),
-        ),
-        'lva_controllers' => array(
+            ],
+        ],
+        'lva_controllers' => [
             'LvaApplication' => Olcs\Controller\Lva\Application\OverviewController::class,
             'LvaApplication/TypeOfLicence' => 'Olcs\Controller\Lva\Application\TypeOfLicenceController',
             'LvaApplication/BusinessType' => 'Olcs\Controller\Lva\Application\BusinessTypeController',
@@ -222,7 +222,7 @@ return array(
             'LvaVariation/Revive' => 'Olcs\Controller\Lva\Variation\ReviveApplicationController',
             'LvaVariation/DeclarationsInternal' => 'Olcs\Controller\Lva\Variation\DeclarationsInternalController',
             'LvaVariation/Publish' => 'Olcs\Controller\Lva\Variation\PublishController',
-        ),
+        ],
         'factories' => [
             TmCntr\Details\TransportManagerDetailsResponsibilityController::class => TransportManagerControllerFactories\Details\TransportManagerDetailsResponsibilityControllerFactory::class,
             \Olcs\Controller\Auth\LoginController::class => \Olcs\Controller\Auth\LoginControllerFactory::class,
@@ -597,49 +597,49 @@ return array(
             'LicenceDocumentSlaTargetDateController' => LicenceDocumentSlaTargetDateController::class,
             'IrhpDocsController' => 'Olcs\Controller\IrhpPermits\IrhpDocsController',
         ]
-    ),
-    'controller_plugins' => array(
-        'invokables' => array(
+    ],
+    'controller_plugins' => [
+        'invokables' => [
             'Olcs\Mvc\Controller\Plugin\Confirm' => 'Olcs\Mvc\Controller\Plugin\Confirm',
             ViewBuilder::class => ViewBuilder::class,
-        ),
+        ],
         'factories' => [
             Script::class => ScriptFactory::class,
             Placeholder::class => PlaceholderFactory::class,
             Table::class => TableFactory::class,
         ],
-        'aliases' => array(
+        'aliases' => [
             'confirm' => 'Olcs\Mvc\Controller\Plugin\Confirm',
             'viewBuilder' => ViewBuilder::class,
             'script' => Script::class,
             'placeholder' => Placeholder::class,
             'table' => Table::class,
 
-        )
-    ),
-    'view_manager' => array(
+        ]
+    ],
+    'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'doctype' => 'HTML5',
         'not_found_template' => 'error/404',
         'exception_template' => 'error/index',
-        'template_map' => array(
+        'template_map' => [
             'layout/layout' => __DIR__ . '/../view/layout/base.phtml',
             'auth/layout' => __DIR__ . '/../view/layout/signin.phtml',
             'pages/lva-details' => __DIR__ . '/../view/sections/lva/lva-details.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/403' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml'
-        ),
-        'template_path_stack' => array(
+        ],
+        'template_path_stack' => [
             'olcs' => dirname(__DIR__) . '/view',
             //'olcs/view' => dirname(__DIR__) . '/view',
-        ),
-        'strategies' => array(
+        ],
+        'strategies' => [
             'ViewJsonStrategy'
-        )
-    ),
-    'view_helpers' => array(
+        ]
+    ],
+    'view_helpers' => [
         'invokables' => [
             'piListData' => Olcs\View\Helper\PiListData::class,
             'formSubmissionSections' => Olcs\Form\View\Helper\SubmissionSections::class,
@@ -663,7 +663,7 @@ return array(
             'slaIndicator' => 'Olcs\View\Helper\SlaIndicator',
             'escapeHtml' => \Common\View\Helper\EscapeHtml::class
         ]
-    ),
+    ],
     'form' => [
         'element' => [
             'renderers' => [
@@ -671,25 +671,25 @@ return array(
             ],
         ],
     ],
-    'local_forms_path' => array(
+    'local_forms_path' => [
         __DIR__ . '/../src/Form/Forms/'
-    ),
+    ],
     //-------- Start navigation -----------------
-    'navigation' => array(
-        'default' => array(
+    'navigation' => [
+        'default' => [
             include __DIR__ . '/navigation.config.php'
-        ),
-        'right-sidebar' => array(
+        ],
+        'right-sidebar' => [
             include __DIR__ . '/navigation-right-sidebar.config.php'
-        )
-    ),
+        ]
+    ],
     //-------- End navigation -----------------
     'submission_config' => include __DIR__ . '/submission/submission.config.php',
-    'local_scripts_path' => array(
+    'local_scripts_path' => [
         __DIR__ . '/../assets/js/inline/'
-    ),
+    ],
     'asset_path' => '//dev_dvsa-static.web01.olcs.mgt.mtpdvsa',
-    'service_manager' => array(
+    'service_manager' => [
         'aliases' => [
             'RouteParamsListener' => \Olcs\Listener\RouteParams::class,
             'right-sidebar' => 'Olcs\Navigation\RightHandNavigation',
@@ -711,7 +711,7 @@ return array(
         'abstract_factories' => [
             StorageCacheAbstractServiceFactory::class,
         ],
-        'factories' => array(
+        'factories' => [
             RouteParam\Licence::class => RouteParam\Licence::class,
             ProcessingService\CreateVariationProcessingService::class => ProcessingService\CreateVariationProcessingServiceFactory::class,
 
@@ -767,8 +767,8 @@ return array(
             Auth\Adapter\InternalCommandAdapter::class => Auth\Adapter\InternalCommandAdapterFactory::class,
             'RoutePluginManager' => Laminas\Router\RoutePluginManagerFactory::class,
             \Olcs\Listener\RouteParams::class => \Olcs\Listener\RouteParamsFactory::class,
-        )
-    ),
+        ]
+    ],
     'form_elements' => [
         'factories' => [
             'SubmissionSections' => SubmissionSectionsFactory::class,
@@ -931,14 +931,14 @@ return array(
         'abstract_factories' => [AbstractLvaFormFactory::class],
         'aliases' => AbstractLvaFormFactory::FORM_SERVICE_CLASS_ALIASES
     ],
-    'service_api_mapping' => array(
-        'endpoints' => array(
+    'service_api_mapping' => [
+        'endpoints' => [
             'nr' => 'http://olcs-nr/',
-        )
-    ),
-    'hostnames' => array(),
-    'marker_plugins' => array(
-        'invokables' => array(
+        ]
+    ],
+    'hostnames' => [],
+    'marker_plugins' => [
+        'invokables' => [
             Marker\ContinuationDetailMarker::class => Marker\ContinuationDetailMarker::class,
             Marker\LicenceStatusMarker::class => Marker\LicenceStatusMarker::class,
             Marker\LicenceStatusRuleMarker::class => Marker\LicenceStatusRuleMarker::class,
@@ -952,16 +952,16 @@ return array(
             Marker\TransportManager\Rule450Marker::class => Marker\TransportManager\Rule450Marker::class,
             Marker\TransportManager\IsRemovedMarker::class => Marker\TransportManager\IsRemovedMarker::class,
             Marker\SoleTraderDisqualificationMarker::class => Marker\SoleTraderDisqualificationMarker::class,
-        ),
-    ),
-    'date_settings' => array(
+        ],
+    ],
+    'date_settings' => [
         'date_format' => 'd/m/Y',
         'datetime_format' => 'd/m/Y H:i',
         'datetimesec_format' => 'd/m/Y H:i:s'
-    ),
+    ],
     'webdav' => [
         'private_key' => 'LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlKSndJQkFBS0NBZ0VBd1REWDlyMXZVWC9PazZ6NER5NzkrdnlhVzNzL21pUkxCTlE3WmFmc2tRUG12WUR3CkN0dmN2ZUpybW42b1Q4VGxpN3gzWHc3c29yaTlTSmF3QXU3cHpXSnFZRFZsbnZ5TlF4aWJVblNnMVRyeElKTkcKNXpaa2d4ZW02SnVhYVhtSURlUDBQbmpBdGlTVUE5c1ZnSHFtbjhzK000RkVmODZ0V3M2QysrVCthS0oxb0xlTAp2QTVXVGF0NkU0ekIrczR6QkFiMmFEYXBqQkNrckRXNzU0cEV1d3hNckEyZlJic0JoMTlSWjl5aDUwbGV2OWRaCkJSaDltQmZLbEV0eDF4VUZ6bFY5NlJrYUxFVHZjQUIwMHhzL2lIU3I3V2VSOUJYTnMxZjNra2xndWhyYmFET1IKb012bUNLazhUTC9MZm9pMHZLSFNhUHpMK1R3cGNwVWIwYnZoZzJGTFRKUFRzbFJJQ09WZFpxZDVqUzU3WWsrVwpaMVJpeXFzSHhoS2pjWXBVL3pVYkNiaVZENVk5N3dNd0huQkFJQ0hSQ0JrdVU2U2VQYVIxcjdUNis4b0ZQNE9QCjIzOXdJSzZ2YXFnWDJjd3EzNHRaNlp6L0U3ZkcwY3dJU2E3K2pXTGppUHYyV0sxUHpBRmFVUUJxcWJuOUZxa2YKSmZuMjQzczFoMWo5V0F2dmNXc1hDTkdkUm4yMUtZWmVqb25KNk5yQ0Nxdm5qbHcydDE0VjJITG1UcmRkVEVpeQpLaDFJMGd0Z2wzL0swN011SjFoWlowR2RuUEVtdU9ab3NpZDd6QlQ1M3JPRnE3a01xQnpsMFJiUHBsci9XOGI2ClZ1OHZiVXUwVEhjN3R1c1FuTVB6ejJUNkE1RCs2Rk9maVVTcktKOEpPTEl4M2Q5aEk2VjU5b2tkVE5NQ0F3RUEKQVFLQ0FnQkI3QVBWbTBDUUE5ZWV4cWdDcmx0V09Mb0hPMkF4bmU3SFlCQkFtUE45YkdKaENjMWZOelQweW4xRApRN0wxUFUvQ3hmWEp4eEx5VjYyblJsd2JOQ0V0eDBaYk8vMUlLZytkOUppVG8xNTZSRm1oYndBRHg2aTJudXlDCmRRNVVyWGJDbnFWcVo5UUNreXE2d2hodE5lMERtOXZHd1haNVVqSVBTV2FpdzdvWVJFOTFId3ljaUJ2azl2MTYKREU3bzRWSEJMd3NIOXBjV1IxdVpzK0JCbXdubTljUjM5VklDL2xRQU9JTlR1Sks2bEd1emRLMVlzc213aTNYQgo4cGlPOXdwN0pPc0pEbHJDL21iaHhoWVhMellYdnhBbnUyNnZabjFCbEdQVFZCeWdoS2VYdi9rU2NHRTNWV0JSCkpDVXhNVDdUR3pqc1FFN3Q1aHlTajlUbFZZSVd0UGRlcmRiS3Y3YWw2ZzdINzFMSkZsNHVQS3RFUHFvbElpWWQKOUpMajU4QWtnVk56Um81ZU5YMDRUWDBvYkNXSzBiLzNHWWVxVDByRzY3UkVTRW5mOU1QNWFmQUsxRTl2cHEzNgo5bjNsRHpjU3FEc0tjRVNxeW9EVGQ5NkVpamNYeEd6dmZxVGw5bUNCYzFRWDA0YzZLUGtQZWJLQlFRbHJxT2JqCmMrclB5ZGZkTEF1eU16R2l6TzQxM3lJd2FQVjRYTTVBQmpTMGNGREFlZWpQRkRpV2doVUoxcFpzQ2UzRXNiWmIKYTlzcGV6YnRZUXZmVFNoVGNxd0J4VmU3MjBKelo5RkllOFh6YVh3WmhhU0RvRXdyWGJUeUEwOWtXMFBxRGk0ZQpmUXBBcTRJTitmQ3BsSlJkcEpoN09vTWJmd002WTgwVU12SkNXUVlmOWlBdE9tRmp1UUtDQVFFQStJbUdUZE1XCncwK2JRSmU5ZGowUW00Sng0RWtwcjRLTk1GUmF0TFFOcEJHUXU5dlltZld0L25sZXJiai9wZmdCZzZIS1BMUEQKTlpGNkJWaGhYeHJRanNpSG00a3hYQ1l4TFFWNWI5TzdHS3VLbWRvVGFmUGFoSUQ2VEtpNkZMRFR3LzRNTEU5UAoxUkxQekFSSmJHZ2didVhGT0RHYUZvMWI4ZFN2SzNWOVFXaDhEM3pFbjVwcGIxV1lvNENXbjBTUm5ocjFzdUsxClBnclBNUzFubWlCRXZWQisycGsxVTZ2QndKbVRtY2NXRUxTbmRTM2ZFeWNaZ014RkRNR0l1RTZMM0xFY2x2cjcKU3kzN09HSkRRaUppeVJoa1BzT0lGKzh5SGJRc01GSFR6VkpuTEw3R1p1VWJjMTlSMkJJelo2VFRXcGFzM3JaYwpWN25nVy9UOEZlcWZmd0tDQVFFQXh2M2d1ZWNZa1NZblh2VVpid1dDMkhlTmg3OXVMcUZsVXhubFk2QlVGVW9DCnl4THQxTTFHNEVWeElhQTN2Zis4MFpqK3hMMUlMWU1WTnJNcVJRQVIrSTV3bk1tNGk5TDhPU3ZSYWMwTVlrbVcKWExzNjQweXJBbG5GcldSdTBmb1hDYUxhU04ySGNIQkZtWndaRFNXRERWb3diZXJlUi9XTUN4SnMxa2xTQ0RMZwpZeGM4Vi9rUWhIei83RDNxUEJMM0h1ZTBkQ3lOVXVocU8rOXNoTytoZWZzVktnejVsMnNsUHpjQklESUt2WmJKCmNCQVF3dE9ZNy9FVnVac1BRUVJhVkJmOUVMd0RwYnBJbzNnSTU1L3VkWmJLdnlKc2Y5dVV6UW5RZjJqdlE4TmoKdG0yM2swUU9hMStOZVRseXU0aFdabnlrazBTdVBaSkJ3d1Y3MHJKOHJRS0NBUUJEODJXeTFXbTkwSUFEOHZpcgo0Um92U2tUVUsyeW9QYXRZY1ZlelhCNzJvbzdOcmRmVWtDVVlGQnJjcUYzTkJMZDFROERGUStpMU5xY0QyeHdVCklvS3U1d2ljYjYvOUg3d0dNUjc0Z2d6L083ZFRSUnBWdDRRaEFocHM1eHlwRjRkdWFJRHZoR2V4Tzhsd1lDT3EKN2ZVZ0hOWUUvUnJCMjdndHNCYU1iVHpucXlkd0hJNnRqRXdUVW5XL0RpTWdQR0VMdHhkQjUxWGlOcFpiUGF5NwpxT0xpVjZXM0luZy8vZytsRnRnU0RTcHRPdGNsNUhxL0E4dW5PVElQd01JZWtlc1BWYVVaYWxsV1BxWVd6bGJSCk9CR0dKWk1TemViaGxGWkJaTWRJRnJjdnhiM0xzQVVTa01VbWtBTVNiamQ3dU1iSVY3Vy8xbC84NUNjQlBVUEcKd2pVRkFvSUJBRzg5N0F4aEdZWERPNDFGSGJQSDgrN0pYdEI5ZnI0SXNkazBCOTJhK29ad09vR0dFbmk5VFJzQgpGdzZDUDhjeW1UN2U5Y1hNUHZaYWFsaUs3bDFtZmFWakU2ZEN5YTA1QkpGOVluTndFclU3aUJoTS9zMmt4WkRwCjJLMW5FT0RIbTJ0aW8vN0tBUFlsZlhNekpYb0k5MnRXZU81cHQxdW85R0lZS2NuZGNVTnVGYXl2aDZkeWIvNXcKMXEwZHE3MXJxTVNaS1hNc21OQzVadkljbGFEM1NXRWtzUjh4NDdIM1R2bzQ2S016OW5jb1BYSXRPUUdCUXVVWAo5Rm92U2ViQjVURlB1OFJJSnczVnh0ZkR1YzZxeEtidDVtZlZlYXc4ZDhIcjg2ZldaTE9RSGtVVXJ1UmZ6bVBPCkpndVh4d0Q1WmJ1amdHbG5vclIrOTg1cldWNWZNMzBDZ2dFQVh1UmFWbHJ6SXNUZXFuaU9DMEExd0YveHQ5ZjYKNkY5V2JiWE9WZHBXYkF4Z2lRVTJCTkJBdHBXUDV6T1I0WTdONGtxK3NyT0Z6K2gyUFc4dFQ5SmhCQ3ZHQXBSRQpZckpIZ1FNeEtEUy9NeXVDNkFZemttb2RocXBMbWdWR0YyOHh6QjhPWG5QeWd5ODIyYWhDa29TSWdlMTd2OE14CkFUQzExZEQ1anAxNVQ2LzhFOVRTYkEvckNiUzFpMnE2WlJEWndlbVBWMkxoMCt5MGxlbnpWbVdwcHdKVG9VLzEKa1FyS0svYUk4ZWdWMjNTQnF5T21HMWxsNGZCcURZcU1RT2N1akFOZGNSUGQ1dlVQZmtubWd3NzArNkt1MFEvKwozMkNOM093MjJjR0dxK0lkYkd6WUJPNnFneWJDNXNZRy95a2NwRDdzNzhnOGc2eVZ4bVdESVVqMTJ3PT0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0=',
         'default_lifetime_seconds' => 3000000,
         'url_pattern' => 'ms-word:ofe|u|https://iuweb.da.olcs.dev-dvsacloud.uk/documents-dav/%%s/olcs/%%s'
     ],
-);
+];

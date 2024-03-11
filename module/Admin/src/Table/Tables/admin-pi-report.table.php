@@ -6,27 +6,27 @@ use Common\Service\Table\Formatter\PiReportName;
 use Common\Service\Table\Formatter\PiReportRecord;
 use Common\Service\Table\Formatter\VenueAddress;
 
-return array(
-    'variables' => array(
+return [
+    'variables' => [
         'titleSingular' => 'Public Inquiry',
         'title' => 'Public Inquiries'
-    ),
-    'settings' => array(
-        'crud' => array(
-            'actions' => array(
-            )
-        ),
-        'paginate' => array(
-            'limit' => array(
+    ],
+    'settings' => [
+        'crud' => [
+            'actions' => [
+            ]
+        ],
+        'paginate' => [
+            'limit' => [
                 'default' => 25,
-                'options' => array(10, 25, 50)
-            )
-        )
-    ),
-    'attributes' => array(
-    ),
-    'columns' => array(
-        array(
+                'options' => [10, 25, 50]
+            ]
+        ]
+    ],
+    'attributes' => [
+    ],
+    'columns' => [
+        [
             'title' => 'Case Id',
             'isNumeric' => true,
             'formatter' => function ($data) {
@@ -37,16 +37,16 @@ return array(
                     $data['pi']['case']
                 );
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Record',
             'formatter' => PiReportRecord::class
-        ),
-        array(
+        ],
+        [
             'title' => 'Name',
             'formatter' => PiReportName::class
-        ),
-        array(
+        ],
+        [
             'title' => 'PI Date & Time',
             'formatter' => function ($data) {
                 return $this->callFormatter(
@@ -63,10 +63,10 @@ return array(
                     $data
                 );
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Venue',
             'formatter' => VenueAddress::class
-        ),
-    )
-);
+        ],
+    ]
+];

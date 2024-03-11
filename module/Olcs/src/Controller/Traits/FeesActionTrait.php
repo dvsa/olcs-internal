@@ -609,7 +609,7 @@ trait FeesActionTrait
             }
         }
 
-        $view = new ViewModel(array('form' => $form));
+        $view = new ViewModel(['form' => $form]);
         $view->setTemplate('pages/form');
 
         $this->placeholder()->setPlaceholder('contentTitle', 'fees.refund.title');
@@ -729,7 +729,7 @@ trait FeesActionTrait
         );
         $form->get('messages')->get('message')->setValue($message);
 
-        $view = new ViewModel(array('form' => $form));
+        $view = new ViewModel(['form' => $form]);
         $view->setTemplate('pages/form');
 
         $this->placeholder()->setPlaceholder('contentTitle', 'fees.reverse-transaction.title');
@@ -1443,10 +1443,10 @@ trait FeesActionTrait
         // map to format that the JS expects :-/
         $feeTypes = array_map(
             function ($id, $description) {
-                return array(
+                return [
                     'value' => $id,
                     'label'  => $description,
-                );
+                ];
             },
             array_keys($valueOptions),
             $valueOptions

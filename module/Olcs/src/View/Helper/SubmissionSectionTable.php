@@ -24,16 +24,16 @@ class SubmissionSectionTable extends AbstractHelper
      *
      * @var array
      */
-    protected $viewMap = array(
+    protected $viewMap = [
         'conviction-fpn-offence-history'
-    );
+    ];
 
     /**
      * Table config map
      *
      * @var array
      */
-    protected $tableMap = array();
+    protected $tableMap = [];
 
     /**
      * Renders the data for a SubmissionSection details
@@ -43,7 +43,7 @@ class SubmissionSectionTable extends AbstractHelper
      * @param bool $readonly
      * @return string
      */
-    public function __invoke($submissionSection = '', $data = array(), $readonly = false, $submissionVersion = null)
+    public function __invoke($submissionSection = '', $data = [], $readonly = false, $submissionVersion = null)
     {
         if (empty($submissionSection)) {
             return '';

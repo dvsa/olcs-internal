@@ -3,46 +3,46 @@
 use Common\Service\Table\Formatter\Date;
 
 $variationNo = 1;
-return array(
-    'variables' => array(
+return [
+    'variables' => [
         'title' => 'Registration history'
-    ),
-    'settings' => array(
-        'crud' => array(
-            'actions' => array(
-                'delete' => array('requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one'),
-            ),
-        ),
-        'paginate' => array(
-            'limit' => array(
+    ],
+    'settings' => [
+        'crud' => [
+            'actions' => [
+                'delete' => ['requireRows' => true, 'class' => 'govuk-button govuk-button--warning js-require--one'],
+            ],
+        ],
+        'paginate' => [
+            'limit' => [
                 'default' => 10,
-                'options' => array(10, 25, 50)
-            )
-        )
-    ),
-    'columns' => array(
-        array(
+                'options' => [10, 25, 50]
+            ]
+        ]
+    ],
+    'columns' => [
+        [
             'title' => 'Reg No.',
             'formatter' => function ($data) {
                 return '<a class="govuk-link" href="' . $this->generateUrl(
-                    array('action' => 'index', 'busRegId' => $data['id']),
+                    ['action' => 'index', 'busRegId' => $data['id']],
                     'licence/bus-details/service',
                     true
                 ) . '">' . $data['regNo'] . '</a>';
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'Var No.',
             'isNumeric' => true,
             'name' => 'variationNo'
-        ),
-        array(
+        ],
+        [
             'title' => 'Status',
             'formatter' => function ($data) {
                 return $data['status']['description'];
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Application type',
             'formatter' => function ($data, $column) {
                 if ($data['isTxcApp'] == 'Y') {
@@ -55,23 +55,23 @@ return array(
                     return $this->translator->translate('Manual');
                 }
             }
-        ),
-        array(
+        ],
+        [
             'title' => 'Date received',
             'formatter' => Date::class,
             'name' => 'receivedDate'
-        ),
-        array(
+        ],
+        [
             'title' => 'Date effective',
             'formatter' => Date::class,
             'name' => 'effectiveDate'
-        ),
-        array(
+        ],
+        [
             'title' => 'End date',
             'formatter' => Date::class,
             'name' => 'endDate'
-        ),
-        array(
+        ],
+        [
             'title' => '&nbsp;',
             'width' => 'checkbox',
             'formatter' => function ($data) {
@@ -79,6 +79,6 @@ return array(
                     return '<input type="radio" name="id" value="' . $data['id'] . '">';
                 }
             },
-        ),
-    )
-);
+        ],
+    ]
+];

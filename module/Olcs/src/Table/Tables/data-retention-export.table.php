@@ -2,16 +2,16 @@
 
 use Common\Service\Table\Formatter\Date;
 
-return array(
-    'variables' => array(
+return [
+    'variables' => [
         'title' => 'Data retention export'
-    ),
-    'settings' => array(
-    ),
-    'attributes' => array(
-    ),
-    'columns' => array(
-        array(
+    ],
+    'settings' => [
+    ],
+    'attributes' => [
+    ],
+    'columns' => [
+        [
             'title' => 'Description',
             'formatter' => function ($row) {
                 return sprintf(
@@ -22,11 +22,11 @@ return array(
                     $row['entityPk']
                 );
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'Deleted date',
             'formatter' => Date::class,
             'name' => 'deletedDate',
-        ),
-    )
-);
+        ],
+    ]
+];

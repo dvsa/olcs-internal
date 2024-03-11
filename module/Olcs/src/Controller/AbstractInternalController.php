@@ -976,10 +976,10 @@ abstract class AbstractInternalController extends AbstractOlcsController
         $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, [$listener, 'onDispatch'], 2);
 
         if (method_exists($this, 'setNavigationCurrentLocation')) {
-            $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setNavigationCurrentLocation'), 6);
+            $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, [$this, 'setNavigationCurrentLocation'], 6);
         }
 
-        $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'attachScripts'), -100);
+        $this->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, [$this, 'attachScripts'], -100);
     }
 
     /**

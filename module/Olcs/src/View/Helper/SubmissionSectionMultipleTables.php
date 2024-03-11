@@ -17,7 +17,7 @@ class SubmissionSectionMultipleTables extends AbstractHelper
      *
      * @var array
      */
-    protected $viewMap = array();
+    protected $viewMap = [];
 
     /**
      * @var \Laminas\I18n\Translator\Translator
@@ -37,7 +37,7 @@ class SubmissionSectionMultipleTables extends AbstractHelper
      * @param bool $readonly
      * @return string
      */
-    public function __invoke($submissionSection = '', $data = array(), $readonly = false, $submissionVersion = null)
+    public function __invoke($submissionSection = '', $data = [], $readonly = false, $submissionVersion = null)
     {
         if (empty($submissionSection)) {
             return '';

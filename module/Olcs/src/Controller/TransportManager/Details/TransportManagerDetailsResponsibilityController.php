@@ -306,9 +306,9 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         $processed = $this->processFiles(
             $form,
             'details->file',
-            array($this, 'processAdditionalInformationFileUpload'),
-            array($this, 'deleteFile'),
-            array($this, 'getDocuments')
+            [$this, 'processAdditionalInformationFileUpload'],
+            [$this, 'deleteFile'],
+            [$this, 'getDocuments']
         );
 
         /**
@@ -379,9 +379,9 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         $processed = $this->processFiles(
             $form,
             'details->file',
-            array($this, 'processAdditionalInformationFileUpload'),
-            array($this, 'deleteFile'),
-            array($this, 'getDocuments')
+            [$this, 'processAdditionalInformationFileUpload'],
+            [$this, 'deleteFile'],
+            [$this, 'getDocuments']
         );
 
         if ($request->isPost()) {

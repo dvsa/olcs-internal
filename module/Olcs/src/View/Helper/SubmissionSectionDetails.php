@@ -19,7 +19,7 @@ class SubmissionSectionDetails extends AbstractHelper
      *
      * @var array
      */
-    protected $typeMap = array(
+    protected $typeMap = [
         'introduction'                      => 'SubmissionSectionOverview',
         'case-summary'                      => 'SubmissionSectionOverview',
         'case-outline'                      => 'SubmissionSectionOverview',
@@ -72,7 +72,7 @@ class SubmissionSectionDetails extends AbstractHelper
         'tm-other-employment'               => 'SubmissionSectionTable',
         'tm-previous-history'               => 'SubmissionSectionMultipleTables',
 
-    );
+    ];
 
     const DEFAULT_HELPER = 'submissionsectionoverview';
 
@@ -92,7 +92,7 @@ class SubmissionSectionDetails extends AbstractHelper
      * @param int|null $submissionVersion
      * @return string
      */
-    public function __invoke($submissionSection = '', $data = array(), $readonly = false, $submissionVersion = null)
+    public function __invoke($submissionSection = '', $data = [], $readonly = false, $submissionVersion = null)
     {
         if (empty($submissionSection)) {
             return '';

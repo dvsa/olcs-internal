@@ -21,10 +21,10 @@ class DiscPrinting
         // sort prefixes alphabetically by label
         asort($prefixes);
         foreach ($prefixes as $id => $result) {
-            $retv[] = array(
+            $retv[] = [
                 'value' => $id,
                 'label' => $result
-            );
+            ];
         }
         return $retv;
     }

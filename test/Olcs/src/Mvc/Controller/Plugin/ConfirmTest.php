@@ -30,7 +30,7 @@ class ConfirmTest extends TestCase
         $this->flashMessengerHelper = m::mock(FlashMessengerHelperService::class);
         $this->navigation = m::mock(Navigation::class);
         $this->urlHelper = m::mock(UrlHelperService::class);
-        $this->configHelper = array();
+        $this->configHelper = [];
         $this->viewRenderer = m::mock(ViewRenderer::class);
         $this->submissionService = m::mock(Submission::class);
         $this->permissionService = m::mock(Permission::class);
@@ -55,7 +55,7 @@ class ConfirmTest extends TestCase
     public function testInvokeGenerateForm($confirmLabel, $cancelLabel, $defaultLabelParams): void
     {
         $plugin = new Confirm();
-        $this->configHelper = array();
+        $this->configHelper = [];
         $mockFormCustomLabels = m::mock('Laminas\Form\Form')
             ->shouldReceive('getAttribute')
             ->with('action')

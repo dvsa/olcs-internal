@@ -3,44 +3,44 @@
 use Common\Service\Table\Formatter\Address;
 use Common\Service\Table\Formatter\ConditionsUndertakingsType;
 
-return array(
-    'variables' => array(
+return [
+    'variables' => [
         'title' => 'Conditions & Undertakings'
-    ),
-    'columns' => array(
-        array(
+    ],
+    'columns' => [
+        [
             'title' => 'No.',
             'name' => 'id'
-        ),
-        array(
+        ],
+        [
             'title' => 'lva-conditions-undertakings-table-type',
             'formatter' => ConditionsUndertakingsType::class,
-        ),
-        array(
+        ],
+        [
             'title' => 'Added via',
             'formatter' => function ($data, $column) {
                 return $this->translator->translate($data['addedVia']['description']);
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'Fulfilled',
             'formatter' => function ($data, $column) {
                 return $data['isFulfilled'] == 'Y' ? 'Yes' : 'No';
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'Status',
             'formatter' => function ($data, $column) {
                 return $data['isDraft'] == 'Y' ? 'Draft' : 'Approved';
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'Attached to',
             'formatter' => function ($data, $column) {
                 return $this->translator->translate($data['attachedTo']['description']);
             },
-        ),
-        array(
+        ],
+        [
             'title' => 'OC address',
             'width' => '300px',
             'formatter' => function ($data, $column) {
@@ -54,6 +54,6 @@ return array(
 
                 return 'N/a';
             }
-        ),
-    )
-);
+        ],
+    ]
+];

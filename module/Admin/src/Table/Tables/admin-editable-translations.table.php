@@ -50,7 +50,7 @@ return [
         ],
         [
             'title' => '',
-            'formatter' => function ($data, $column = array()) {
+            'formatter' => function ($data, $column = []) {
                 $url = $this->urlHelper->fromRoute(
                     'admin-dashboard/admin-editable-translations',
                     [

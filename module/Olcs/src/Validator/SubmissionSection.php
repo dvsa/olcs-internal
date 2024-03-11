@@ -17,9 +17,9 @@ class SubmissionSection extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::REQUIRED_SUBMISSIONTYPE      => "You must specify a submission type",
-    );
+    ];
 
     /**
      * Returns true if submission type is set

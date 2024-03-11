@@ -167,123 +167,123 @@ class SubmissionSectionsTest extends TestCase
 
     public function getSubmissionSectionsProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 'sub_type1',
                 null,
-                array(
+                [
                     'section 1',
                     'section 2'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'sub_type2',
                 null,
-                array()
-            ),
-            array(
+                []
+            ],
+            [
                 'submission_type_o_tm',
                 null,
                 null
-            ),
-            array(
+            ],
+            [
                 'submission_type_o_bus_reg',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_clo_fep',
                 'pressed',
-                array(
+                [
                     'waive-fee-late-fee'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_clo_g',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_clo_psv',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_env',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_irfo',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_mlh_clo',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_mlh_otc',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_otc',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_tm',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_schedule_41',
                 'pressed',
-                array(
+                [
                     'operating-centres'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_impounding',
                 'pressed',
-                array(
+                [
                     'statements'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'submission_type_o_ni_tru',
                 'pressed',
-                array(
+                [
                     'statements'
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'UNKNOWN_submission_type',
                 'pressed',
-                array(
+                [
                     'statements'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 }

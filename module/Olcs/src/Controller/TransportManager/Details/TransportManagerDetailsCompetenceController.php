@@ -121,9 +121,9 @@ class TransportManagerDetailsCompetenceController extends AbstractInternalContro
         $this->processFiles(
             $form,
             'file',
-            array($this, 'processCertificateFileUpload'),
-            array($this, 'deleteFile'),
-            array($this, 'getDocuments')
+            [$this, 'processCertificateFileUpload'],
+            [$this, 'deleteFile'],
+            [$this, 'getDocuments']
         );
         return $response;
     }

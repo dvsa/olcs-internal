@@ -238,7 +238,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
      *
      * @return void
      */
-    public function addCssToDifference($postedSections = array(), $newDefaultSections = array())
+    public function addCssToDifference($postedSections = [], $newDefaultSections = [])
     {
         $allSections = $this->getSections()->getValueOptions();
         foreach ($allSections as $key => $title) {
@@ -258,13 +258,13 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
      */
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array(
+            'filters' => [
+                [
                     'name'    => 'Callback',
-                    'options' => array(
+                    'options' => [
                         'callback' => function ($data) {
                                 $sections = array_merge(
                                     isset($data['sections']) ? $data['sections'] : [],
@@ -275,15 +275,15 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
                                 'sections' => $sections
                             ];
                         }
-                    )
-                )
-            ),
-            'validators' => array(
-                array(
+                    ]
+                ]
+            ],
+            'validators' => [
+                [
                     'name' => 'Olcs\Validator\SubmissionSection'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**

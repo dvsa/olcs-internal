@@ -153,7 +153,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     {
         $this->listeners[] = $events->attach(
             RouteParams::EVENT_PARAM . 'licence',
-            array($this, 'onLicence'),
+            [$this, 'onLicence'],
             $priority
         );
     }

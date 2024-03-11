@@ -15,10 +15,10 @@ trait PhoneFieldsTrait
      *
      * @var array
      */
-    protected static $phoneTypes = array(
+    protected static $phoneTypes = [
         'primary' => RefData::PHONE_TYPE_PRIMARY,
         'secondary' => RefData::PHONE_TYPE_SECONDARY,
-    );
+    ];
 
     /**
      * Get fields from result

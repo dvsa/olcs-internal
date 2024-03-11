@@ -20,14 +20,14 @@ class SubmissionSectionOverview extends AbstractHelper
      *
      * @var array
      */
-    protected $typeViewMap = array(
+    protected $typeViewMap = [
         'case-summary'   => 'sections/cases/pages/submission/summary',
         'case-outline'   => 'sections/cases/pages/submission/outline',
         'penalties'      => 'sections/cases/pages/submission/penalties',
         'conviction-fpn-offence-history'   => 'sections/cases/pages/submission/table',
         'most-serious-infringement'   => 'sections/cases/pages/submission/most-serious-infringement',
         'tm-details'   => 'sections/cases/pages/submission/tm-details',
-    );
+    ];
 
     /**
      * Renders the data for a SubmissionSection details
@@ -37,7 +37,7 @@ class SubmissionSectionOverview extends AbstractHelper
      * @param bool $readonly
      * @return string
      */
-    public function __invoke($submissionSection = '', $data = array(), $readonly = false)
+    public function __invoke($submissionSection = '', $data = [], $readonly = false)
     {
 
         if (empty($submissionSection)) {
