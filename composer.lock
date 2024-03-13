@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c236e4ad24b583cb41e25cb8ff0b4231",
+    "content-hash": "05fe97a77b5c9c8aec7506d57c5d6d57",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4673,16 +4673,16 @@
         },
         {
             "name": "olcs/olcs-auth",
-            "version": "v6.0.0",
+            "version": "dev-remove-open-am-vol-2661",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-auth.git",
-                "reference": "0f6697ca81e8c169af0aca385781a52ac0b9dc55"
+                "reference": "ad7d7a5468e9b89c57840c7cd1ccf4982f61d902"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-auth/zipball/0f6697ca81e8c169af0aca385781a52ac0b9dc55",
-                "reference": "0f6697ca81e8c169af0aca385781a52ac0b9dc55",
+                "url": "https://api.github.com/repos/dvsa/olcs-auth/zipball/ad7d7a5468e9b89c57840c7cd1ccf4982f61d902",
+                "reference": "ad7d7a5468e9b89c57840c7cd1ccf4982f61d902",
                 "shasum": ""
             },
             "require": {
@@ -4725,9 +4725,9 @@
             ],
             "description": "OLCS Authentication",
             "support": {
-                "source": "https://github.com/dvsa/olcs-auth/tree/v6.0.0"
+                "source": "https://github.com/dvsa/olcs-auth/tree/remove-open-am-vol-2661"
             },
-            "time": "2024-02-20T12:13:06+00:00"
+            "time": "2024-03-15T10:45:10+00:00"
         },
         {
             "name": "olcs/olcs-common",
@@ -9048,7 +9048,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "olcs/olcs-auth": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -9059,5 +9061,5 @@
     "platform-overrides": {
         "ext-redis": "4.3"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
