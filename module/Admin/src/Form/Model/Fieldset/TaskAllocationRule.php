@@ -33,6 +33,22 @@ class TaskAllocationRule
     public $category = null;
 
     /**
+     * @Form\Attributes({"id":"subCategory","placeholder":""})
+     * @Form\Options({
+     *     "short-label": "Sub category",
+     *     "label": "Sub category",
+     *     "service_name": "Olcs\Service\Data\SubCategory",
+     *     "context": {
+     *       "isTaskCategory": "Y"
+     *     },
+     *     "empty_option": "Not applicable"
+     * })
+     * @Form\Required(false)
+     * @Form\Type("DynamicSelect")
+     */
+    public $subCategory = null;
+
+    /**
      * @Form\Name("goodsOrPsv")
      * @Form\Attributes({"id": ""})
      * @Form\Options({

@@ -33,6 +33,12 @@ return array(
             }
         ),
         array(
+            'title' => 'Sub Category',
+            'formatter' => function ($row) {
+                return $row['subCategory']['subCategoryName'] ?? 'Not applicable';
+            }
+        ),
+        array(
             'title' => 'Criteria',
             'formatter' => TaskAllocationCriteria::class,
         ),
