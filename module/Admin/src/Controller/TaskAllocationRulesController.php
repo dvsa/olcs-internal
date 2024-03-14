@@ -139,7 +139,7 @@ class TaskAllocationRulesController extends AbstractInternalController
     {
         $form = parent::getForm($name);
 
-        if ($name === 'Admin\Form\Model\Form\TaskAllocationRule') {
+        if ($name === \Admin\Form\Model\Form\TaskAllocationRule::class) {
             $this->formHelperService->populateFormTable(
                 $form->get('details')->get('taskAlphaSplit'),
                 $this->getAlphaSplitTable()

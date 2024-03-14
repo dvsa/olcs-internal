@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Olcs\Controller\Messages;
 
-use Common\Exception\ResourceNotFoundException;
 use Dvsa\Olcs\Transfer\Query\Licence\Licence;
 use Exception;
 use Laminas\View\Model\ViewModel;
 use Olcs\Controller\Interfaces\LicenceControllerInterface;
 
-class LicenceEnableDisableMessagingController
-    extends AbstractEnableDisableMessagingController
-    implements LicenceControllerInterface
+class LicenceEnableDisableMessagingController extends AbstractEnableDisableMessagingController implements LicenceControllerInterface
 {
     protected $navigationId = 'licence';
 
@@ -30,7 +27,7 @@ class LicenceEnableDisableMessagingController
 
     protected function getRoutePrefix(): string
     {
-        return 'licence';
+        return 'licence/conversation';
     }
 
     protected function getOrganisationId(): int

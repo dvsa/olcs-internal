@@ -153,7 +153,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     {
         $this->listeners[] = $events->attach(
             RouteParams::EVENT_PARAM . 'licence',
-            array($this, 'onLicence'),
+            [$this, 'onLicence'],
             $priority
         );
     }
@@ -219,8 +219,10 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
             );
         }
 
-        $navigationService->findById('conversations')->set('unreadLicenceConversationCount', $count);
-        $navigationService->findById('application_conversations')->set('unreadLicenceConversationCount', $count);
+        array_map(
+            fn($page) => $page->set('unreadLicenceConversationCount', $count),
+            $navigationService->findBy('tag', 'messaging-menu', true)
+        );
     }
 
     public function onLicence(EventInterface $e)
@@ -243,7 +245,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
         $this->getViewHelperManager()->get('placeholder')
             ->getContainer('note')
-            ->set(isset($licence['latestNote']['comment']) ? $licence['latestNote']['comment'] : '');
+            ->set($licence['latestNote']['comment'] ?? '');
         $this->getViewHelperManager()->get('placeholder')
             ->getContainer('isPriorityNote')
             ->set(isset($licence['latestNote']['priority']) && $licence['latestNote']['priority'] === 'Y');
@@ -617,7 +619,7 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): Licence
     {
         $this->setViewHelperManager($container->get('ViewHelperManager'));
-        $this->setLicenceService($container->get('DataServiceManager')->get('Common\Service\Data\Licence'));
+        $this->setLicenceService($container->get('DataServiceManager')->get(\Common\Service\Data\Licence::class));
         $this->setNavigationService($container->get('right-sidebar'));
         $this->setMainNavigationService($container->get('navigation'));
         $this->setMarkerService($container->get(MarkerService::class));
@@ -629,12 +631,15 @@ class Licence implements ListenerAggregateInterface, FactoryInterface
 
     private function handleMessagingTabVisibility(int $licenceId, Navigation $navigationService): void
     {
-        if ($this->isMessagingFeatureToggleEnabled()) {
-            $this->fetchAndApplyUnreadConversationCountForLicenceToMessageTabs($licenceId, $navigationService);
-        } else {
-            $navigationService->findById('conversations')->setVisible(0);
-            $navigationService->findById('application_conversations')->setVisible(0);
+        if (!$this->isMessagingFeatureToggleEnabled()) {
+            return;
         }
+
+        $this->fetchAndApplyUnreadConversationCountForLicenceToMessageTabs($licenceId, $navigationService);
+        array_map(
+            fn($page) => $page->setVisible(true),
+            $navigationService->findBy('tag', 'messaging-menu', true)
+        );
     }
 
     private function isMessagingFeatureToggleEnabled(): bool

@@ -36,7 +36,7 @@ class TaskAllocationRule implements MapperInterface
                 'version' => $data['version'],
                 'category' => $data['category'],
                 'subCategory' => $data['subCategory'],
-                'goodsOrPsv' => isset($data['goodsOrPsv']['id']) ? $data['goodsOrPsv']['id'] : 'na',
+                'goodsOrPsv' => $data['goodsOrPsv']['id'] ?? 'na',
                 'isMlh' => $data['isMlh'] ? 'Y' : 'N',
                 'trafficArea' => $data['trafficArea'],
                 'teamId' => $data['team']['id'],

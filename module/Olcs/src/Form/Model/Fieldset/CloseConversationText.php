@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Olcs\Form\Model\Fieldset;
 
+use Common\Form\Elements\Types\PlainText;
 use Laminas\Form\Annotation as Form;
 
 /**
@@ -12,9 +13,9 @@ use Laminas\Form\Annotation as Form;
 class CloseConversationText
 {
     /**
-     * @Form\Type(\Common\Form\Elements\Types\PlainText::class)
+     * @Form\Type(PlainText::class)
      * @Form\Attributes({
-     *     "value": "The conversation will be removed from the Inbox and a transcript will be archived in docs and attachments tab."
+     *     "value": "messaging.close-conversation.popup"
      * })
      */
     public ?PlainText $text = null;
