@@ -42,7 +42,12 @@ class Conversation
 
     /**
      * @Form\Attributes({"class": "extra-long","id": ""})
-     * @Form\Options({"label": "Message"})
+     * @Form\Options({
+     *     "label": "Message",
+     *     "minLength_validation_error_message": "messaging.form.message.content.too_short.error_message",
+     *     "maxLength_validation_error_message": "messaging.form.message.content.too_long.error_message",
+     *     "notEmpty_validation_error_message": "messaging.form.message.content.empty.error_message"
+     * })
      * @Form\Type(Textarea::class)
      * @Form\Filter(StringTrim::class)
      * @Form\Validator(StringLength::class, options={"min": 5, "max": 1000})
