@@ -111,17 +111,17 @@ class TeamController extends AbstractInternalController implements LeftViewProvi
     protected UserWithName $userWithName;
 
     public function __construct(
-        TranslationHelperService    $translationHelperService,
-        FormHelperService           $formHelper,
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelperService,
-        Navigation                  $navigation,
-        HelperPluginManager         $viewHelperPluginManager,
-        TableFactory                $tableFactory,
-        SubCategory                 $subCategoryDataService,
-        UserWithName                $userWithName
+        Navigation $navigation,
+        HelperPluginManager $viewHelperPluginManager,
+        TableFactory $tableFactory,
+        SubCategory $subCategory,
+        UserWithName $userWithName
     ) {
         $this->viewHelperPluginManager = $viewHelperPluginManager;
-        $this->subCategory = $subCategoryDataService;
+        $this->subCategory = $subCategory;
         $this->tableFactory = $tableFactory;
         $this->userWithName = $userWithName;
 
