@@ -35,7 +35,7 @@ return [
         [
             'title' => 'Sub Category',
             'formatter' => function ($row) {
-                return $row['subCategory']['subCategoryName'] ?? 'Not applicable';
+                return $row['subCategory']['subCategoryName'] ?? 'N/A';
             }
         ],
         [

@@ -17,6 +17,12 @@ class TaskAllocationRule
         IdTrait;
 
     /**
+     * @Form\Attributes({"value": "Criteria:"})
+     * @Form\Type("Common\Form\Elements\Types\GuidanceTranslated")
+     */
+    public $headingCriteria = null;
+
+    /**
      * @Form\Attributes({"id":"category","placeholder":""})
      * @Form\Options({
      *     "short-label": "Category",
@@ -103,6 +109,12 @@ class TaskAllocationRule
      * @Form\Type("DynamicSelect")
      */
     public $trafficArea = null;
+
+    /**
+     * @Form\Attributes({"value": "Assign to:"})
+     * @Form\Type("Common\Form\Elements\Types\GuidanceTranslated")
+     */
+    public $headingAssignTo = null;
 
     /**
      * @Form\Type("Hidden")
