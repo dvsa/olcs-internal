@@ -20,13 +20,19 @@ use Common\Service\Data\MessagingSubject;
 class Conversation
 {
     /**
-     * @Form\Attributes({"id": "subject","placeholder": ""})
      * @Form\Options({
-     *     "label": "messaging.create-conversation.subject",
-     *     "service_name": MessagingSubject::class,
-     *     "empty_option": "Please Select"
+     *     "label": "messaging.subject",
+     *     "empty_option": "Please select",
+     *     "service_name": \Common\Service\Data\MessagingSubject::class
      * })
-     * @Form\Type(DynamicSelect::class)
+     * @Form\Type(\Common\Form\Element\DynamicSelect::class)
+     * @Form\Validator("Laminas\Validator\NotEmpty",
+     *         options={
+     *             "messages":{Laminas\Validator\NotEmpty::IS_EMPTY:"messaging.form.message.subject.empty.error_message"},
+     *         },
+     *         breakChainOnFailure=true,
+     *         priority=100,
+     *    )
      */
     public ?DynamicSelect $messageSubject = null;
 
@@ -44,13 +50,25 @@ class Conversation
      * @Form\Attributes({"class": "extra-long","id": ""})
      * @Form\Options({
      *     "label": "Message",
-     *     "minLength_validation_error_message": "messaging.form.message.content.too_short.error_message",
-     *     "maxLength_validation_error_message": "messaging.form.message.content.too_long.error_message",
-     *     "notEmpty_validation_error_message": "messaging.form.message.content.empty.error_message"
      * })
      * @Form\Type(Textarea::class)
      * @Form\Filter(StringTrim::class)
-     * @Form\Validator(StringLength::class, options={"min": 5, "max": 1000})
+     * @Form\Validator("Laminas\Validator\NotEmpty",
+     *     options={
+     *          "messages":{Laminas\Validator\NotEmpty::IS_EMPTY:"messaging.form.message.content.empty.error_message"},
+     *     },
+     *     breakChainOnFailure=true
+     *  )
+     * @Form\Validator(\Laminas\Validator\StringLength::class,
+     *     options={
+     *         "min": 5,
+     *         "max": 1000,
+     *         "messages": {
+     *              Laminas\Validator\StringLength::TOO_SHORT:"messaging.form.message.content.too_short.error_message",
+     *              Laminas\Validator\StringLength::TOO_LONG:"messaging.form.message.content.too_long.error_message",
+     *          }
+     *     }
+     * )
      */
     public ?Textarea $messageContent = null;
 
