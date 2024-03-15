@@ -6,8 +6,6 @@ namespace Olcs\Form\Model\Fieldset;
 
 use Common\Form\Element\DynamicSelect;
 use Laminas\Form\Annotation as Form;
-use Laminas\Form\Element\Hidden;
-use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Textarea;
 use Laminas\Filter\StringTrim;
 use Laminas\Validator\StringLength;
@@ -20,12 +18,13 @@ use Common\Service\Data\MessagingSubject;
 class Conversation
 {
     /**
+     * @Form\Attributes({"id": "subject","placeholder": ""})
      * @Form\Options({
-     *     "label": "messaging.subject",
-     *     "empty_option": "Please select",
-     *     "service_name": \Common\Service\Data\MessagingSubject::class
+     *     "label": "messaging.create-conversation.subject",
+     *     "service_name": MessagingSubject::class,
+     *     "empty_option": "Please Select"
      * })
-     * @Form\Type(\Common\Form\Element\DynamicSelect::class)
+     * @Form\Type(DynamicSelect::class)
      * @Form\Validator("Laminas\Validator\NotEmpty",
      *         options={
      *             "messages":{Laminas\Validator\NotEmpty::IS_EMPTY:"messaging.form.message.subject.empty.error_message"},
@@ -36,21 +35,9 @@ class Conversation
      */
     public ?DynamicSelect $messageSubject = null;
 
-     /**
-     * @Form\Attributes({"id": "appOrLicNo","placeholder": ""})
-     * @Form\Options({
-     *     "label": "Application or licence ID",
-     *     "empty_option": "Please Select",
-     * })
-     * @Form\Type(Select::class)
-     */
-    public ?Select $appOrLicNo = null;
-
     /**
-     * @Form\Attributes({"class": "extra-long","id": ""})
-     * @Form\Options({
-     *     "label": "Message",
-     * })
+     * @Form\Attributes({"class": "extra-long", "id": ""})
+     * @Form\Options({"label": "Message"})
      * @Form\Type(Textarea::class)
      * @Form\Filter(StringTrim::class)
      * @Form\Validator("Laminas\Validator\NotEmpty",
@@ -71,16 +58,4 @@ class Conversation
      * )
      */
     public ?Textarea $messageContent = null;
-
-    /**
-     * @Form\Type(Hidden::class)
-     * @Form\Options({"value": ""})
-     */
-    public ?Hidden $licence = null;
-
-    /**
-     * @Form\Type(Hidden::class)
-     * @Form\Options({"value": ""})
-     */
-    public ?Hidden $application = null;
 }
