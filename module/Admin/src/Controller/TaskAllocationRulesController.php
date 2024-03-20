@@ -104,13 +104,13 @@ class TaskAllocationRulesController extends AbstractInternalController
     protected SubCategory $subCategoryDataService;
 
     public function __construct(
-        TranslationHelperService    $translationHelperService,
-        FormHelperService           $formHelper,
+        TranslationHelperService $translationHelperService,
+        FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessengerHelperService,
-        Navigation                  $navigation,
-        TableFactory                $tableFactory,
-        UserListInternal            $userListInternalDataService,
-        SubCategory                 $subCategoryDataService
+        Navigation $navigation,
+        TableFactory $tableFactory,
+        UserListInternal $userListInternalDataService,
+        SubCategory $subCategoryDataService
     ) {
         $this->tableFactory = $tableFactory;
         $this->userListInternalDataService = $userListInternalDataService;

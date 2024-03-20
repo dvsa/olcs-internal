@@ -35,7 +35,7 @@ return [
                 $lva = $column['lva'] ?? 'licence';
                 return '<a href="' . $this->generateUrl(
                     ['action' => 'edit', 'id' => $data['id']],
-                    $lva .'/processing/publications',
+                    $lva . '/processing/publications',
                     true
                 ) . '" class="govuk-link js-modal-ajax">' . $this->callFormatter($column, $data) . '</a>';
             },

@@ -41,13 +41,12 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
     protected ScriptFactory $scriptFactory;
 
     public function __construct(
-        TranslationHelperService    $translationHelper,
-        FormHelperService           $formHelper,
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
-        Navigation                  $navigation,
-        ScriptFactory               $scriptFactory
-    )
-    {
+        Navigation $navigation,
+        ScriptFactory $scriptFactory
+    ) {
         parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
 
         $this->scriptFactory = $scriptFactory;

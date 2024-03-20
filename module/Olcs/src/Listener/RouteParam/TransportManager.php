@@ -128,7 +128,8 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
         $placeholder->getContainer('note')->set($latestNote);
 
         //only show print form link for one controller and action
-        if ($context['controller'] == TransportManagerDetailsResponsibilityController::class
+        if (
+            $context['controller'] == TransportManagerDetailsResponsibilityController::class
              && $context['action'] == 'edit-tm-application'
         ) {
              $this->getSidebarNavigation()

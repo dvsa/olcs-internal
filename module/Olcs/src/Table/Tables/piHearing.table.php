@@ -53,7 +53,8 @@ return [
                 } else {
                     $url = $this->generateUrl(
                         ['action' => 'edit', 'id' => $data['id'], 'pi' => $data['pi']['id']],
-                        'case_pi_hearing', true
+                        'case_pi_hearing',
+                        true
                     );
                     return '<a href="' . $url . '" class="govuk-link js-modal-ajax">' . $date . '</a>';
                 }

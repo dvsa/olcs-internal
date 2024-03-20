@@ -6,6 +6,7 @@
  *
  * @author Shaun Lizzio <shaun.lizzio@valtech.co.uk>
  */
+
 namespace Olcs\Form\Element;
 
 use Common\Form\Element\Button;
@@ -21,7 +22,6 @@ use Laminas\InputFilter\InputProviderInterface;
  */
 class SubmissionSections extends LaminasElement implements ElementPrepareAwareInterface, InputProviderInterface
 {
-
     /**
      * Select form element that contains values for submission type
      *
@@ -176,7 +176,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
         }
 
         $this->getSections()->setValueOptions($sections);
-        $this->getSections()->setOptions(['label_position'=>'append']);
+        $this->getSections()->setOptions(['label_position' => 'append']);
 
         $this->getSections()->setName($name . '[sections]');
         $this->getSubmissionTypeSubmit()->setName($name . '[submissionTypeSubmit]');

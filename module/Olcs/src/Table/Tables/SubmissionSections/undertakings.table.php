@@ -41,7 +41,7 @@ return [
                  * @psalm-scope-this TableBuilder
                  */
                 $string = $this->translator->translate($data['addedVia']) . ' '
-                    .$data['parentId'];
+                    . $data['parentId'];
                 return $string;
             }
         ],

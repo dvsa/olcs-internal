@@ -58,12 +58,12 @@ return [
                  * @psalm-scope-this TableBuilder
                  */
                 $this->callFormatter(
-                [
+                    [
                     'name' => 'hearingDate',
                     'formatter' => \Common\Service\Table\Formatter\DateTime::class
-                ],
-                $data
-            ).
+                    ],
+                    $data
+                ) .
             $this->callFormatter(
                 [
                     'formatter' => PiHearingStatus::class,

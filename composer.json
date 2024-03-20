@@ -63,7 +63,8 @@
         "psr-4": {
             "Dvsa\\OlcsTest\\": "./test",
             "OlcsTest\\": "./test/Olcs/src",
-            "AdminTest\\": "./test/Admin/src"
+            "AdminTest\\": "./test/Admin/src",
+            "CommonTest\\": "vendor/olcs/olcs-common/test/Common/src/"
         }
     },
     "minimum-stability": "dev",

@@ -8,10 +8,10 @@ return [
         'title' => ' active bus registrations associated with this licence.'
     ],
     'attributes' => [
-        'name'=>'busRegistrations'
+        'name' => 'busRegistrations'
     ],
-    'settings' =>[
-        'showTotal'=>true
+    'settings' => [
+        'showTotal' => true
     ],
     'columns' => [
         [

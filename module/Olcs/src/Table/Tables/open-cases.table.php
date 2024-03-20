@@ -10,8 +10,8 @@ return [
     'attributes' => [
         'name' => 'openCases'
     ],
-    'settings' =>[
-        'showTotal'=>true
+    'settings' => [
+        'showTotal' => true
     ],
     'columns' => [
         [

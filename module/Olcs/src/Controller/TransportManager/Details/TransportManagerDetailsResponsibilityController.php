@@ -775,7 +775,6 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         if ($response->isOk()) {
             $result = $response->getResult();
             if ($showMessage) {
-                // @todo: There is a bug. Messages can't be displayed after the redirect. Need to fix in future stories.
                 $this->flashMessenger()->addSuccessMessage($message);
             }
             return $this->redirectToIndex();
