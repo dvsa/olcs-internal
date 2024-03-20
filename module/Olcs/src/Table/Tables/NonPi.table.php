@@ -1,6 +1,7 @@
 <?php
 
 use Common\Service\Table\Formatter\Date;
+use Common\Service\Table\TableBuilder;
 use Olcs\Module;
 
 return [
@@ -29,6 +30,10 @@ return [
         [
             'title' => 'Meeting date',
             'formatter' => function ($data, $column) {
+                /**
+                 * @var TableBuilder $this
+                 * @psalm-scope-this TableBuilder
+                 */
                 $url = $this->generateUrl(
                     ['action' => 'edit', 'id' => $data['id']],
                     'case_non_pi', true

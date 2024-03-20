@@ -1,6 +1,7 @@
 <?php
 
 use Common\Service\Table\Formatter\Date;
+use Common\Service\Table\TableBuilder;
 use Olcs\Module;
 
 return [
@@ -26,6 +27,10 @@ return [
         [
             'title' => 'Created',
             'formatter' => function ($data, $column) {
+                /**
+                 * @var TableBuilder $this
+                 * @psalm-scope-this TableBuilder
+                 */
                 $column['formatter'] = Date::class;
                 $lva = $column['lva'] ?? 'licence';
                 return '<a href="' . $this->generateUrl(

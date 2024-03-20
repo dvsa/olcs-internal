@@ -27,7 +27,7 @@ class VariationFurniture implements ListenerAggregateInterface, FactoryInterface
 
     /**
      * @param $router
-     * @return $this
+     * @return void
      */
     public function setRouter($router)
     {

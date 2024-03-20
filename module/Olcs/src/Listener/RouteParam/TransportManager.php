@@ -2,6 +2,7 @@
 
 namespace Olcs\Listener\RouteParam;
 
+use Common\Exception\ResourceNotFoundException;
 use Psr\Container\ContainerInterface;
 use Laminas\EventManager\EventInterface;
 use Olcs\Controller\TransportManager\Details\TransportManagerDetailsResponsibilityController;
@@ -185,7 +186,6 @@ class TransportManager implements ListenerAggregateInterface, FactoryInterface
      * @param int   $id Transport Manager ID
      *
      * @return array
-     * @throws ResourceNotFoundException
      */
     private function getTransportManager($id)
     {

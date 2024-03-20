@@ -68,7 +68,7 @@ class Rule450Marker extends \Olcs\Service\Marker\AbstractMarker
     /**
      * Merge together the TMAs and TMLs
      *
-     * @param type $data
+     * @param array $data
      *
      * @return array
      */

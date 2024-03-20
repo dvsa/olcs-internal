@@ -11,6 +11,7 @@ use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Script\ScriptFactory;
 use Common\Service\Table\TableFactory;
+use Common\Service\Validation\CommandInterface;
 use Dvsa\Olcs\Transfer\Command\Licence\CurtailLicence;
 use Dvsa\Olcs\Transfer\Command\Licence\ResetToValid;
 use Dvsa\Olcs\Transfer\Command\Licence\RevokeLicence;
@@ -540,12 +541,12 @@ class LicenceDecisionsController extends AbstractController implements
      * If a xNow e.g. curtailNow method has been pressed then redirect.
      *
      * @param array       $data    The licence id.
-     * @param null|string $command The command to use.
+     * @param class-string<CommandInterface> $command
      * @param null|string $message The message to display
      *
      * @return \Laminas\Http\Response A redirection response.
      */
-    private function affectImmediate($data = [], $command = null, $message = null)
+    private function affectImmediate($data = [], $command, $message = null)
     {
         $command = $command::create(
             [

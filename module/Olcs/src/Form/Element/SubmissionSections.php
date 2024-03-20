@@ -8,6 +8,7 @@
  */
 namespace Olcs\Form\Element;
 
+use Common\Form\Element\Button;
 use Laminas\Form\Element as LaminasElement;
 use Laminas\Form\ElementPrepareAwareInterface;
 use Laminas\Form\FormInterface;
@@ -76,7 +77,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
     /**
      * Set submission type
      *
-     * @param \Common\Form\Elements\Custom\Select $submissionType Submission type select element
+     * @param LaminasElement\Select $submissionType Submission type select element
      *
      * @return SubmissionSections
      */
@@ -122,7 +123,7 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
     /**
      * Set submission type submit
      *
-     * @param \Olcs\Form\Element\Button $submissionTypeSubmit Submission type submit button
+     * @param Button $submissionTypeSubmit Submission type submit button
      *
      * @return void
      */
@@ -251,9 +252,6 @@ class SubmissionSections extends LaminasElement implements ElementPrepareAwareIn
     }
 
     /**
-     * Should return an array specification compatible with
-     * {@link Laminas\InputFilter\Factory::createInput()}.
-     *
      * @return array
      */
     public function getInputSpecification()

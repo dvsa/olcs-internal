@@ -214,7 +214,7 @@ class TransportManagerMarker implements ListenerAggregateInterface, FactoryInter
      *
      * @param int $variationId Variation ID
      *
-     * @return array
+     * @return void
      * @throws \RuntimeException
      */
     protected function addTransportManagerFromLicenceData($variationId)

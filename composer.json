@@ -56,9 +56,7 @@
     "autoload": {
         "psr-4": {
             "Olcs\\": "module/Olcs/src",
-            "Admin\\": "module/Admin/src",
-            "Common\\": "vendor/olcs/olcs-common/Common/src/Common",
-            "CommonTest\\": "vendor/olcs/olcs-common/test/Common/src/"
+            "Admin\\": "module/Admin/src"
         }
     },
     "autoload-dev": {

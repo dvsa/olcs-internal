@@ -13,6 +13,7 @@ use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\DeleteList as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\Get as ItemDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\GetList as ListDto;
+use Laminas\Form\FormInterface;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Data\Mapper\TaskAllocationRule as Mapper;
@@ -208,9 +209,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter the Task allocation rule form when adding
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForAdd($form)
     {
@@ -291,9 +292,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter form for add alpha split
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForAddAlphasplit($form)
     {
@@ -306,9 +307,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter form for add alpha split
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForEditAlphasplit($form)
     {

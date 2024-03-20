@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\TableBuilder;
+
 return [
     'variables' => [
         'titleSingular' => 'Printer',
@@ -28,6 +30,10 @@ return [
             'name' => 'printerName',
             'sort' => 'printerName',
             'formatter' => function ($row) {
+                /**
+                 * @var TableBuilder $this
+                 * @psalm-scope-this TableBuilder
+                 */
                 $routeParams = ['printer' => $row['id'], 'action' => 'edit'];
                 $route = 'admin-dashboard/admin-printing/admin-printer-management';
                 $url = $this->generateUrl($routeParams, $route);

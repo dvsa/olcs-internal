@@ -234,7 +234,7 @@ class Application implements ListenerAggregateInterface, FactoryInterface
     /**
      * Get the Application data
      *
-     * @param id $id
+     * @param string $id
      * @return array
      * @throws ResourceNotFoundException
      */

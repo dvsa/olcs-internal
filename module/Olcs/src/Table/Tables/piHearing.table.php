@@ -1,5 +1,6 @@
 <?php
 
+use Common\Service\Table\TableBuilder;
 use Olcs\Module;
 
 return [
@@ -42,6 +43,10 @@ return [
         [
             'title' => 'Date of PI',
             'formatter' => function ($data) {
+                /**
+                 * @var TableBuilder $this
+                 * @psalm-scope-this TableBuilder
+                 */
                 $date = date(Module::$dateFormat, strtotime($data['hearingDate']));
                 if (!empty($data['pi']['closedDate'])) {
                     return $date;

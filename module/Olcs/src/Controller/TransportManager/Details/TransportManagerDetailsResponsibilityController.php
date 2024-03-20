@@ -3,6 +3,7 @@
 namespace Olcs\Controller\TransportManager\Details;
 
 use Common\Controller\Traits\CheckForCrudAction;
+use Common\Form\Form;
 use Common\Service\Cqrs\Command\CommandService;
 use Common\Service\Cqrs\Query\QueryService;
 use Common\Service\Helper\FileUploadHelperService;
@@ -184,7 +185,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         $view = $this->getViewWithTm(['form' => $form]);
         $view->setTemplate('pages/form');
 
-        $this->formPost($form, 'processAddForm');
+        $this->formPost($form, [$this, 'processAddForm']);
 
         if ($this->getResponse()->getContent() !== '') {
             return $this->getResponse();
@@ -490,7 +491,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      * Check for alternative crud action
      * Need this to handle edit other licence action when clicking the table link
      *
-     * @param string $action Action
+     * @param string|array $action Action
      *
      * @return \Laminas\Http\Response
      */
@@ -910,9 +911,6 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
             return $this->redirectToAction($redirectAction, $redirectId);
         }
 
-        /**
- * @var \Laminas\Form\FormInterface $form
-*/
         $form = $this->getForm('TmOtherLicence');
 
         $view = new ViewModel(['form' => $form]);
@@ -923,7 +921,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         }
 
         $this->otherLicenceform = $form;
-        $this->formPost($form, 'processOtherLicenceForm');
+        $this->formPost($form, [$this, 'processOtherLicenceForm']);
 
         if ($this->getResponse()->getContent() !== '') {
             return $this->getResponse();

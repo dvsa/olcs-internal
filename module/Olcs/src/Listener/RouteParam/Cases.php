@@ -154,7 +154,7 @@ class Cases implements ListenerAggregateInterface, FactoryInterface
     /**
      * Get the Case data
      *
-     * @param id $id
+     * @param string $id
      * @return array
      * @throws ResourceNotFoundException
      */

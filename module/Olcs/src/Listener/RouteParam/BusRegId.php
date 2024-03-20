@@ -102,7 +102,7 @@ class BusRegId implements ListenerAggregateInterface, FactoryInterface
     /**
      * Get the Bus Reg data
      *
-     * @param id $id
+     * @param string $id
      * @return array
      * @throws ResourceNotFoundException
      */

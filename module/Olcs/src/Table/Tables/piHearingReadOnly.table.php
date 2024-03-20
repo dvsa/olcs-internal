@@ -1,5 +1,7 @@
 <?php
 
+use Common\Service\Table\TableBuilder;
+
 return [
     'variables' => [
         'titleSingular' => 'Hearing',
@@ -19,6 +21,10 @@ return [
         [
             'title' => 'Date of PI',
             'formatter' => function ($data) {
+                /**
+                 * @var TableBuilder $this
+                 * @psalm-scope-this TableBuilder
+                 */
                 $date = date(Common\Module::$dateFormat, strtotime($data['hearingDate']));
                 $url = $this->generateUrl(
                     ['action' => 'edit', 'id' => $data['id'], 'pi' => $data['pi']['id']],
