@@ -71,11 +71,6 @@ abstract class AbstractSlaTargetDateController extends AbstractInternalControlle
         'indexAction' => ['table-actions']
     ];
 
-    protected function getEntityType()
-    {
-        return $this->entityType;
-    }
-
     public function addSlaAction()
     {
         return parent::addAction();

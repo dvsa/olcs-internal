@@ -35,6 +35,8 @@ trait ProcessingControllerTrait
      */
     protected $entity;
 
+    protected $helperClass;
+
     public function getLeftView()
     {
         $view = new ViewModel();

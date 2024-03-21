@@ -541,7 +541,7 @@ class LicenceDecisionsController extends AbstractController implements
      * @param array       $data    The licence id.
      * @param null|string $message The message to display
      *
-     * @return \Laminas\Http\Response A redirection response.
+     * @return \Laminas\Http\Response|void A redirection response.
      */
     private function affectImmediate($command, $data = [], $message = null)
     {

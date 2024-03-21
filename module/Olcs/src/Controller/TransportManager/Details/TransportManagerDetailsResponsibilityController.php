@@ -493,7 +493,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      *
      * @param string|array $action Action
      *
-     * @return \Laminas\Http\Response
+     * @return \Laminas\Http\Response|void
      */
     protected function checkForAlternativeCrudAction($action)
     {
@@ -919,7 +919,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
             $form = $this->populateOtherLicenceEditForm($form, $type, $redirectAction, $redirectId);
         }
 
-        $this->otherLicenceform = $form;
+        $this->otherLicenceForm = $form;
         $this->formPost($form, [$this, 'processOtherLicenceForm']);
 
         if ($this->getResponse()->getContent() !== '') {
@@ -971,7 +971,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      *
      * @param array $data Data
      *
-     * @return \Laminas\Http\Response
+     * @return \Laminas\Http\Response|void
      */
     protected function processOtherLicenceForm($data)
     {
@@ -986,8 +986,8 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
         $dto = $dtoClass::create($mappedData);
         $command = $this->transferAnnotationBuilder->createCommand($dto);
         /**
- * @var \Common\Service\Cqrs\Response $response
-*/
+         ** @var \Common\Service\Cqrs\Response $response
+         */
         $response = $this->commandService->send($command);
         if ($response->isClientError()) {
             $errors = OtherLicenceMapper::mapFromErrors($this->otherLicenceForm, $response->getResult()['messages']);

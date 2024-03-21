@@ -64,7 +64,7 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
     }
 
     /**
-     * @inheritDoc
+     * @return array|Response|ViewModel|void
      */
     public function indexAction()
     {
