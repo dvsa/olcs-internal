@@ -3,6 +3,7 @@
 namespace Olcs\Controller;
 
 use Common\Exception\BadRequestException;
+use Common\Form\Form;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Script\ScriptFactory;
@@ -158,7 +159,7 @@ class TaskController extends AbstractController
      *
      * @return \Laminas\Http\Response
      */
-    public function processCloseTask($data)
+    public function processCloseTask(array $data)
     {
         $ids = explode('-', $this->params('task'));
 
@@ -333,7 +334,7 @@ class TaskController extends AbstractController
      *
      * @return null|\Laminas\Http\Response
      */
-    public function processAddTask($data)
+    public function processAddTask(array $data)
     {
         $form = $data['form'];
         $data = $data['validData'];
@@ -343,13 +344,14 @@ class TaskController extends AbstractController
     /**
      * Callback invoked when the form is valid
      *
-     * @param array                       $data Data
-     * @param \Laminas\Form\FormInterface $form Form
+     * @param array $data Data
      *
      * @return null|\Laminas\Http\Response
      */
-    public function processEditTask($data, $form)
+    public function processEditTask(array $data)
     {
+        $form = $data['form'];
+        $data = $data['validData'];
         return $this->processAddEditTask(self::METHOD_EDIT, $data, $form);
     }
 
@@ -362,7 +364,7 @@ class TaskController extends AbstractController
      *
      * @return null|\Laminas\Http\Response
      */
-    private function processAddEditTask($method, $data, $form)
+    private function processAddEditTask(string $method, array $data, Form $form)
     {
         if ($this->isButtonPressed('cancel')) {
             return $this->redirectToList();

@@ -639,7 +639,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      *
      * @return null|\Laminas\Http\Response
      */
-    protected function processAddForm($data)
+    protected function processAddForm(array $data)
     {
         $data = $data['validData'];
         $tm = $this->getFromRoute('transportManager');
