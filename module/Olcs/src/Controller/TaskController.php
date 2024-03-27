@@ -176,13 +176,14 @@ class TaskController extends AbstractController
     /**
      * Callback invoked when the form is valid
      *
-     * @param array                       $data Data
-     * @param \Laminas\Form\FormInterface $form Form
+     * @param array $data Data
      *
      * @return \Laminas\Http\Response
      */
-    public function processAssignTask($data, $form)
+    public function processAssignTask(array $data)
     {
+        $form = $data['form'];
+        $data = $data['validData'];
         if (!isset($data['assignment'])) {
             return $this->redirectToList();
         }
@@ -328,13 +329,14 @@ class TaskController extends AbstractController
     /**
      * Callback invoked when the form is valid
      *
-     * @param array                       $data Data
-     * @param \Laminas\Form\FormInterface $form Form
+     * @param array $data Data
      *
      * @return null|\Laminas\Http\Response
      */
-    public function processAddTask($data, $form)
+    public function processAddTask($data)
     {
+        $form = $data['form'];
+        $data = $data['validData'];
         return $this->processAddEditTask(self::METHOD_ADD, $data, $form);
     }
 

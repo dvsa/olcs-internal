@@ -641,6 +641,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      */
     protected function processAddForm($data)
     {
+        $data = $data['validData'];
         $tm = $this->getFromRoute('transportManager');
 
         $routeParams = ['transportManager' => $tm, 'action' => 'edit-tm-application', 'title' => 1];
@@ -975,6 +976,7 @@ class TransportManagerDetailsResponsibilityController extends AbstractTransportM
      */
     protected function processOtherLicenceForm($data)
     {
+        $data = $data['validData'];
         $mappedData = OtherLicenceMapper::mapFromForm($data);
         if (isset($data['data']['id']) && $data['data']['id']) {
             $dtoClass = UpdateForTmaDto::class;

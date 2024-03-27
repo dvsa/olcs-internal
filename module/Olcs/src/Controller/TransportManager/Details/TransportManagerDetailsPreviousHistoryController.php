@@ -238,6 +238,7 @@ class TransportManagerDetailsPreviousHistoryController extends AbstractTransport
      */
     protected function processForm($data)
     {
+        $data = $data['validData'];
         if (isset($data['tm-convictions-and-penalties-details'])) {
             $this->savePreviousConviction($data['tm-convictions-and-penalties-details']);
             $action = 'add-previous-conviction';
