@@ -6,8 +6,6 @@
   <file>./test</file>
 
   <arg name="extensions" value="php" />
-  <exclude-pattern>*/vendor/*</exclude-pattern>
-  <exclude-pattern>*\.(css|js)$</exclude-pattern>
 
   <rule ref="./vendor-bin/phpcs/vendor/dvsa/coding-standards/src/Profiles/DVSA/CS/ruleset.xml" />
 </ruleset>
