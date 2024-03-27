@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace OlcsTest\Controller\Auth;
@@ -31,7 +32,7 @@ class LoginControllerFactoryTest extends MockeryTestCase
     /**
      * @test
      */
-    public function __invoke_IsCallable(): void
+    public function invokeIsCallable(): void
     {
         // Setup
         $this->setUpSut();
@@ -42,9 +43,9 @@ class LoginControllerFactoryTest extends MockeryTestCase
 
     /**
      * @test
-     * @depends __invoke_IsCallable
+     * @depends invokeIsCallable
      */
-    public function __invoke_ReturnsAnInstanceOfDispatcherWithLoginController()
+    public function invokeReturnsAnInstanceOfDispatcherWithLoginController()
     {
         // Setup
         $this->setUpSut();
@@ -53,7 +54,6 @@ class LoginControllerFactoryTest extends MockeryTestCase
         $sm->method('get')->willReturnMap([
             [InternalCommandAdapter::class, $this->createMock(InternalCommandAdapter::class)],
             [AuthenticationServiceInterface::class, $this->createMock(AuthenticationServiceInterface::class)],
-            ['Auth\CookieService', $this->createMock(CookieService::class)],
             [CurrentUser::class, $this->createMock(CurrentUser::class)],
             [FlashMessenger::class, $this->createMock(FlashMessenger::class)],
             [FormHelperService::class, $this->createMock(FormHelperService::class)],

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Olcs\Controller\Messages;
 
 use Common\Form\Form;
+use Common\RefData;
 use Common\Service\Helper\FlashMessengerHelperService;
 use Common\Service\Helper\FormHelperService;
 use Common\Service\Helper\TranslationHelperService;
@@ -40,13 +41,12 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
     protected ScriptFactory $scriptFactory;
 
     public function __construct(
-        TranslationHelperService    $translationHelper,
-        FormHelperService           $formHelper,
+        TranslationHelperService $translationHelper,
+        FormHelperService $formHelper,
         FlashMessengerHelperService $flashMessenger,
-        Navigation                  $navigation,
-        ScriptFactory               $scriptFactory
-    )
-    {
+        Navigation $navigation,
+        ScriptFactory $scriptFactory
+    ) {
         parent::__construct($translationHelper, $formHelper, $flashMessenger, $navigation);
 
         $this->scriptFactory = $scriptFactory;
@@ -54,8 +54,17 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
 
     abstract protected function getConversationViewRoute(): string;
 
+    /** @param array $parameters */
+    protected function modifyListQueryParameters($parameters)
+    {
+        $parameters['includeReadRoles'] = 1;
+        $parameters['readRoles'] = [RefData::ROLE_OPERATOR_ADMIN, RefData::ROLE_OPERATOR_TM, RefData::ROLE_OPERATOR_USER];
+
+        return $parameters;
+    }
+
     /**
-     * @inheritDoc
+     * @return array|Response|ViewModel|void
      */
     public function indexAction()
     {

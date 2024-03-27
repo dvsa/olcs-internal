@@ -76,14 +76,6 @@ return [
     // Asset path, URI to olcs-static (CSS, JS, etc] *Environment specific*
     'asset_path' => '/static/public',
 
-    'openam' => [
-        'url' => 'http://iuauth.%domain%:8080/secure/',
-        'realm' => 'internal',
-        'cookie' => [
-            'domain' => '%olcs_iu_cookie%',
-        ]
-    ],
-
     /**
      * Configure the location of the application log
      */
@@ -168,7 +160,7 @@ return [
             ],
         ],
     ],
-    'html-purifier-cache-dir' => '/var/tmp/htmlPurifierCache',
+    'html-purifier-cache-dir' => 'data/cache/HtmlPurifier',
 
     'auth' => [
         'user_unique_id_salt' => '%user_unique_id_salt%',

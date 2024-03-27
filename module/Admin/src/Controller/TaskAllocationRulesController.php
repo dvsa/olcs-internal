@@ -13,9 +13,11 @@ use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\DeleteList as DeleteDto;
 use Dvsa\Olcs\Transfer\Command\TaskAllocationRule\Update as UpdateDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\Get as ItemDto;
 use Dvsa\Olcs\Transfer\Query\TaskAllocationRule\GetList as ListDto;
+use Laminas\Form\FormInterface;
 use Laminas\Navigation\Navigation;
 use Olcs\Controller\AbstractInternalController;
 use Olcs\Data\Mapper\TaskAllocationRule as Mapper;
+use Olcs\Service\Data\SubCategory;
 use Olcs\Service\Data\UserListInternal;
 
 class TaskAllocationRulesController extends AbstractInternalController
@@ -31,10 +33,17 @@ class TaskAllocationRulesController extends AbstractInternalController
      * @var array
      */
     protected $inlineScripts = [
-        'editAction' => ['table-actions', 'forms/task-alpha-split'],
-        'addAction' => ['table-actions', 'forms/task-alpha-split'],
+        'editAction' => [
+            'table-actions',
+            'forms/task-alpha-split',
+            'forms/selected-category-subcategory-filtering',
+        ],
+        'addAction' => [
+            'table-actions',
+            'forms/task-alpha-split',
+            'forms/selected-category-subcategory-filtering',
+        ],
     ];
-
 
     // list
     protected $tableName = 'task-allocation-rules';
@@ -90,7 +99,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     ];
 
     protected TableFactory $tableFactory;
-    protected UserListInternal $userListInternal;
+    protected UserListInternal $userListInternalDataService;
+
+    protected SubCategory $subCategoryDataService;
 
     public function __construct(
         TranslationHelperService $translationHelperService,
@@ -98,10 +109,12 @@ class TaskAllocationRulesController extends AbstractInternalController
         FlashMessengerHelperService $flashMessengerHelperService,
         Navigation $navigation,
         TableFactory $tableFactory,
-        UserListInternal $userListInternal
+        UserListInternal $userListInternalDataService,
+        SubCategory $subCategoryDataService
     ) {
         $this->tableFactory = $tableFactory;
-        $this->userListInternal = $userListInternal;
+        $this->userListInternalDataService = $userListInternalDataService;
+        $this->subCategoryDataService = $subCategoryDataService;
         parent::__construct($translationHelperService, $formHelper, $flashMessengerHelperService, $navigation);
     }
     /**
@@ -168,10 +181,16 @@ class TaskAllocationRulesController extends AbstractInternalController
      */
     public function alterFormForEdit(\Common\Form\Form $form, $formData)
     {
-        // Setup the initial list of users in the dropdown dependant on the team
+        // Setup initial user list based on current team
         if (isset($formData['details']['team']['id'])) {
-            $this->userListInternal
+            $this->userListInternalDataService
                 ->setTeamId($formData['details']['team']['id']);
+        }
+
+        // Setup initial sub-categories filter based on current category
+        if (isset($formData['details']['category']['id'])) {
+            $this->subCategoryDataService
+                ->setCategory($formData['details']['category']['id']);
         }
 
         /* @var $formHelper \Common\Service\Helper\FormHelperService */
@@ -190,9 +209,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter the Task allocation rule form when adding
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForAdd($form)
     {
@@ -273,9 +292,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter form for add alpha split
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForAddAlphasplit($form)
     {
@@ -288,9 +307,9 @@ class TaskAllocationRulesController extends AbstractInternalController
     /**
      * Alter form for add alpha split
      *
-     * @param Form $form Form
+     * @param FormInterface $form Form
      *
-     * @return Form
+     * @return FormInterface
      */
     protected function alterFormForEditAlphasplit($form)
     {
@@ -312,7 +331,7 @@ class TaskAllocationRulesController extends AbstractInternalController
     {
         $teamId = $this->params()->fromRoute('team');
         if ((int)$teamId) {
-            $this->userListInternal->setTeamId($teamId);
+            $this->userListInternalDataService->setTeamId($teamId);
         }
     }
 

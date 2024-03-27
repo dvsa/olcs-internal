@@ -114,18 +114,19 @@ class TransportManagersController extends Lva\AbstractTransportManagersControlle
     {
 
         if (!$this->isLastTmLicence()) {
-            return parent::delete();
+            parent::delete();
+            return null;
         }
 
         /**
- * @var \Laminas\Http\Request $request
-*/
+        * @var \Laminas\Http\Request $request
+        */
         $request = $this->getRequest();
 
         $formHelper = $this->formHelper;
         /**
- * @var \Common\Form\Form $form
-*/
+        * @var \Common\Form\Form $form
+        */
         $form = $formHelper->createFormWithRequest($this->getDeleteConfirmationForm(), $request);
 
         $form->setData((array)$request->getPost());

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * RoutePermissionGuard - Configuration is '<route_id>' => '<permission_name>'. Order is important, once
  * a route is matched, all others are ignored.
@@ -12,7 +13,7 @@ use Common\RefData;
 
 return [
     'guards' => [
-        \LmcRbacMvc\Guard\RoutePermissionsGuard::class =>[
+        \LmcRbacMvc\Guard\RoutePermissionsGuard::class => [
             // OLCS Module Routes
             '*processing/notes*' => [RefData::PERMISSION_INTERNAL_NOTES],
             '*case*' => [RefData::PERMISSION_INTERNAL_CASE],
@@ -22,7 +23,6 @@ return [
             'submission*' => [RefData::PERMISSION_INTERNAL_CASE],
             '*surrender*' => [RefData::PERMISSION_INTERNAL_EDIT],
 
-            // @todo will this effect the above processing/notes* rule?
             '*processing*' => [RefData::PERMISSION_INTERNAL_PROCESSING],
 
             'licence/opposition*' => [RefData::PERMISSION_INTERNAL_OPPOSITION],
@@ -33,6 +33,8 @@ return [
             '*fees*' => [RefData::PERMISSION_INTERNAL_FEES],
             'fetch_tmp_document' => [RefData::PERMISSION_INTERNAL_DOCUMENTS],
             'note' => [RefData::PERMISSION_INTERNAL_NOTES],
+
+            '*conversation*' => [RefData::PERMISSION_CAN_LIST_CONVERSATIONS],
 
             // CLI module Routes
             'batch-licence-status' => ['*'],
