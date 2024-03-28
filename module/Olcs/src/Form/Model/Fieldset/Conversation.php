@@ -42,8 +42,8 @@ class Conversation
      *     "maxlength": 1000
      * })
      * @Form\Options({
-     *     "label": "You can enter up to 1000 characters",
-     * })
+     * *     "label": "You can enter up to 1000 characters",
+     * * })
      * @Form\Type(Textarea::class)
      * @Form\Filter(StringTrim::class)
      * @Form\Validator("Laminas\Validator\NotEmpty",
