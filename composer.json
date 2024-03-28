@@ -1,10 +1,12 @@
 {
     "name": "olcs/olcs-internal",
     "description": "OLCS Internal Web Site",
-    "repositories": [{
-      "type": "vcs",
-      "url": "https://github.com/dvsa/laminas-form.git"
-    }],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dvsa/laminas-form.git"
+        }
+    ],
     "require": {
         "php": "^7.4",
         "ext-redis": "*",
@@ -85,7 +87,7 @@
             "@phpstan"
         ]
     },
-    "extra" : {
+    "extra": {
         "bamarni-bin": {
             "bin-links": true,
             "forward-command": true
