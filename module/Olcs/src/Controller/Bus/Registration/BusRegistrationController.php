@@ -49,7 +49,7 @@ class BusRegistrationController extends AbstractActionController implements BusR
     /**
      * index action
      *
-     * @return \Laminas\View\Model\ConsoleModel|ViewModel
+     * @return ViewModel
      */
     public function indexAction()
     {
