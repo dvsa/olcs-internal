@@ -18,8 +18,6 @@ use Olcs\View\Model\ViewModel;
  */
 class BusRegistrationController extends AbstractActionController implements BusRegControllerInterface
 {
-    protected FlashMessengerHelperService $flashMessengerHelperService;
-
     /**
      * @var int
      */
@@ -27,10 +25,8 @@ class BusRegistrationController extends AbstractActionController implements BusR
 
     protected FlashMessengerHelperService $flashMessenger;
 
-    public function __construct(
-        FlashMessengerHelperService $flashMessenger
-    ) {
-        $this->flashMessengerHelperService = $flashMessenger;
+    public function __construct(protected FlashMessengerHelperService $flashMessengerHelperService)
+    {
     }
 
     /**
