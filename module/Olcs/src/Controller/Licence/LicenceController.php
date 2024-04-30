@@ -22,6 +22,7 @@ class LicenceController extends AbstractController implements LicenceControllerI
 {
     use Lva\Traits\LicenceControllerTrait;
     use CheckForCrudAction;
+
     protected $lva;
 
     protected FlashMessengerHelperService $flashMessengerHelper;

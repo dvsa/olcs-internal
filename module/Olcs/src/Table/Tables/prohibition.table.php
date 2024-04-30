@@ -66,10 +66,12 @@ return [
         [
             'title' => 'Imposed at',
             'format' => '{{imposedAt}}'
+        // phpcs:disable
         ],
         [
             'title' => 'Type',
             'formatter' => fn($data) => $data['prohibitionType']['description']
         ]
+        // phpcs:enable
     ]
 ];

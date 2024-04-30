@@ -29,6 +29,7 @@ use Olcs\Service\Data\UserListInternalExcludingLimitedReadOnlyUsers;
 class IndexController extends AbstractController implements LeftViewProvider
 {
     use TaskSearchTrait;
+
     protected SubCategory $subCategoryDataService;
 
     public function __construct(

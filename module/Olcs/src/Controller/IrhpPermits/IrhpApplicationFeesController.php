@@ -19,6 +19,7 @@ class IrhpApplicationFeesController extends AbstractIrhpPermitController
     use FeesActionTrait;
     use GenericReceipt;
     use IrhpFeesTrait;
+
     protected UrlHelperService $urlHelper;
     protected IdentityProviderInterface $identityProvider;
     protected TranslationHelperService $translationHelper;

@@ -17,6 +17,7 @@ use Olcs\Controller\TransportManager\TransportManagerController;
 abstract class AbstractTransportManagerDetailsController extends TransportManagerController
 {
     use GenericUpload;
+
     protected FileUploadHelperService $uploadHelper;
 
     public function __construct(

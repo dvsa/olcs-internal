@@ -34,6 +34,7 @@ class ApplicationController extends AbstractController implements ApplicationCon
     use Traits\LicenceControllerTrait;
     use Traits\ApplicationControllerTrait;
     use CheckForCrudAction;
+
     protected FlashMessengerHelperService $flashMessengerHelper;
 
     protected $navigation;
