@@ -8,7 +8,7 @@
     "require": {
         "php": "~8.0.0",
         "ext-redis": "*",
-        "dvsa/laminas-config-cloud-parameters": "^0.2.0",
+        "dvsa/laminas-config-cloud-parameters": "^1.0.0",
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-cache": "^3.0",
         "laminas/laminas-cache-storage-adapter-redis": "^2.0",
@@ -39,7 +39,7 @@
         "olcs/olcs-transfer": "^7.0.0",
         "olcs/olcs-utils": "^6.0.0",
         "saeven/zf3-purifier": "^1.1",
-        "doctrine/doctrine-module": "^5",
+        "doctrine/doctrine-module": "^6",
         "laminas/laminas-serializer": "^2.5",
         "psr/container": "^1.1|^2",
         "aws/aws-sdk-php": "^3.300"
