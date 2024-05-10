@@ -5,7 +5,7 @@ namespace Olcs\Form;
 /**
  * Message Form
  *
- * @author Mat Evans <mat.evans@valtech.co.uk>
+ * @template-extends Form<mixed>
  */
 class Message extends \Laminas\Form\Form
 {

@@ -3,7 +3,7 @@
   xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
   backupGlobals="true"
   colors="true"
-  executionOrder="random"
+  executionOrder="default"
   convertWarningsToExceptions="false"
 >
   <php>
