@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-crt-php",
-            "version": "v1.2.4",
+            "version": "v1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awslabs/aws-crt-php.git",
-                "reference": "eb0c6e4e142224a10b08f49ebf87f32611d162b2"
+                "reference": "0ea1f04ec5aa9f049f97e012d1ed63b76834a31b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awslabs/aws-crt-php/zipball/eb0c6e4e142224a10b08f49ebf87f32611d162b2",
-                "reference": "eb0c6e4e142224a10b08f49ebf87f32611d162b2",
+                "url": "https://api.github.com/repos/awslabs/aws-crt-php/zipball/0ea1f04ec5aa9f049f97e012d1ed63b76834a31b",
+                "reference": "0ea1f04ec5aa9f049f97e012d1ed63b76834a31b",
                 "shasum": ""
             },
             "require": {
@@ -56,22 +56,22 @@
             ],
             "support": {
                 "issues": "https://github.com/awslabs/aws-crt-php/issues",
-                "source": "https://github.com/awslabs/aws-crt-php/tree/v1.2.4"
+                "source": "https://github.com/awslabs/aws-crt-php/tree/v1.2.5"
             },
-            "time": "2023-11-08T00:42:13+00:00"
+            "time": "2024-04-19T21:30:56+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.305.0",
+            "version": "3.306.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6992342acf7dd4501163c6cddabe76c74f2020ad"
+                "reference": "79a618bb5624e52f31de7083a26d1749050aa5a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6992342acf7dd4501163c6cddabe76c74f2020ad",
-                "reference": "6992342acf7dd4501163c6cddabe76c74f2020ad",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/79a618bb5624e52f31de7083a26d1749050aa5a0",
+                "reference": "79a618bb5624e52f31de7083a26d1749050aa5a0",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.305.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.306.6"
             },
-            "time": "2024-04-22T18:07:07+00:00"
+            "time": "2024-05-14T18:05:44+00:00"
         },
         {
             "name": "brick/varexporter",
@@ -4440,16 +4440,16 @@
         },
         {
             "name": "olcs/olcs-auth",
-            "version": "v8.0.0",
+            "version": "v8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-auth.git",
-                "reference": "352344e1316da7b8835e061e317cb9710393ccc5"
+                "reference": "42d1594bfd0f00dd19eb44d61cb2095a2f26fb41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-auth/zipball/352344e1316da7b8835e061e317cb9710393ccc5",
-                "reference": "352344e1316da7b8835e061e317cb9710393ccc5",
+                "url": "https://api.github.com/repos/dvsa/olcs-auth/zipball/42d1594bfd0f00dd19eb44d61cb2095a2f26fb41",
+                "reference": "42d1594bfd0f00dd19eb44d61cb2095a2f26fb41",
                 "shasum": ""
             },
             "require": {
@@ -4463,7 +4463,9 @@
                 "laminas/laminas-stdlib": "^3.0.0",
                 "laminas/laminas-view": "^2.11",
                 "lm-commons/lmc-rbac-mvc": "^3.3.1",
-                "php": "~8.0.0",
+                "olcs/olcs-common": "^7.1",
+                "olcs/olcs-transfer": "^7.1",
+                "php": "^8.0",
                 "psr/container": "^1.1|^2"
             },
             "conflict": {
@@ -4473,8 +4475,6 @@
                 "bamarni/composer-bin-plugin": "^1.8",
                 "johnkary/phpunit-speedtrap": "^4.0",
                 "mockery/mockery": "^1.6",
-                "olcs/olcs-common": "^7.0.1",
-                "olcs/olcs-transfer": "^7.0",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^9.6"
             },
@@ -4496,22 +4496,22 @@
             ],
             "description": "OLCS Authentication",
             "support": {
-                "source": "https://github.com/dvsa/olcs-auth/tree/v8.0.0"
+                "source": "https://github.com/dvsa/olcs-auth/tree/v8.1.0"
             },
-            "time": "2024-04-18T11:22:15+00:00"
+            "time": "2024-05-13T10:59:17+00:00"
         },
         {
             "name": "olcs/olcs-common",
-            "version": "v7.0.3",
+            "version": "v7.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-common.git",
-                "reference": "eb42aab7ef460c7b01924ca7bd752d2996df7c04"
+                "reference": "bd12e3745fbb294cdc39e98cd091f3b356f3f343"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/eb42aab7ef460c7b01924ca7bd752d2996df7c04",
-                "reference": "eb42aab7ef460c7b01924ca7bd752d2996df7c04",
+                "url": "https://api.github.com/repos/dvsa/olcs-common/zipball/bd12e3745fbb294cdc39e98cd091f3b356f3f343",
+                "reference": "bd12e3745fbb294cdc39e98cd091f3b356f3f343",
                 "shasum": ""
             },
             "require": {
@@ -4531,14 +4531,14 @@
                 "laminas/laminas-mvc-plugin-prg": "^1.7",
                 "laminas/laminas-navigation": "^2.15",
                 "laminas/laminas-servicemanager": "^3.3",
-                "laminas/laminas-stdlib": "^3.0",
+                "laminas/laminas-stdlib": "^3.7",
                 "laminas/laminas-text": "^2.9",
                 "laminas/laminas-validator": "^2.11",
                 "laminas/laminas-view": "^2.23",
                 "olcs/olcs-logging": "^6.0|^7.0",
-                "olcs/olcs-transfer": "^7.0.1",
+                "olcs/olcs-transfer": "^7.1.0",
                 "olcs/olcs-utils": "^6.0",
-                "php": "~8.0.0",
+                "php": "^8.0",
                 "psr/container": "^1.1|^2"
             },
             "require-dev": {
@@ -4572,9 +4572,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Common library for the OLCS Project",
             "support": {
-                "source": "https://github.com/dvsa/olcs-common/tree/v7.0.3"
+                "source": "https://github.com/dvsa/olcs-common/tree/v7.2.1"
             },
-            "time": "2024-04-22T09:44:51+00:00"
+            "time": "2024-05-14T15:41:25+00:00"
         },
         {
             "name": "olcs/olcs-logging",
@@ -4632,16 +4632,16 @@
         },
         {
             "name": "olcs/olcs-transfer",
-            "version": "v7.0.1",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dvsa/olcs-transfer.git",
-                "reference": "fa56bc7dd9ee127fe593c13239fbc3887fd45c6b"
+                "reference": "144bbdbdf426174e4db22d188fe8c519af6e5b23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dvsa/olcs-transfer/zipball/fa56bc7dd9ee127fe593c13239fbc3887fd45c6b",
-                "reference": "fa56bc7dd9ee127fe593c13239fbc3887fd45c6b",
+                "url": "https://api.github.com/repos/dvsa/olcs-transfer/zipball/144bbdbdf426174e4db22d188fe8c519af6e5b23",
+                "reference": "144bbdbdf426174e4db22d188fe8c519af6e5b23",
                 "shasum": ""
             },
             "require": {
@@ -4657,7 +4657,7 @@
                 "laminas/laminas-stdlib": "^3.0",
                 "laminas/laminas-validator": "^2.11.1",
                 "laminas/laminas-xml": "^1.4.0",
-                "php": "~8.0.0",
+                "php": "^8.0",
                 "psr/container": "^1.1|^2"
             },
             "require-dev": {
@@ -4683,9 +4683,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "OLCS Transfer",
             "support": {
-                "source": "https://github.com/dvsa/olcs-transfer/tree/v7.0.1"
+                "source": "https://github.com/dvsa/olcs-transfer/tree/v7.1.1"
             },
-            "time": "2024-04-17T10:45:52+00:00"
+            "time": "2024-04-29T11:14:43+00:00"
         },
         {
             "name": "olcs/olcs-utils",
@@ -4936,20 +4936,20 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
@@ -4973,7 +4973,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -4985,9 +4985,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
-            "time": "2023-04-10T20:10:41+00:00"
+            "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -5318,16 +5318,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.4.36",
+            "version": "v5.4.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "39f75d9d73d0c11952fdcecf4877b4d0f62a8f6e"
+                "reference": "f3e591c48688a0cfa1a3296205926c05e84b22b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/39f75d9d73d0c11952fdcecf4877b4d0f62a8f6e",
-                "reference": "39f75d9d73d0c11952fdcecf4877b4d0f62a8f6e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/f3e591c48688a0cfa1a3296205926c05e84b22b1",
+                "reference": "f3e591c48688a0cfa1a3296205926c05e84b22b1",
                 "shasum": ""
             },
             "require": {
@@ -5397,7 +5397,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.4.36"
+                "source": "https://github.com/symfony/console/tree/v5.4.39"
             },
             "funding": [
                 {
@@ -5413,20 +5413,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-20T16:33:57+00:00"
+            "time": "2024-04-18T08:26:06+00:00"
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v5.4.38",
+            "version": "v5.4.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "0ba1fa459d284a9398c71afa1cb5d13de025de17"
+                "reference": "5b4505f2afbe1d11d43a3917d0c1c178a38f6f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/0ba1fa459d284a9398c71afa1cb5d13de025de17",
-                "reference": "0ba1fa459d284a9398c71afa1cb5d13de025de17",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/5b4505f2afbe1d11d43a3917d0c1c178a38f6f19",
+                "reference": "5b4505f2afbe1d11d43a3917d0c1c178a38f6f19",
                 "shasum": ""
             },
             "require": {
@@ -5486,7 +5486,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dependency-injection/tree/v5.4.38"
+                "source": "https://github.com/symfony/dependency-injection/tree/v5.4.39"
             },
             "funding": [
                 {
@@ -5502,7 +5502,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-18T16:56:51+00:00"
+            "time": "2024-04-18T08:26:06+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -6123,16 +6123,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v5.4.38",
+            "version": "v5.4.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "b58ea319e56b440b4daaa38201ee63ba9efa44d5"
+                "reference": "1b93ca45890ce5555895efe27bd848c41396530c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/b58ea319e56b440b4daaa38201ee63ba9efa44d5",
-                "reference": "b58ea319e56b440b4daaa38201ee63ba9efa44d5",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/1b93ca45890ce5555895efe27bd848c41396530c",
+                "reference": "1b93ca45890ce5555895efe27bd848c41396530c",
                 "shasum": ""
             },
             "require": {
@@ -6184,7 +6184,7 @@
                 "reflection"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-access/tree/v5.4.38"
+                "source": "https://github.com/symfony/property-access/tree/v5.4.39"
             },
             "funding": [
                 {
@@ -6200,7 +6200,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-18T16:56:51+00:00"
+            "time": "2024-04-18T08:26:06+00:00"
         },
         {
             "name": "symfony/property-info",
