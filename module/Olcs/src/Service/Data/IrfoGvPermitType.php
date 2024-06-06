@@ -14,6 +14,8 @@ use Dvsa\Olcs\Transfer\Query\Irfo\IrfoGvPermitTypeList;
  */
 class IrfoGvPermitType extends AbstractDataService implements ListDataInterface
 {
+    public const UNUSED_TYPE_IDS = [5, 8, 12, 20, 15, 19, 16];
+
     /**
      * Format data
      *
@@ -70,10 +72,22 @@ class IrfoGvPermitType extends AbstractDataService implements ListDataInterface
             $this->setData('IrfoGvPermitType', false);
 
             if (isset($response->getResult()['results'])) {
-                $this->setData('IrfoGvPermitType', $response->getResult()['results']);
+                $this->setData('IrfoGvPermitType', $this->filterArrayById($response->getResult()['results']));
             }
         }
 
         return $this->getData('IrfoGvPermitType');
+    }
+
+    /**
+     * Filter unused IDs out of the array for display (cant remove from DB as 100s of permit records still reference the ID, but not needed for new permits)
+     *
+     * @param array $data Data
+     *
+     * @return array
+     */
+    public function filterArrayById(array $data): array
+    {
+        return array_filter($data, fn($record) => !in_array($record['id'], self::UNUSED_TYPE_IDS));
     }
 }

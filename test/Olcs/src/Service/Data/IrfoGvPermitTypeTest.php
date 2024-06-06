@@ -54,7 +54,8 @@ class IrfoGvPermitTypeTest extends AbstractDataServiceTestCase
 
     public function testFetchListData()
     {
-        $results = ['results' => 'results'];
+        $results = ['results' => [['id' => 1],['id' => 2], ['id' => 12]]];
+        $expected = ['results' => [['id' => 1],['id' => 2]]];
 
         $this->transferAnnotationBuilder->shouldReceive('createQuery')
             ->with(m::type(Qry::class))
@@ -72,8 +73,8 @@ class IrfoGvPermitTypeTest extends AbstractDataServiceTestCase
 
         $this->mockHandleQuery($mockResponse);
 
-        $this->assertEquals($results['results'], $this->sut->fetchListData());
-        $this->assertEquals($results['results'], $this->sut->fetchListData());  //ensure data is cached
+        $this->assertEquals($expected['results'], $this->sut->fetchListData());  //ensure data is cached
+        $this->assertEquals($expected['results'], $this->sut->fetchListData());
     }
 
     public function testFetchLicenceDataWithException()
@@ -120,5 +121,27 @@ class IrfoGvPermitTypeTest extends AbstractDataServiceTestCase
             ['id' => 'val-3', 'description' => 'Value 3'],
         ];
         return $source;
+    }
+
+    public function testFilterArrayById()
+    {
+        $sourceData = [
+            ['id' => 1, 'description' => 'Valid Entry'],
+            ['id' => 5, 'description' => 'Should be filtered out'],
+            ['id' => 10, 'description' => 'Valid Entry'],
+            ['id' => 12, 'someField' => 'Should be filtered out'],
+            ['id' => 19, 'description' => 'Should be filtered out'],
+            ['id' => 22, 'otherField' => 'Valid Entry'],
+        ];
+
+        $expected = [
+            ['id' => 1, 'description' => 'Valid Entry'],
+            ['id' => 10, 'description' => 'Valid Entry'],
+            ['id' => 22, 'otherField' => 'Valid Entry']
+        ];
+
+        $filteredData = $this->sut->filterArrayById($sourceData);
+
+        $this->assertEquals($expected, array_values($filteredData), "Filtered array does not match expected output");
     }
 }
