@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: ./.github/workflows/static-analysis
+    - uses: ./.github/workflows/static-analysis.yaml
       with:
         php-version: '8.2'
 
