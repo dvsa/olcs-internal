@@ -12,12 +12,9 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   static-analysis:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ./.github/workflows/static-analysis.yaml
-      with:
-        php-version: '8.2'
+    uses: ./.github/workflows/static-analysis
+    with:
+      php-version: '8.2'
 
   tests:
     uses: dvsa/.github/.github/workflows/php-tests.yml@main
