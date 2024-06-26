@@ -11,30 +11,10 @@ jobs:
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  psalm:
-
-    name: Psalm
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          coverage: none
-          extensions: mbstring, intl, redis-phpredis/phpredis@6.0.2
-          tools: vimeo/psalm, composer:v2
-        env:
-          REDIS_CONFIGURE_OPTS: --enable-redis-igbinary
-
-      - name: Install Composer dependancies
-        run: composer install --no-progress --no-interaction
-
-      - name: Execute Psalm
-        run: psalm --no-progress --output-format=github --root=${GITHUB_WORKSPACE}
+  static-analysis:
+    uses: static-analysis
+    with:
+      php-version: '8.2'
 
   tests:
     uses: dvsa/.github/.github/workflows/php-tests.yml@main
