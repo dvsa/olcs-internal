@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: '0 0 * * 1'
 
-env:
-  REDIS_CONFIGURE_OPTS: --enable-redis-igbinary
-
 jobs:
   security:
     uses: dvsa/.github/.github/workflows/php-security.yml@main
@@ -15,7 +12,7 @@ jobs:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   static-analysis:
-    uses: dvsa/.github/.github/workflows/php-static.yml@main
+    uses: dvsa/.github/.github/workflows/php-static.yml@redis-igbinary-test
     with:
       php-version: '8.2'
 
