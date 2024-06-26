@@ -15,11 +15,4 @@
         <directory name="vendor" />
     </ignoreFiles>
   </projectFiles>
-  <issueHandlers>
-    <UndefinedConstant>
-      <errorLevel type="suppress">
-        <referencedConstant name="Redis::SERIALIZER_IGBINARY" />
-      </errorLevel>
-    </UndefinedConstant>
-  </issueHandlers>
 </psalm>
