@@ -1,7 +1,5 @@
 $(function () {
     "use strict";
-
-    $('#inspectionRequestGrantDetails').hide();
     OLCS.cascadeForm({
         form: "#Grant",
         rulesets: {
@@ -12,5 +10,4 @@ $(function () {
             }
         }
     });
-
 });
