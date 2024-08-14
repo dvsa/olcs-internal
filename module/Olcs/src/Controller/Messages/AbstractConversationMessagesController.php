@@ -55,7 +55,12 @@ abstract class AbstractConversationMessagesController extends AbstractInternalCo
     protected function modifyListQueryParameters($parameters)
     {
         $parameters['includeReadRoles'] = 1;
-        $parameters['readRoles'] = [RefData::ROLE_OPERATOR_ADMIN, RefData::ROLE_OPERATOR_TM, RefData::ROLE_OPERATOR_USER];
+        $parameters['readRoles'] = [
+            RefData::ROLE_OPERATOR_TC,
+            RefData::ROLE_OPERATOR_ADMIN,
+            RefData::ROLE_OPERATOR_TM,
+            RefData::ROLE_OPERATOR_USER,
+        ];
 
         return $parameters;
     }
